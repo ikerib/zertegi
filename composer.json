@@ -12,6 +12,7 @@
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "4.2.*",
         "symfony/console": "4.2.*",
+        "symfony/dotenv": "4.2.*",
         "symfony/expression-language": "4.2.*",
         "symfony/flex": "^1.1",
         "symfony/form": "4.2.*",
@@ -31,8 +32,8 @@
         "symfony/yaml": "4.2.*"
     },
     "require-dev": {
+        "deployer/deployer": "^6.4",
         "symfony/debug-pack": "*",
-        "symfony/dotenv": "4.2.*",
         "symfony/maker-bundle": "^1.11",
         "symfony/profiler-pack": "^1.0",
         "symfony/test-pack": "*",

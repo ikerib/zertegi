@@ -7,10 +7,10 @@ array_map(function ($var) { set($var, getenv($var)); }, explode(',', $_SERVER['S
 require 'recipe/symfony4.php';
 
 // Project name
-set('application', 'egutegia');
+set('application', 'zertegi');
 
 // Project repository
-set('repository', 'git@github.com:ikerib/egutegiasf4.git');
+set('repository', 'git@github.com:ikerib/zertegi.git');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true);
@@ -26,10 +26,10 @@ set('allow_anonymous_stats', false);
 
 
 // Hosts
-host('172.23.64.38')
+host('172.28.64.69')
     ->user('root')
     ->set('branch', 'master')
-    ->set('deploy_path', '/var/www/egutegia');
+    ->set('deploy_path', '/var/www/zertegi');
     
 // Tasks
 

@@ -1,0 +1,6 @@
+<form method="post" action="{{ path('amp_delete', {'id': amp.id}) }}" onsubmit="return confirm('¿Estas seguro?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ amp.id) }}">
+    <button class="btn deleteBtn">Ezabatu</button>
+</form>
+

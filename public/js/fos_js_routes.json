@@ -1,0 +1,1 @@
+{"base_url":"","routes":{"amp_delete":{"tokens":[["variable","\/","[^\/]++","id",true],["text","\/admin\/amp"]],"defaults":[],"requirements":[],"hosttokens":[],"methods":["DELETE"],"schemes":[]}},"prefix":"","host":"localhost","port":"","scheme":"http"}

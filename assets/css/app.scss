@@ -1,0 +1,19 @@
+$primary: darken(#428bca, 20%);
+
+// the ~ allows you to reference things in node_modules
+@import "~bootstrap/dist/css/bootstrap.css";
+
+
+$fa-font-path: "../webfonts";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/regular.scss";
+@import "~ionicons/dist/scss/ionicons";
+
+@import "skins/_all-skins.css";
+@import "AdminLTE.css";
+
+.main-header .sidebar-toggle:before {
+  content: none !important;
+}
+@import "main";

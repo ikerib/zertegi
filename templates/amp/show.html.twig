@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Amp edit{% endblock %}
+{% block header %}AMP{% endblock %}
+{% block header_desc %}{{ amp.id }} ikusten{% endblock %}
+{% block breadcrumbs %}
+    <li class="active">AMP</li>
+    <li class="active">Ikusi</li>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+
+    <div class="col-xs-12">
+
+        <div class="box">
+            <div class="box-header">
+                <div class="box-tools box-tools-left" data-toggle="tooltip" title="" data-original-title="Status">
+                    <a class="btn btn-sm btn-primary" href="{{ path('amp_edit', {'id': amp.id}) }}"><i class="fas fa-edit"></i> Aldatu</a>
+                    <a class="btn btn-sm btn-danger btn-delete-trigger" href="#"><i class="fas fa-trash"></i> Eliminar</a>
+                    <div style="display: none">
+                        {{ include('amp/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">&nbsp;</div>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ amp.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Expediente</th>
+                            <td>{{ amp.expediente }}</td>
+                        </tr>
+                        <tr>
+                            <th>Fecha</th>
+                            <td>{{ amp.fecha }}</td>
+                        </tr>
+                        <tr>
+                            <th>Clasificacion</th>
+                            <td>{{ amp.clasificacion }}</td>
+                        </tr>
+                        <tr>
+                            <th>Signatura</th>
+                            <td>{{ amp.signatura }}</td>
+                        </tr>
+                        <tr>
+                            <th>Observaciones</th>
+                            <td>{{ amp.observaciones }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('jsDeleteForm') }}
+{% endblock %}

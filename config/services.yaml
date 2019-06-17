@@ -42,3 +42,13 @@ services:
     App\Controller\AmpController:
         arguments:
             $finder: '@fos_elastica.finder.app.amp'
+
+
+    app.ldap.service:
+        public: true
+        class: AppBundle\Service\LdapService
+        arguments:
+            - '%env(resolve:LDAP_IP)%'
+            - '%env(resolve:LDAP_SEARCH_DN)%'
+            - '%env(resolve:LDAP_BASE_DN)%'
+            - '%env(resolve:LDAP_PASSWD)%'

@@ -21,8 +21,8 @@ class SecurityController extends AbstractController
 
     /** @var array maps ldap groups to roles */
     private $groupMapping = [   // Definitely requires modification for your setup
-        'app-web_egutegia'             => 'ROLE_USER',
-        'rol-antolakuntza_informatika' => 'ROLE_ADMIN',
+        'app-web_zertegi-kontsulta'    => 'ROLE_USER',
+        'app-web_zertegi-kudeatzailea' => 'ROLE_ADMIN',
     ];
 
     private $ldapTaldeak = [];
@@ -35,7 +35,7 @@ class SecurityController extends AbstractController
     private $groupTaldeaRegExp = '(^(ROL|Saila|Taldea))'; // ROL - Taldea - Saila -rekin hasten den begiratzen du
 
     /** @var string extracts group name from dn string */
-    private $groupSarbideExp = '/Sarbide/i'; // ROL - Taldea - Saila -rekin hasten den begiratzen du
+    private $groupSarbideExp = '/APP-Web_Zertegi/i'; // ROL - Taldea - Saila -rekin hasten den begiratzen du
 
 
     /**
@@ -97,7 +97,7 @@ class SecurityController extends AbstractController
             $groupName = strtolower( $this->getGroupName( $groupLine ) ); // Extract and normalize the group name fron the line
             if ( array_key_exists( $groupName, $this->groupMapping ) ) { // Check if the group is in the mapping
                 $roles[] = $this->groupMapping[ $groupName ]; // Map the group to the role the user will have
-            } else {
+            } elseif ( !in_array('ROLE_USER', $roles, true)) {
                 $roles[] = 'ROLE_USER';
             }
             $this->ldap_recursive( $this->getGroupName( $groupLine ) );

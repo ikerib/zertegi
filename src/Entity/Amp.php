@@ -29,6 +29,11 @@ class Amp
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private $numdoc;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $clasificacion;
 
     /**
@@ -110,6 +115,18 @@ class Amp
     public function setObservaciones(string $observaciones): self
     {
         $this->observaciones = $observaciones;
+
+        return $this;
+    }
+
+    public function getNumdoc(): ?string
+    {
+        return $this->numdoc;
+    }
+
+    public function setNumdoc(?string $numdoc): self
+    {
+        $this->numdoc = $numdoc;
 
         return $this;
     }

@@ -4,9 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Amp;
 use App\Form\AmpType;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\QueryBuilder;
+use Elastica\Query;
 use FOS\ElasticaBundle\Finder\PaginatedFinderInterface;
+use FOS\ElasticaBundle\Paginator\TransformedPaginatorAdapter;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,45 +47,31 @@ class AmpController extends AbstractController {
      */
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
-        /** @var \Doctrine\ORM\EntityManager $em */
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
         $searchQuery = $request->query->get('filter');
         if (!empty($searchQuery))
         {
-
+            /** @var TransformedPaginatorAdapter $results */
             $results = $this->finder->createPaginatorAdapter($searchQuery);
+
             $amps    = $paginator->paginate(
                 $results,
-                $request->query->getInt('page', 2)/*page number*/,
+                $request->query->getInt('page', 1)/*page number*/,
                 $request->query->getInt('limit', 10)/*limit per page*/
             );
 
         } else
         {
 
-
-            /** @var \Doctrine\ORM\QueryBuilder $queryBuilder */
-            $queryBuilder = $em->getRepository('App:Amp')->createQueryBuilder('bp');
-
-            if ($request->query->getAlnum('filter'))
-            {
-                $queryBuilder->where('bp.expediente LIKE :expediente')
-                             ->setParameter('expediente', '%'.$request->query->getAlnum('filter').'%')
-                             ->orWhere('bp.fecha LIKE :fecha')
-                             ->setParameter('fecha', '%'.$request->query->getAlnum('filter').'%')
-                             ->orWhere('bp.clasificacion LIKE :clasificacion')
-                             ->setParameter('clasificacion', '%'.$request->query->getAlnum('filter').'%')
-                             ->orWhere('bp.signatura LIKE :signatura')
-                             ->setParameter('signatura', '%'.$request->query->getAlnum('filter').'%')
-                             ->orWhere('bp.observaciones LIKE :observaciones')
-                             ->setParameter('observaciones', '%'.$request->query->getAlnum('filter').'%');
-            }
+            /** @var QueryBuilder $queryBuilder */
+            $queryBuilder = $em->getRepository('App:Amp')->createQueryBuilder('a');
             $query = $queryBuilder->getQuery();
 
             $amps = $paginator->paginate(
                 $query, /* query NOT result */
-                $request->query->getInt('page', 2)/*page number*/,
+                $request->query->getInt('page', 1)/*page number*/,
                 $request->query->getInt('limit', 10)/*limit per page*/
             );
         }
@@ -209,7 +200,7 @@ class AmpController extends AbstractController {
         return $this->redirectToRoute('amp_index');
     }
 
-    public function createCustomForm($id, $method, $route): \Symfony\Component\Form\FormInterface
+    public function createCustomForm($id, $method, $route): FormInterface
     {
         return $this->createFormBuilder()
                     ->setAction($this->generateUrl($route, array('id' => $id)))

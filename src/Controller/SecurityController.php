@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Ldap\Adapter\ExtLdap\Adapter;
@@ -40,9 +42,9 @@ class SecurityController extends AbstractController
      * @Route("/login", name="login")
      * @param AuthenticationUtils $authenticationUtils
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function login(AuthenticationUtils $authenticationUtils): \Symfony\Component\HttpFoundation\Response
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -60,9 +62,9 @@ class SecurityController extends AbstractController
      * @Route("/userdata", name="userdata")
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
-    public function userdata( Request $request ): \Symfony\Component\HttpFoundation\RedirectResponse
+    public function userdata( Request $request ): RedirectResponse
     {
 
         $user     = $this->getUser();
@@ -131,10 +133,7 @@ class SecurityController extends AbstractController
         $session = $request->getSession();
 
 
-        $redirectUrl = $session->get('_security.main.target_path');
-
-
-        return $this->redirect($redirectUrl);
+        return $this->redirectToRoute('amp_index');
 
     }
 
@@ -154,9 +153,9 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/logout", name="logout")
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
-    public function logout(): \Symfony\Component\HttpFoundation\RedirectResponse
+    public function logout(): RedirectResponse
     {
         $this->get( 'security.token_storage' )->setToken();
         $this->get( 'request_stack' )->getCurrentRequest()->getSession()->invalidate();
@@ -207,9 +206,9 @@ class SecurityController extends AbstractController
     /**
      * @Route("/", name="home", methods={"GET"})
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function index(): \Symfony\Component\HttpFoundation\Response
+    public function index(): Response
     {
         return $this->render('security/index.html.twig');
     }

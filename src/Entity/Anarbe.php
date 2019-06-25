@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\AmpRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\AnarbeRepository")
  */
-class Amp
+class Anarbe
 {
     /**
      * @ORM\Id()
@@ -75,6 +75,18 @@ class Amp
         return $this;
     }
 
+    public function getNumdoc(): ?string
+    {
+        return $this->numdoc;
+    }
+
+    public function setNumdoc(?string $numdoc): self
+    {
+        $this->numdoc = $numdoc;
+
+        return $this;
+    }
+
     public function getClasificacion(): ?string
     {
         return $this->clasificacion;
@@ -107,18 +119,6 @@ class Amp
     public function setObservaciones(?string $observaciones): self
     {
         $this->observaciones = $observaciones;
-
-        return $this;
-    }
-
-    public function getNumdoc(): ?string
-    {
-        return $this->numdoc;
-    }
-
-    public function setNumdoc(?string $numdoc): self
-    {
-        $this->numdoc = $numdoc;
 
         return $this;
     }

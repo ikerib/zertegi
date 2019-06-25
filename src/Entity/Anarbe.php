@@ -42,9 +42,14 @@ class Anarbe
     private $signatura;
 
     /**
-     * @ORM\Column(type="text", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $observaciones;
+
+    /**
+     * @ORM\Column(type="text", length=255, nullable=true)
+     */
+    private $knosysid;
 
     public function getId(): ?int
     {
@@ -119,6 +124,18 @@ class Anarbe
     public function setObservaciones(?string $observaciones): self
     {
         $this->observaciones = $observaciones;
+
+        return $this;
+    }
+
+    public function getKnosysid(): ?string
+    {
+        return $this->knosysid;
+    }
+
+    public function setKnosysid(?string $knosysid): self
+    {
+        $this->knosysid = $knosysid;
 
         return $this;
     }

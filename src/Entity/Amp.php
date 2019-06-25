@@ -42,9 +42,14 @@ class Amp
     private $signatura;
 
     /**
-     * @ORM\Column(type="text", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $observaciones;
+
+    /**
+     * @ORM\Column(type="text", length=255, nullable=true)
+     */
+    private $knosysid;
 
     public function getId(): ?int
     {
@@ -119,6 +124,18 @@ class Amp
     public function setNumdoc(?string $numdoc): self
     {
         $this->numdoc = $numdoc;
+
+        return $this;
+    }
+
+    public function getKnosysid(): ?string
+    {
+        return $this->knosysid;
+    }
+
+    public function setKnosysid(?string $knosysid): self
+    {
+        $this->knosysid = $knosysid;
 
         return $this;
     }

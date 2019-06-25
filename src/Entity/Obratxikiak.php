@@ -22,11 +22,6 @@ class Obratxikiak
     private $espedientea;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $data;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $sailkapena;
@@ -37,9 +32,9 @@ class Obratxikiak
     private $signatura;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $oharrak;
+    private $urtea;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -68,18 +63,6 @@ class Obratxikiak
         return $this;
     }
 
-    public function getData(): ?string
-    {
-        return $this->data;
-    }
-
-    public function setData(?string $data): self
-    {
-        $this->data = $data;
-
-        return $this;
-    }
-
     public function getSailkapena(): ?string
     {
         return $this->sailkapena;
@@ -104,14 +87,14 @@ class Obratxikiak
         return $this;
     }
 
-    public function getOharrak(): ?string
+    public function getUrtea(): ?string
     {
-        return $this->oharrak;
+        return $this->urtea;
     }
 
-    public function setOharrak(?string $oharrak): self
+    public function setUrtea(?string $urtea): self
     {
-        $this->oharrak = $oharrak;
+        $this->urtea = $urtea;
 
         return $this;
     }
@@ -139,4 +122,6 @@ class Obratxikiak
 
         return $this;
     }
+
+    
 }

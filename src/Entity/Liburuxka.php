@@ -19,7 +19,7 @@ class Liburuxka
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $espedientea;
+    private $deskribapena;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -27,19 +27,14 @@ class Liburuxka
     private $data;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", length=255, nullable=true)
      */
-    private $sailkapena;
+    private $azalpenak;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $signatura;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $oharrak;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -56,14 +51,14 @@ class Liburuxka
         return $this->id;
     }
 
-    public function getEspedientea(): ?string
+    public function getDeskribapena(): ?string
     {
-        return $this->espedientea;
+        return $this->deskribapena;
     }
 
-    public function setEspedientea(?string $espedientea): self
+    public function setDeskribapena(?string $deskribapena): self
     {
-        $this->espedientea = $espedientea;
+        $this->deskribapena = $deskribapena;
 
         return $this;
     }
@@ -80,14 +75,14 @@ class Liburuxka
         return $this;
     }
 
-    public function getSailkapena(): ?string
+    public function getAzalpenak(): ?string
     {
-        return $this->sailkapena;
+        return $this->azalpenak;
     }
 
-    public function setSailkapena(?string $sailkapena): self
+    public function setAzalpenak(?string $azalpenak): self
     {
-        $this->sailkapena = $sailkapena;
+        $this->azalpenak = $azalpenak;
 
         return $this;
     }
@@ -100,18 +95,6 @@ class Liburuxka
     public function setSignatura(?string $signatura): self
     {
         $this->signatura = $signatura;
-
-        return $this;
-    }
-
-    public function getOharrak(): ?string
-    {
-        return $this->oharrak;
-    }
-
-    public function setOharrak(?string $oharrak): self
-    {
-        $this->oharrak = $oharrak;
 
         return $this;
     }
@@ -139,4 +122,6 @@ class Liburuxka
 
         return $this;
     }
+
+
 }

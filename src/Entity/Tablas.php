@@ -1,0 +1,142 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\TablasRepository")
+ */
+class Tablas
+{
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $serie;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $unidad;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $resolucion;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $observaciones;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $fecha;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $knosysid;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $numdoc;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getSerie(): ?string
+    {
+        return $this->serie;
+    }
+
+    public function setSerie(?string $serie): self
+    {
+        $this->serie = $serie;
+
+        return $this;
+    }
+
+    public function getUnidad(): ?string
+    {
+        return $this->unidad;
+    }
+
+    public function setUnidad(?string $unidad): self
+    {
+        $this->unidad = $unidad;
+
+        return $this;
+    }
+
+    public function getResolucion(): ?string
+    {
+        return $this->resolucion;
+    }
+
+    public function setResolucion(?string $resolucion): self
+    {
+        $this->resolucion = $resolucion;
+
+        return $this;
+    }
+
+    public function getObservaciones(): ?string
+    {
+        return $this->observaciones;
+    }
+
+    public function setObservaciones(?string $observaciones): self
+    {
+        $this->observaciones = $observaciones;
+
+        return $this;
+    }
+
+    public function getFecha(): ?string
+    {
+        return $this->fecha;
+    }
+
+    public function setFecha(?string $fecha): self
+    {
+        $this->fecha = $fecha;
+
+        return $this;
+    }
+
+    public function getKnosysid(): ?string
+    {
+        return $this->knosysid;
+    }
+
+    public function setKnosysid(?string $knosysid): self
+    {
+        $this->knosysid = $knosysid;
+
+        return $this;
+    }
+
+    public function getNumdoc(): ?string
+    {
+        return $this->numdoc;
+    }
+
+    public function setNumdoc(?string $numdoc): self
+    {
+        $this->numdoc = $numdoc;
+
+        return $this;
+    }
+}

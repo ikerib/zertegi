@@ -1,3 +1,4 @@
+import * as bootbox from "bootbox";
 
 const $ = require('jquery');
 // this "modifies" the jquery module: adding behavior to it
@@ -31,5 +32,13 @@ $('#filter').focus(function()
     /* lookup the original width */
     var w = $(this).attr('data-default');
     $(this).animate({ width: w }, 'slow');
+});
+
+$(".btn-delete-trigger").on("click", function () {
+    bootbox.confirm("¿Estas seguro?", function ( resp ) {
+        if ( resp === true ) {
+            $(".form-delete-button").click();
+        }
+    });
 });
 

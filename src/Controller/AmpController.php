@@ -6,7 +6,6 @@ use App\Entity\Amp;
 use App\Form\AmpType;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
-use Elastica\Query;
 use FOS\ElasticaBundle\Finder\PaginatedFinderInterface;
 use FOS\ElasticaBundle\Paginator\TransformedPaginatorAdapter;
 use Knp\Component\Pager\PaginatorInterface;
@@ -116,23 +115,7 @@ class AmpController extends AbstractController {
     }
 
     /**
-     * @Route("/{id}", name="amp_show", methods={"GET"})
-     * @param Amp $amp
-     *
-     * @return Response
-     */
-    public function show(Amp $amp): Response
-    {
-        return $this->render(
-            'amp/show.html.twig',
-            [
-                'amp' => $amp,
-            ]
-        );
-    }
-
-    /**
-     * @Route("/{id}/edit", name="amp_edit", methods={"GET","POST"})
+     * @Route("/edit/{id}", name="amp_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Amp     $amp
      *
@@ -167,6 +150,7 @@ class AmpController extends AbstractController {
     /**
      * @Route("/{id}", name="amp_delete", methods={"DELETE"}, options = { "expose" = true })
      * @param Request $request
+     *
      * @param Amp     $amp
      *
      * @return Response
@@ -206,5 +190,21 @@ class AmpController extends AbstractController {
                     ->setAction($this->generateUrl($route, array('id' => $id)))
                     ->setMethod($method)
                     ->getForm();
+    }
+
+    /**
+     * @Route("/{id}", name="amp_show", methods={"GET"})
+     * @param Amp $amp
+     *
+     * @return Response
+     */
+    public function show(Amp $amp): Response
+    {
+        return $this->render(
+            'amp/show.html.twig',
+            [
+                'amp' => $amp,
+            ]
+        );
     }
 }

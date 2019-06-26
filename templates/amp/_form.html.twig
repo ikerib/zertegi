@@ -1,4 +1,4 @@
-{{ form_start(form, {'action': path('amp_delete', {'id': form.vars.id}), 'method': 'DELETE','attr': {'id': 'form_delete_form'}}) }}
+{{ form_start(form) }}
     {{ form_widget(form) }}
 <div style="display: none;">
     <button id="hiddenbutton" class="btn">{{ button_label|default('Save') }}</button>

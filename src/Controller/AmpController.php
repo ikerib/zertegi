@@ -93,7 +93,10 @@ class AmpController extends AbstractController {
     public function new(Request $request): Response
     {
         $amp  = new Amp();
-        $form = $this->createForm(AmpType::class, $amp);
+        $form = $this->createForm(AmpType::class, $amp, [
+            'action' => $this->generateUrl('amp_new'),
+            'method' => 'POST'
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
@@ -115,7 +118,7 @@ class AmpController extends AbstractController {
     }
 
     /**
-     * @Route("/edit/{id}", name="amp_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="amp_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Amp     $amp
      *

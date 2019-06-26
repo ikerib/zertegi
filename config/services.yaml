@@ -41,7 +41,7 @@ services:
 
     App\Controller\AmpController:
         arguments:
-            $finder: '@fos_elastica.finder.app.amp'
+            $finder: '@fos_elastica.finder.app2.amp'
 
 
     app.ldap.service:

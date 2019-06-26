@@ -37,6 +37,15 @@ class SecurityController extends AbstractController
     /** @var string extracts group name from dn string */
     private $groupSarbideExp = '/APP-Web_Zertegi/i'; // ROL - Taldea - Saila -rekin hasten den begiratzen du
 
+    /**
+     * @Route("/", name="home", methods={"GET"})
+     *
+     * @return Response
+     */
+    public function index(): Response
+    {
+        return $this->render('security/index.html.twig');
+    }
 
     /**
      * @Route("/login", name="login")
@@ -201,16 +210,4 @@ class SecurityController extends AbstractController
             }
         }
     }
-
-
-    /**
-     * @Route("/", name="home", methods={"GET"})
-     *
-     * @return Response
-     */
-    public function index(): Response
-    {
-        return $this->render('security/index.html.twig');
-    }
-
 }

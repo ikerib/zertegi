@@ -105,6 +105,7 @@ class AmpController extends AbstractController {
             $entityManager->persist($amp);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Datuak ongi grabatu dira.');
             return $this->redirectToRoute('amp_index');
         }
 
@@ -132,6 +133,8 @@ class AmpController extends AbstractController {
         if ($form->isSubmitted() && $form->isValid())
         {
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('success', 'Aldaketak ongi gorde dira.');
 
             return $this->redirectToRoute(
                 'amp_index',
@@ -165,6 +168,7 @@ class AmpController extends AbstractController {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($amp);
             $entityManager->flush();
+            $this->addFlash('success', 'Ezabatua izan da.');
         } elseif ( $request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
             $resp = [

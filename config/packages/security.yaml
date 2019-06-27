@@ -15,7 +15,12 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: ~
+            # this firewall applies to all URLs
+            pattern: ^/
+
+            # but the firewall does not require login on every page
+            # denying access is done in access_control or in your controllers
+            anonymous: true
 
             form_login_ldap:
                 login_path: login
@@ -39,6 +44,6 @@ security:
                 #always_remember_me: true
 
     access_control:
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin , roles: ROLE_ADMIN }
-        - { path: ^/ , roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/ , roles: IS_AUTHENTICATED_ANONYMOUSLY }

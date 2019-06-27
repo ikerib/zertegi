@@ -18,16 +18,3 @@ fos_elastica:
                         model: App\Entity\Amp
                         provider: ~
                         finder: ~
-                anarbe:
-                    properties:
-                        expediente: ~
-                        fecha: ~
-                        clasificacion: ~
-                        signatura: ~
-                        observaciones: ~
-                    persistence:
-                        # the driver can be orm, mongodb or phpcr
-                        driver: orm
-                        model: App\Entity\Anarbe
-                        provider: ~
-                        finder: ~

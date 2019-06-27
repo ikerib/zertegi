@@ -6,30 +6,19 @@
             <span class="pull-right-container"></span>
         </a>
         <ul class="treeview-menu">
-            <li {% if app.request.get('_route') == "amp_index" %}class="active" {% endif %}><a href="{{ path('amp_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') in ["amp_index", "amp_edit", "amp_show" ] %}class="active" {% endif %}><a href="{{ path('amp_index') }}">Zerrenda</a></li>
             <li {% if app.request.get('_route') == "amp_new" %}class="active" {% endif %}><a href="{{ path('amp_new') }}">Berria</a></li>
         </ul>
     </li>
 
-    <li class="treeview">
+    <li class="{% if app.request.get('_route') starts with "anarbe_" %}active {% endif %} treeview">
         <a href="#">
             <i class="fas fa-link"></i> <span>Añarbe</span>
             <span class="pull-right-container"></span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="#">Zerrenda</a></li>
-            <li><a href="#">Berria</a></li>
-        </ul>
-    </li>
-
-    <li class="treeview">
-        <a href="#">
-            <i class="fas fa-link"></i> <span>Añarbe</span>
-            <span class="pull-right-container"></span>
-        </a>
-        <ul class="treeview-menu">
-            <li><a href="#">Zerrenda</a></li>
-            <li><a href="#">Berria</a></li>
+            <li {% if app.request.get('_route') in ["anarbe_index", "anarbe_edit", "anarbe_show"] %}class="active" {% endif %}><a href="{{ path('anarbe_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "anarbe_new" %}class="active" {% endif %}><a href="{{ path('anarbe_new') }}">Berria</a></li>
         </ul>
     </li>
 

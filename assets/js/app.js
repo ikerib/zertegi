@@ -42,3 +42,6 @@ $(".btn-delete-trigger").on("click", function () {
     });
 });
 
+$(".alert-dismissible").fadeTo(3000, 500).slideUp(500, function(){
+    $("#success-alert").alert('close');
+});

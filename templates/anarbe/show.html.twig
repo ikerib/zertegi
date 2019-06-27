@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Añarbe{% endblock %}
+{% block header %}Añarbe{% endblock %}
+{% block header_desc %}{{ anarbe.id }} ikusten{% endblock %}
+{% block breadcrumbs %}
+    <li class="active">Añarbe</li>
+    <li class="active">Ikusi</li>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+
+        <div class="col-xs-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <div class="box-tools box-tools-left" data-toggle="tooltip" title="" data-original-title="Status">
+                        <a class="btn btn-sm btn-primary" href="{{ path('anarbe_edit', {'id': anarbe.id}) }}"><i class="fas fa-edit"></i> Aldatu</a>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">&nbsp;</div>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ anarbe.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Expediente</th>
+                            <td>{{ anarbe.expediente }}</td>
+                        </tr>
+                        <tr>
+                            <th>Fecha</th>
+                            <td>{{ anarbe.fecha }}</td>
+                        </tr>
+                        <tr>
+                            <th>Clasificacion</th>
+                            <td>{{ anarbe.clasificacion }}</td>
+                        </tr>
+                        <tr>
+                            <th>Signatura</th>
+                            <td>{{ anarbe.signatura }}</td>
+                        </tr>
+                        <tr>
+                            <th>Observaciones</th>
+                            <td>{{ anarbe.observaciones }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('jsDeleteForm') }}
+{% endblock %}

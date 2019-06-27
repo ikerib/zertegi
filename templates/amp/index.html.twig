@@ -45,7 +45,7 @@
                         <tbody>
                         {% for amp in amps %}
                             <tr>
-
+{#                            {{ dump(amp) }}#}
                                 <td>{{ amp.expediente|length > 150 ? amp.expediente|slice(0,150)~'...' : amp.expediente}}</td>
                                 <td>{{ amp.fecha }}</td>
                                 <td>{{ amp.clasificacion }}</td>
@@ -57,7 +57,6 @@
                                         <li class=""><a href="{{ path('amp_edit', {'id': amp.id}) }}"><i class="fas fa-edit"></i></a></li>
                                         <li class=""><a href="#" class="deleteBtn" data-id="{{ amp.id }}" data-token="{{ csrf_token('delete' ~ amp.id) }}"><i class="fas fa-trash text-danger"></i></a></li>
                                     </ul>
-
                                 </td>
                             </tr>
                         {% endfor %}

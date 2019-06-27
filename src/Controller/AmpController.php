@@ -24,7 +24,8 @@ class AmpController extends AbstractController {
      *
      * @param Request            $request
      *
-
+     *
+     * @param PaginatorInterface $paginator
      *
      * @return Response
      */
@@ -33,31 +34,23 @@ class AmpController extends AbstractController {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $searchQuery = $request->query->get('filter');
-        if (!empty($searchQuery))
-        {
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = $em->getRepository(Amp::class)->createQueryBuilder('a');
 
-            $allAmps = $em->getRepository(Amp::class)->findAll();
-
-            $amps    = $paginator->paginate(
-                $allAmps,
-                $request->query->getInt('page', 1)/*page number*/,
-                $request->query->getInt('limit', 10)/*limit per page*/
-            );
-
-        } else
-        {
-
-            /** @var QueryBuilder $queryBuilder */
-            $queryBuilder = $em->getRepository('App:Amp')->createQueryBuilder('a');
-            $query = $queryBuilder->getQuery();
-
-            $amps = $paginator->paginate(
-                $query, /* query NOT result */
-                $request->query->getInt('page', 1)/*page number*/,
-                $request->query->getInt('limit', 10)/*limit per page*/
-            );
+        $filter = $request->query->get('filter');
+        if ($filter) {
+            $queryBuilder->where('MATCH_AGAINST(a.clasificacion, a.expediente, a.fecha, a.observaciones, a.signatura) AGAINST(:searchterm boolean)>0')
+                         ->setParameter('searchterm', $filter);
         }
+
+        $query = $queryBuilder->getQuery();
+
+        $amps = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 10)/*limit per page*/
+        );
+
 
 
         return $this->render(

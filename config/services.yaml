@@ -39,11 +39,6 @@ services:
                     referrals: false
 
 
-    App\Controller\AmpController:
-        arguments:
-            $finder: '@fos_elastica.finder.app2.amp'
-
-
     app.ldap.service:
         public: true
         class: AppBundle\Service\LdapService

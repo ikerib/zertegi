@@ -6,8 +6,6 @@ use App\Entity\Amp;
 use App\Form\AmpType;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
-use FOS\ElasticaBundle\Finder\PaginatedFinderInterface;
-use FOS\ElasticaBundle\Paginator\TransformedPaginatorAdapter;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
@@ -21,26 +19,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AmpController extends AbstractController {
 
-    /** @var PaginatedFinderInterface */
-    private $finder;
-
-    /**
-     * constructor.
-     *
-     * @param PaginatedFinderInterface $finder
-     *
-     */
-    public function __construct(PaginatedFinderInterface $finder)
-    {
-        $this->finder = $finder;
-    }
-
     /**
      * @Route("/", name="amp_index", methods={"GET"})
      *
      * @param Request            $request
      *
-     * @param PaginatorInterface $paginator
+
      *
      * @return Response
      */
@@ -52,11 +36,11 @@ class AmpController extends AbstractController {
         $searchQuery = $request->query->get('filter');
         if (!empty($searchQuery))
         {
-            /** @var TransformedPaginatorAdapter $results */
-            $results = $this->finder->createPaginatorAdapter($searchQuery);
+
+            $allAmps = $em->getRepository(Amp::class)->findAll();
 
             $amps    = $paginator->paginate(
-                $results,
+                $allAmps,
                 $request->query->getInt('page', 1)/*page number*/,
                 $request->query->getInt('limit', 10)/*limit per page*/
             );

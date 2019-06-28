@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Euskera{% endblock %}
+{% block header %}Euskera{% endblock %}
+{% block header_desc %}{{ euskera.id }} ikusten{% endblock %}
+{% block breadcrumbs %}
+    <li class="active">Euskera</li>
+    <li class="active">Ikusi</li>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+
+        <div class="col-xs-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <div class="box-tools box-tools-left" data-toggle="tooltip" title="" data-original-title="Status">
+                        <a class="btn btn-sm btn-primary" href="{{ path('euskera_edit', {'id': euskera.id}) }}"><i class="fas fa-edit"></i> Aldatu</a>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">&nbsp;</div>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ euskera.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Espedientea</th>
+                            <td>{{ euskera.espedientea }}</td>
+                        </tr>
+                        <tr>
+                            <th>Data</th>
+                            <td>{{ euskera.data }}</td>
+                        </tr>
+                        <tr>
+                            <th>Sailkapena</th>
+                            <td>{{ euskera.sailkapena }}</td>
+                        </tr>
+                        <tr>
+                            <th>Signatura</th>
+                            <td>{{ euskera.signatura }}</td>
+                        </tr>
+                        <tr>
+                            <th>Oharrak</th>
+                            <td>{{ euskera.oharrak }}</td>
+                        </tr>
+                        <tr>
+                            <th>Numdoc</th>
+                            <td>{{ euskera.numdoc }}</td>
+                        </tr>
+                        <tr>
+                            <th>Knosysid</th>
+                            <td>{{ euskera.knosysid }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('jsDeleteForm') }}
+{% endblock %}
+

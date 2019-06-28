@@ -68,12 +68,23 @@
 
     <li class="treeview">
         <a href="#">
-            <i class="fas fa-link"></i> <span>Euskera</span>
+            <i class="fas fa-link"></i> <span>Espedientea</span>
             <span class="pull-right-container"></span>
         </a>
         <ul class="treeview-menu">
             <li><a href="#">Zerrenda</a></li>
             <li><a href="#">Berria</a></li>
+        </ul>
+    </li>
+
+    <li class="{% if app.request.get('_route') starts with "euskera_" %}active {% endif %} treeview">
+        <a href="#">
+            <i class="fas fa-link"></i> <span>Euskera</span>
+            <span class="pull-right-container"></span>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.get('_route') in ["euskera_index", "euskera_edit", "euskera_show"] %}class="active" {% endif %}><a href="{{ path('euskera_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "euskera_new" %}class="active" {% endif %}><a href="{{ path('euskera_new') }}">Berria</a></li>
         </ul>
     </li>
 

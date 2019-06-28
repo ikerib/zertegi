@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Argazki{% endblock %}
+{% block header %}Argazki{% endblock %}
+{% block header_desc %}{{ argazki.id }} ikusten{% endblock %}
+{% block breadcrumbs %}
+    <li class="active">Argazki</li>
+    <li class="active">Ikusi</li>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+
+        <div class="col-xs-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <div class="box-tools box-tools-left" data-toggle="tooltip" title="" data-original-title="Status">
+                        <a class="btn btn-sm btn-primary" href="{{ path('argazki_edit', {'id': argazki.id}) }}"><i class="fas fa-edit"></i> Aldatu</a>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">&nbsp;</div>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ argazki.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Deskribapena</th>
+                            <td>{{ argazki.deskribapena }}</td>
+                        </tr>
+                        <tr>
+                            <th>Barrutia</th>
+                            <td>{{ argazki.barrutia }}</td>
+                        </tr>
+                        <tr>
+                            <th>Fecha</th>
+                            <td>{{ argazki.fecha }}</td>
+                        </tr>
+                        <tr>
+                            <th>Gaia</th>
+                            <td>{{ argazki.gaia }}</td>
+                        </tr>
+                        <tr>
+                            <th>Neurria</th>
+                            <td>{{ argazki.neurria }}</td>
+                        </tr>
+                        <tr>
+                            <th>Kolorea</th>
+                            <td>{{ argazki.kolorea }}</td>
+                        </tr>
+                        <tr>
+                            <th>Zenbakia</th>
+                            <td>{{ argazki.zenbakia }}</td>
+                        </tr>
+                        <tr>
+                            <th>Oharrak</th>
+                            <td>{{ argazki.oharrak }}</td>
+                        </tr>
+                        <tr>
+                            <th>Numdoc</th>
+                            <td>{{ argazki.numdoc }}</td>
+                        </tr>
+                        <tr>
+                            <th>Knosysid</th>
+                            <td>{{ argazki.knosysid }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('jsDeleteForm') }}
+{% endblock %}

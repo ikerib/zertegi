@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Entradas berria{% endblock %}
+{% block header %}Entradas{% endblock %}
+{% block header_desc %}berria{% endblock %}
+{% block breadcrumbs %}
+    <li class="active">Entradas</li>
+    <li class="active">Berria</li>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+
+        <div class="col-xs-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <a id="btn-save" class="btn btn-sm btn-primary"><i class="fa fa-save"></i>&nbsp; Gorde</a>
+                </div>
+                <div class="box-body">
+                    {{ include('entradas/_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

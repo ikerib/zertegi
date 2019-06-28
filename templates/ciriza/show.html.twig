@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ciriza{% endblock %}
+{% block header %}Ciriza{% endblock %}
+{% block header_desc %}{{ ciriza.id }} ikusten{% endblock %}
+{% block breadcrumbs %}
+    <li class="active">Ciriza</li>
+    <li class="active">Ikusi</li>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+
+        <div class="col-xs-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <div class="box-tools box-tools-left" data-toggle="tooltip" title="" data-original-title="Status">
+                        <a class="btn btn-sm btn-primary" href="{{ path('ciriza_edit', {'id': ciriza.id}) }}"><i class="fas fa-edit"></i> Aldatu</a>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">&nbsp;</div>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ ciriza.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Signatura</th>
+                            <td>{{ ciriza.signatura }}</td>
+                        </tr>
+                        <tr>
+                            <th>Data</th>
+                            <td>{{ ciriza.data }}</td>
+                        </tr>
+                        <tr>
+                            <th>Deskribapena</th>
+                            <td>{{ ciriza.deskribapena }}</td>
+                        </tr>
+                        <tr>
+                            <th>Sailkapena</th>
+                            <td>{{ ciriza.sailkapena }}</td>
+                        </tr>
+                        <tr>
+                            <th>Oharrak</th>
+                            <td>{{ ciriza.oharrak }}</td>
+                        </tr>
+                        <tr>
+                            <th>Numdoc</th>
+                            <td>{{ ciriza.numdoc }}</td>
+                        </tr>
+                        <tr>
+                            <th>Knosysid</th>
+                            <td>{{ ciriza.knosysid }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('jsDeleteForm') }}
+{% endblock %}

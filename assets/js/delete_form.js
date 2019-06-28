@@ -11,28 +11,23 @@ $(document).ready(function() {
     $('.deleteBtn').click(function () {
 
         const itemId = $(this).data('id');
-        const url = Routing.generate('amp_delete', {id: itemId});
+        const deleteUrl = $(this).data("delete-url");
         const token = $(this).data("token");
         const that = $(this);
-        console.log(url);
+
 
         bootbox.confirm("Seguru zaude?", function ( result ) {
             if ( result === true ) {
 
-
                 $.ajax({
 
-                    url: url,
+                    url: deleteUrl,
                     data: {_method: 'delete', _token :token},
                     // data: {_method: 'DELETE'},
                     method: 'DELETE',
                     success: function ( data, response ) {
-                        console.log(data);
-                        console.log(response);
                         if ( response === 'ok' ) {
-                            //appear pop to say success blabla
                             console.log(data);
-                            console.log("XIEIIEIEIIEIE")
                         }
                         $(that).closest("tr").addClass("highlight");
                         $(that).closest("tr").fadeOut(1600, "linear", function (  ) {

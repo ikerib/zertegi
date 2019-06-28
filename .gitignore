@@ -57,3 +57,5 @@ vendor/
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
 /var/
+
+\.env\.prod

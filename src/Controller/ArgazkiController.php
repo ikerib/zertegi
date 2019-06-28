@@ -27,7 +27,7 @@ class ArgazkiController extends AbstractController {
      *
      * @param PaginatorInterface $paginator
      *
-     * @return void
+     * @return Response
      */
     public function index(Request $request, ArgazkiRepository $argazkiRepository, PaginatorInterface $paginator): Response
     {
@@ -142,7 +142,7 @@ class ArgazkiController extends AbstractController {
     }
 
     /**
-     * @Route("/{id}", name="argazki_delete", methods={"DELETE"})
+     * @Route("/{id}", name="argazki_delete", methods={"DELETE"}, options = { "expose" = true })
      * @param Request $request
      * @param Argazki $argazki
      *

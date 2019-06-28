@@ -56,6 +56,6 @@ RUN php -r "unlink('composer-setup.php');"
 
 WORKDIR /usr/src/app
 
-COPY apps/zertegi /usr/src/app
+COPY ./ /usr/src/app
 
 RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin

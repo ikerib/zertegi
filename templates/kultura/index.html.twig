@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Kultura{% endblock %}
+{% block header %}Kultura{% endblock %}
+{% block header_desc %}Zerrenda{% endblock %}
+{% block breadcrumbs %}
+    <li class="active">Kultura</li>
+    <li class="active">Zerrenda</li>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+
+    <div class="col-xs-12">
+
+        <div class="box">
+            <div class="box-header">
+
+                <a href="{{ path('kultura_new') }}" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Berria</a>
+
+                <div class="box-tools">
+                    <form action="{{ path('kultura_index') }}" method="get">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <input id="filter" type="text" name="filter" class="form-control pull-right" placeholder="Buscar" value="{{ app.request.query.get('filter') }}">
+
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    Erregistro kopurua: {{ kulturas.getTotalItemCount |number_format(0, ',', '.') }}
+                </div>
+                <div class="box-body">
+                    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(kulturas, 'Espedientea', 'a.espedientea') }}</th>
+                <th>{{ knp_pagination_sortable(kulturas, 'Data', 'a.data') }}</th>
+                <th>{{ knp_pagination_sortable(kulturas, 'Sailkapena', 'a.sailkapena') }}</th>
+                <th>{{ knp_pagination_sortable(kulturas, 'Signatura', 'a.signatura') }}</th>
+                <th>{{ knp_pagination_sortable(kulturas, 'Oharrak', 'a.oharrak') }}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for kultura in kulturas %}
+            <tr>
+                <td>{{ kultura.espedientea }}</td>
+                <td>{{ kultura.data }}</td>
+                <td>{{ kultura.sailkapena }}</td>
+                <td>{{ kultura.signatura }}</td>
+                <td>{{ kultura.oharrak }}</td>
+                <td>
+                    <ul class="list-inline">
+                        <li class=""><a href="{{ path('kultura_show', {'id': kultura.id}) }}"><i class="fas fa-eye"></i></a></li>
+                        <li class=""><a href="{{ path('kultura_edit', {'id': kultura.id}) }}"><i class="fas fa-edit"></i></a></li>
+                        <li class=""><a href="#" class="deleteBtn" data-delete-url="{{ path('kultura_delete',{'id':kultura.id}) }}" data-id="{{ kultura.id }}" data-token="{{ csrf_token('delete' ~ kultura.id) }}"><i class="fas fa-trash text-danger"></i></a></li>
+                    </ul>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="navigation text-center">
+                                {{ knp_pagination_render(kulturas) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- box -->
+
+        </div><!-- col-xs-12 -->
+    </div> <!--row -->
+
+    {#{{ include('amp/_delete_form.html.twig', {'amp': amp}) }}#}
+
+    {% endblock %}
+    {% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('jsDeleteForm') }}
+    {% endblock %}

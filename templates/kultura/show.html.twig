@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Kultura{% endblock %}
+{% block header %}Kultura{% endblock %}
+{% block header_desc %}{{ kultura.id }} ikusten{% endblock %}
+{% block breadcrumbs %}
+    <li class="active">Kultura</li>
+    <li class="active">Ikusi</li>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+
+        <div class="col-xs-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <div class="box-tools box-tools-left" data-toggle="tooltip" title="" data-original-title="Status">
+                        <a class="btn btn-sm btn-primary" href="{{ path('kultura_edit', {'id': kultura.id}) }}"><i class="fas fa-edit"></i> Aldatu</a>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">&nbsp;</div>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ kultura.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Espedientea</th>
+                            <td>{{ kultura.espedientea }}</td>
+                        </tr>
+                        <tr>
+                            <th>Data</th>
+                            <td>{{ kultura.data }}</td>
+                        </tr>
+                        <tr>
+                            <th>Sailkapena</th>
+                            <td>{{ kultura.sailkapena }}</td>
+                        </tr>
+                        <tr>
+                            <th>Signatura</th>
+                            <td>{{ kultura.signatura }}</td>
+                        </tr>
+                        <tr>
+                            <th>Oharrak</th>
+                            <td>{{ kultura.oharrak }}</td>
+                        </tr>
+                        <tr>
+                            <th>Numdoc</th>
+                            <td>{{ kultura.numdoc }}</td>
+                        </tr>
+                        <tr>
+                            <th>Knosysid</th>
+                            <td>{{ kultura.knosysid }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('jsDeleteForm') }}
+{% endblock %}

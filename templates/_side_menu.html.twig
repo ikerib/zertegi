@@ -110,14 +110,14 @@
         </ul>
     </li>
 
-    <li class="treeview">
+    <li class="{% if app.request.get('_route') starts with "kultura_" %}active {% endif %} treeview">
         <a href="#">
             <i class="fas fa-link"></i> <span>Kultur Saila</span>
             <span class="pull-right-container"></span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="#">Zerrenda</a></li>
-            <li><a href="#">Berria</a></li>
+            <li {% if app.request.get('_route') in ["kultura_index", "kultura_edit", "kultura_show"] %}class="active" {% endif %}><a href="{{ path('kultura_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "kultura_new" %}class="active" {% endif %}><a href="{{ path('kultura_new') }}">Berria</a></li>
         </ul>
     </li>
 

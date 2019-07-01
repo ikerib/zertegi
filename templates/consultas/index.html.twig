@@ -32,39 +32,40 @@
                 </div>
                 <div class="box-body">
                     <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>{{ knp_pagination_sortable(consultas, 'Izena', 'a.izena') }}</th>
-                <th>{{ knp_pagination_sortable(consultas, 'Helbidea', 'a.helbidea') }}</th>
-                <th>{{ knp_pagination_sortable(consultas, 'Gaia', 'a.gaia') }}</th>
-                <th>{{ knp_pagination_sortable(consultas, 'Enpresa', 'a.enpresa') }}</th>
-                <th>{{ knp_pagination_sortable(consultas, 'Kontsulta', 'a.kontsulta') }}</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for consulta in consultas %}
-            <tr>
-                <td>{{ consulta.izena }}</td>
-                <td>{{ consulta.helbidea }}</td>
-                <td>{{ consulta.gaia }}</td>
-                <td>{{ consulta.enpresa }}</td>
-                <td>{{ consulta.kontsulta }}</td>
-                <td>
-                    <ul class="list-inline">
-                        <li class=""><a href="{{ path('consultas_show', {'id': consulta.id}) }}"><i class="fas fa-eye"></i></a></li>
-                        <li class=""><a href="{{ path('consultas_edit', {'id': consulta.id}) }}"><i class="fas fa-edit"></i></a></li>
-                        <li class=""><a href="#" class="deleteBtn" data-delete-url="{{ path('consultas_delete',{'id':consulta.id}) }}" data-id="{{ consulta.id }}" data-token="{{ csrf_token('delete' ~ consulta.id) }}"><i class="fas fa-trash text-danger"></i></a></li>
-                    </ul>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                        <thead>
+                        <tr>
+                            <th>{{ knp_pagination_sortable(consultas, 'Izena', 'a.izena') }}</th>
+                            <th>{{ knp_pagination_sortable(consultas, 'Helbidea', 'a.helbidea') }}</th>
+                            <th>{{ knp_pagination_sortable(consultas, 'Gaia', 'a.gaia') }}</th>
+                            <th>{{ knp_pagination_sortable(consultas, 'Enpresa', 'a.enpresa') }}</th>
+                            <th>{{ knp_pagination_sortable(consultas, 'Kontsulta', 'a.kontsulta') }}</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for consulta in consultas %}
+                            <tr>
+                                <td>{{ consulta.izena }}</td>
+                                <td>{{ consulta.helbidea }}</td>
+                                <td>{{ consulta.gaia }}</td>
+                                <td>{{ consulta.enpresa }}</td>
+                                <td>{{ consulta.kontsulta }}</td>
+                                <td>
+                                    <ul class="list-inline">
+                                        <li class=""><a href="{{ path('consultas_show', {'id': consulta.id}) }}"><i class="fas fa-eye"></i></a></li>
+                                        <li class=""><a href="{{ path('consultas_edit', {'id': consulta.id}) }}"><i class="fas fa-edit"></i></a></li>
+                                        <li class=""><a href="#" class="deleteBtn" data-delete-url="{{ path('consultas_delete',{'id':consulta.id}) }}" data-id="{{ consulta.id }}"
+                                                        data-token="{{ csrf_token('delete' ~ consulta.id) }}"><i class="fas fa-trash text-danger"></i></a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="9">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
 
                     <div class="row">
                         <div class="col-sm-12">

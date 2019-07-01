@@ -137,7 +137,7 @@ class GazteriaController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($gazterium);
             $entityManager->flush();
-            $this->addFlash('success', 'Ezabatua izan da.');
+
         } elseif ( $request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
             $resp = [
@@ -146,7 +146,7 @@ class GazteriaController extends AbstractController
             ];
             return new JsonResponse($resp,500);
         } else {
-            return $this->redirectToRoute('anarbe_index');
+            return $this->redirectToRoute('gazteria_index');
         }
 
         if ( $request->isXmlHttpRequest()) {

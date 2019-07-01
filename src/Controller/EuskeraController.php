@@ -144,7 +144,7 @@ class EuskeraController extends AbstractController
             ];
             return new JsonResponse($resp,500);
         } else {
-            return $this->redirectToRoute('anarbe_index');
+            return $this->redirectToRoute('euskera_index');
         }
 
         if ( $request->isXmlHttpRequest()) {

@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hutsak{% endblock %}
+{% block header %}Hutsak{% endblock %}
+{% block header_desc %}{{ hutsak.id }} ikusten{% endblock %}
+{% block breadcrumbs %}
+    <li class="active">Hutsak</li>
+    <li class="active">Ikusi</li>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+
+        <div class="col-xs-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <div class="box-tools box-tools-left" data-toggle="tooltip" title="" data-original-title="Status">
+                        <a class="btn btn-sm btn-primary" href="{{ path('hutsak_edit', {'id': hutsak.id}) }}"><i class="fas fa-edit"></i> Aldatu</a>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">&nbsp;</div>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ hutsak.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Egoera</th>
+                            <td>{{ hutsak.egoera }}</td>
+                        </tr>
+                        <tr>
+                            <th>Signatura</th>
+                            <td>{{ hutsak.signatura }}</td>
+                        </tr>
+                        <tr>
+                            <th>Zaharra</th>
+                            <td>{{ hutsak.zaharra }}</td>
+                        </tr>
+                        <tr>
+                            <th>Berria</th>
+                            <td>{{ hutsak.berria }}</td>
+                        </tr>
+                        <tr>
+                            <th>Numdoc</th>
+                            <td>{{ hutsak.numdoc }}</td>
+                        </tr>
+                        <tr>
+                            <th>Knosysid</th>
+                            <td>{{ hutsak.knosysid }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('jsDeleteForm') }}
+{% endblock %}

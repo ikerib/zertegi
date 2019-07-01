@@ -88,14 +88,14 @@
         </ul>
     </li>
 
-    <li class="treeview">
+    <li class="{% if app.request.get('_route') starts with "hutsak_" %}active {% endif %} treeview">
         <a href="#">
             <i class="fas fa-link"></i> <span>Hutsak</span>
             <span class="pull-right-container"></span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="#">Zerrenda</a></li>
-            <li><a href="#">Berria</a></li>
+            <li {% if app.request.get('_route') in ["hutsak_index", "hutsak_edit", "hutsak_show"] %}class="active" {% endif %}><a href="{{ path('hutsak_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "hutsak_new" %}class="active" {% endif %}><a href="{{ path('hutsak_new') }}">Berria</a></li>
         </ul>
     </li>
 

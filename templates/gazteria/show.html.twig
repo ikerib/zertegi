@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gazteria{% endblock %}
+{% block header %}Gazteria{% endblock %}
+{% block header_desc %}{{ gazterium.id }} ikusten{% endblock %}
+{% block breadcrumbs %}
+    <li class="active">Gazteria</li>
+    <li class="active">Ikusi</li>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+
+        <div class="col-xs-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <div class="box-tools box-tools-left" data-toggle="tooltip" title="" data-original-title="Status">
+                        <a class="btn btn-sm btn-primary" href="{{ path('gazteria_edit', {'id': gazterium.id}) }}"><i class="fas fa-edit"></i> Aldatu</a>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">&nbsp;</div>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ gazterium.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Espedientea</th>
+                            <td>{{ gazterium.espedientea }}</td>
+                        </tr>
+                        <tr>
+                            <th>Data</th>
+                            <td>{{ gazterium.data }}</td>
+                        </tr>
+                        <tr>
+                            <th>Sailkapena</th>
+                            <td>{{ gazterium.sailkapena }}</td>
+                        </tr>
+                        <tr>
+                            <th>Signatura</th>
+                            <td>{{ gazterium.signatura }}</td>
+                        </tr>
+                        <tr>
+                            <th>Oharrak</th>
+                            <td>{{ gazterium.oharrak }}</td>
+                        </tr>
+                        <tr>
+                            <th>Numdoc</th>
+                            <td>{{ gazterium.numdoc }}</td>
+                        </tr>
+                        <tr>
+                            <th>Knosysid</th>
+                            <td>{{ gazterium.knosysid }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('jsDeleteForm') }}
+{% endblock %}

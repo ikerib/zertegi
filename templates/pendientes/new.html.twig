@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pendientes berria{% endblock %}
+{% block header %}Pendientes{% endblock %}
+{% block header_desc %}berria{% endblock %}
+{% block breadcrumbs %}
+    <li class="active">Pendientes</li>
+    <li class="active">Berria</li>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+
+        <div class="col-xs-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <a id="btn-save" class="btn btn-sm btn-primary"><i class="fa fa-save"></i>&nbsp; Gorde</a>
+                </div>
+                <div class="box-body">
+                    {{ include('pendientes/_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

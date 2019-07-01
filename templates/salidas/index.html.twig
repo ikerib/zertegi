@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Salidas{% endblock %}
+{% block header %}Salidas{% endblock %}
+{% block header_desc %}Zerrenda{% endblock %}
+{% block breadcrumbs %}
+    <li class="active">Salidas</li>
+    <li class="active">Zerrenda</li>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+
+    <div class="col-xs-12">
+
+        <div class="box">
+            <div class="box-header">
+
+                <a href="{{ path('salidas_new') }}" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Berria</a>
+
+                <div class="box-tools">
+                    <form action="{{ path('salidas_index') }}" method="get">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <input id="filter" type="text" name="filter" class="form-control pull-right" placeholder="Buscar" value="{{ app.request.query.get('filter') }}">
+
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    Erregistro kopurua: {{ salidas.getTotalItemCount |number_format(0, ',', '.') }}
+                </div>
+                <div class="box-body">
+                    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(salidas, 'Espedientea', 'a.espedientea') }}</th>
+                <th>{{ knp_pagination_sortable(salidas, 'Signatura', 'a.signatura') }}</th>
+                <th>{{ knp_pagination_sortable(salidas, 'Eskatzailea', 'a.eskatzailea') }}</th>
+                <th>{{ knp_pagination_sortable(salidas, 'Irteera', 'a.irteera') }}</th>
+                <th>{{ knp_pagination_sortable(salidas, 'Sarrera', 'a.sarrera') }}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for salida in salidas %}
+            <tr>
+                <td>{{ salida.espedientea }}</td>
+                <td>{{ salida.signatura }}</td>
+                <td>{{ salida.eskatzailea }}</td>
+                <td>{{ salida.irteera }}</td>
+                <td>{{ salida.sarrera }}</td>
+                <td>
+                    <ul class="list-inline">
+                        <li class=""><a href="{{ path('salidas_show', {'id': salida.id}) }}"><i class="fas fa-eye"></i></a></li>
+                        <li class=""><a href="{{ path('salidas_edit', {'id': salida.id}) }}"><i class="fas fa-edit"></i></a></li>
+                        <li class=""><a href="#" class="deleteBtn" data-delete-url="{{ path('salidas_delete',{'id':salida.id}) }}" data-id="{{ salida.id }}" data-token="{{ csrf_token('delete' ~ salida.id) }}"><i class="fas fa-trash text-danger"></i></a></li>
+                    </ul>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="navigation text-center">
+                {{ knp_pagination_render(salidas) }}
+            </div>
+        </div>
+    </div>
+    </div>
+    </div><!-- box -->
+
+    </div><!-- col-xs-12 -->
+    </div> <!--row -->
+
+    {#{{ include('amp/_delete_form.html.twig', {'amp': amp}) }}#}
+
+{% endblock %}
+    {% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('jsDeleteForm') }}
+    {% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Salida{% endblock %}
+{% block header %}Salida{% endblock %}
+{% block header_desc %}{{ salida.id }} ikusten{% endblock %}
+{% block breadcrumbs %}
+    <li class="active">Salida</li>
+    <li class="active">Ikusi</li>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+
+        <div class="col-xs-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <div class="box-tools box-tools-left" data-toggle="tooltip" title="" data-original-title="Status">
+                        <a class="btn btn-sm btn-primary" href="{{ path('salidas_edit', {'id': salida.id}) }}"><i class="fas fa-edit"></i> Aldatu</a>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">&nbsp;</div>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ salida.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Espedientea</th>
+                            <td>{{ salida.espedientea }}</td>
+                        </tr>
+                        <tr>
+                            <th>Signatura</th>
+                            <td>{{ salida.signatura }}</td>
+                        </tr>
+                        <tr>
+                            <th>Eskatzailea</th>
+                            <td>{{ salida.eskatzailea }}</td>
+                        </tr>
+                        <tr>
+                            <th>Irteera</th>
+                            <td>{{ salida.irteera }}</td>
+                        </tr>
+                        <tr>
+                            <th>Sarrera</th>
+                            <td>{{ salida.sarrera }}</td>
+                        </tr>
+                        <tr>
+                            <th>Knosysid</th>
+                            <td>{{ salida.knosysid }}</td>
+                        </tr>
+                        <tr>
+                            <th>Numdoc</th>
+                            <td>{{ salida.numdoc }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('jsDeleteForm') }}
+{% endblock %}

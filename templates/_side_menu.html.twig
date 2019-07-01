@@ -143,47 +143,47 @@
         </ul>
     </li>
 
-    <li class="treeview">
+    <li class="{% if app.request.get('_route') starts with "pendientes_" %}active {% endif %} treeview">
         <a href="#">
             <i class="fas fa-link"></i> <span>Pendientes</span>
             <span class="pull-right-container"></span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="#">Zerrenda</a></li>
-            <li><a href="#">Berria</a></li>
+            <li {% if app.request.get('_route') in ["pendientes_index", "pendientes_edit", "pendientes_show"] %}class="active" {% endif %}><a href="{{ path('pendientes_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "pendientes_new" %}class="active" {% endif %}><a href="{{ path('pendientes_new') }}">Berria</a></li>
         </ul>
     </li>
 
-    <li class="treeview">
+    <li class="{% if app.request.get('_route') starts with "protokoloak_" %}active {% endif %} treeview">
         <a href="#">
             <i class="fas fa-link"></i> <span>Protokoloak</span>
             <span class="pull-right-container"></span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="#">Zerrenda</a></li>
-            <li><a href="#">Berria</a></li>
+            <li {% if app.request.get('_route') in ["protokoloak_index", "protokoloak_edit", "protokoloak_show"] %}class="active" {% endif %}><a href="{{ path('protokoloak_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "protokoloak_new" %}class="active" {% endif %}><a href="{{ path('protokoloak_new') }}">Berria</a></li>
         </ul>
     </li>
 
-    <li class="treeview">
+    <li class="{% if app.request.get('_route') starts with "salidas_" %}active {% endif %} treeview">
         <a href="#">
             <i class="fas fa-link"></i> <span>Salidas</span>
             <span class="pull-right-container"></span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="#">Zerrenda</a></li>
-            <li><a href="#">Berria</a></li>
+            <li {% if app.request.get('_route') in ["salidas_index", "salidas_edit", "salidas_show"] %}class="active" {% endif %}><a href="{{ path('salidas_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "salidas_new" %}class="active" {% endif %}><a href="{{ path('salidas_new') }}">Berria</a></li>
         </ul>
     </li>
 
-    <li class="treeview">
+    <li class="{% if app.request.get('_route') starts with "tablas_" %}active {% endif %} treeview">
         <a href="#">
             <i class="fas fa-link"></i> <span>Tablas</span>
             <span class="pull-right-container"></span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="#">Zerrenda</a></li>
-            <li><a href="#">Berria</a></li>
+            <li {% if app.request.get('_route') in ["tablas_index", "tablas_edit", "tablas_show"] %}class="active" {% endif %}><a href="{{ path('tablas_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "tablas_new" %}class="active" {% endif %}><a href="{{ path('tablas_new') }}">Berria</a></li>
         </ul>
     </li>
 

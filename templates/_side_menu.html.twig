@@ -99,14 +99,14 @@
         </ul>
     </li>
 
-    <li class="treeview">
+    <li class="{% if app.request.get('_route') starts with "kontratazioa_" %}active {% endif %} treeview">
         <a href="#">
             <i class="fas fa-link"></i> <span>Kontratazioa</span>
             <span class="pull-right-container"></span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="#">Zerrenda</a></li>
-            <li><a href="#">Berria</a></li>
+            <li {% if app.request.get('_route') in ["kontratazioa_index", "kontratazioa_edit", "kontratazioa_show"] %}class="active" {% endif %}><a href="{{ path('kontratazioa_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "kontratazioa_new" %}class="active" {% endif %}><a href="{{ path('kontratazioa_new') }}">Berria</a></li>
         </ul>
     </li>
 

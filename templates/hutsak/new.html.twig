@@ -1,11 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Hutsak{% endblock %}
+{% block title %}Hutsak berria{% endblock %}
+{% block header %}Hutsak{% endblock %}
+{% block header_desc %}berria{% endblock %}
+{% block breadcrumbs %}
+    <li class="active">Hutsak</li>
+    <li class="active">Berria</li>
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Hutsak</h1>
+    <div class="row">
 
-    {{ include('hutsak/_form.html.twig') }}
+        <div class="col-xs-12">
 
-    <a href="{{ path('hutsak_index') }}">back to list</a>
+            <div class="box">
+                <div class="box-header">
+                    <a id="btn-save" class="btn btn-sm btn-primary"><i class="fa fa-save"></i>&nbsp; Gorde</a>
+                </div>
+                <div class="box-body">
+                    {{ include('hutsak/_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

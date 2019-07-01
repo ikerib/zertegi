@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Obra txiki berria{% endblock %}
+{% block header %}Obra txiki{% endblock %}
+{% block header_desc %}berria{% endblock %}
+{% block breadcrumbs %}
+    <li class="active">Obra txiki</li>
+    <li class="active">Berria</li>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+
+        <div class="col-xs-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <a id="btn-save" class="btn btn-sm btn-primary"><i class="fa fa-save"></i>&nbsp; Gorde</a>
+                </div>
+                <div class="box-body">
+                    {{ include('obratxikiak/_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

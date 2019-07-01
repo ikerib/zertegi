@@ -155,7 +155,7 @@ class ArgazkiController extends AbstractController {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($argazki);
             $entityManager->flush();
-            $this->addFlash('success', 'Ezabatua izan da.');
+
         } elseif ($request->isXmlHttpRequest())
         {
             $message = 'CSRF token error';

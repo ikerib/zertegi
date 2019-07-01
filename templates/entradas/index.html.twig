@@ -52,7 +52,8 @@
                                     <ul class="list-inline">
                                         <li class=""><a href="{{ path('entradas_show', {'id': entrada.id}) }}"><i class="fas fa-eye"></i></a></li>
                                         <li class=""><a href="{{ path('entradas_edit', {'id': entrada.id}) }}"><i class="fas fa-edit"></i></a></li>
-                                        <li class=""><a href="#" class="deleteBtn" data-delete-url="{{ path('entradas_delete',{'id':entrada.id}) }}" data-id="{{ entrada.id }}" data-token="{{ csrf_token('delete' ~ entrada.id) }}"><i class="fas fa-trash text-danger"></i></a></li>
+                                        <li class=""><a href="#" class="deleteBtn" data-delete-url="{{ path('entradas_delete',{'id':entrada.id}) }}" data-id="{{ entrada.id }}"
+                                                        data-token="{{ csrf_token('delete' ~ entrada.id) }}"><i class="fas fa-trash text-danger"></i></a></li>
                                     </ul>
 
                                 </td>

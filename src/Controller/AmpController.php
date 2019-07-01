@@ -145,7 +145,7 @@ class AmpController extends AbstractController {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($amp);
             $entityManager->flush();
-            $this->addFlash('success', 'Ezabatua izan da.');
+
         } elseif ( $request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
             $resp = [

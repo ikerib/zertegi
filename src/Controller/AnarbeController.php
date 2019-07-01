@@ -139,7 +139,7 @@ class AnarbeController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($anarbe);
             $entityManager->flush();
-            $this->addFlash('success', 'Ezabatua izan da.');
+
         }elseif ( $request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
             $resp = [

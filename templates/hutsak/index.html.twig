@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gazteria{% endblock %}
-{% block header %}Gazteria{% endblock %}
+{% block title %}Hutsak{% endblock %}
+{% block header %}Hutsak{% endblock %}
 {% block header_desc %}Zerrenda{% endblock %}
 {% block breadcrumbs %}
-    <li class="active">Gazteria</li>
+    <li class="active">Hutsak</li>
     <li class="active">Zerrenda</li>
 {% endblock %}
 
@@ -16,10 +16,10 @@
         <div class="box">
             <div class="box-header">
 
-                <a href="{{ path('gazteria_new') }}" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Berria</a>
+                <a href="{{ path('anarbe_new') }}" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Berria</a>
 
                 <div class="box-tools">
-                    <form action="{{ path('gazteria_index') }}" method="get">
+                    <form action="{{ path('hutsak_index') }}" method="get">
                         <div class="input-group input-group-sm" style="width: 150px;">
                             <input id="filter" type="text" name="filter" class="form-control pull-right" placeholder="Buscar" value="{{ app.request.query.get('filter') }}">
 
@@ -28,40 +28,38 @@
                             </div>
                         </div>
                     </form>
-                    Erregistro kopurua: {{ gazterias.getTotalItemCount |number_format(0, ',', '.') }}
+                    Erregistro kopurua: {{ hutsaks.getTotalItemCount |number_format(0, ',', '.') }}
                 </div>
                 <div class="box-body">
-
                     <table class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>{{ knp_pagination_sortable(gazterias, 'Espedientea', 'a.espedientea') }}</th>
-                            <th>{{ knp_pagination_sortable(gazterias, 'Data', 'a.data') }}</th>
-                            <th>{{ knp_pagination_sortable(gazterias, 'Sailkapena', 'a.sailkapena') }}</th>
-                            <th>{{ knp_pagination_sortable(gazterias, 'Signatura', 'a.signatura') }}</th>
-                            <th>{{ knp_pagination_sortable(gazterias, 'Oharrak', 'a.oharrak') }}</th>
+                            <th>{{ knp_pagination_sortable(hutsaks, 'Egoera', 'a.egoera') }}</th>
+                            <th>{{ knp_pagination_sortable(hutsaks, 'Signatura', 'a.signatura') }}</th>
+                            <th>{{ knp_pagination_sortable(hutsaks, 'Zaharra', 'a.zaharra') }}</th>
+                            <th>{{ knp_pagination_sortable(hutsaks, 'Berria', 'a.berria') }}</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for gazterium in gazterias %}
+                        {% for hutsak in hutsaks %}
                             <tr>
-                                <td>{{ gazterium.espedientea }}</td>
-                                <td>{{ gazterium.data }}</td>
-                                <td>{{ gazterium.sailkapena }}</td>
-                                <td>{{ gazterium.signatura }}</td>
-                                <td>{{ gazterium.oharrak }}</td>
+                                <td>{{ hutsak.egoera }}</td>
+                                <td>{{ hutsak.signatura }}</td>
+                                <td>{{ hutsak.zaharra }}</td>
+                                <td>{{ hutsak.berria }}</td>
                                 <td>
                                     <ul class="list-inline">
-                                        <li class=""><a href="{{ path('gazteria_show', {'id': gazterium.id}) }}"><i class="fas fa-eye"></i></a></li>
-                                        <li class=""><a href="{{ path('gazteria_edit', {'id': gazterium.id}) }}"><i class="fas fa-edit"></i></a></li>
-                                        <li class=""><a href="#" class="deleteBtn" data-delete-url="{{ path('gazteria_delete',{'id':gazterium.id}) }}" data-id="{{ gazterium.id }}" data-token="{{ csrf_token('delete' ~ gazterium.id) }}"><i class="fas fa-trash text-danger"></i></a></li>
+                                        <li class=""><a href="{{ path('hutsak_show', {'id': hutsak.id}) }}"><i class="fas fa-eye"></i></a></li>
+                                        <li class=""><a href="{{ path('hutsak_edit', {'id': hutsak.id}) }}"><i class="fas fa-edit"></i></a></li>
+                                        <li class=""><a href="#" class="deleteBtn" data-delete-url="{{ path('hutsak_delete',{'id':hutsak.id}) }}" data-id="{{ hutsak.id }}"
+                                                        data-token="{{ csrf_token('delete' ~ hutsak.id) }}"><i class="fas fa-trash text-danger"></i></a></li>
                                     </ul>
                                 </td>
                             </tr>
                         {% else %}
                             <tr>
-                                <td colspan="9">no records found</td>
+                                <td colspan="8">no records found</td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -69,7 +67,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="navigation text-center">
-                                {{ knp_pagination_render(gazterias) }}
+                                {{ knp_pagination_render(hutsaks) }}
                             </div>
                         </div>
                     </div>
@@ -78,8 +76,6 @@
 
         </div><!-- col-xs-12 -->
     </div> <!--row -->
-
-    {#{{ include('amp/_delete_form.html.twig', {'amp': amp}) }}#}
 
     {% endblock %}
     {% block javascripts %}

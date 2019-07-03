@@ -141,6 +141,13 @@ class SecurityController extends AbstractController
         /** @var Session $session */
         $session = $request->getSession();
 
+        /* Localea zehaztu */
+        $ldapLanguage = $entry->getAttribute('preferredLanguage');
+        if ($ldapLanguage) {
+            $this->get('session')->set('_locale', $ldapLanguage[0]);
+            $request->setLocale($ldapLanguage[0]);
+        }
+
 
         return $this->redirectToRoute('amp_index');
 

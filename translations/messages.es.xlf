@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="eu" target-language="es" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="5_luzlm" resname="Saioa amaitu">
+        <source>Saioa amaitu</source>
+        <target>Terminar sesión</target>
+      </trans-unit>
+      <trans-unit id="hQ1P4R0" resname="Aldatu hizkuntza">
+        <source>Aldatu hizkuntza</source>
+        <target>Cambiar idioma</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

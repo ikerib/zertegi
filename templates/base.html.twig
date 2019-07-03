@@ -68,13 +68,13 @@
                                     {#Alexander Pierce - Web Developer#}
                                     <small>{{ app.session.get('description')[0]}}</small>
                                 </p>
+                                <hr>
+                                {% include '_locale_switcher.html.twig' %}
+                                <span></span>
+                                <a href="{{ path('logout') }}" class="btn btn-default btn-flat">{{ "Saioa amaitu" | trans }}</a>
                             </li>
-                            <!-- Menu Footer-->
-                            <li class="user-footer">
-                                <div class="text-center">
-                                    <a href="{{ path('logout') }}" class="btn btn-default btn-flat">Irten</a>
-                                </div>
-                            </li>
+
+
                         </ul>
                     </li>
                     <!-- Control Sidebar Toggle Button -->

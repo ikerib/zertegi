@@ -13,6 +13,22 @@
         <source>Aldatu hizkuntza</source>
         <target>Cambiar idioma</target>
       </trans-unit>
+      <trans-unit id="73CCWjx" resname="Bases de datos y total de registros">
+        <source>Bases de datos y total de registros</source>
+        <target>Bases de datos y total de registros</target>
+      </trans-unit>
+      <trans-unit id="YpbrO1." resname="Hasiera">
+        <source>Hasiera</source>
+        <target>Inicio</target>
+      </trans-unit>
+      <trans-unit id="qtcTLCa" resname="Paginazioa">
+        <source>Paginazioa</source>
+        <target>Paginación</target>
+      </trans-unit>
+      <trans-unit id="eAvNKKK" resname="Erregistroak orriko">
+        <source>Erregistroak orriko</source>
+        <target>Nº Registros por página</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

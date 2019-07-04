@@ -7,7 +7,27 @@
     <body>
       <trans-unit id="5_luzlm" resname="Saioa amaitu">
         <source>Saioa amaitu</source>
-        <target>__Saioa amaitu</target>
+        <target>Saioa amaitu</target>
+      </trans-unit>
+      <trans-unit id="hQ1P4R0" resname="Aldatu hizkuntza">
+        <source>Aldatu hizkuntza</source>
+        <target>Aldatu hizkuntza</target>
+      </trans-unit>
+      <trans-unit id="73CCWjx" resname="Bases de datos y total de registros">
+        <source>Bases de datos y total de registros</source>
+        <target>Datu baseak eta erregistro kopurua</target>
+      </trans-unit>
+      <trans-unit id="YpbrO1." resname="Hasiera">
+        <source>Hasiera</source>
+        <target>Hasiera</target>
+      </trans-unit>
+      <trans-unit id="qtcTLCa" resname="Paginazioa">
+        <source>Paginazioa</source>
+        <target>Paginazioa</target>
+      </trans-unit>
+      <trans-unit id="eAvNKKK" resname="Erregistroak orriko">
+        <source>Erregistroak orriko</source>
+        <target>Erregistroak orriko</target>
       </trans-unit>
     </body>
   </file>

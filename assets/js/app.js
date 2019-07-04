@@ -45,3 +45,12 @@ $(".btn-delete-trigger").on("click", function () {
 $(".alert-dismissible").fadeTo(3000, 500).slideUp(500, function(){
     $("#success-alert").alert('close');
 });
+
+$("#cmbPagination").change(function () {
+
+    const reg = $(this).val();
+    console.log($(this).val());
+
+    window.location.href = window.location.href + "?limit=" + reg;
+
+});

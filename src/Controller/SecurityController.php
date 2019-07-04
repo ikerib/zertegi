@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\DBAL\Driver\Connection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,6 +46,23 @@ class SecurityController extends AbstractController
     public function index(): Response
     {
         return $this->render('security/index.html.twig');
+    }
+
+    /**
+     * @Route("/admin", name="admin_home", methods={"GET"})
+     *
+     * @param Connection $connection
+     *
+     * @return Response
+     */
+    public function adminindex(Connection $connection): Response
+    {
+        $sql = "SELECT table_name, table_rows from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'zertegi';";
+        $tables = $connection->fetchAll($sql);
+
+        return $this->render('security/adminindex.html.twig', [
+            'tables' => $tables
+        ]);
     }
 
     /**

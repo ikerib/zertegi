@@ -69,9 +69,10 @@
                                     <small>{{ app.session.get('description')[0]}}</small>
                                 </p>
                                 <hr>
-                                {% include '_locale_switcher.html.twig' %}
+
                                 <span></span>
                                 <a href="{{ path('logout') }}" class="btn btn-default btn-flat">{{ "Saioa amaitu" | trans }}</a>
+                                <input type="">
                             </li>
 
 
@@ -108,7 +109,7 @@
                 {% block header_desc %}<small>Optional description</small>{% endblock %}
             </h1>
             <ol class="breadcrumb">
-                <li><a href="{{ path('admin_home') }}"><i class="fas fa-tachometer-alt"></i> Hasiera</a></li>
+                <li><a href="{{ path('admin_home') }}"><i class="fas fa-tachometer-alt"></i> {{ "Hasiera" | trans }}</a></li>
                 {% block breadcrumbs %}
                     <li class="active">Here</li>
                 {% endblock %}
@@ -148,46 +149,39 @@
     <aside class="control-sidebar control-sidebar-dark">
         <!-- Create the tabs -->
         <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-            <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fas fa-home"></i></a></li>
-            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fas fa-cogs"></i></a></li>
+            <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fas fa-cogs"></i></a></li>
+{#            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fas fa-home"></i></a></li>#}
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
             <!-- Home tab content -->
             <div class="tab-pane active" id="control-sidebar-home-tab">
-                <h3 class="control-sidebar-heading">Recent Activity</h3>
+                <h3 class="control-sidebar-heading">{{ "Idioma" }}</h3>
                 <ul class="control-sidebar-menu">
                     <li>
-                        <a href="javascript:;">
-                            <i class="menu-icon fas fa-birthday-cake bg-red"></i>
-
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                                <p>Will be 23 on April 24th</p>
-                            </div>
-                        </a>
+                        {% include '_locale_switcher.html.twig' %}
                     </li>
                 </ul>
                 <!-- /.control-sidebar-menu -->
 
-                <h3 class="control-sidebar-heading">Tasks Progress</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:;">
-                            <h4 class="control-sidebar-subheading">
-                                Custom Template Design
-                                <span class="pull-right-container">
-                    <span class="label label-danger pull-right">70%</span>
-                  </span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
+                <h3 class="control-sidebar-heading">{{ "Paginazioa" | trans }}</h3>
+{#                <div class="form-group">#}
+{#                    <label class="control-sidebar-subheading">#}
+{#                        <input type="checkbox" data-layout="sidebar-collapse" class="pull-right"> Toggle Sidebar</label>#}
+{#                    <p>Toggle the left sidebar's state (open or collapse)</p>#}
+{#                </div>#}
+                <div class="form-group">
+                        <label class="control-sidebar-subheading" for="cmbPagination">{{ "Erregistroak orriko" | trans }}
+                        <select name="cmbPagination" id="cmbPagination">
+                            <option value="10" selected>10</option>
+                            <option value="20" >20</option>
+                            <option value="30" >30</option>
+                            <option value="40" >40</option>
+                            <option value="50" >50</option>
+                            <option value="100" >100</option>
+                        </select>
+                        </label>
+                </div>
                 <!-- /.control-sidebar-menu -->
 
             </div>

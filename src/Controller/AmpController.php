@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Amp;
 use App\Form\AmpType;
+use App\Repository\AmpRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
@@ -190,7 +191,7 @@ class AmpController extends AbstractController {
     }
 
     /**
-     * @Route("/{id}", name="amp_show", methods={"GET"})
+     * @Route("/{id}/show", name="amp_show", methods={"GET"})
      * @param Amp $amp
      *
      * @return Response
@@ -201,6 +202,29 @@ class AmpController extends AbstractController {
             'amp/show.html.twig',
             [
                 'amp' => $amp,
+            ]
+        );
+    }
+
+    /**
+     * @Route("/print", name="amp_print", methods={"GET", "POST" })
+     * @param Request       $request
+     * @param AmpRepository $ampRepository
+     *
+     * @return Response
+     */
+    public function print(Request $request, AmpRepository $ampRepository): Response
+    {
+        $selection = $request->get('chkSeleccion');
+        $amp = $ampRepository->find($selection[ 0 ]);
+        $html = $this->renderView('amp/show.html.twig', ['amp' => $amp]);
+        $filename = sprintf('specifications-%s.pdf', date('Y-m-d-hh-ss'));
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
             ]
         );
     }

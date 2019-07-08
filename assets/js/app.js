@@ -52,10 +52,15 @@ $(".alert-dismissible").fadeTo(3000, 500).slideUp(500, function(){
 });
 
 $("#cmbPagination").change(function () {
-
     const reg = $(this).val();
-    console.log($(this).val());
+    let url = window.location.href;
 
-    window.location.href = window.location.href + "?limit=" + reg;
+    if ( url.indexOf('?')>-1) {
+       url = url +"&limit=" + reg;
+    } else {
+        url = url +"?limit=" + reg;
+    }
+
+    window.location = url;
 
 });

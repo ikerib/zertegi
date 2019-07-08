@@ -64,3 +64,7 @@ $("#cmbPagination").change(function () {
     window.location = url;
 
 });
+
+$(".chkSelecion").on("change", function () {
+    console.log($(this).val());
+});

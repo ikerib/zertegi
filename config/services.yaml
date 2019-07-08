@@ -51,3 +51,7 @@ services:
             - '%env(resolve:LDAP_SEARCH_DN)%'
             - '%env(resolve:LDAP_BASE_DN)%'
             - '%env(resolve:LDAP_PASSWD)%'
+
+    app.utils:
+        public: true
+        class: App\Utils\Utils

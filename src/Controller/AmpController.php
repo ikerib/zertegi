@@ -38,10 +38,23 @@ class AmpController extends AbstractController {
         $queryBuilder = $em->getRepository(Amp::class)->createQueryBuilder('a');
 
         $filter = $request->query->get('filter');
+
         if ($filter) {
+            // Begiratu bilaketak &-rik duen, baldin badu banatu bilaketa bloketan
+            $aFilter = explode('&', $filter);
+            $sqlFilter = '';
+
+            foreach ($aFilter as $key=>$value) {
+                if ( $key === 0) {
+                    $sqlFilter = $value;
+                } else {
+                    $sqlFilter .= ','.$value;
+                }
+            }
             $queryBuilder->where('MATCH_AGAINST(a.clasificacion, a.expediente, a.fecha, a.observaciones, a.signatura) AGAINST(:searchterm boolean)>0')
-                         ->setParameter('searchterm', $filter);
+                         ->setParameter('searchterm', $sqlFilter);
         }
+
 
         $query = $queryBuilder->getQuery();
 

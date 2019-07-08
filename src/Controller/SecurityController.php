@@ -58,6 +58,7 @@ class SecurityController extends AbstractController
     public function adminindex(Connection $connection): Response
     {
         $sql = "SELECT table_name, table_rows from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'zertegi';";
+
         $tables = $connection->fetchAll($sql);
 
         return $this->render('security/adminindex.html.twig', [
@@ -73,6 +74,11 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+        // Aurretik login egina badu, berbideratu
+        $securityContext = $this->container->get('security.authorization_checker');
+        if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('admin_home');
+        }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 

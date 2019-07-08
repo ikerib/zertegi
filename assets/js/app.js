@@ -20,13 +20,18 @@ $("#btn-save").on("click", function () {
     $("#hiddenbutton").click();
 });
 
+const $miLEn = $('#filter').val().length;
 
+
+if ( $miLEn >0 ) {
+    $('#filter').width(500);
+}
 
 $('#filter').focus(function()
 {
     /*to make this flexible, I'm storing the current width in an attribute*/
     $(this).attr('data-default', $(this).width());
-    $(this).animate({ width: 350 }, 'slow');
+    $(this).animate({ width: 500 }, 'slow');
 }).blur(function()
 {
     /* lookup the original width */

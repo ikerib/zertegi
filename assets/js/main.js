@@ -59,9 +59,13 @@ $(".chkSelecion").on("change", function () {
     const url = Routing.generate("api_save_selection", { 'table': 'amp', 'id': miid });
     console.log(url);
     $.post(url);
+
 });
 
 $("#clearSelection").on("click", function () {
     const url = Routing.generate("api_clear_selection");
-    $.post(url);
+    $.post(url, function (  ) {
+        $('.chkSelecion').prop( "checked", false );
+    });
+
 });

@@ -1,28 +1,27 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Api;
 
 use FOS\RestBundle\Controller\AbstractFOSRestController;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Utils;
 
-/**
- * @Route("/api")
- */
 class ApiController extends AbstractFOSRestController
 {
 
     /**
-     * @Route("/save/selection/{table}/{id}", name="api_save_selection")
+     * @*Route("/save/selection/{table}/{id}", name="save_selection", methods={"POST"}, options = { "expose" = true })
+     * @Rest\Post(path="/save/selection/{table}/{id}")
      * @param SessionInterface $session
      * @param                  $table
      * @param                  $id
      *
      * @return JsonResponse
      */
-    public function save_selection(SessionInterface $session, $table, $id): JsonResponse
+    public function saveselection(SessionInterface $session, $table, $id): JsonResponse
     {
         // Check if table and value is stored in the session. If so, remove. Otherwise, add it.
         $mySelection = $session->get('zertegi-selection');

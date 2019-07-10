@@ -18,6 +18,7 @@ Encore
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
      */
     .addEntry('jsApp', './assets/js/app.js')
+    .addEntry('jsMain', './assets/js/main.js')
     .addEntry('jsDeleteForm', './assets/js/delete_form.js')
     // .addEntry('jsAdminLTE', './assets/js/adminlte.js')
     //.addEntry('page1', './assets/js/page1.js')

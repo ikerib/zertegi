@@ -7,8 +7,3 @@ controllers:
     defaults:
         _locale: '%locale%'
 
-api:
-    resource: ../../src/Controller/Api/
-    prefix: /api
-    type: annotation
-    name_prefix: api_

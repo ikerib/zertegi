@@ -5,7 +5,7 @@ namespace App\Utils;
 
 
 
-class Utils {
+class Utility {
 
     public function check_key_value_is_in_array($key, $value, $array):bool
     {

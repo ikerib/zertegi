@@ -76,9 +76,9 @@ class SecurityController extends AbstractController
     {
         // Aurretik login egina badu, berbideratu
         $securityContext = $this->container->get('security.authorization_checker');
-        if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            return $this->redirectToRoute('admin_home');
-        }
+//        if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+//            return $this->redirectToRoute('admin_home');
+//        }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 

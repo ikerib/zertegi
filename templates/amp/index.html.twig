@@ -43,6 +43,10 @@
                 <div class="box-body">
                     <form action="{{ path('amp_print') }}" method="get">
                         <input type="submit" value="{{ "Inprimatuta" | trans }}">
+                        <a href="javascript:void(0);" id="clearSelection" class="btn btn-secondary">{{ "Ezabatu aukeraketa" }}</a>
+
+                        {{ dump(myselection) }}
+
                     <table class="table table-bordered table-hover">
                         <thead>
                         <tr>
@@ -60,7 +64,9 @@
                         {% for amp in amps %}
                             <tr>
                                 <td><label>
-                                        <input type="checkbox" name="chkSelecion[]" class="chkSelecion" value="{{ amp.id }}">
+                                        <input type="checkbox" name="chkSelecion[]" class="chkSelecion" value="{{ amp.id }}"
+                                               {% if amp.id in myselection %} checked {% endif %}
+                                        >
                                     </label></td>
                                 <td>{{ amp.id }}</td>
                                 <td>{{ amp.expediente|length > 150 ? amp.expediente|slice(0,150)~'...' : amp.expediente}}</td>

@@ -13,6 +13,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -30,7 +31,7 @@ class AmpController extends AbstractController {
      *
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginator): Response
+    public function index(Request $request, PaginatorInterface $paginator, SessionInterface $session): Response
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -66,11 +67,14 @@ class AmpController extends AbstractController {
         );
 
 
+        $myselection = $session->get('zertegi-selection');
+        $myselection = $myselection[ 'amp' ];
 
         return $this->render(
             'amp/index.html.twig',
             [
                 'amps' => $amps,
+                'myselection' => $myselection
             ]
         );
     }

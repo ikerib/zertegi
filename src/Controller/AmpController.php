@@ -29,6 +29,8 @@ class AmpController extends AbstractController {
      *
      * @param PaginatorInterface $paginator
      *
+     * @param SessionInterface   $session
+     *
      * @return Response
      */
     public function index(Request $request, PaginatorInterface $paginator, SessionInterface $session): Response

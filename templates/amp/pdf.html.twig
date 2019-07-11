@@ -1,0 +1,33 @@
+{% extends 'pdf.html.twig' %}
+
+{% block body %}
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ amp.id }}</td>
+        </tr>
+        <tr>
+            <th>Expediente</th>
+            <td>{{ amp.expediente }}</td>
+        </tr>
+        <tr>
+            <th>Fecha</th>
+            <td>{{ amp.fecha }}</td>
+        </tr>
+        <tr>
+            <th>Clasificacion</th>
+            <td>{{ amp.clasificacion }}</td>
+        </tr>
+        <tr>
+            <th>Signatura</th>
+            <td>{{ amp.signatura }}</td>
+        </tr>
+        <tr>
+            <th>Observaciones</th>
+            <td>{{ amp.observaciones }}</td>
+        </tr>
+    </tbody>
+</table>
+    <hr>
+{% endblock %}

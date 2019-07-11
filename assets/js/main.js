@@ -69,3 +69,7 @@ $("#clearSelection").on("click", function () {
     });
 
 });
+
+$("#checkAll").on("change", function () {
+    $("input:checkbox.chkSelecion").prop('checked',this.checked).trigger('change');
+});

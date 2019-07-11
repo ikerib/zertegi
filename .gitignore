@@ -59,3 +59,9 @@ vendor/
 /var/
 
 \.env\.prod
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
+/tests/_envs/.env

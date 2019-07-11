@@ -36,7 +36,18 @@ class PdfController extends AbstractController
 
         $filename = sprintf('specifications-%s.pdf', date('Y-m-d-hh-ss'));
         return new Response(
-            $snappy->getOutputFromHtml($html),
+            $snappy->getOutputFromHtml($html, array(
+                'images' => true,
+                'enable-javascript' => true,
+                'page-size' => 'A4',
+                'viewport-size' => '1280x1024',
+//                'header-html' => $header,
+//                'footer-html' => $footer,
+//                'margin-left' => '10mm',
+//                'margin-right' => '10mm',
+//                'margin-top' => '30mm',
+//                'margin-bottom' => '25mm',
+            )),
             200,
             [
                 'Content-Type' => 'application/pdf',

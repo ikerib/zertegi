@@ -15,10 +15,12 @@
 
             <div class="box">
                 <div class="box-header">
+                    <div class="btn-group">
+                        <a href="{{ path('amp_new') }}" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; {{ "Berria" | trans }}</a>
+                        <a href="{{ path('pdf') }}" class="btn btn-default">{{ "Inprimitu" | trans }}</a>
+                        <a href="javascript:void(0);" id="clearSelection" class="btn btn-default">{{ "Ezabatu aukeraketa" | trans }}</a>
+                    </div>
 
-                    <a href="{{ path('amp_new') }}" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; {{ "Berria" | trans }}</a>
-                    <a href="{{ path('pdf') }}" class="btn btn-default">{{ "Inprimitu" | trans }}</a>
-                    <a href="javascript:void(0);" id="clearSelection" class="btn btn-secondary">{{ "Ezabatu aukeraketa" }}</a>
 
                     <div class="box-tools">
                         <form action="{{ path('amp_index') }}" method="get">
@@ -39,7 +41,7 @@
 
                         </form>
 
-                        <p class="text-right">Nº Registros: {{ amps.getTotalItemCount |number_format(0, ',', '.') }}</p>
+                        <p class="text-right">{{ "Nº Registros:" | trans}} {{ amps.getTotalItemCount |number_format(0, ',', '.') }}</p>
                 </div>
                 <div class="box-body">
 

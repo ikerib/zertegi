@@ -29,6 +29,22 @@
         <source>Erregistroak orriko</source>
         <target>Erregistroak orriko</target>
       </trans-unit>
+      <trans-unit id="032iJPS" resname="Berria">
+        <source>Berria</source>
+        <target>Berria</target>
+      </trans-unit>
+      <trans-unit id="5z1p0OY" resname="Inprimitu">
+        <source>Inprimitu</source>
+        <target>Inprimitu</target>
+      </trans-unit>
+      <trans-unit id="V_chnfN" resname="Ezabatu aukeraketa">
+        <source>Ezabatu aukeraketa</source>
+        <target>Ezabatu aukeraketa</target>
+      </trans-unit>
+      <trans-unit id="DqVog9g" resname="Nº Registros:">
+        <source>Nº Registros:</source>
+        <target>Eregistro kopurua:</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

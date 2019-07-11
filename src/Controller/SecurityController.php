@@ -173,7 +173,7 @@ class SecurityController extends AbstractController
         }
 
 
-        return $this->redirectToRoute('amp_index');
+        return $this->redirectToRoute('admin_home');
 
     }
 

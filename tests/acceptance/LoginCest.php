@@ -8,6 +8,7 @@ class LoginCest
 
     public function loginWorks(AcceptanceTester $I): void
     {
+        $I->wantTo('Test login system is working.');
         $I->amOnPage('/');
         $I->see('Pasaiako Udaleko artxiboa');
         $I->click('Hasi saioa');
@@ -16,5 +17,6 @@ class LoginCest
         $I->fillField('#password', getenv('TEST_PASSWORD'));
         $I->click('Hasi saioa');
         $I->see('Admin gunea');
+        
     }
 }

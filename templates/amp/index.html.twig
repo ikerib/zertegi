@@ -16,7 +16,7 @@
         <div class="box">
             <div class="box-header">
                 <div class="btn-group">
-                    <a href="{{ path('amp_new') }}" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; {{ "Berria" | trans }}</a>
+                    <a href="{{ path('amp_new') }}" class="btn btn-primary" id="btnBerria"><i class="fa fa-plus"></i>&nbsp; {{ "Berria" | trans }}</a>
                     <a href="{{ path('pdf') }}" class="btn btn-default">{{ "Inprimitu" | trans }}</a>
                     <a href="javascript:void(0);" id="clearSelection" class="btn btn-default">{{ "Ezabatu aukeraketa" | trans }}</a>
                 </div>
@@ -35,7 +35,7 @@
                             >
 
                             <div class="input-group-btn">
-                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                <button id="btnFilter" type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                             </div>
                         </div>
 
@@ -79,10 +79,10 @@
                                 <td>{{ amp.observaciones }}</td>
                                 <td>
                                     <ul class="list-inline">
-                                        <li class=""><a href="{{ path('amp_show', {'id': amp.id}) }}"><i class="fas fa-eye"></i></a></li>
-                                        <li class=""><a href="{{ path('amp_edit', {'id': amp.id}) }}"><i class="fas fa-edit"></i></a></li>
-                                        <li class=""><a href="#" class="deleteBtn" data-id="{{ amp.id }}" data-token="{{ csrf_token('delete' ~ amp.id) }}"><i
-                                                        class="fas fa-trash text-danger"></i></a></li>
+                                        <li class=""><a href="{{ path('amp_show', {'id': amp.id}) }}"><i class="fas fa-eye btnShow"></i></a></li>
+                                        <li class=""><a href="{{ path('amp_edit', {'id': amp.id}) }}"><i class="fas fa-edit btnEdit"></i></a></li>
+                                        <li class=""><a href="#" class="deleteBtn" data-delete-url="{{ path('amp_delete',{'id':amp.id}) }}" data-id="{{ amp.id }}"
+                                                        data-token="{{ csrf_token('delete' ~ amp.id) }}"><i class="fas fa-trash text-danger"></i></a></li>
                                     </ul>
                                 </td>
                             </tr>

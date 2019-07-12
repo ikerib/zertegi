@@ -62,7 +62,7 @@ $(".chkSelecion").on("change", function () {
 
 });
 
-$("#clearSelection").on("click", function () {
+$("#btnClearSelection").on("click", function () {
     const url = Routing.generate("api_clear_selection");
     $.post(url, function (  ) {
         $('.chkSelecion').prop( "checked", false );

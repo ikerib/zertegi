@@ -9,10 +9,11 @@ modules:
     enabled:
         - WebDriver:
             url: http://zertegi.test
-            window_size: false # disabled in ChromeDriver
+            window_size: maximize
             port: 9515
             browser: chrome
             capabilities:
+
             "goog:chromeOptions": # additional chrome options
 #        - PhpBrowser:
 #            url: http://zertegi.test

@@ -23,12 +23,8 @@ class AmpController extends AbstractController {
 
     /**
      * @Route("/", name="amp_index", methods={"GET"})
-     *
      * @param Request            $request
-     *
-     *
      * @param PaginatorInterface $paginator
-     *
      * @param SessionInterface   $session
      *
      * @return Response
@@ -116,6 +112,23 @@ class AmpController extends AbstractController {
     }
 
     /**
+     * @Route("/{id}", name="amp_show", methods={"GET"})
+     * @param Amp $amp
+     *
+     * @return Response
+     */
+    public function show(Amp $amp): Response
+    {
+        return $this->render(
+            'amp/show.html.twig',
+            [
+                'amp' => $amp,
+            ]
+        );
+    }
+
+
+    /**
      * @Route("/{id}/edit", name="amp_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Amp     $amp
@@ -153,7 +166,6 @@ class AmpController extends AbstractController {
     /**
      * @Route("/{id}", name="amp_delete", methods={"DELETE"}, options = { "expose" = true })
      * @param Request $request
-     *
      * @param Amp     $amp
      *
      * @return Response
@@ -196,21 +208,7 @@ class AmpController extends AbstractController {
                     ->getForm();
     }
 
-    /**
-     * @Route("/{id}/show", name="amp_show", methods={"GET"})
-     * @param Amp $amp
-     *
-     * @return Response
-     */
-    public function show(Amp $amp): Response
-    {
-        return $this->render(
-            'amp/show.html.twig',
-            [
-                'amp' => $amp,
-            ]
-        );
-    }
+
 
     /**
      * @Route("/print", name="amp_print", methods={"GET", "POST" })

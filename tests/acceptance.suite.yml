@@ -7,6 +7,21 @@
 actor: AcceptanceTester
 modules:
     enabled:
-        - PhpBrowser:
+        - WebDriver:
             url: http://zertegi.test
+            window_size: false # disabled in ChromeDriver
+            port: 9515
+            browser: chrome
+            capabilities:
+            "goog:chromeOptions": # additional chrome options
+#        - PhpBrowser:
+#            url: http://zertegi.test
         - \App\Tests\Helper\Acceptance
+        - Db:
+            dsn: 'mysql:host=localhost;dbname=zertegi_test'
+            user: 'root'
+            password: 'pasaia'
+            populate: true # load dump before all tests
+            cleanup: true # load dump for each test
+            dump: 'tests/_data/dump.sql'
+#            populator: 'mysql -u $user -p$password $dbname < $dump'

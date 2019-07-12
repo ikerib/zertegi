@@ -20,7 +20,12 @@ class AcceptanceTester extends \Codeception\Actor
 {
     use _generated\AcceptanceTesterActions;
 
-   /**
-    * Define custom actions here
-    */
+    public function login()
+    {
+        $I = $this;
+        $I->amOnPage('/eu/login');
+        $I->fillField('#username', getenv('TEST_USERNAME'));
+        $I->fillField('#password', getenv('TEST_PASSWORD'));
+        $I->click('Hasi saioa');
+    }
 }

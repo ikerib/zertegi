@@ -83,7 +83,6 @@ class AmpCest
         $I->fillField('#filter', 'test amp expediente edited');
         $I->click('#btnFilter');
         $I->see('test amp expediente edited');
-        $I->wait(10);
         $I->dontseeCheckboxIsChecked('.chkSelecion');
 
         $I->wantTo('Delete a record.');

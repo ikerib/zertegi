@@ -78,7 +78,7 @@ class SecurityController extends AbstractController
 
 
         return $this->render('security/adminindex.html.twig', [
-            'tables' =>
+            'tables' => ''
         ]);
     }
 

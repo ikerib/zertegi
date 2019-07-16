@@ -13,10 +13,14 @@ modules:
             port: 9515
             browser: chrome
             capabilities:
-
             "goog:chromeOptions": # additional chrome options
 #        - PhpBrowser:
 #            url: http://zertegi.test
+#            headers:
+#                env: test
+#        - Symfony:
+#            app_path: 'src'
+#            environment: 'test'
         - \App\Tests\Helper\Acceptance
         - Db:
             dsn: 'mysql:host=localhost;dbname=zertegi_test'

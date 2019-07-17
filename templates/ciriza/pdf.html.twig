@@ -1,0 +1,33 @@
+{% extends 'pdf.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ ciriza.id }}</td>
+        </tr>
+        <tr>
+            <th>Deskribapena</th>
+            <td>{{ ciriza.deskribapena }}</td>
+        </tr>
+        <tr>
+            <th>Fecha</th>
+            <td>{{ ciriza.data }}</td>
+        </tr>
+        <tr>
+            <th>Sailkapena</th>
+            <td>{{ ciriza.sailkapena}}</td>
+        </tr>
+        <tr>
+            <th>Signatura</th>
+            <td>{{ ciriza.signatura }}</td>
+        </tr>
+        <tr>
+            <th>Oharrak</th>
+            <td>{{ ciriza.oharrak }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'pdf.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ anarbe.id }}</td>
+        </tr>
+        <tr>
+            <th>Expediente</th>
+            <td>{{ anarbe.expediente }}</td>
+        </tr>
+        <tr>
+            <th>Fecha</th>
+            <td>{{ anarbe.fecha }}</td>
+        </tr>
+        <tr>
+            <th>Clasificacion</th>
+            <td>{{ anarbe.clasificacion }}</td>
+        </tr>
+        <tr>
+            <th>Signatura</th>
+            <td>{{ anarbe.signatura }}</td>
+        </tr>
+        <tr>
+            <th>Observaciones</th>
+            <td>{{ anarbe.observaciones }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+{% endblock %}

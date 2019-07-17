@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Salidas;
 use App\Form\SalidasType;
 use App\Repository\SalidasRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

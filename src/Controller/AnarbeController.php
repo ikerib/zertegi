@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -26,10 +27,11 @@ class AnarbeController extends AbstractController
      * @param Request            $request
      * @param PaginatorInterface $paginator
      * @param AnarbeRepository   $anarbeRepository
+     * @param SessionInterface   $session
      *
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginator, AnarbeRepository $anarbeRepository): Response
+    public function index(Request $request, PaginatorInterface $paginator, AnarbeRepository $anarbeRepository, SessionInterface $session): Response
     {
 
         /** @var QueryBuilder $queryBuilder */
@@ -49,12 +51,19 @@ class AnarbeController extends AbstractController
             $request->query->getInt('limit', 10)/*limit per page*/
         );
 
-
+        $myselection = $session->get('zertegi-selection');
+        if ($myselection !== null) {
+            if (array_key_exists('anarbe', $myselection))
+            {
+                $myselection = $myselection[ 'anarbe' ];
+            }
+        }
 
         return $this->render(
             'anarbe/index.html.twig',
             [
                 'anarbes' => $anarbes,
+                'myselection' => $myselection
             ]
         );
     }

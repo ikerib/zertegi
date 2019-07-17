@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Amp;
+use App\Entity\Anarbe;
 use App\Entity\Salidas;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,6 +32,12 @@ class PdfController extends AbstractController
                 $amps = $em->getRepository(Amp::class)->findById($value);
                 foreach ($amps as $amp) {
                     $html .= $this->renderView('amp/pdf.html.twig', array ( 'amp' => $amp ));
+                }
+            }
+            if ( $key === 'anarbe') {
+                $anarbes = $em->getRepository(Anarbe::class)->findById($value);
+                foreach ($anarbes as $anarbe) {
+                    $html .= $this->renderView('anarbe/pdf.html.twig', array ( 'anarbe' => $anarbe ));
                 }
             }
             if ( $key === 'salidas') {

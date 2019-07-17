@@ -15,25 +15,41 @@
 
         <div class="box">
             <div class="box-header">
+                <div class="box-header">
+                    <a href="{{ path('salidas_new') }}" id="btnBerria" class="btn btn-primary" ><i class="fa fa-plus"></i>&nbsp; {{ "Berria" | trans }}</a>
+                    <a href="{{ path('pdf') }}" id="btnPrint" class="btn btn-default">{{ "Inprimitu" | trans }}</a>
+                    <a href="javascript:void(0);" id="btnClearSelection" class="btn btn-default">{{ "Ezabatu aukeraketa" | trans }}</a>
+                </div>
 
-                <a href="{{ path('salidas_new') }}" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Berria</a>
 
                 <div class="box-tools">
                     <form action="{{ path('salidas_index') }}" method="get">
                         <div class="input-group input-group-sm" style="width: 150px;">
-                            <input id="filter" type="text" name="filter" class="form-control pull-right" placeholder="Buscar" value="{{ app.request.query.get('filter') }}">
+                            <label for="filter"></label>
+                            <input id="filter"
+                                   type="text"
+                                   name="filter"
+                                   class="form-control pull-right"
+                                   placeholder="Buscar"
+                                   value="{{ app.request.query.get('filter') }}"
+                            >
 
                             <div class="input-group-btn">
-                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                <button id="btnFilter" type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                             </div>
                         </div>
                     </form>
-                    Erregistro kopurua: {{ salidas.getTotalItemCount |number_format(0, ',', '.') }}
+                    Erregistro kopurua: <span id="numRecords">{{ salidas.getTotalItemCount |number_format(0, ',', '.') }}</span>
                 </div>
                 <div class="box-body">
                     <table class="table table-bordered table-hover">
         <thead>
             <tr>
+                <th>
+                    <label>
+                        <input id="checkAll" type="checkbox">
+                    </label>
+                </th>
                 <th>{{ knp_pagination_sortable(salidas, 'Espedientea', 'a.espedientea') }}</th>
                 <th>{{ knp_pagination_sortable(salidas, 'Signatura', 'a.signatura') }}</th>
                 <th>{{ knp_pagination_sortable(salidas, 'Eskatzailea', 'a.eskatzailea') }}</th>
@@ -45,6 +61,12 @@
         <tbody>
         {% for salida in salidas %}
             <tr>
+                <td><label>
+                    <input type="checkbox" name="chkSelecion[]" class="chkSelecion" value="{{ salida.id }}" data-table="salidas"
+                        {% if salida.id in myselection %} checked {% endif %}
+                    >
+                    </label>
+                </td>
                 <td>{{ salida.espedientea }}</td>
                 <td>{{ salida.signatura }}</td>
                 <td>{{ salida.eskatzailea }}</td>
@@ -52,8 +74,8 @@
                 <td>{{ salida.sarrera }}</td>
                 <td>
                     <ul class="list-inline">
-                        <li class=""><a href="{{ path('salidas_show', {'id': salida.id}) }}"><i class="fas fa-eye"></i></a></li>
-                        <li class=""><a href="{{ path('salidas_edit', {'id': salida.id}) }}"><i class="fas fa-edit"></i></a></li>
+                        <li class=""><a href="{{ path('salidas_show', {'id': salida.id}) }}"><i class="fas fa-eye btnShow"></i></a></li>
+                        <li class=""><a href="{{ path('salidas_edit', {'id': salida.id}) }}"><i class="fas fa-edit btnEdit"></i></a></li>
                         <li class=""><a href="#" class="deleteBtn" data-delete-url="{{ path('salidas_delete',{'id':salida.id}) }}" data-id="{{ salida.id }}" data-token="{{ csrf_token('delete' ~ salida.id) }}"><i class="fas fa-trash text-danger"></i></a></li>
                     </ul>
                 </td>

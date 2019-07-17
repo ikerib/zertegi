@@ -17,8 +17,6 @@ class CirizaType extends AbstractType
             ->add('deskribapena')
             ->add('sailkapena')
             ->add('oharrak')
-            ->add('numdoc')
-            ->add('knosysid')
         ;
     }
 

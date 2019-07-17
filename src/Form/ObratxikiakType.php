@@ -16,8 +16,6 @@ class ObratxikiakType extends AbstractType
             ->add('sailkapena')
             ->add('signatura')
             ->add('urtea')
-            ->add('numdoc')
-            ->add('knosysid')
         ;
     }
 

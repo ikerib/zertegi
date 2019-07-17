@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -25,16 +26,28 @@ class SalidasController extends AbstractController
      * @param Request            $request
      * @param PaginatorInterface $paginator
      * @param SalidasRepository  $salidasRepository
+     * @param SessionInterface   $session
      *
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginator, SalidasRepository $salidasRepository): Response
+    public function index(Request $request, PaginatorInterface $paginator, SalidasRepository $salidasRepository, SessionInterface $session): Response
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $salidasRepository->createQueryBuilder('a');
 
         $filter = $request->query->get('filter');
         if ($filter) {
+            // Begiratu bilaketak &-rik duen, baldin badu banatu bilaketa bloketan
+            $aFilter = explode('&', $filter);
+            $sqlFilter = '';
+
+            foreach ($aFilter as $key=>$value) {
+                if ( $key === 0) {
+                    $sqlFilter = $value;
+                } else {
+                    $sqlFilter .= ','.$value;
+                }
+            }
             $queryBuilder->where('MATCH_AGAINST( a.eskatzailea, a.espedientea, a.irteera, a.sarrera, a.signatura) AGAINST(:searchterm boolean)>0')
                          ->setParameter('searchterm', $filter);
         }
@@ -47,10 +60,18 @@ class SalidasController extends AbstractController
             $request->query->getInt('limit', 10)/*limit per page*/
         );
 
+        $myselection = $session->get('zertegi-selection');
+        if (($myselection !== null) && array_key_exists('salidas', $myselection))
+        {
+            $myselection = $myselection[ 'salidas' ];
+        }
+
+
         return $this->render(
             'salidas/index.html.twig',
             [
                 'salidas' => $salidas,
+                'myselection' => $myselection
             ]
         );
     }

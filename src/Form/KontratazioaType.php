@@ -16,8 +16,6 @@ class KontratazioaType extends AbstractType
             ->add('urtea')
             ->add('sailkapena')
             ->add('signatura')
-            ->add('numdoc')
-            ->add('knosysid')
         ;
     }
 

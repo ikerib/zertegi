@@ -16,8 +16,6 @@ class LiburuxkaType extends AbstractType
             ->add('data')
             ->add('azalpenak')
             ->add('signatura')
-            ->add('numdoc')
-            ->add('knosysid')
         ;
     }
 

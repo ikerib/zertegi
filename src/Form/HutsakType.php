@@ -16,8 +16,6 @@ class HutsakType extends AbstractType
             ->add('signatura')
             ->add('zaharra')
             ->add('berria')
-            ->add('numdoc')
-            ->add('knosysid')
         ;
     }
 

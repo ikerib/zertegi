@@ -67,7 +67,7 @@
                         {% for amp in amps %}
                             <tr>
                                 <td><label>
-                                        <input type="checkbox" name="chkSelecion[]" class="chkSelecion" value="{{ amp.id }}"
+                                        <input type="checkbox" name="chkSelecion[]" class="chkSelecion" value="{{ amp.id }}" data-table="amp"
                                                 {% if amp.id in myselection %} checked {% endif %}
                                         >
                                     </label></td>

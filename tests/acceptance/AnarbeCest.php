@@ -77,7 +77,7 @@ class AnarbeCest
         $I->wantToTest('If is printing to PDF');
         $I->click('#btnPrint');
         $I->canSeeCurrentUrlEquals('/eu/admin/anarbe/?filter=test+anarbe_expediente+edited');
-        $I->wait(8);
+
 
         $I->wantToTest('Clear selection button is working');
         $I->amOnPage('/eu/admin/anarbe/');

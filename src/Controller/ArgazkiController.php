@@ -28,6 +28,8 @@ class ArgazkiController extends AbstractController {
      *
      * @param PaginatorInterface $paginator
      *
+     * @param SessionInterface   $session
+     *
      * @return Response
      */
     public function index(Request $request, ArgazkiRepository $argazkiRepository, PaginatorInterface $paginator, SessionInterface $session): Response

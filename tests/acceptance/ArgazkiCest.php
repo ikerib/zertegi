@@ -36,7 +36,6 @@ class ArgazkiCest
         $I->wantTo('Find a record');
         $I->fillField('#filter', 'test argazki_deskribapena');
         $I->click('#btnFilter');
-        $I->wait(4);
         $I->see('argazki_deskribapena');
 
         $I->wantTo('Edit the record');
@@ -84,7 +83,7 @@ class ArgazkiCest
         $I->wantToTest('If is printing to PDF');
         $I->click('#btnPrint');
         $I->canSeeCurrentUrlEquals('/eu/admin/argazki/?filter=test+argazki_deskribapena+edited');
-        $I->wait(8);
+
 
         $I->wantToTest('Clear selection button is working');
         $I->amOnPage('/eu/admin/argazki/');

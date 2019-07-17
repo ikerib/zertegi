@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Amp;
 use App\Entity\Anarbe;
 use App\Entity\Argazki;
+use App\Entity\Ciriza;
 use App\Entity\Salidas;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -45,6 +46,12 @@ class PdfController extends AbstractController
                 $argazkis = $em->getRepository(Argazki::class)->findById($value);
                 foreach ($argazkis as $argazki) {
                     $html .= $this->renderView('argazki/pdf.html.twig', array ( 'argazki' => $argazki ));
+                }
+            }
+            if ( $key === 'ciriza') {
+                $cirizas = $em->getRepository(Ciriza::class)->findById($value);
+                foreach ($cirizas as  $ciriza) {
+                    $html .= $this->renderView('ciriza/pdf.html.twig', array ( 'ciriza' => $ciriza ));
                 }
             }
             if ( $key === 'salidas') {

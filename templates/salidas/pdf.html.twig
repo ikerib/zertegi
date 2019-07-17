@@ -1,0 +1,33 @@
+{% extends 'pdf.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ salidas.id }}</td>
+        </tr>
+        <tr>
+            <th>Expediente</th>
+            <td>{{ salidas.espedientea }}</td>
+        </tr>
+        <tr>
+            <th>Eskatzailea</th>
+            <td>{{ salidas.eskatzailea }}</td>
+        </tr>
+        <tr>
+            <th>Irteera</th>
+            <td>{{ salidas.irteera}}</td>
+        </tr>
+        <tr>
+            <th>Sarrera</th>
+            <td>{{ salidas.sarrera}}</td>
+        </tr>
+        <tr>
+            <th>Signatura</th>
+            <td>{{ salidas.signatura }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+{% endblock %}

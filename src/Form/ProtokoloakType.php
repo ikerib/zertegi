@@ -21,8 +21,6 @@ class ProtokoloakType extends AbstractType
             ->add('datuak')
             ->add('oharrak')
             ->add('bilatzaileak')
-            ->add('numdoc')
-            ->add('knosysid')
         ;
     }
 

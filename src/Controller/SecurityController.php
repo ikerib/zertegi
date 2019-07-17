@@ -67,22 +67,6 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/search", name="admin_search", methods={"GET"})
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function adminsearch(Request $request): Response
-    {
-
-
-        return $this->render('security/adminindex.html.twig', [
-            'tables' => ''
-        ]);
-    }
-
-    /**
      * @Route("/login", name="login")
      * @param AuthenticationUtils $authenticationUtils
      *

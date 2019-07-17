@@ -17,8 +17,6 @@ class ConsultasType extends AbstractType
             ->add('gaia')
             ->add('enpresa')
             ->add('kontsulta')
-            ->add('numdoc')
-            ->add('knosysid')
         ;
     }
 

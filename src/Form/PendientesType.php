@@ -15,8 +15,6 @@ class PendientesType extends AbstractType
             ->add('espedientea')
             ->add('data')
             ->add('signatura')
-            ->add('numdoc')
-            ->add('knosysid')
         ;
     }
 

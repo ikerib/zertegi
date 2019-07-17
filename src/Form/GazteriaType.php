@@ -17,8 +17,6 @@ class GazteriaType extends AbstractType
             ->add('sailkapena')
             ->add('signatura')
             ->add('oharrak')
-            ->add('numdoc')
-            ->add('knosysid')
         ;
     }
 

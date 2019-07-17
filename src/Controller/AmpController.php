@@ -24,18 +24,16 @@ class AmpController extends AbstractController {
     /**
      * @Route("/", name="amp_index", methods={"GET"})
      * @param Request            $request
+     * @param AmpRepository      $ampRepository
      * @param PaginatorInterface $paginator
      * @param SessionInterface   $session
      *
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginator, SessionInterface $session): Response
+    public function index(Request $request, AmpRepository $ampRepository, PaginatorInterface $paginator, SessionInterface $session): Response
     {
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-
         /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = $em->getRepository(Amp::class)->createQueryBuilder('a');
+        $queryBuilder = $ampRepository->createQueryBuilder('a');
 
         $filter = $request->query->get('filter');
 

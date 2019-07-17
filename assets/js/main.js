@@ -56,7 +56,8 @@ $("#cmbPagination").change(function () {
 
 $(".chkSelecion").on("change", function () {
     const miid = $(this).val();
-    const url = Routing.generate("api_save_selection", { 'table': 'amp', 'id': miid });
+    const table = $(this).data("table");
+    const url = Routing.generate("api_save_selection", { 'table': table, 'id': miid });
     console.log(url);
     $.post(url);
 

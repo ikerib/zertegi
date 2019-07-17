@@ -20,8 +20,6 @@ class ArgazkiType extends AbstractType
             ->add('kolorea')
             ->add('zenbakia')
             ->add('oharrak')
-            ->add('numdoc')
-            ->add('knosysid')
         ;
     }
 

@@ -16,8 +16,6 @@ class EntradasType extends AbstractType
             ->add('igorlea')
             ->add('deskribapena')
             ->add('signatura')
-            ->add('numdoc')
-            ->add('knosysid')
         ;
     }
 

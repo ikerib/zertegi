@@ -17,8 +17,6 @@ class SalidasType extends AbstractType
             ->add('eskatzailea')
             ->add('irteera')
             ->add('sarrera')
-            ->add('knosysid')
-            ->add('numdoc')
         ;
     }
 

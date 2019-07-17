@@ -17,8 +17,6 @@ class TablasType extends AbstractType
             ->add('resolucion')
             ->add('observaciones')
             ->add('fecha')
-            ->add('knosysid')
-            ->add('numdoc')
         ;
     }
 

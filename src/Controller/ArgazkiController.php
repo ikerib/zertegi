@@ -13,6 +13,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -29,7 +30,7 @@ class ArgazkiController extends AbstractController {
      *
      * @return Response
      */
-    public function index(Request $request, ArgazkiRepository $argazkiRepository, PaginatorInterface $paginator): Response
+    public function index(Request $request, ArgazkiRepository $argazkiRepository, PaginatorInterface $paginator, SessionInterface $session): Response
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $argazkiRepository->createQueryBuilder('a');
@@ -49,11 +50,20 @@ class ArgazkiController extends AbstractController {
             $request->query->getInt('limit', 10)/*limit per page*/
         );
 
+        $myselection = $session->get('zertegi-selection');
+        if ($myselection !== null) {
+            if (array_key_exists('argazki', $myselection))
+            {
+                $myselection = $myselection[ 'argazki' ];
+            }
+        }
+
 
         return $this->render(
             'argazki/index.html.twig',
             [
                 'argazkis' => $argazkis,
+                'myselection' => $myselection
             ]
         );
     }

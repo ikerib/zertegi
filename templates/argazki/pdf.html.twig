@@ -1,0 +1,45 @@
+{% extends 'pdf.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ argazki.id }}</td>
+        </tr>
+        <tr>
+            <th>Barrutia</th>
+            <td>{{ argazki.barrutia }}</td>
+        </tr>
+        <tr>
+            <th>Deskribapena</th>
+            <td>{{ argazki.deskribapena}}</td>
+        </tr>
+        <tr>
+            <th>Fecha</th>
+            <td>{{ argazki.fecha}}</td>
+        </tr>
+        <tr>
+            <th>Gaia</th>
+            <td>{{ argazki.gaia}}</td>
+        </tr>
+        <tr>
+            <th>Kolorea</th>
+            <td>{{ argazki.kolorea}}</td>
+        </tr>
+        <tr>
+            <th>Neurria</th>
+            <td>{{ argazki.neurria}}</td>
+        </tr>
+        <tr>
+            <th>Zenbakia</th>
+            <td>{{ argazki.zenbakia}}</td>
+        </tr>
+        <tr>
+            <th>Oharrak</th>
+            <td>{{ argazki.oharrak}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'pdf.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ kontratazioa.id }}</td>
+        </tr>
+        <tr>
+            <th>Espedientea</th>
+            <td>{{ kontratazioa.espedientea }}</td>
+        </tr>
+        <tr>
+            <th>Sailkapena</th>
+            <td>{{ kontratazioa.sailkapena}}</td>
+        </tr>
+        <tr>
+            <th>Signatura</th>
+            <td>{{ kontratazioa.signatura}}</td>
+        </tr>
+        <tr>
+            <th>Urtea</th>
+            <td>{{ kontratazioa.urtea}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+{% endblock %}

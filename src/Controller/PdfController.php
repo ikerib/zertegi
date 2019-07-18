@@ -18,6 +18,7 @@ use App\Entity\Obratxikiak;
 use App\Entity\Pendientes;
 use App\Entity\Protokoloak;
 use App\Entity\Salidas;
+use App\Entity\Tablas;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -129,6 +130,12 @@ class PdfController extends AbstractController
                 $protokoloaks = $em->getRepository(Protokoloak::class)->findById($value);
                 foreach ($protokoloaks as  $protokoloak) {
                     $html .= $this->renderView('protokoloak/pdf.html.twig', array ( 'protokoloak' => $protokoloak ));
+                }
+            }
+            if ( $key === 'tablas') {
+                $tablas = $em->getRepository(Tablas::class)->findById($value);
+                foreach ($tablas as  $tabla) {
+                    $html .= $this->renderView('tablas/pdf.html.twig', array ( 'tabla' => $tabla ));
                 }
             }
             if ( $key === 'salidas') {

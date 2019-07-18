@@ -1,0 +1,33 @@
+{% extends 'pdf.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ tabla.id }}</td>
+        </tr>
+        <tr>
+            <th>Fecha</th>
+            <td>{{ tabla.fecha}}</td>
+        </tr>
+        <tr>
+            <th>Observaciones</th>
+            <td>{{ tabla.observaciones}}</td>
+        </tr>
+        <tr>
+            <th>Resolucion</th>
+            <td>{{ tabla.resolucion}}</td>
+        </tr>
+        <tr>
+            <th>Serie</th>
+            <td>{{ tabla.serie}}</td>
+        </tr>
+        <tr>
+            <th>Unidad</th>
+            <td>{{ tabla.unidad}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+{% endblock %}

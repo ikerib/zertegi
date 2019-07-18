@@ -28,5 +28,5 @@ modules:
             password: 'pasaia'
             populate: true # load dump before all tests
             cleanup: true # load dump for each test
-            dump: 'tests/_data/dump.sql'
+#            dump: 'tests/_data/dump.sql'
 #            populator: 'mysql -u $user -p$password $dbname < $dump'

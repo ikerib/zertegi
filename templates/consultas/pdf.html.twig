@@ -1,0 +1,33 @@
+{% extends 'pdf.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ consulta.id }}</td>
+        </tr>
+        <tr>
+            <th>Izena</th>
+            <td>{{ consulta.izena }}</td>
+        </tr>
+        <tr>
+            <th>Enpresa</th>
+            <td>{{ consulta.enpresa }}</td>
+        </tr>
+        <tr>
+            <th>Helbidea</th>
+            <td>{{ consulta.helbidea }}</td>
+        </tr>
+        <tr>
+            <th>Gaia</th>
+            <td>{{ consulta.gaia}}</td>
+        </tr>
+        <tr>
+            <th>Kontsulta</th>
+            <td>{{ consulta.kontsulta }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+{% endblock %}

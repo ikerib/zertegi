@@ -8,6 +8,7 @@ use App\Entity\Argazki;
 use App\Entity\Ciriza;
 use App\Entity\Consultas;
 use App\Entity\Entradas;
+use App\Entity\Euskera;
 use App\Entity\Salidas;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -66,6 +67,12 @@ class PdfController extends AbstractController
                 $entradas = $em->getRepository(Entradas::class)->findById($value);
                 foreach ($entradas as  $entrada) {
                     $html .= $this->renderView('entradas/pdf.html.twig', array ( 'entrada' => $entrada ));
+                }
+            }
+            if ( $key === 'euskera') {
+                $euskeras= $em->getRepository(Euskera::class)->findById($value);
+                foreach ($euskeras as  $euskera) {
+                    $html .= $this->renderView('euskera/pdf.html.twig', array ( 'euskera' => $euskera ));
                 }
             }
             if ( $key === 'salidas') {

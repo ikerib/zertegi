@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -28,7 +29,7 @@ class GazteriaController extends AbstractController
      *
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginator, GazteriaRepository $gazteriaRepository): Response
+    public function index(Request $request, PaginatorInterface $paginator, GazteriaRepository $gazteriaRepository, SessionInterface $session): Response
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $gazteriaRepository->createQueryBuilder('a');
@@ -47,12 +48,19 @@ class GazteriaController extends AbstractController
             $request->query->getInt('limit', 10)/*limit per page*/
         );
 
-
+        $myselection = $session->get('zertegi-selection');
+        if ($myselection !== null) {
+            if (array_key_exists('gazteria', $myselection))
+            {
+                $myselection = $myselection[ 'gazteria' ];
+            }
+        }
 
         return $this->render(
             'gazteria/index.html.twig',
             [
                 'gazterias' => $gazterias,
+                'myselection' => $myselection
             ]
         );
     }

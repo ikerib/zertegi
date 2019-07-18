@@ -26,6 +26,8 @@ class EuskeraController extends AbstractController
      * @param PaginatorInterface $paginator
      * @param EuskeraRepository  $euskeraRepository
      *
+     * @param SessionInterface   $session
+     *
      * @return Response
      */
     public function index(Request $request, PaginatorInterface $paginator, EuskeraRepository $euskeraRepository, SessionInterface $session): Response

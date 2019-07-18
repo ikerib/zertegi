@@ -11,6 +11,7 @@ use App\Entity\Entradas;
 use App\Entity\Euskera;
 use App\Entity\Gazteria;
 use App\Entity\Hutsak;
+use App\Entity\Kontratazioa;
 use App\Entity\Salidas;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -87,6 +88,12 @@ class PdfController extends AbstractController
                 $hutsaks= $em->getRepository(Hutsak::class)->findById($value);
                 foreach ($hutsaks as  $hutsak) {
                     $html .= $this->renderView('hutsak/pdf.html.twig', array ( 'hutsak' => $hutsak ));
+                }
+            }
+            if ( $key === 'kontratazioa') {
+                $kontratazioas= $em->getRepository(Kontratazioa::class)->findById($value);
+                foreach ($kontratazioas as  $kontratazioa) {
+                    $html .= $this->renderView('kontratazioa/pdf.html.twig', array ( 'kontratazioa' => $kontratazioa ));
                 }
             }
             if ( $key === 'salidas') {

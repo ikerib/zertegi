@@ -15,6 +15,7 @@ use App\Entity\Kontratazioa;
 use App\Entity\Kultura;
 use App\Entity\Liburuxka;
 use App\Entity\Obratxikiak;
+use App\Entity\Pendientes;
 use App\Entity\Salidas;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -115,6 +116,12 @@ class PdfController extends AbstractController
                 $obratxikiaks = $em->getRepository(Obratxikiak::class)->findById($value);
                 foreach ($obratxikiaks as  $obratxikiak) {
                     $html .= $this->renderView('obratxikiak/pdf.html.twig', array ( 'obratxikiak' => $obratxikiak ));
+                }
+            }
+            if ( $key === 'pendiente') {
+                $pendientes = $em->getRepository(Pendientes::class)->findById($value);
+                foreach ($pendientes as  $pendiente) {
+                    $html .= $this->renderView('pendientes/pdf.html.twig', array ( 'pendiente' => $pendiente ));
                 }
             }
             if ( $key === 'salidas') {

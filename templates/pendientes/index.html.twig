@@ -15,8 +15,12 @@
 
         <div class="box">
             <div class="box-header">
+                <div class="box-header">
+                    <a href="{{ path('pendientes_new') }}" id="btnBerria" class="btn btn-primary" ><i class="fa fa-plus"></i>&nbsp; {{ "Berria" | trans }}</a>
+                    <a href="{{ path('pdf') }}" id="btnPrint" class="btn btn-default">{{ "Inprimitu" | trans }}</a>
+                    <a href="javascript:void(0);" id="btnClearSelection" class="btn btn-default">{{ "Ezabatu aukeraketa" | trans }}</a>
+                </div>
 
-                <a href="{{ path('pendientes_new') }}" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Berria</a>
 
                 <div class="box-tools">
                     <form action="{{ path('pendientes_index') }}" method="get">
@@ -24,7 +28,7 @@
                             <input id="filter" type="text" name="filter" class="form-control pull-right" placeholder="Buscar" value="{{ app.request.query.get('filter') }}">
 
                             <div class="input-group-btn">
-                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                <button id="btnFilter" type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                             </div>
                         </div>
                     </form>
@@ -34,6 +38,11 @@
                     <table class="table table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th>
+                                <label>
+                                    <input id="checkAll" type="checkbox">
+                                </label>
+                            </th>
                             <th>{{ knp_pagination_sortable(pendientes, 'Espedientea', 'a.espedientea') }}</th>
                             <th>{{ knp_pagination_sortable(pendientes, 'Data', 'a.data') }}</th>
                             <th>{{ knp_pagination_sortable(pendientes, 'Signatura', 'a.aignatura') }}</th>
@@ -43,13 +52,19 @@
                         <tbody>
                         {% for pendiente in pendientes %}
                             <tr>
+                                <td><label>
+                                        <input type="checkbox" name="chkSelecion[]" class="chkSelecion" value="{{ pendiente.id }}" data-table="pendiente"
+                                                {% if pendiente.id in myselection %} checked {% endif %}
+                                        >
+                                    </label>
+                                </td>
                                 <td>{{ pendiente.espedientea }}</td>
                                 <td>{{ pendiente.data }}</td>
                                 <td>{{ pendiente.signatura }}</td>
                                 <td>
                                     <ul class="list-inline">
-                                        <li class=""><a href="{{ path('pendientes_show', {'id': pendiente.id}) }}"><i class="fas fa-eye"></i></a></li>
-                                        <li class=""><a href="{{ path('pendientes_edit', {'id': pendiente.id}) }}"><i class="fas fa-edit"></i></a></li>
+                                        <li class=""><a href="{{ path('pendientes_show', {'id': pendiente.id}) }}"><i class="fas fa-eye btnShow"></i></a></li>
+                                        <li class=""><a href="{{ path('pendientes_edit', {'id': pendiente.id}) }}"><i class="fas fa-edit btnEdit"></i></a></li>
                                         <li class=""><a href="#" class="deleteBtn" data-delete-url="{{ path('pendientes_delete',{'id': pendiente.id}) }}" data-id="{{ pendiente.id }}" data-token="{{ csrf_token('delete' ~ pendiente.id) }}"><i class="fas fa-trash text-danger"></i></a></li>
                                     </ul>
                                 </td>

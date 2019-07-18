@@ -1,7 +1,7 @@
 <?php namespace App\Tests;
 use App\Tests\AcceptanceTester;
 
-class EuskeraCest
+class PendientesCest
 {
     public function _before(AcceptanceTester $I)
     {
@@ -13,43 +13,39 @@ class EuskeraCest
         $I = new AcceptanceTester($scenario);
         $I->login();
 
-        $I->wantTo('Go Euskera list');
-        $I->amOnPage('/eu/admin/euskera/');
-        $I->see('Euskera Zerrenda');
-        $I->dontSeeInDatabase('euskera', ['data' => 'test euskera_data']);
+        $I->wantTo('Go Pendientes list');
+        $I->amOnPage('/eu/admin/pendientes/');
+        $I->see('Pendientes Zerrenda');
+        $I->dontSeeInDatabase('pendientes', ['data' => 'test pendientes_data']);
 
 
         $I->wantTo('Add new record');
         $I->click('#btnBerria');
-        $I->see('Euskera berria');
-        $I->fillField('#euskera_data', 'test euskera_data');
-        $I->fillField('#euskera_espedientea', 'test euskera_espedientea');
-        $I->fillField('#euskera_oharrak', 'test euskera_oharrak');
-        $I->fillField('#euskera_sailkapena', 'test euskera_sailkapena');
-        $I->fillField('#euskera_signatura', 'test euskera_signatura');
+        $I->see('Pendientes berria');
+        $I->fillField('#pendientes_data', 'test pendientes_data');
+        $I->fillField('#pendientes_espedientea', 'test pendientes_espedientea');
+        $I->fillField('#pendientes_signatura', 'test pendientes_signatura');
 
         $I->click('#btn-save');
-        $I->see('Euskera Zerrenda');
+        $I->see('Pendientes Zerrenda');
 
         $I->wantTo('Find a record');
-        $I->fillField('#filter', 'test euskera_data');
+        $I->fillField('#filter', 'test pendientes_data');
         $I->click('#btnFilter');
-        $I->see('test euskera_data');
+        $I->see('test pendientes_data');
 
         $I->wantTo('Edit the record');
         $I->click('.btnEdit');
-        $FILTER = 'test euskera_data edited';
-        $I->fillField('#euskera_data', $FILTER);
-        $I->fillField('#euskera_espedientea', 'test euskera_espedientea edited');
-        $I->fillField('#euskera_oharrak', 'test euskera_oharrak edited');
-        $I->fillField('#euskera_sailkapena', 'test euskera_sailkapena edited');
-        $I->fillField('#euskera_signatura', 'test euskera_signatura edited');
+        $FILTER = 'test pendientes_data edited';
+        $I->fillField('#pendientes_data', $FILTER);
+        $I->fillField('#pendientes_espedientea', 'test pendientes_espedientea edited');
+        $I->fillField('#pendientes_signatura', 'test pendientes_signatura edited');
         $I->click('#btn-save');
-        $I->see('Euskera Zerrenda');
+        $I->see('Pendientes Zerrenda');
 
         // Finder
         $I->wantTo('Check the record has been edited correctly');
-        $I->haveInDatabase('euskera', array('data' => $FILTER));
+        $I->haveInDatabase('pendientes', array('data' => $FILTER));
 
 
         // Show
@@ -59,8 +55,8 @@ class EuskeraCest
 
         // Selecction stored into the session
         $I->wantToTest('Selection is working');
-        $I->amOnPage('/eu/admin/euskera/');
-        $I->see('Euskera Zerrenda');
+        $I->amOnPage('/eu/admin/pendientes/');
+        $I->see('Pendientes Zerrenda');
         $I->fillField('#filter', $FILTER);
         $I->click('#btnFilter');
         $I->see($FILTER);
@@ -77,20 +73,20 @@ class EuskeraCest
         // PRINT
         $I->wantToTest('If is printing to PDF');
         $I->click('#btnPrint');
-        $I->canSeeCurrentUrlEquals('/eu/admin/euskera/?filter=test+euskera_data+edited');
+        $I->canSeeCurrentUrlEquals('/eu/admin/pendientes/?filter=test+pendientes_data+edited');
 
         $I->wantToTest('Clear selection button is working');
-        $I->amOnPage('/eu/admin/euskera/');
+        $I->amOnPage('/eu/admin/pendientes/');
         $I->click('#btnClearSelection');
-        $I->canSeeCurrentUrlEquals('/eu/admin/euskera/');
-        $I->see('Euskera Zerrenda');
+        $I->canSeeCurrentUrlEquals('/eu/admin/pendientes/');
+        $I->see('Pendientes Zerrenda');
         $I->fillField('#filter', $FILTER);
         $I->click('#btnFilter');
         $I->see($FILTER);
         $I->dontseeCheckboxIsChecked('.chkSelecion');
 
         $I->wantTo('Delete a record.');
-        $I->amOnPage('/eu/admin/euskera/');
+        $I->amOnPage('/eu/admin/pendientes/');
         $I->fillField('#filter', $FILTER);
         $I->click('#btnFilter');
         $I->see($FILTER);

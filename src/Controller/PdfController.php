@@ -10,6 +10,7 @@ use App\Entity\Consultas;
 use App\Entity\Entradas;
 use App\Entity\Euskera;
 use App\Entity\Gazteria;
+use App\Entity\Hutsak;
 use App\Entity\Salidas;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -80,6 +81,12 @@ class PdfController extends AbstractController
                 $gazterias= $em->getRepository(Gazteria::class)->findById($value);
                 foreach ($gazterias as  $gazteria) {
                     $html .= $this->renderView('gazteria/pdf.html.twig', array ( 'gazteria' => $gazteria ));
+                }
+            }
+            if ( $key === 'hutsak') {
+                $hutsaks= $em->getRepository(Hutsak::class)->findById($value);
+                foreach ($hutsaks as  $hutsak) {
+                    $html .= $this->renderView('hutsak/pdf.html.twig', array ( 'hutsak' => $hutsak ));
                 }
             }
             if ( $key === 'salidas') {

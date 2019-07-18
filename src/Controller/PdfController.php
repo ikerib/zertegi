@@ -16,6 +16,7 @@ use App\Entity\Kultura;
 use App\Entity\Liburuxka;
 use App\Entity\Obratxikiak;
 use App\Entity\Pendientes;
+use App\Entity\Protokoloak;
 use App\Entity\Salidas;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -122,6 +123,12 @@ class PdfController extends AbstractController
                 $pendientes = $em->getRepository(Pendientes::class)->findById($value);
                 foreach ($pendientes as  $pendiente) {
                     $html .= $this->renderView('pendientes/pdf.html.twig', array ( 'pendiente' => $pendiente ));
+                }
+            }
+            if ( $key === 'protokoloak') {
+                $protokoloaks = $em->getRepository(Protokoloak::class)->findById($value);
+                foreach ($protokoloaks as  $protokoloak) {
+                    $html .= $this->renderView('protokoloak/pdf.html.twig', array ( 'protokoloak' => $protokoloak ));
                 }
             }
             if ( $key === 'salidas') {

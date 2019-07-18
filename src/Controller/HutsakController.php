@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -26,9 +27,11 @@ class HutsakController extends AbstractController
      * @param PaginatorInterface $paginator
      * @param HutsakRepository   $hutsakRepository
      *
+     * @param SessionInterface   $session
+     *
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginator, HutsakRepository $hutsakRepository): Response
+    public function index(Request $request, PaginatorInterface $paginator, HutsakRepository $hutsakRepository, SessionInterface $session): Response
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $hutsakRepository->createQueryBuilder('a');
@@ -48,11 +51,19 @@ class HutsakController extends AbstractController
             $request->query->getInt('limit', 10)/*limit per page*/
         );
 
+        $myselection = $session->get('zertegi-selection');
+        if ($myselection !== null) {
+            if (array_key_exists('hutsak', $myselection))
+            {
+                $myselection = $myselection[ 'hutsak' ];
+            }
+        }
 
         return $this->render(
             'hutsak/index.html.twig',
             [
                 'hutsaks' => $hutsaks,
+                'myselection' => $myselection
             ]
         );
     }

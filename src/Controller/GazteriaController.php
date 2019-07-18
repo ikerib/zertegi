@@ -27,6 +27,8 @@ class GazteriaController extends AbstractController
      * @param PaginatorInterface $paginator
      * @param GazteriaRepository $gazteriaRepository
      *
+     * @param SessionInterface   $session
+     *
      * @return Response
      */
     public function index(Request $request, PaginatorInterface $paginator, GazteriaRepository $gazteriaRepository, SessionInterface $session): Response

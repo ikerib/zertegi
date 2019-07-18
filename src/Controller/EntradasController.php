@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -26,9 +27,11 @@ class EntradasController extends AbstractController
      * @param PaginatorInterface $paginator
      * @param EntradasRepository $entradasRepository
      *
+     * @param SessionInterface   $session
+     *
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginator,EntradasRepository $entradasRepository): Response
+    public function index(Request $request, PaginatorInterface $paginator,EntradasRepository $entradasRepository, SessionInterface $session): Response
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $entradasRepository->createQueryBuilder('a');
@@ -47,8 +50,17 @@ class EntradasController extends AbstractController
             $request->query->getInt('limit', 10)/*limit per page*/
         );
 
+        $myselection = $session->get('zertegi-selection');
+        if ($myselection !== null) {
+            if (array_key_exists('entradas', $myselection))
+            {
+                $myselection = $myselection[ 'entradas' ];
+            }
+        }
+
         return $this->render('entradas/index.html.twig', [
             'entradas' => $entradas,
+            'myselection' => $myselection
         ]);
     }
 

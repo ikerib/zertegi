@@ -14,6 +14,7 @@ use App\Entity\Hutsak;
 use App\Entity\Kontratazioa;
 use App\Entity\Kultura;
 use App\Entity\Liburuxka;
+use App\Entity\Obratxikiak;
 use App\Entity\Salidas;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -108,6 +109,12 @@ class PdfController extends AbstractController
                 $liburuxkas= $em->getRepository(Liburuxka::class)->findById($value);
                 foreach ($liburuxkas as  $liburuxka) {
                     $html .= $this->renderView('liburuxka/pdf.html.twig', array ( 'liburuxka' => $liburuxka ));
+                }
+            }
+            if ( $key === 'obratxikiak') {
+                $obratxikiaks = $em->getRepository(Obratxikiak::class)->findById($value);
+                foreach ($obratxikiaks as  $obratxikiak) {
+                    $html .= $this->renderView('obratxikiak/pdf.html.twig', array ( 'obratxikiak' => $obratxikiak ));
                 }
             }
             if ( $key === 'salidas') {

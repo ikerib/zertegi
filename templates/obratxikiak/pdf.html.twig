@@ -1,0 +1,29 @@
+{% extends 'pdf.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ obratxikiak.id }}</td>
+        </tr>
+        <tr>
+            <th>Espedientea</th>
+            <td>{{ obratxikiak.espedientea }}</td>
+        </tr>
+        <tr>
+            <th>Sailkapena</th>
+            <td>{{ obratxikiak.sailkapena}}</td>
+        </tr>
+        <tr>
+            <th>Signatura</th>
+            <td>{{ obratxikiak.signatura}}</td>
+        </tr>
+        <tr>
+            <th>Urtea</th>
+            <td>{{ obratxikiak.urtea}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+{% endblock %}

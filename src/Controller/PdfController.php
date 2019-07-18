@@ -13,6 +13,7 @@ use App\Entity\Gazteria;
 use App\Entity\Hutsak;
 use App\Entity\Kontratazioa;
 use App\Entity\Kultura;
+use App\Entity\Liburuxka;
 use App\Entity\Salidas;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -101,6 +102,12 @@ class PdfController extends AbstractController
                 $kulturas= $em->getRepository(Kultura::class)->findById($value);
                 foreach ($kulturas as  $kultura) {
                     $html .= $this->renderView('kultura/pdf.html.twig', array ( 'kultura' => $kultura ));
+                }
+            }
+            if ( $key === 'liburuxka') {
+                $liburuxkas= $em->getRepository(Liburuxka::class)->findById($value);
+                foreach ($liburuxkas as  $liburuxka) {
+                    $html .= $this->renderView('liburuxka/pdf.html.twig', array ( 'liburuxka' => $liburuxka ));
                 }
             }
             if ( $key === 'salidas') {

@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -26,9 +27,11 @@ class LiburuxkaController extends AbstractController
      * @param PaginatorInterface  $paginator
      * @param LiburuxkaRepository $liburuxkaRepository
      *
+     * @param SessionInterface    $session
+     *
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginator, LiburuxkaRepository $liburuxkaRepository): Response
+    public function index(Request $request, PaginatorInterface $paginator, LiburuxkaRepository $liburuxkaRepository, SessionInterface $session): Response
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $liburuxkaRepository->createQueryBuilder('a');
@@ -47,12 +50,20 @@ class LiburuxkaController extends AbstractController
             $request->query->getInt('limit', 10)/*limit per page*/
         );
 
+        $myselection = $session->get('zertegi-selection');
+        if ($myselection !== null) {
+            if (array_key_exists('liburuxka', $myselection))
+            {
+                $myselection = $myselection[ 'liburuxka' ];
+            }
+        }
 
 
         return $this->render(
             'liburuxka/index.html.twig',
             [
                 'liburuxkas' => $liburuxkas,
+                'myselection' => $myselection
             ]
         );
 

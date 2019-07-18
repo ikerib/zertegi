@@ -1,0 +1,49 @@
+{% extends 'pdf.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ protokoloak.id }}</td>
+        </tr>
+        <tr>
+            <th>Artxiboa</th>
+            <td>{{ protokoloak.artxiboa}}</td>
+        </tr>
+        <tr>
+            <th>Bilatzaileak</th>
+            <td>{{ protokoloak.bilatzaileak}}</td>
+        </tr>
+        <tr>
+            <th>Data</th>
+            <td>{{ protokoloak.data}}</td>
+        </tr>
+        <tr>
+            <th>Datuak</th>
+            <td>{{ protokoloak.datuak}}</td>
+        </tr>
+        <tr>
+            <th>Eskribaua</th>
+            <td>{{ protokoloak.eskribaua}}</td>
+        </tr>
+        <tr>
+            <th>Laburpena</th>
+            <td>{{ protokoloak.laburpena}}</td>
+        </tr>
+        <tr>
+            <th>Oharrak</th>
+            <td>{{ protokoloak.oharrak}}</td>
+        </tr>
+        <tr>
+            <th>Saila</th>
+            <td>{{ protokoloak.saila}}</td>
+        </tr>
+        <tr>
+            <th>Signatura</th>
+            <td>{{ protokoloak.signatura}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+{% endblock %}

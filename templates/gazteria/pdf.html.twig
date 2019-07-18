@@ -1,0 +1,33 @@
+{% extends 'pdf.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ gazteria.id }}</td>
+        </tr>
+        <tr>
+            <th>Data</th>
+            <td>{{ gazteria.data }}</td>
+        </tr>
+        <tr>
+            <th>Espedientea</th>
+            <td>{{ gazteria.espedientea}}</td>
+        </tr>
+        <tr>
+            <th>Oharrak</th>
+            <td>{{ gazteria.oharrak}}</td>
+        </tr>
+        <tr>
+            <th>Sailkapena</th>
+            <td>{{ gazteria.sailkapena}}</td>
+        </tr>
+        <tr>
+            <th>Signatura</th>
+            <td>{{ gazteria.signatura}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+{% endblock %}

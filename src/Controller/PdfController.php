@@ -9,6 +9,7 @@ use App\Entity\Ciriza;
 use App\Entity\Consultas;
 use App\Entity\Entradas;
 use App\Entity\Euskera;
+use App\Entity\Gazteria;
 use App\Entity\Salidas;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -73,6 +74,12 @@ class PdfController extends AbstractController
                 $euskeras= $em->getRepository(Euskera::class)->findById($value);
                 foreach ($euskeras as  $euskera) {
                     $html .= $this->renderView('euskera/pdf.html.twig', array ( 'euskera' => $euskera ));
+                }
+            }
+            if ( $key === 'gazteria') {
+                $gazterias= $em->getRepository(Gazteria::class)->findById($value);
+                foreach ($gazterias as  $gazteria) {
+                    $html .= $this->renderView('gazteria/pdf.html.twig', array ( 'gazteria' => $gazteria ));
                 }
             }
             if ( $key === 'salidas') {

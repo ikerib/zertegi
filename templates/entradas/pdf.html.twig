@@ -1,0 +1,29 @@
+{% extends 'pdf.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entrada.id }}</td>
+        </tr>
+        <tr>
+            <th>Data</th>
+            <td>{{ entrada.data }}</td>
+        </tr>
+        <tr>
+            <th>Deskribapena</th>
+            <td>{{ entrada.deskribapena}}</td>
+        </tr>
+        <tr>
+            <th>Igorlea</th>
+            <td>{{ entrada.igorlea}}</td>
+        </tr>
+        <tr>
+            <th>signatura</th>
+            <td>{{ entrada.signatura}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+{% endblock %}

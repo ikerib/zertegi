@@ -52,9 +52,6 @@ class ConsultasController extends AbstractController
 
         $myselection = $session->get('zertegi-selection');
         if ($myselection !== null) {
-
-
-
             if (array_key_exists('consultas', $myselection))
             {
                 $myselection = $myselection[ 'consultas' ];

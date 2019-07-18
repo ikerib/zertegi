@@ -7,6 +7,7 @@ use App\Entity\Anarbe;
 use App\Entity\Argazki;
 use App\Entity\Ciriza;
 use App\Entity\Consultas;
+use App\Entity\Entradas;
 use App\Entity\Salidas;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -59,6 +60,12 @@ class PdfController extends AbstractController
                 $consultas = $em->getRepository(Consultas::class)->findById($value);
                 foreach ($consultas as  $consulta) {
                     $html .= $this->renderView('consultas/pdf.html.twig', array ( 'consulta' => $consulta ));
+                }
+            }
+            if ( $key === 'entradas') {
+                $entradas = $em->getRepository(Entradas::class)->findById($value);
+                foreach ($entradas as  $entrada) {
+                    $html .= $this->renderView('entradas/pdf.html.twig', array ( 'entrada' => $entrada ));
                 }
             }
             if ( $key === 'salidas') {

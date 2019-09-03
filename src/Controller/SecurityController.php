@@ -38,33 +38,9 @@ class SecurityController extends AbstractController
     /** @var string extracts group name from dn string */
     private $groupSarbideExp = '/APP-Web_Zertegi/i'; // ROL - Taldea - Saila -rekin hasten den begiratzen du
 
-    /**
-     * @Route("/", name="home", methods={"GET"})
-     *
-     * @return Response
-     */
-    public function index(): Response
-    {
-        return $this->render('security/index.html.twig');
-    }
 
-    /**
-     * @Route("/admin", name="admin_home", methods={"GET"})
-     *
-     * @param Connection $connection
-     *
-     * @return Response
-     */
-    public function adminindex(Connection $connection): Response
-    {
-        $sql = "SELECT table_name, table_rows from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'zertegi';";
 
-        $tables = $connection->fetchAll($sql);
 
-        return $this->render('security/adminindex.html.twig', [
-            'tables' => $tables
-        ]);
-    }
 
     /**
      * @Route("/login", name="login")

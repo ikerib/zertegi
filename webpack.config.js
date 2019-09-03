@@ -20,12 +20,12 @@ Encore
     .addEntry('jsApp', './assets/js/app.js')
     .addEntry('jsMain', './assets/js/main.js')
     .addEntry('jsDeleteForm', './assets/js/delete_form.js')
-    // .addEntry('jsAdminLTE', './assets/js/adminlte.js')
+    .addEntry('jsAdminLTE', './assets/js/adminlte.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
     .addStyleEntry('cssApp', './assets/css/app.scss')
     .addStyleEntry('cssLogin', './assets/css/login.scss')
-    // .addStyleEntry('cssAdminLTE', './assets/css/AdminLTE.css')
+    .addStyleEntry('cssAdminLTE', './assets/css/AdminLTE.css')
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 
@@ -58,6 +58,14 @@ Encore
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
+
+    .copyFiles([
+        {from: './node_modules/ckeditor/', to: 'ckeditor/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
+        {from: './node_modules/ckeditor/adapters', to: 'ckeditor/adapters/[path][name].[ext]'},
+        {from: './node_modules/ckeditor/lang', to: 'ckeditor/lang/[path][name].[ext]'},
+        // {from: './node_modules/ckeditor/plugins', to: 'ckeditor/plugins/[path][name].[ext]'},
+        {from: './node_modules/ckeditor/skins', to: 'ckeditor/skins/[path][name].[ext]'}
+    ])
 ;
 
 module.exports = Encore.getWebpackConfig();

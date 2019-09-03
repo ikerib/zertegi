@@ -45,6 +45,14 @@
         <source>Nº Registros:</source>
         <target>Nº Registros:</target>
       </trans-unit>
+      <trans-unit id="OV7Sd7j" resname="Bilatzaile">
+        <source>Bilatzaile</source>
+        <target>Buscador</target>
+      </trans-unit>
+      <trans-unit id="xcNqgj." resname="Bilatzailea">
+        <source>Bilatzailea</source>
+        <target>Buscador</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

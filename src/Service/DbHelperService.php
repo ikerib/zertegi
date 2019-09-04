@@ -4,9 +4,11 @@
 namespace App\Service;
 
 
+use Doctrine\DBAL\Driver\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Ldap\Adapter\ConnectionInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 class DbHelperService
@@ -24,12 +26,26 @@ class DbHelperService
      * @var RouterInterface
      */
     private $router;
+    /**
+     * @var ConnectionInterface
+     */
+    private $connection;
 
-    public function __construct(EntityManagerInterface $em, FormFactoryInterface $formFactory, RouterInterface $router)
+    public function __construct(EntityManagerInterface $em, FormFactoryInterface $formFactory, RouterInterface $router, Connection $connection)
     {
         $this->em = $em;
         $this->formFactory = $formFactory;
         $this->router = $router;
+        $this->connection = $connection;
+    }
+
+    public function getAllTables() {
+        $sql = "SELECT table_name, table_rows from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'zertegi' and table_name != 'migration_versions';";
+
+        /** @var []  $tables */
+        $tables = $this->connection->fetchAll($sql);
+
+        return $tables;
     }
 
     public function getAllEntityFields($table): array

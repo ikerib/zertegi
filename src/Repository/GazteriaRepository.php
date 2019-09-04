@@ -19,32 +19,19 @@ class GazteriaRepository extends ServiceEntityRepository
         parent::__construct($registry, Gazteria::class);
     }
 
-    // /**
-    //  * @return Gazteria[] Returns an array of Gazteria objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getQueryByFinder($arr): \Doctrine\ORM\Query
     {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('g.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('a');
 
-    /*
-    public function findOneBySomeField($value): ?Gazteria
-    {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        foreach ($arr as $key=>$value) {
+            foreach ($value as $v) {
+                $qb->orWhere(
+                    $qb->expr()->like('a.'.$key,':v'.$key)
+                )->setParameter('v'.$key,'%'.$v.'%');
+            }
+        }
+
+        return $qb->getQuery();
+
     }
-    */
 }

@@ -19,32 +19,19 @@ class LiburuxkaRepository extends ServiceEntityRepository
         parent::__construct($registry, Liburuxka::class);
     }
 
-    // /**
-    //  * @return Liburuxka[] Returns an array of Liburuxka objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getQueryByFinder($arr): \Doctrine\ORM\Query
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('a');
 
-    /*
-    public function findOneBySomeField($value): ?Liburuxka
-    {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        foreach ($arr as $key=>$value) {
+            foreach ($value as $v) {
+                $qb->orWhere(
+                    $qb->expr()->like('a.'.$key,':v'.$key)
+                )->setParameter('v'.$key,'%'.$v.'%');
+            }
+        }
+
+        return $qb->getQuery();
+
     }
-    */
 }

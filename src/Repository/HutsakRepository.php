@@ -19,32 +19,20 @@ class HutsakRepository extends ServiceEntityRepository
         parent::__construct($registry, Hutsak::class);
     }
 
-    // /**
-    //  * @return Hutsak[] Returns an array of Hutsak objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('h')
-            ->andWhere('h.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('h.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Hutsak
+    public function getQueryByFinder($arr): \Doctrine\ORM\Query
     {
-        return $this->createQueryBuilder('h')
-            ->andWhere('h.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $qb = $this->createQueryBuilder('a');
+
+        foreach ($arr as $key=>$value) {
+            foreach ($value as $v) {
+                $qb->orWhere(
+                    $qb->expr()->like('a.'.$key,':v'.$key)
+                )->setParameter('v'.$key,'%'.$v.'%');
+            }
+        }
+
+        return $qb->getQuery();
+
     }
-    */
 }

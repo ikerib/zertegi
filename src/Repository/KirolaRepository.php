@@ -18,4 +18,20 @@ class KirolaRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Kirola::class);
     }
+
+    public function getQueryByFinder($arr): \Doctrine\ORM\Query
+    {
+        $qb = $this->createQueryBuilder('a');
+
+        foreach ($arr as $key=>$value) {
+            foreach ($value as $v) {
+                $qb->orWhere(
+                    $qb->expr()->like('a.'.$key,':v'.$key)
+                )->setParameter('v'.$key,'%'.$v.'%');
+            }
+        }
+
+        return $qb->getQuery();
+
+    }
 }

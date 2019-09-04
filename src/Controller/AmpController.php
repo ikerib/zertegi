@@ -52,8 +52,8 @@ class AmpController extends AbstractController
             }
         }
 
-
-        $query = $ampRepository->findBy($myFilters);
+        $query = $ampRepository->getQueryByFinder($myFilters);
+//        $query = $ampRepository->findBy($myFilters);
         $amps  = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,

@@ -2,33 +2,30 @@
 
 namespace App\Form;
 
-use App\Entity\Amp;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use App\Entity\Kirola;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AmpType extends AbstractType
+class KirolaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('expediente')
-            ->add('fecha')
-            ->add('clasificacion')
+            ->add('espedientea')
+            ->add('data')
+            ->add('sailkapena')
             ->add('signatura')
-            ->add('observaciones', CKEditorType::class, array(
-                'config' => array(
-                    'uiColor' => '#ffffff',
-                ),
-            ))
+            ->add('oharrak')
+            ->add('numdoc')
+            ->add('knosysid')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Amp::class,
+            'data_class' => Kirola::class,
         ]);
     }
 }

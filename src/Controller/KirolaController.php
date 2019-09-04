@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Gazteria;
-use App\Form\GazteriaType;
-use App\Repository\GazteriaRepository;
+use App\Entity\Kirola;
+use App\Form\KirolaType;
+use App\Repository\KirolaRepository;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,25 +15,25 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin/gazteria")
+ * @Route("/admin/kirola")
  */
-class GazteriaController extends AbstractController
+class KirolaController extends AbstractController
 {
 
     /**
-     * @Route("/", name="gazteria_index", methods={"GET"})
+     * @Route("/", name="kirola_index", methods={"GET"})
      * @param Request            $request
      * @param PaginatorInterface $paginator
-     * @param GazteriaRepository $gazteriaRepository
+     * @param KirolaRepository   $kirolaRepository
      *
      * @param SessionInterface   $session
      *
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginator, GazteriaRepository $gazteriaRepository, SessionInterface $session): Response
+    public function index(Request $request, PaginatorInterface $paginator, KirolaRepository $kirolaRepository, SessionInterface $session): Response
     {
         /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = $gazteriaRepository->createQueryBuilder('a');
+        $queryBuilder = $kirolaRepository->createQueryBuilder('a');
 
         $filter = $request->query->get('filter');
         if ($filter) {
@@ -43,7 +43,7 @@ class GazteriaController extends AbstractController
 
         $query = $queryBuilder->getQuery();
 
-        $gazterias = $paginator->paginate(
+        $kirolak = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
             $request->query->getInt('limit', 10)/*limit per page*/
@@ -51,100 +51,100 @@ class GazteriaController extends AbstractController
 
         $myselection = $session->get('zertegi-selection');
         if ($myselection !== null) {
-            if (array_key_exists('gazteria', $myselection))
+            if (array_key_exists('kirola', $myselection))
             {
-                $myselection = $myselection[ 'gazteria' ];
+                $myselection = $myselection[ 'kirola' ];
             }
         }
 
         return $this->render(
-            'gazteria/index.html.twig',
+            'kirola/index.html.twig',
             [
-                'gazterias' => $gazterias,
+                'kirolak' => $kirolak,
                 'myselection' => $myselection
             ]
         );
     }
 
     /**
-     * @Route("/new", name="gazteria_new", methods={"GET","POST"})
+     * @Route("/new", name="kirola_new", methods={"GET","POST"})
      * @param Request $request
      *
      * @return Response
      */
     public function new(Request $request): Response
     {
-        $gazterium = new Gazteria();
-        $form = $this->createForm(GazteriaType::class, $gazterium);
+        $kirola = new Kirola();
+        $form = $this->createForm(KirolaType::class, $kirola);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($gazterium);
+            $entityManager->persist($kirola);
             $entityManager->flush();
 
             $this->addFlash('success', 'Datuak ongi grabatu dira.');
-            return $this->redirectToRoute('gazteria_index');
+            return $this->redirectToRoute('kirola_index');
         }
 
-        return $this->render('gazteria/new.html.twig', [
-            'gazterium' => $gazterium,
+        return $this->render('kirola/new.html.twig', [
+            'kirola' => $kirola,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="gazteria_show", methods={"GET"})
-     * @param Gazteria $gazterium
+     * @Route("/{id}", name="kirola_show", methods={"GET"})
+     * @param Kirola $kirola
      *
      * @return Response
      */
-    public function show(Gazteria $gazterium): Response
+    public function show(Kirola $kirola): Response
     {
-        return $this->render('gazteria/show.html.twig', [
-            'gazterium' => $gazterium,
+        return $this->render('kirola/show.html.twig', [
+            'kirola' => $kirola,
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="gazteria_edit", methods={"GET","POST"})
-     * @param Request  $request
-     * @param Gazteria $gazterium
+     * @Route("/{id}/edit", name="kirola_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Kirola  $kirola
      *
      * @return Response
      */
-    public function edit(Request $request, Gazteria $gazterium): Response
+    public function edit(Request $request, Kirola $kirola): Response
     {
-        $form = $this->createForm(GazteriaType::class, $gazterium);
+        $form = $this->createForm(KirolaType::class, $kirola);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'Aldaketak ongi gorde dira.');
-            return $this->redirectToRoute('gazteria_index', [
-                'id' => $gazterium->getId(),
+            return $this->redirectToRoute('kirola_index', [
+                'id' => $kirola->getId(),
             ]);
         }
 
-        return $this->render('gazteria/edit.html.twig', [
-            'gazterium' => $gazterium,
+        return $this->render('kirola/edit.html.twig', [
+            'kirola' => $kirola,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="gazteria_delete", methods={"DELETE"}, options = { "expose" = true })
-     * @param Request  $request
-     * @param Gazteria $gazterium
+     * @Route("/{id}", name="kirola_delete", methods={"DELETE"}, options = { "expose" = true })
+     * @param Request $request
+     * @param Kirola  $kirola
      *
      * @return Response
      */
-    public function delete(Request $request, Gazteria $gazterium): Response
+    public function delete(Request $request, Kirola $kirola): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$gazterium->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$kirola->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($gazterium);
+            $entityManager->remove($kirola);
             $entityManager->flush();
         } elseif ( $request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
@@ -154,7 +154,7 @@ class GazteriaController extends AbstractController
             ];
             return new JsonResponse($resp,500);
         } else {
-            return $this->redirectToRoute('gazteria_index');
+            return $this->redirectToRoute('kirola_index');
         }
 
         if ( $request->isXmlHttpRequest()) {
@@ -165,6 +165,6 @@ class GazteriaController extends AbstractController
             return new JsonResponse($resp);
         }
 
-        return $this->redirectToRoute('gazteria_index');
+        return $this->redirectToRoute('kirola_index');
     }
 }

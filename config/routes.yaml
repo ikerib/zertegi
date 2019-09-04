@@ -1,6 +1,9 @@
+debug:
+    path: /debug
+    controller: App\Controller\DefaultController::debug
 home:
     path: /{_locale}
-    controller: App\Controller\SecurityController::index
+    controller: App\Controller\SecurityController
     requirements:
         _locale: '%app_locales%'
     defaults:

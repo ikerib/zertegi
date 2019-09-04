@@ -45,16 +45,16 @@ class AmpController extends AbstractController
 
         if ($filters) {
             foreach ($filters as $key => $value) {
-                if (( $key !== '_token' ) && ( $value !=='' ) ) {
-                    $aFilter = array_map('trim', explode('&', $value));
-                    $myFilters[$key] =$aFilter;
+                if (($key !== '_token') && ($value !== '')) {
+                    $aFilter           = array_map('trim', explode('&', $value));
+                    $myFilters[ $key ] = $aFilter;
                 }
             }
         }
 
 
         $query = $ampRepository->findBy($myFilters);
-        $amps = $paginator->paginate(
+        $amps  = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
             $request->query->getInt('limit', 10)/*limit per page*/
@@ -65,7 +65,6 @@ class AmpController extends AbstractController
         if (array_key_exists('amp', $myselection)) {
             $myselection = $myselection[ 'amp' ];
         }
-
 
         $fields = $dbhelper->getAllEntityFields(Amp::class);
 

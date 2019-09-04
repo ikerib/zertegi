@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\DbHelperService;
 use Doctrine\DBAL\Driver\Connection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -71,19 +72,14 @@ class DefaultController extends AbstractController
     /**
      * @Route("/admin", name="admin_home", methods={"GET"})
      *
-     * @param Connection $connection
+     * @param DbHelperService $dbhelper
      *
      * @return Response
      */
-    public function adminindex(Connection $connection): Response
+    public function adminindex(DbHelperService $dbhelper): Response
     {
-        $sql = "SELECT table_name, table_rows from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'zertegi';";
-
-        /** @var []  $tables */
-        $tables = $connection->fetchAll($sql);
-
         return $this->render('default/adminindex.html.twig', [
-            'tables' => $tables
+            'tables' => $dbhelper->getAllTables()
         ]);
     }
 }

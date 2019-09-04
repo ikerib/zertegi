@@ -6,6 +6,7 @@ use App\Entity\Amp;
 use App\Entity\Anarbe;
 use App\Form\AnarbeType;
 use App\Repository\AnarbeRepository;
+use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
@@ -23,27 +24,24 @@ class AnarbeController extends AbstractController
 {
 
     /**
-     * @Route("/", name="anarbe_index", methods={"GET"})
+     * @Route("/", name="anarbe_index", methods={"GET", "POST"})
      * @param Request            $request
      * @param PaginatorInterface $paginator
      * @param AnarbeRepository   $anarbeRepository
      * @param SessionInterface   $session
      *
+     * @param DbHelperService    $dbhelper
+     *
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginator, AnarbeRepository $anarbeRepository, SessionInterface $session): Response
+    public function index(Request $request, PaginatorInterface $paginator,
+        AnarbeRepository $anarbeRepository, SessionInterface $session,
+        DbHelperService $dbhelper
+    ): Response
     {
+        $myFilters=$dbhelper->getFinderParams($request->request->get('form'));
 
-        /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = $anarbeRepository->createQueryBuilder('a');
-
-        $filter = $request->query->get('filter');
-        if ($filter) {
-            $queryBuilder->where('MATCH_AGAINST(a.clasificacion, a.expediente, a.fecha, a.observaciones, a.signatura) AGAINST(:searchterm boolean)>0')
-                         ->setParameter('searchterm', $filter);
-        }
-
-        $query = $queryBuilder->getQuery();
+        $query = $anarbeRepository->getQueryByFinder($myFilters);
 
         $anarbes = $paginator->paginate(
             $query, /* query NOT result */
@@ -51,19 +49,21 @@ class AnarbeController extends AbstractController
             $request->query->getInt('limit', 10)/*limit per page*/
         );
 
+
         $myselection = $session->get('zertegi-selection');
-        if ($myselection !== null) {
-            if (array_key_exists('anarbe', $myselection))
-            {
-                $myselection = $myselection[ 'anarbe' ];
-            }
+        if (($myselection !== null) && (array_key_exists('anarbe', $myselection)))
+        {
+            $myselection = $myselection[ 'anarbe' ];
         }
+
+        $fields = $dbhelper->getAllEntityFields(Anarbe::class);
 
         return $this->render(
             'anarbe/index.html.twig',
             [
-                'anarbes' => $anarbes,
-                'myselection' => $myselection
+                'anarbes'        => $anarbes,
+                'fields'      => $fields,
+                'myselection' => $myselection,
             ]
         );
     }

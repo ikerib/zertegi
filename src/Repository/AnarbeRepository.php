@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Anarbe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -17,6 +18,22 @@ class AnarbeRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Anarbe::class);
+    }
+
+    public function getQueryByFinder($arr): Query
+    {
+        $qb = $this->createQueryBuilder('a');
+
+        foreach ($arr as $key=>$value) {
+            foreach ($value as $v) {
+                $qb->orWhere(
+                    $qb->expr()->like('a.'.$key,':v'.$key)
+                )->setParameter('v'.$key,'%'.$v.'%');
+            }
+        }
+
+        return $qb->getQuery();
+
     }
 
     // /**

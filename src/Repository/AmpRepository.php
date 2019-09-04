@@ -24,11 +24,14 @@ class AmpRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('a');
 
         foreach ($arr as $key=>$value) {
-            $sql = 'a.'.$key.' like :v'.$key;
+//            $sql = 'a.'.$key.' like :v'.$key;
 
             foreach ($value as $v) {
-                $qb->orWhere($sql)
-                   ->setParameter('v'.$key,$v);
+//                $qb->orWhere($sql)
+//                   ->setParameter('v'.$key,$v);
+                $qb->orWhere(
+                    $qb->expr()->like('a.'.$key,':v'.$key)
+                )->setParameter('v'.$key,'%'.$v.'%');
             }
         }
 

@@ -3,7 +3,7 @@ debug:
     controller: App\Controller\DefaultController::debug
 home:
     path: /{_locale}
-    controller: App\Controller\SecurityController
+    controller: App\Controller\SecurityController::login
     requirements:
         _locale: '%app_locales%'
     defaults:

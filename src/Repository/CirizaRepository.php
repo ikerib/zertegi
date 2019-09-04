@@ -19,32 +19,19 @@ class CirizaRepository extends ServiceEntityRepository
         parent::__construct($registry, Ciriza::class);
     }
 
-    // /**
-    //  * @return Ciriza[] Returns an array of Ciriza objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getQueryByFinder($arr): \Doctrine\ORM\Query
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('a');
 
-    /*
-    public function findOneBySomeField($value): ?Ciriza
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        foreach ($arr as $key=>$value) {
+            foreach ($value as $v) {
+                $qb->orWhere(
+                    $qb->expr()->like('a.'.$key,':v'.$key)
+                )->setParameter('v'.$key,'%'.$v.'%');
+            }
+        }
+
+        return $qb->getQuery();
+
     }
-    */
 }

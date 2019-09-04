@@ -19,6 +19,23 @@ class AmpRepository extends ServiceEntityRepository
         parent::__construct($registry, Amp::class);
     }
 
+    public function getQueryByFinder($arr): \Doctrine\ORM\Query
+    {
+        $qb = $this->createQueryBuilder('a');
+
+        foreach ($arr as $key=>$value) {
+            $sql = 'a.'.$key.' like :v'.$key;
+
+            foreach ($value as $v) {
+                $qb->orWhere($sql)
+                   ->setParameter('v'.$key,$v);
+            }
+        }
+
+        return $qb->getQuery();
+
+    }
+
     // /**
     //  * @return Amp[] Returns an array of Amp objects
     //  */

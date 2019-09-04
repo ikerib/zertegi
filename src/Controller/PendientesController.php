@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Amp;
 use App\Entity\Pendientes;
 use App\Form\PendientesType;
 use App\Repository\PendientesRepository;
+use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
@@ -22,26 +24,22 @@ class PendientesController extends AbstractController
 {
 
     /**
-     * @Route("/", name="pendientes_index", methods={"GET"})
+     * @Route("/", name="pendientes_index", methods={"GET", "POST"})
      * @param Request              $request
      * @param PaginatorInterface   $paginator
      * @param PendientesRepository $pendientesRepository
      *
+     * @param SessionInterface     $session
+     * @param DbHelperService      $dbhelper
+     *
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginator, PendientesRepository $pendientesRepository, SessionInterface $session): Response
+    public function index(Request $request, PaginatorInterface $paginator,
+        PendientesRepository $pendientesRepository, SessionInterface $session,
+        DbHelperService $dbhelper): Response
     {
-        /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = $pendientesRepository->createQueryBuilder('a');
-
-        $filter = $request->query->get('filter');
-        if ($filter) {
-            $queryBuilder->where('MATCH_AGAINST(a.data, a.espedientea, a.signatura) AGAINST(:searchterm boolean)>0')
-                         ->setParameter('searchterm', $filter);
-        }
-
-        $query = $queryBuilder->getQuery();
-
+        $myFilters=$dbhelper->getFinderParams($request->request->get('form'));
+        $query = $pendientesRepository->getQueryByFinder($myFilters);
         $pendientes = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -56,12 +54,14 @@ class PendientesController extends AbstractController
             }
         }
 
+        $fields = $dbhelper->getAllEntityFields(Pendientes::class);
 
         return $this->render(
             'pendientes/index.html.twig',
             [
                 'pendientes' => $pendientes,
-                'myselection' => $myselection
+                'myselection' => $myselection,
+                'fields'    => $fields
             ]
         );
     }

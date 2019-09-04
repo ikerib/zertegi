@@ -69,4 +69,24 @@ class DbHelperService
 
         return $form->getForm()->createView();
     }
+
+    public function getFinderParams($filters) {
+
+
+        $myFilters = [];
+
+        if ($filters)
+        {
+            foreach ($filters as $key => $value)
+            {
+                if (($key !== '_token') && ($value !== ''))
+                {
+                    $aFilter           = array_map('trim', explode('&', $value));
+                    $myFilters[ $key ] = $aFilter;
+                }
+            }
+        }
+
+        return $myFilters;
+    }
 }

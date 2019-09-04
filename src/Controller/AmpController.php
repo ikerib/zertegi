@@ -20,8 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/amp")
  */
-class AmpController extends AbstractController
-{
+class AmpController extends AbstractController {
 
     /**
      * @Route("/", name="amp_index", methods={"GET", "POST"})
@@ -34,27 +33,14 @@ class AmpController extends AbstractController
      *
      * @return Response
      */
-    public function index(Request $request, AmpRepository $ampRepository, PaginatorInterface $paginator, SessionInterface $session, DbHelperService $dbhelper): Response
+    public function index(Request $request, AmpRepository $ampRepository,
+        PaginatorInterface $paginator,
+        SessionInterface $session,
+        DbHelperService $dbhelper): Response
     {
-        /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = $ampRepository->createQueryBuilder('a');
-
-        $filters = $request->request->get('form');
-
-        $myFilters = [];
-
-        if ($filters) {
-            foreach ($filters as $key => $value) {
-                if (($key !== '_token') && ($value !== '')) {
-                    $aFilter           = array_map('trim', explode('&', $value));
-                    $myFilters[ $key ] = $aFilter;
-                }
-            }
-        }
-
+        $myFilters=$dbhelper->getFinderParams($request->request->get('form'));
         $query = $ampRepository->getQueryByFinder($myFilters);
-//        $query = $ampRepository->findBy($myFilters);
-        $amps  = $paginator->paginate(
+        $amps = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
             $request->query->getInt('limit', 10)/*limit per page*/
@@ -62,7 +48,8 @@ class AmpController extends AbstractController
 
 
         $myselection = $session->get('zertegi-selection');
-        if (array_key_exists('amp', $myselection)) {
+        if (($myselection !== null) && (array_key_exists('amp', $myselection)))
+        {
             $myselection = $myselection[ 'amp' ];
         }
 
@@ -98,7 +85,8 @@ class AmpController extends AbstractController
         );
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($amp);
             $entityManager->flush();
@@ -146,7 +134,8 @@ class AmpController extends AbstractController
         $form = $this->createForm(AmpType::class, $amp);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'Aldaketak ongi gorde dira.');
@@ -177,12 +166,14 @@ class AmpController extends AbstractController
      */
     public function delete(Request $request, Amp $amp): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$amp->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$amp->getId(), $request->request->get('_token')))
+        {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($amp);
             $entityManager->flush();
 
-        } elseif ($request->isXmlHttpRequest()) {
+        } elseif ($request->isXmlHttpRequest())
+        {
             $message = 'CSRF token error';
             $resp    = [
                 'code' => 500,
@@ -190,11 +181,13 @@ class AmpController extends AbstractController
             ];
 
             return new JsonResponse($resp, 500);
-        } else {
+        } else
+        {
             return $this->redirectToRoute('amp_index');
         }
 
-        if ($request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest())
+        {
             $resp = [
                 'code' => 200,
                 'data' => 'Ezabatua izan da',

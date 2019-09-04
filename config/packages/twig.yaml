@@ -7,3 +7,4 @@ twig:
         - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
     globals:
         locales: '%app_locales%'
+        bilatzailea: '@App\Service\DbHelperService'

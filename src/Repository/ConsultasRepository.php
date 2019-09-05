@@ -20,19 +20,17 @@ class ConsultasRepository extends ServiceEntityRepository
         parent::__construct($registry, Consultas::class);
     }
 
-    public function getQueryByFinder($arr): Query
+    public function getQueryByFinder($arr): \Doctrine\ORM\Query
     {
         $qb = $this->createQueryBuilder('a');
-
-        foreach ($arr as $key=>$value) {
+        foreach ($arr as $key => $value) {
+            $miindex = 0;
             foreach ($value as $v) {
-                $qb->orWhere(
-                    $qb->expr()->like('a.'.$key,':v'.$key)
-                )->setParameter('v'.$key,'%'.$v.'%');
+                $qb->orWhere($qb->expr()->like('a.'.$key, ':v'.$key.$miindex))->setParameter('v'.$key.$miindex, '%'.$v.'%');
+                ++$miindex;
             }
         }
 
         return $qb->getQuery();
-
     }
 }

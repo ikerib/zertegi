@@ -197,7 +197,7 @@ class EntradasController extends AbstractController {
     }
 
     /**
-     * @Route("/print/{id}", name="entrada_print", methods={"GET", "POST" })
+     * @Route("/print/{id}", name="entradas_print", methods={"GET", "POST" })
      * @param Request  $request
      *
      * @param Entradas $entrada

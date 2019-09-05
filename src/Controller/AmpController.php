@@ -222,7 +222,7 @@ class AmpController extends AbstractController {
     public function print(Request $request, Amp $amp, Pdf $snappy): Response
     {
         $html      = $this->renderView('amp/pdf.html.twig', ['amp' => $amp]);
-        $filename  = sprintf('specifications-%s.pdf', date('Y-m-d-hh-ss'));
+        $filename  = sprintf('amp-%s.pdf', date('Y-m-d-hh-ss'));
 
         return new Response(
             $snappy->getOutputFromHtml($html),

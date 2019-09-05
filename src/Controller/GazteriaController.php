@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Amp;
 use App\Entity\Gazteria;
 use App\Form\GazteriaType;
 use App\Repository\GazteriaRepository;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -166,5 +168,29 @@ class GazteriaController extends AbstractController
         }
 
         return $this->redirectToRoute('gazteria_index');
+    }
+
+    /**
+     * @Route("/print/{id}", name="gazteria_print", methods={"GET", "POST" })
+     * @param Request  $request
+     *
+     * @param Gazteria $gazteria
+     * @param Pdf      $snappy
+     *
+     * @return Response
+     */
+    public function print(Request $request, Gazteria $gazteria, Pdf $snappy): Response
+    {
+        $html      = $this->renderView('gazteria/pdf.html.twig', [ 'gazteria' => $gazteria ]);
+        $filename  = sprintf('gazteria-%s.pdf', date('Y-m-d-hh-ss'));
+
+        return new Response(
+            $snappy->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
     }
 }

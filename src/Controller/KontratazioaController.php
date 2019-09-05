@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Amp;
+use App\Entity\Hutsak;
 use App\Entity\Kontratazioa;
 use App\Form\KontratazioaType;
 use App\Repository\KontratazioaRepository;
@@ -10,6 +11,7 @@ use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -167,5 +169,29 @@ class KontratazioaController extends AbstractController
         }
 
         return $this->redirectToRoute('kontratazioa_index');
+    }
+
+    /**
+     * @Route("/print/{id}", name="amp_print", methods={"GET", "POST" })
+     * @param Request      $request
+     *
+     * @param Kontratazioa $kontratazioa
+     * @param Pdf          $snappy
+     *
+     * @return Response
+     */
+    public function print(Request $request, Kontratazioa $kontratazioa, Pdf $snappy): Response
+    {
+        $html      = $this->renderView('kontratazioa/pdf.html.twig', ['kontratazioa'=>$kontratazioa]);
+        $filename  = sprintf('kontratazioa-%s.pdf', date('Y-m-d-hh-ss'));
+
+        return new Response(
+            $snappy->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
     }
 }

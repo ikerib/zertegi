@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Amp;
+use App\Entity\Liburuxka;
 use App\Entity\Protokoloak;
 use App\Form\ProtokoloakType;
 use App\Repository\ProtokoloakRepository;
@@ -10,6 +11,7 @@ use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -166,5 +168,29 @@ class ProtokoloakController extends AbstractController
         }
 
         return $this->redirectToRoute('protokoloak_index');
+    }
+
+    /**
+     * @Route("/print/{id}", name="protokoloak_print", methods={"GET", "POST" })
+     * @param Request $request
+     *
+     * @param Protokoloak $protokoloak
+     * @param Pdf     $snappy
+     *
+     * @return Response
+     */
+    public function print(Request $request, Protokoloak $protokoloak, Pdf $snappy): Response
+    {
+        $html      = $this->renderView('protokoloak/pdf.html.twig', ['protokoloak'=>$protokoloak]);
+        $filename  = sprintf('protokoloak-%s.pdf', date('Y-m-d-hh-ss'));
+
+        return new Response(
+            $snappy->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
     }
 }

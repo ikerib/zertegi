@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Amp;
+use App\Entity\Hutsak;
 use App\Entity\Kultura;
 use App\Form\KulturaType;
 use App\Repository\KulturaRepository;
@@ -10,6 +11,7 @@ use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -193,5 +195,29 @@ class KulturaController extends AbstractController {
         }
 
         return $this->redirectToRoute('kultura_index');
+    }
+
+    /**
+     * @Route("/print/{id}", name="kultura_print", methods={"GET", "POST" })
+     * @param Request $request
+     *
+     * @param Kultura $kultura
+     * @param Pdf     $snappy
+     *
+     * @return Response
+     */
+    public function print(Request $request, Kultura $kultura, Pdf $snappy): Response
+    {
+        $html      = $this->renderView('kultura/pdf.html.twig', ['kultura'=>$kultura]);
+        $filename  = sprintf('kultura-%s.pdf', date('Y-m-d-hh-ss'));
+
+        return new Response(
+            $snappy->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
     }
 }

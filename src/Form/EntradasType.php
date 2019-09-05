@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Entradas;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,7 +15,12 @@ class EntradasType extends AbstractType
         $builder
             ->add('data')
             ->add('igorlea')
-            ->add('deskribapena')
+            ->add('deskribapena',CKEditorType::class, array(
+                    'config' => array(
+                        'uiColor' => '#ffffff',
+                    ),
+                )
+            )
             ->add('signatura')
         ;
     }

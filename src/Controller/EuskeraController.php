@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Amp;
 use App\Entity\Euskera;
 use App\Form\EuskeraType;
 use App\Repository\EuskeraRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -166,5 +168,29 @@ class EuskeraController extends AbstractController
         }
 
         return $this->redirectToRoute('euskera_index');
+    }
+
+    /**
+     * @Route("/print/{id}", name="euskera_print", methods={"GET", "POST" })
+     * @param Request $request
+     *
+     * @param Euskera $euskera
+     * @param Pdf     $snappy
+     *
+     * @return Response
+     */
+    public function print(Request $request, Euskera $euskera, Pdf $snappy): Response
+    {
+        $html      = $this->renderView('euskera/pdf.html.twig', [ 'euskera' => $euskera ]);
+        $filename  = sprintf('euskera-%s.pdf', date('Y-m-d-hh-ss'));
+
+        return new Response(
+            $snappy->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
     }
 }

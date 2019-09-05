@@ -20,20 +20,11 @@
             <div class="box-header">
                 <div class="box-header">
                     <a href="{{ path('argazki_new') }}" id="btnBerria" class="btn btn-primary" ><i class="fa fa-plus"></i>&nbsp; {{ "Berria" | trans }}</a>
-                    <a href="{{ path('pdf') }}" id="btnPrint" class="btn btn-default">{{ "Inprimitu" | trans }}</a>
+                    <a href="{{ path('pdf') }}" id="btnPrint" class="btn btn-default"><i class="fa fa-fw fa-print"></i>{{ "Inprimitu" | trans }}</a>
                     <a href="javascript:void(0);" id="btnClearSelection" class="btn btn-default">{{ "Ezabatu aukeraketa" | trans }}</a>
                 </div>
 
                 <div class="box-tools">
-                    <form action="{{ path('argazki_index') }}" method="get">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                            <input id="filter" type="text" name="filter" class="form-control pull-right" placeholder="Buscar" value="{{ app.request.query.get('filter') }}">
-
-                            <div class="input-group-btn">
-                                <button type="submit" id="btnFilter" class="btn btn-default"><i class="fa fa-search"></i></button>
-                            </div>
-                        </div>
-                    </form>
                     Erregistro kopurua: {{ argazkis.getTotalItemCount |number_format(0, ',', '.') }}
                 </div>
                 <div class="box-body">

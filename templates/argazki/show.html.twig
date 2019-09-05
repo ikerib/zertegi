@@ -17,16 +17,16 @@
                 <div class="box-header">
                     <div class="box-tools box-tools-left" data-toggle="tooltip" title="" data-original-title="Status">
                         <a class="btn btn-sm btn-primary" href="{{ path('argazki_edit', {'id': argazki.id}) }}"><i class="fas fa-edit"></i> Aldatu</a>
+                        <a class="btn btn-sm btn-default" href="{{ path('argazki_index') }}"><i class="fa fa-fw fa-arrow-alt-circle-left" aria-hidden="true"></i> {{ 'Zerrendara itzuli' | trans }}</a>
+                        <div class="box-tools pull-right">
+                            <a id="btnPrint" class="btn btn-sm btn-default" href="{{ path('argazki_print', {'id': argazki.id}) }}"><i class="fa fa-fw fa-print"></i> {{ "Inprimitu" | trans }}</a>
+                        </div>
                     </div>
                 </div>
                 <div class="box-body">
                     <div class="row">&nbsp;</div>
                     <table class="table">
                         <tbody>
-                        <tr>
-                            <th>Id</th>
-                            <td>{{ argazki.id }}</td>
-                        </tr>
                         <tr>
                             <th>Deskribapena</th>
                             <td>{{ argazki.deskribapena }}</td>
@@ -58,14 +58,6 @@
                         <tr>
                             <th>Oharrak</th>
                             <td>{{ argazki.oharrak }}</td>
-                        </tr>
-                        <tr>
-                            <th>Numdoc</th>
-                            <td>{{ argazki.numdoc }}</td>
-                        </tr>
-                        <tr>
-                            <th>Knosysid</th>
-                            <td>{{ argazki.knosysid }}</td>
                         </tr>
                         </tbody>
                     </table>

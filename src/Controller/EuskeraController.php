@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Amp;
+use App\Entity\Entradas;
 use App\Entity\Euskera;
 use App\Form\EuskeraType;
 use App\Repository\EuskeraRepository;
+use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
@@ -30,21 +32,16 @@ class EuskeraController extends AbstractController
      *
      * @param SessionInterface   $session
      *
+     * @param DbHelperService    $dbhelper
+     *
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginator, EuskeraRepository $euskeraRepository, SessionInterface $session): Response
+    public function index(Request $request, PaginatorInterface $paginator,
+        EuskeraRepository $euskeraRepository, SessionInterface $session,
+        DbHelperService $dbhelper): Response
     {
-        /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = $euskeraRepository->createQueryBuilder('a');
-
-        $filter = $request->query->get('filter');
-        if ($filter) {
-            $queryBuilder->where('MATCH_AGAINST(a.data, a.espedientea, a.oharrak, a.signatura, a.signatura) AGAINST(:searchterm boolean)>0')
-                         ->setParameter('searchterm', $filter);
-        }
-
-        $query = $queryBuilder->getQuery();
-
+        $myFilters = $dbhelper->getFinderParams($request->request->get('form'));
+        $query     = $euskeraRepository->getQueryByFinder($myFilters);
         $euskeras = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -59,11 +56,14 @@ class EuskeraController extends AbstractController
             }
         }
 
+        $fields = $dbhelper->getAllEntityFields(Euskera::class);
+
         return $this->render(
             'euskera/index.html.twig',
             [
                 'euskeras' => $euskeras,
-                'myselection' => $myselection
+                'myselection' => $myselection,
+                'fields'    => $fields
             ]
         );
     }

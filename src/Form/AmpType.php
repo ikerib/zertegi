@@ -13,7 +13,11 @@ class AmpType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('expediente')
+            ->add('expediente', CKEditorType::class, array(
+                'config' => array(
+                    'uiColor' => '#ffffff',
+                ),
+            ))
             ->add('fecha')
             ->add('clasificacion')
             ->add('signatura')

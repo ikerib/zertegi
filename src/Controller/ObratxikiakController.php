@@ -184,7 +184,7 @@ class ObratxikiakController extends AbstractController
      */
     public function print(Request $request, Obratxikiak $obratxikia, Pdf $snappy): Response
     {
-        $html      = $this->renderView('obratxikiak/pdf.html.twig', ['obratxikia'=>$obratxikia]);
+        $html      = $this->renderView('obratxikiak/pdf.html.twig', ['obratxikiak'=>$obratxikia]);
         $filename  = sprintf('obratxikia-%s.pdf', date('Y-m-d-hh-ss'));
 
         return new Response(

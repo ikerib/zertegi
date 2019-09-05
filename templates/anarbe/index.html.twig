@@ -23,25 +23,7 @@
                     <a href="javascript:void(0);" id="btnClearSelection" class="btn btn-default">{{ "Ezabatu aukeraketa" | trans }}</a>
                 </div>
 
-
-
                 <div class="box-tools">
-                    <form action="{{ path('anarbe_index') }}" method="get">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                            <label for="filter"></label>
-                            <input id="filter"
-                                   type="text"
-                                   name="filter"
-                                   class="form-control pull-right"
-                                   placeholder="Buscar"
-                                   value="{{ app.request.query.get('filter') }}"
-                            >
-
-                            <div class="input-group-btn">
-                                <button id="btnFilter" type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                            </div>
-                        </div>
-                    </form>
                     Erregistro kopurua: {{ anarbes.getTotalItemCount |number_format(0, ',', '.') }}
                 </div>
                 <div class="box-body">
@@ -71,7 +53,7 @@
                                         >
                                     </label>
                                 </td>
-                                <td>{{ anarbe.expediente|length > 150 ? anarbe.expediente|slice(0,150)~'...' : anarbe.expediente}}</td>
+                                <td>{{ anarbe.expediente| raw|length > 150 ? anarbe.expediente| raw|slice(0,150)~'...' : anarbe.expediente| raw }}</td>
                                 <td>{{ anarbe.fecha }}</td>
                                 <td>{{ anarbe.clasificacion }}</td>
                                 <td>{{ anarbe.signatura }}</td>

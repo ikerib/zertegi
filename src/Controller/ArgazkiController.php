@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Amp;
 use App\Entity\Argazki;
 use App\Form\ArgazkiType;
 use App\Repository\ArgazkiRepository;
@@ -9,6 +10,7 @@ use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -192,5 +194,29 @@ class ArgazkiController extends AbstractController {
         }
 
         return $this->redirectToRoute('argazki_index');
+    }
+
+    /**
+     * @Route("/print/{id}", name="argazki_print", methods={"GET", "POST" })
+     * @param Request $request
+     *
+     * @param Argazki $argazki
+     * @param Pdf     $snappy
+     *
+     * @return Response
+     */
+    public function print(Request $request, Argazki $argazki, Pdf $snappy): Response
+    {
+        $html      = $this->renderView('argazki/pdf.html.twig', ['argazki' => $argazki]);
+        $filename  = sprintf('argazki-%s.pdf', date('Y-m-d-hh-ss'));
+
+        return new Response(
+            $snappy->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
     }
 }

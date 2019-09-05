@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Argazki;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -12,14 +13,24 @@ class ArgazkiType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('deskribapena')
+            ->add('deskribapena',CKEditorType::class, array(
+                    'config' => array(
+                        'uiColor' => '#ffffff',
+                    ),
+                )
+            )
             ->add('barrutia')
             ->add('fecha')
             ->add('gaia')
             ->add('neurria')
             ->add('kolorea')
             ->add('zenbakia')
-            ->add('oharrak')
+            ->add('oharrak',CKEditorType::class, array(
+                    'config' => array(
+                        'uiColor' => '#ffffff',
+                    ),
+                )
+            )
         ;
     }
 

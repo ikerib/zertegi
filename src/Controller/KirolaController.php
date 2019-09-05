@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Hutsak;
 use App\Entity\Kirola;
 use App\Form\KirolaType;
 use App\Repository\KirolaRepository;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -166,5 +168,29 @@ class KirolaController extends AbstractController
         }
 
         return $this->redirectToRoute('kirola_index');
+    }
+
+    /**
+     * @Route("/print/{id}", name="kirola_print", methods={"GET", "POST" })
+     * @param Request $request
+     *
+     * @param Kirola  $kirola
+     * @param Pdf     $snappy
+     *
+     * @return Response
+     */
+    public function print(Request $request, Kirola $kirola, Pdf $snappy): Response
+    {
+        $html      = $this->renderView('kirola/pdf.html.twig', ['kirola'=>$kirola]);
+        $filename  = sprintf('kirola-%s.pdf', date('Y-m-d-hh-ss'));
+
+        return new Response(
+            $snappy->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
     }
 }

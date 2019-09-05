@@ -1,6 +1,6 @@
 home:
     path: /{_locale}
-    controller: App\Controller\SecurityController::index
+    controller: App\Controller\SecurityController::login
     requirements:
         _locale: '%app_locales%'
     defaults:

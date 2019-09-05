@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Argazki;
 use App\Form\ArgazkiType;
 use App\Repository\ArgazkiRepository;
+use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
@@ -22,50 +23,48 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArgazkiController extends AbstractController {
 
     /**
-     * @Route("/", name="argazki_index", methods={"GET"})
+     * @Route("/", name="argazki_index", methods={"GET", "POST"})
      * @param Request            $request
      * @param ArgazkiRepository  $argazkiRepository
-     *
      * @param PaginatorInterface $paginator
-     *
      * @param SessionInterface   $session
+     *
+     * @param DbHelperService    $dbhelper
      *
      * @return Response
      */
-    public function index(Request $request, ArgazkiRepository $argazkiRepository, PaginatorInterface $paginator, SessionInterface $session): Response
-    {
-        /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = $argazkiRepository->createQueryBuilder('a');
-
-        $filter = $request->query->get('filter');
-        if ($filter)
-        {
-            $queryBuilder->where('MATCH_AGAINST(a.barrutia, a.deskribapena, a.fecha, a.gaia, a.kolorea, a.neurria, a.oharrak, a.zenbakia) AGAINST(:searchterm boolean)>0')
-                         ->setParameter('searchterm', $filter);
-        }
-
-        $query = $queryBuilder->getQuery();
-
-        $argazkis = $paginator->paginate(
+    public function index(
+        Request $request,
+        ArgazkiRepository $argazkiRepository,
+        PaginatorInterface $paginator,
+        SessionInterface $session,
+        DbHelperService $dbhelper
+    ): Response {
+        $myFilters = $dbhelper->getFinderParams($request->request->get('form'));
+        $query     = $argazkiRepository->getQueryByFinder($myFilters);
+        $argazkis  = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
             $request->query->getInt('limit', 10)/*limit per page*/
         );
 
         $myselection = $session->get('zertegi-selection');
-        if ($myselection !== null) {
+        if ($myselection !== null)
+        {
             if (array_key_exists('argazki', $myselection))
             {
                 $myselection = $myselection[ 'argazki' ];
             }
         }
 
+        $fields = $dbhelper->getAllEntityFields(Argazki::class);
 
         return $this->render(
             'argazki/index.html.twig',
             [
-                'argazkis' => $argazkis,
-                'myselection' => $myselection
+                'argazkis'    => $argazkis,
+                'myselection' => $myselection,
+                'fields'       => $fields
             ]
         );
     }

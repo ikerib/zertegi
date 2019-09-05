@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Amp;
 use App\Entity\Entradas;
 use App\Form\EntradasType;
 use App\Repository\EntradasRepository;
+use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
@@ -18,8 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/entradas")
  */
-class EntradasController extends AbstractController
-{
+class EntradasController extends AbstractController {
 
     /**
      * @Route("/", name="entradas_index", methods={"GET"})
@@ -29,20 +30,19 @@ class EntradasController extends AbstractController
      *
      * @param SessionInterface   $session
      *
+     * @param DbHelperService    $dbhelper
+     *
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginator,EntradasRepository $entradasRepository, SessionInterface $session): Response
-    {
-        /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = $entradasRepository->createQueryBuilder('a');
-
-        $filter = $request->query->get('filter');
-        if ($filter) {
-            $queryBuilder->where('MATCH_AGAINST(a.data, a.deskribapena, a.igorlea, a.signatura) AGAINST(:searchterm boolean)>0')
-                         ->setParameter('searchterm', $filter);
-        }
-
-        $query = $queryBuilder->getQuery();
+    public function index(
+        Request $request,
+        PaginatorInterface $paginator,
+        EntradasRepository $entradasRepository,
+        SessionInterface $session,
+        DbHelperService $dbhelper
+    ): Response {
+        $myFilters = $dbhelper->getFinderParams($request->request->get('form'));
+        $query     = $entradasRepository->getQueryByFinder($myFilters);
 
         $entradas = $paginator->paginate(
             $query, /* query NOT result */
@@ -51,17 +51,24 @@ class EntradasController extends AbstractController
         );
 
         $myselection = $session->get('zertegi-selection');
-        if ($myselection !== null) {
+        if ($myselection !== null)
+        {
             if (array_key_exists('entradas', $myselection))
             {
                 $myselection = $myselection[ 'entradas' ];
             }
         }
 
-        return $this->render('entradas/index.html.twig', [
-            'entradas' => $entradas,
-            'myselection' => $myselection
-        ]);
+        $fields = $dbhelper->getAllEntityFields(Entradas::class);
+
+        return $this->render(
+            'entradas/index.html.twig',
+            [
+                'entradas'    => $entradas,
+                'myselection' => $myselection,
+                'fields'      => $fields,
+            ]
+        );
     }
 
     /**
@@ -73,22 +80,27 @@ class EntradasController extends AbstractController
     public function new(Request $request): Response
     {
         $entrada = new Entradas();
-        $form = $this->createForm(EntradasType::class, $entrada);
+        $form    = $this->createForm(EntradasType::class, $entrada);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($entrada);
             $entityManager->flush();
 
             $this->addFlash('success', 'Datuak ongi grabatu dira.');
+
             return $this->redirectToRoute('entradas_index');
         }
 
-        return $this->render('entradas/new.html.twig', [
-            'entrada' => $entrada,
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'entradas/new.html.twig',
+            [
+                'entrada' => $entrada,
+                'form'    => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -99,9 +111,12 @@ class EntradasController extends AbstractController
      */
     public function show(Entradas $entrada): Response
     {
-        return $this->render('entradas/show.html.twig', [
-            'entrada' => $entrada,
-        ]);
+        return $this->render(
+            'entradas/show.html.twig',
+            [
+                'entrada' => $entrada,
+            ]
+        );
     }
 
     /**
@@ -116,19 +131,27 @@ class EntradasController extends AbstractController
         $form = $this->createForm(EntradasType::class, $entrada);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'Datuak ongi grabatu dira.');
-            return $this->redirectToRoute('entradas_index', [
-                'id' => $entrada->getId(),
-            ]);
+
+            return $this->redirectToRoute(
+                'entradas_index',
+                [
+                    'id' => $entrada->getId(),
+                ]
+            );
         }
 
-        return $this->render('entradas/edit.html.twig', [
-            'entrada' => $entrada,
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'entradas/edit.html.twig',
+            [
+                'entrada' => $entrada,
+                'form'    => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -140,26 +163,32 @@ class EntradasController extends AbstractController
      */
     public function delete(Request $request, Entradas $entrada): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$entrada->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$entrada->getId(), $request->request->get('_token')))
+        {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($entrada);
             $entityManager->flush();
-        } elseif ( $request->isXmlHttpRequest()) {
+        } elseif ($request->isXmlHttpRequest())
+        {
             $message = 'CSRF token error';
-            $resp = [
+            $resp    = [
                 'code' => 500,
-                'data' => $message
+                'data' => $message,
             ];
-            return new JsonResponse($resp,500);
-        } else {
+
+            return new JsonResponse($resp, 500);
+        } else
+        {
             return $this->redirectToRoute('entradas_index');
         }
 
-        if ( $request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest())
+        {
             $resp = [
                 'code' => 200,
-                'data' => 'Ezabatua izan da'
+                'data' => 'Ezabatua izan da',
             ];
+
             return new JsonResponse($resp);
         }
 

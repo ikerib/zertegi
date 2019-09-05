@@ -19,32 +19,17 @@ class KulturaRepository extends ServiceEntityRepository
         parent::__construct($registry, Kultura::class);
     }
 
-    // /**
-    //  * @return Kultura[] Returns an array of Kultura objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getQueryByFinder($arr): \Doctrine\ORM\Query
     {
-        return $this->createQueryBuilder('k')
-            ->andWhere('k.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('k.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('a');
+        foreach ($arr as $key => $value) {
+            $miindex = 0;
+            foreach ($value as $v) {
+                $qb->orWhere($qb->expr()->like('a.'.$key, ':v'.$key.$miindex))->setParameter('v'.$key.$miindex, '%'.$v.'%');
+                ++$miindex;
+            }
+        }
 
-    /*
-    public function findOneBySomeField($value): ?Kultura
-    {
-        return $this->createQueryBuilder('k')
-            ->andWhere('k.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $qb->getQuery();
     }
-    */
 }

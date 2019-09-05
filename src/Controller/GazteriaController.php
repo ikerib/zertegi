@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Gazteria;
 use App\Form\GazteriaType;
 use App\Repository\GazteriaRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -147,7 +146,6 @@ class GazteriaController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($gazterium);
             $entityManager->flush();
-
         } elseif ( $request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
             $resp = [

@@ -26,6 +26,7 @@
     },
     "dependencies": {
         "bootbox": "^5.0.1",
+        "ckeditor": "^4.0.0",
         "ionicons": "^4.5.5"
     }
 }

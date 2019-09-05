@@ -2,13 +2,50 @@
 
 namespace App\Controller;
 
+use App\Service\DbHelperService;
 use Doctrine\DBAL\Driver\Connection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class DefaultController extends AbstractController
 {
+
+    /**
+     * @Route("/debug", name="admin_finder", methods={"GET"})
+     * @param Request               $request
+     * @param TokenStorageInterface $tokenStorage
+     *
+     * @return RedirectResponse
+     */
+    public function debug(Request $request, TokenStorageInterface $tokenStorage)
+    {
+
+        /**
+         * User objectu berria sortu, rol berriekin
+         */
+        $token = new UsernamePasswordToken(
+            "iibarguren",
+            null,
+            'main',
+            ['ROLE_ADMIN']
+        );
+
+        $tokenStorage->setToken($token);
+
+        /** @var Session $session */
+        $session = $request->getSession();
+
+        $request->setLocale('eu');
+
+
+        return $this->redirectToRoute('admin_home');
+    }
 
     /**
      * @Route("/admin/finder", name="admin_finder", methods={"GET"})
@@ -35,19 +72,14 @@ class DefaultController extends AbstractController
     /**
      * @Route("/admin", name="admin_home", methods={"GET"})
      *
-     * @param Connection $connection
+     * @param DbHelperService $dbhelper
      *
      * @return Response
      */
-    public function adminindex(Connection $connection): Response
+    public function adminindex(DbHelperService $dbhelper): Response
     {
-        $sql = "SELECT table_name, table_rows from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'zertegi';";
-
-        /** @var []  $tables */
-        $tables = $connection->fetchAll($sql);
-
         return $this->render('default/adminindex.html.twig', [
-            'tables' => $tables
+            'tables' => $dbhelper->getAllTables()
         ]);
     }
 }

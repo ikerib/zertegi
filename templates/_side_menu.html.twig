@@ -88,6 +88,17 @@
         </ul>
     </li>
 
+    <li class="{% if app.request.get('_route') starts with "kirola_" %}active {% endif %} treeview">
+        <a href="#">
+            <i class="fas fa-link"></i> <span>Kirola</span>
+            <span class="pull-right-container"></span>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.get('_route') in ["kirola_index", "kirola_edit", "kirola_show"] %}class="active" {% endif %}><a href="{{ path('kirola_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "kirola_new" %}class="active" {% endif %}><a href="{{ path('kirola_new') }}">Berria</a></li>
+        </ul>
+    </li>
+
     <li class="{% if app.request.get('_route') starts with "hutsak_" %}active {% endif %} treeview">
         <a href="#">
             <i class="fas fa-link"></i> <span>Hutsak</span>

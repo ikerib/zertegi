@@ -11,8 +11,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Ldap\Adapter\ConnectionInterface;
 use Symfony\Component\Routing\RouterInterface;
 
-class DbHelperService
-{
+class DbHelperService {
 
     /**
      * @var EntityManagerInterface
@@ -33,13 +32,14 @@ class DbHelperService
 
     public function __construct(EntityManagerInterface $em, FormFactoryInterface $formFactory, RouterInterface $router, Connection $connection)
     {
-        $this->em = $em;
+        $this->em          = $em;
         $this->formFactory = $formFactory;
-        $this->router = $router;
-        $this->connection = $connection;
+        $this->router      = $router;
+        $this->connection  = $connection;
     }
 
-    public function getAllTables() {
+    public function getAllTables()
+    {
         $sql = "SELECT table_name, table_rows from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'zertegi' and table_name != 'migration_versions';";
 
         /** @var []  $tables */
@@ -50,21 +50,27 @@ class DbHelperService
 
     public function getAllEntityFields($table): array
     {
-        $class = $this->em->getClassMetadata($table);
+        $class  = $this->em->getClassMetadata($table);
         $fields = [];
-        if (!empty($class->discriminatorColumn)) {
-            $fields[] = $class->discriminatorColumn['name'];
+        if (!empty($class->discriminatorColumn))
+        {
+            $fields[] = $class->discriminatorColumn[ 'name' ];
         }
         $fields = array_merge($class->getColumnNames(), $fields);
-        foreach ($fields as $index => $field) {
-            if ($class->isInheritedField($field)) {
-                unset($fields[$index]);
+        foreach ($fields as $index => $field)
+        {
+            if ($class->isInheritedField($field))
+            {
+                unset($fields[ $index ]);
             }
         }
-        foreach ($class->getAssociationMappings() as $name => $relation) {
-            if (!$class->isInheritedAssociation($name)){
-                foreach ($relation['joinColumns'] as $joinColumn) {
-                    $fields[] = $joinColumn['name'];
+        foreach ($class->getAssociationMappings() as $name => $relation)
+        {
+            if (!$class->isInheritedAssociation($name))
+            {
+                foreach ($relation[ 'joinColumns' ] as $joinColumn)
+                {
+                    $fields[] = $joinColumn[ 'name' ];
                 }
             }
         }
@@ -74,19 +80,29 @@ class DbHelperService
         return $fields;
     }
 
-    public function mySearch($table, $fields) {
+    public function mySearch($table, $fields)
+    {
         $form = $this->formFactory->createBuilder()
                                   ->setAction($this->router->generate((string)$table.'_index'));
-        foreach ($fields as $field) {
-            $form->add($field, null, [
-                'required' => false
-            ]);
+        foreach ($fields as $field)
+        {
+            $form->add(
+                $field,
+                null,
+                [
+                    'required' => false,
+                    'attr' => [
+                        'autocomplete' => 'off'
+                    ]
+                ]
+            );
         }
 
         return $form->getForm()->createView();
     }
 
-    public function getFinderParams($filters) {
+    public function getFinderParams($filters)
+    {
 
 
         $myFilters = [];

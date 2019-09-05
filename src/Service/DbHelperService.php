@@ -77,6 +77,11 @@ class DbHelperService
     public function mySearch($table, $fields) {
         $form = $this->formFactory->createBuilder()
                                   ->setAction($this->router->generate((string)$table.'_index'));
+
+        $form->add('Kontsulta', null, [
+            'required' => false
+        ]);
+
         foreach ($fields as $field) {
             $form->add($field, null, [
                 'required' => false

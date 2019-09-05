@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Amp;
+use App\Entity\Euskera;
 use App\Entity\Gazteria;
 use App\Form\GazteriaType;
 use App\Repository\GazteriaRepository;
+use App\Service\DbHelperService;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
 use Knp\Snappy\Pdf;
@@ -30,21 +32,17 @@ class GazteriaController extends AbstractController
      *
      * @param SessionInterface   $session
      *
+     * @param DbHelperService    $dbhelper
+     *
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginator, GazteriaRepository $gazteriaRepository, SessionInterface $session): Response
+    public function index(Request $request, PaginatorInterface $paginator,
+        GazteriaRepository $gazteriaRepository, SessionInterface $session,
+        DbHelperService $dbhelper
+    ): Response
     {
-        /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = $gazteriaRepository->createQueryBuilder('a');
-
-        $filter = $request->query->get('filter');
-        if ($filter) {
-            $queryBuilder->where('MATCH_AGAINST(a.data, a.espedientea, a.oharrak, a.sailkapena, a.signatura) AGAINST(:searchterm boolean)>0')
-                         ->setParameter('searchterm', $filter);
-        }
-
-        $query = $queryBuilder->getQuery();
-
+        $myFilters = $dbhelper->getFinderParams($request->request->get('form'));
+        $query     = $gazteriaRepository->getQueryByFinder($myFilters);
         $gazterias = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -59,11 +57,14 @@ class GazteriaController extends AbstractController
             }
         }
 
+        $fields = $dbhelper->getAllEntityFields(Gazteria::class);
+
         return $this->render(
             'gazteria/index.html.twig',
             [
                 'gazterias' => $gazterias,
-                'myselection' => $myselection
+                'myselection' => $myselection,
+                'fields'    => $fields
             ]
         );
     }

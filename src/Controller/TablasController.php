@@ -197,14 +197,14 @@ class TablasController extends AbstractController {
      * @Route("/print/{id}", name="tablas_print", methods={"GET", "POST" })
      * @param Request $request
      *
-     * @param Tablas $tablas
+     * @param Tablas  $tabla
      * @param Pdf     $snappy
      *
      * @return Response
      */
-    public function print(Request $request, Tablas $tablas, Pdf $snappy): Response
+    public function print(Request $request, Tablas $tabla, Pdf $snappy): Response
     {
-        $html      = $this->renderView('tablas/pdf.html.twig', ['tablas'=>$tablas]);
+        $html      = $this->renderView('tablas/pdf.html.twig', ['tabla'=>$tabla]);
         $filename  = sprintf('tablas-%s.pdf', date('Y-m-d-hh-ss'));
 
         return new Response(

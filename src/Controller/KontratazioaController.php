@@ -172,7 +172,7 @@ class KontratazioaController extends AbstractController
     }
 
     /**
-     * @Route("/print/{id}", name="amp_print", methods={"GET", "POST" })
+     * @Route("/print/{id}", name="kontratazioa_print", methods={"GET", "POST" })
      * @param Request      $request
      *
      * @param Kontratazioa $kontratazioa

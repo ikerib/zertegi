@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Euskera;
 use App\Entity\Hutsak;
 use App\Entity\Kirola;
 use App\Form\KirolaType;
 use App\Repository\KirolaRepository;
+use App\Service\DbHelperService;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
 use Knp\Snappy\Pdf;
@@ -30,21 +32,17 @@ class KirolaController extends AbstractController
      *
      * @param SessionInterface   $session
      *
+     * @param DbHelperService    $dbhelper
+     *
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginator, KirolaRepository $kirolaRepository, SessionInterface $session): Response
+    public function index(Request $request, PaginatorInterface $paginator,
+        KirolaRepository $kirolaRepository, SessionInterface $session,
+        DbHelperService $dbhelper
+    ): Response
     {
-        /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = $kirolaRepository->createQueryBuilder('a');
-
-        $filter = $request->query->get('filter');
-        if ($filter) {
-            $queryBuilder->where('MATCH_AGAINST(a.data, a.espedientea, a.oharrak, a.sailkapena, a.signatura) AGAINST(:searchterm boolean)>0')
-                         ->setParameter('searchterm', $filter);
-        }
-
-        $query = $queryBuilder->getQuery();
-
+        $myFilters = $dbhelper->getFinderParams($request->request->get('form'));
+        $query     = $kirolaRepository->getQueryByFinder($myFilters);
         $kirolak = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -59,11 +57,14 @@ class KirolaController extends AbstractController
             }
         }
 
+        $fields = $dbhelper->getAllEntityFields(Kirola::class);
+
         return $this->render(
             'kirola/index.html.twig',
             [
                 'kirolak' => $kirolak,
-                'myselection' => $myselection
+                'myselection' => $myselection,
+                'fields'    => $fields
             ]
         );
     }

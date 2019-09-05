@@ -38,8 +38,9 @@ class AmpController extends AbstractController {
         SessionInterface $session,
         DbHelperService $dbhelper): Response
     {
+        $fields = $dbhelper->getAllEntityFields(Amp::class);
         $myFilters=$dbhelper->getFinderParams($request->request->get('form'));
-        $query = $ampRepository->getQueryByFinder($myFilters);
+        $query = $ampRepository->getQueryByFinder($myFilters, $fields);
         $amps = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -53,7 +54,7 @@ class AmpController extends AbstractController {
             $myselection = $myselection[ 'amp' ];
         }
 
-        $fields = $dbhelper->getAllEntityFields(Amp::class);
+
 
         return $this->render(
             'amp/index.html.twig',

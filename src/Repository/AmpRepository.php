@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Amp;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -20,14 +21,25 @@ class AmpRepository extends ServiceEntityRepository
         parent::__construct($registry, Amp::class);
     }
 
-    public function getQueryByFinder($arr): \Doctrine\ORM\Query
+    public function getQueryByFinder($arr, $fields): Query
     {
         $qb = $this->createQueryBuilder('a');
         foreach ($arr as $key => $value) {
             $miindex = 0;
-            foreach ($value as $v) {
-                $qb->orWhere($qb->expr()->like('a.'.$key, ':v'.$key.$miindex))->setParameter('v'.$key.$miindex, '%'.$v.'%');
-                ++$miindex;
+
+            if ( $key === 'Kontsulta') {
+                foreach ($fields as $field) {
+                    foreach ($value as $v) {
+                        $qb->orWhere(
+                            $qb->expr()->like('a.'.$field, ':v'.$field.$miindex))->setParameter('v'.$field.$miindex, '%'.$v.'%');
+                        ++$miindex;
+                    }
+                }
+            } else {
+                foreach ($value as $v) {
+                    $qb->orWhere($qb->expr()->like('a.'.$key, ':v'.$key.$miindex))->setParameter('v'.$key.$miindex, '%'.$v.'%');
+                    ++$miindex;
+                }
             }
         }
 

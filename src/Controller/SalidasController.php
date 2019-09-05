@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Amp;
 use App\Entity\Salidas;
 use App\Form\SalidasType;
 use App\Repository\SalidasRepository;
+use App\Service\DbHelperService;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,38 +23,22 @@ class SalidasController extends AbstractController
 {
 
     /**
-     * @Route("/", name="salidas_index", methods={"GET"})
+     * @Route("/", name="salidas_index", methods={"GET", "POST"})
      * @param Request            $request
      * @param PaginatorInterface $paginator
      * @param SalidasRepository  $salidasRepository
      * @param SessionInterface   $session
      *
+     * @param DbHelperService    $dbhelper
+     *
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginator, SalidasRepository $salidasRepository, SessionInterface $session): Response
+    public function index(Request $request, PaginatorInterface $paginator,
+        SalidasRepository $salidasRepository, SessionInterface $session,
+        DbHelperService $dbhelper): Response
     {
-        /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = $salidasRepository->createQueryBuilder('a');
-
-        $filter = $request->query->get('filter');
-        if ($filter) {
-            // Begiratu bilaketak &-rik duen, baldin badu banatu bilaketa bloketan
-            $aFilter = explode('&', $filter);
-            $sqlFilter = '';
-
-            foreach ($aFilter as $key=>$value) {
-                if ( $key === 0) {
-                    $sqlFilter = $value;
-                } else {
-                    $sqlFilter .= ','.$value;
-                }
-            }
-            $queryBuilder->where('MATCH_AGAINST( a.eskatzailea, a.espedientea, a.irteera, a.sarrera, a.signatura) AGAINST(:searchterm boolean)>0')
-                         ->setParameter('searchterm', $filter);
-        }
-
-        $query = $queryBuilder->getQuery();
-
+        $myFilters=$dbhelper->getFinderParams($request->request->get('form'));
+        $query = $salidasRepository->getQueryByFinder($myFilters);
         $salidas = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -65,12 +51,14 @@ class SalidasController extends AbstractController
             $myselection = $myselection[ 'salidas' ];
         }
 
+        $fields = $dbhelper->getAllEntityFields(Salidas::class);
 
         return $this->render(
             'salidas/index.html.twig',
             [
                 'salidas' => $salidas,
-                'myselection' => $myselection
+                'myselection' => $myselection,
+                'fields' => $fields
             ]
         );
     }

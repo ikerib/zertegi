@@ -19,32 +19,17 @@ class SalidasRepository extends ServiceEntityRepository
         parent::__construct($registry, Salidas::class);
     }
 
-    // /**
-    //  * @return Salidas[] Returns an array of Salidas objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getQueryByFinder($arr): \Doctrine\ORM\Query
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('a');
+        foreach ($arr as $key => $value) {
+            $miindex = 0;
+            foreach ($value as $v) {
+                $qb->orWhere($qb->expr()->like('a.'.$key, ':v'.$key.$miindex))->setParameter('v'.$key.$miindex, '%'.$v.'%');
+                ++$miindex;
+            }
+        }
 
-    /*
-    public function findOneBySomeField($value): ?Salidas
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $qb->getQuery();
     }
-    */
 }

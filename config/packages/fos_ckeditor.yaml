@@ -1,0 +1,18 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+fos_ck_editor:
+    base_path: "build/ckeditor"
+    js_path:   "build/ckeditor/ckeditor.js"
+    configs:
+        my_config:
+#            toolbar: "my_toolbar_1"
+            toolbar: "basic"
+            uiColor: "#000000"
+            language: eu
+    toolbars:
+        configs:
+#            my_toolbar_1: [ [ "basic_styles", "-", "Save" ], [ "Anchor" ], [ "Maximize" ] ]
+
+
+twig:
+    form_themes:
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'

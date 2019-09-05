@@ -1,3 +1,6 @@
+debug:
+    path: /debug
+    controller: App\Controller\DefaultController::debug
 home:
     path: /{_locale}
     controller: App\Controller\SecurityController::login

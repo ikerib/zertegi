@@ -42,10 +42,9 @@ services:
                     protocol_version: 3
                     referrals: false
 
-
-    app.ldap.service:
+    App\Service\DbHelperService:
         public: true
-        class: App\Service\LdapService
+    App\Service\LdapService:
         arguments:
             - '%env(resolve:LDAP_IP)%'
             - '%env(resolve:LDAP_SEARCH_DN)%'

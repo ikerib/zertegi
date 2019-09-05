@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Amp;
 use App\Entity\Obratxikiak;
 use App\Form\ObratxikiakType;
 use App\Repository\ObratxikiakRepository;
+use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
@@ -22,28 +24,23 @@ class ObratxikiakController extends AbstractController
 {
 
     /**
-     * @Route("/", name="obratxikiak_index", methods={"GET"})
+     * @Route("/", name="obratxikiak_index", methods={"GET", "POST"})
      * @param Request               $request
      * @param PaginatorInterface    $paginator
      * @param ObratxikiakRepository $obratxikiakRepository
      *
      * @param SessionInterface      $session
      *
+     * @param DbHelperService       $dbhelper
+     *
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginator, ObratxikiakRepository $obratxikiakRepository, SessionInterface $session): Response
+    public function index(Request $request, PaginatorInterface $paginator,
+        ObratxikiakRepository $obratxikiakRepository, SessionInterface $session,
+        DbHelperService $dbhelper): Response
     {
-        /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = $obratxikiakRepository->createQueryBuilder('a');
-
-        $filter = $request->query->get('filter');
-        if ($filter) {
-            $queryBuilder->where('MATCH_AGAINST (a.espedientea, a.sailkapena, a.signatura, a.urtea) AGAINST(:searchterm boolean)>0')
-                         ->setParameter('searchterm', $filter);
-        }
-
-        $query = $queryBuilder->getQuery();
-
+        $myFilters=$dbhelper->getFinderParams($request->request->get('form'));
+        $query = $obratxikiakRepository->getQueryByFinder($myFilters);
         $obratxikiaks = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -58,11 +55,15 @@ class ObratxikiakController extends AbstractController
             }
         }
 
+        $fields = $dbhelper->getAllEntityFields(Obratxikiak::class);
+
+
         return $this->render(
             'obratxikiak/index.html.twig',
             [
                 'obratxikiaks' => $obratxikiaks,
-                'myselection'   => $myselection
+                'myselection'   => $myselection,
+                'fields'    => $fields
             ]
         );
 

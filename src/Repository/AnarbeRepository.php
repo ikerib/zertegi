@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Anarbe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -19,32 +20,17 @@ class AnarbeRepository extends ServiceEntityRepository
         parent::__construct($registry, Anarbe::class);
     }
 
-    // /**
-    //  * @return Anarbe[] Returns an array of Anarbe objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getQueryByFinder($arr): \Doctrine\ORM\Query
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('a');
+        foreach ($arr as $key => $value) {
+            $miindex = 0;
+            foreach ($value as $v) {
+                $qb->orWhere($qb->expr()->like('a.'.$key, ':v'.$key.$miindex))->setParameter('v'.$key.$miindex, '%'.$v.'%');
+                ++$miindex;
+            }
+        }
 
-    /*
-    public function findOneBySomeField($value): ?Anarbe
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $qb->getQuery();
     }
-    */
 }

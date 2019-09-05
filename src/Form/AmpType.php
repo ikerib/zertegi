@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Amp;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,7 +17,11 @@ class AmpType extends AbstractType
             ->add('fecha')
             ->add('clasificacion')
             ->add('signatura')
-            ->add('observaciones')
+            ->add('observaciones', CKEditorType::class, array(
+                'config' => array(
+                    'uiColor' => '#ffffff',
+                ),
+            ))
         ;
     }
 

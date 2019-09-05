@@ -12,7 +12,7 @@
 
 
 -- CREATE TABLE "amp" ------------------------------------------
-CREATE TABLE `amp` ( 
+CREATE TABLE `amp` (
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
 	`expediente` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
 	`fecha` VarChar( 255 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
@@ -30,7 +30,7 @@ AUTO_INCREMENT = 23955;
 
 
 -- CREATE TABLE "anarbe" ---------------------------------------
-CREATE TABLE `anarbe` ( 
+CREATE TABLE `anarbe` (
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
 	`expediente` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
 	`fecha` VarChar( 255 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
@@ -48,7 +48,7 @@ AUTO_INCREMENT = 438;
 
 
 -- CREATE TABLE "argazki" --------------------------------------
-CREATE TABLE `argazki` ( 
+CREATE TABLE `argazki` (
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
 	`deskribapena` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
 	`barrutia` VarChar( 255 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
@@ -69,7 +69,7 @@ AUTO_INCREMENT = 1064;
 
 
 -- CREATE TABLE "ciriza" ---------------------------------------
-CREATE TABLE `ciriza` ( 
+CREATE TABLE `ciriza` (
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
 	`signatura` VarChar( 255 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
 	`data` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
@@ -87,7 +87,7 @@ AUTO_INCREMENT = 165;
 
 
 -- CREATE TABLE "consultas" ------------------------------------
-CREATE TABLE `consultas` ( 
+CREATE TABLE `consultas` (
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
 	`izena` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
 	`helbidea` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
@@ -105,7 +105,7 @@ AUTO_INCREMENT = 1884;
 
 
 -- CREATE TABLE "entradas" -------------------------------------
-CREATE TABLE `entradas` ( 
+CREATE TABLE `entradas` (
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
 	`data` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
 	`igorlea` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
@@ -122,7 +122,7 @@ AUTO_INCREMENT = 13216;
 
 
 -- CREATE TABLE "euskera" --------------------------------------
-CREATE TABLE `euskera` ( 
+CREATE TABLE `euskera` (
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
 	`espedientea` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
 	`data` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
@@ -140,7 +140,25 @@ AUTO_INCREMENT = 169;
 
 
 -- CREATE TABLE "gazteria" -------------------------------------
-CREATE TABLE `gazteria` ( 
+CREATE TABLE `gazteria` (
+	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
+	`espedientea` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+	`data` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+	`sailkapena` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+	`signatura` VarChar( 255 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+	`oharrak` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+	`numdoc` VarChar( 255 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+	`knosysid` VarChar( 255 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+	PRIMARY KEY ( `id` ) )
+CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci
+ENGINE = InnoDB
+AUTO_INCREMENT = 239;
+-- -------------------------------------------------------------
+
+
+-- CREATE TABLE "kirola" -------------------------------------
+CREATE TABLE `kirola` (
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
 	`espedientea` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
 	`data` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
@@ -158,7 +176,7 @@ AUTO_INCREMENT = 239;
 
 
 -- CREATE TABLE "hutsak" ---------------------------------------
-CREATE TABLE `hutsak` ( 
+CREATE TABLE `hutsak` (
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
 	`egoera` VarChar( 255 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
 	`signatura` VarChar( 255 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
@@ -175,7 +193,7 @@ AUTO_INCREMENT = 196;
 
 
 -- CREATE TABLE "kontratazioa" ---------------------------------
-CREATE TABLE `kontratazioa` ( 
+CREATE TABLE `kontratazioa` (
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
 	`espedientea` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
 	`urtea` VarChar( 255 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
@@ -192,7 +210,7 @@ AUTO_INCREMENT = 218;
 
 
 -- CREATE TABLE "kultura" --------------------------------------
-CREATE TABLE `kultura` ( 
+CREATE TABLE `kultura` (
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
 	`espedientea` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
 	`data` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
@@ -210,7 +228,7 @@ AUTO_INCREMENT = 175;
 
 
 -- CREATE TABLE "liburuxka" ------------------------------------
-CREATE TABLE `liburuxka` ( 
+CREATE TABLE `liburuxka` (
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
 	`deskribapena` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
 	`data` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
@@ -227,7 +245,7 @@ AUTO_INCREMENT = 22;
 
 
 -- CREATE TABLE "obratxikiak" ----------------------------------
-CREATE TABLE `obratxikiak` ( 
+CREATE TABLE `obratxikiak` (
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
 	`espedientea` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
 	`sailkapena` VarChar( 255 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
@@ -244,7 +262,7 @@ AUTO_INCREMENT = 1120;
 
 
 -- CREATE TABLE "pendientes" -----------------------------------
-CREATE TABLE `pendientes` ( 
+CREATE TABLE `pendientes` (
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
 	`espedientea` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
 	`data` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
@@ -260,7 +278,7 @@ AUTO_INCREMENT = 966;
 
 
 -- CREATE TABLE "protokoloak" ----------------------------------
-CREATE TABLE `protokoloak` ( 
+CREATE TABLE `protokoloak` (
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
 	`artxiboa` VarChar( 255 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
 	`saila` VarChar( 255 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
@@ -282,7 +300,7 @@ AUTO_INCREMENT = 10578;
 
 
 -- CREATE TABLE "salidas" --------------------------------------
-CREATE TABLE `salidas` ( 
+CREATE TABLE `salidas` (
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
 	`espedientea` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
 	`signatura` LongText CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
@@ -300,7 +318,7 @@ AUTO_INCREMENT = 15844;
 
 
 -- CREATE TABLE "tablas" ---------------------------------------
-CREATE TABLE `tablas` ( 
+CREATE TABLE `tablas` (
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
 	`serie` VarChar( 255 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
 	`unidad` VarChar( 255 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
@@ -318,7 +336,7 @@ AUTO_INCREMENT = 25;
 
 
 -- Dump data of "amp" --------------------------------------
-INSERT INTO `amp`(`id`,`expediente`,`fecha`,`numdoc`,`clasificacion`,`signatura`,`observaciones`,`knosysid`) VALUES 
+INSERT INTO `amp`(`id`,`expediente`,`fecha`,`numdoc`,`clasificacion`,`signatura`,`observaciones`,`knosysid`) VALUES
 ( '1', 'Celebración del Congreso de Municipios de Euskadi.  (Jornadas de Estudio de Administración Local)
 ', '1981 - 1982
 ', '11', '1·1 Pleno
@@ -415,7 +433,7 @@ INSERT INTO `amp`(`id`,`expediente`,`fecha`,`numdoc`,`clasificacion`,`signatura`
 ', '108', '1·1 Expedientes de sesiones : mociones , borradores
 ', '245-6
 ', '', '#423120801C780D6EBDFFC30' ),
-( '20', 'Mociones 
+( '20', 'Mociones
 ', '1986
 ', '117', '1·1 Expedientes de sesiones : mociones , borradores
 ', '615-5
@@ -430,13 +448,13 @@ INSERT INTO `amp`(`id`,`expediente`,`fecha`,`numdoc`,`clasificacion`,`signatura`
 ', '119', '1·1 Expedientes de sesiones : mociones , borradores
 ', '928-7
 ', '', '#423120801C780D6EC0F97B0' ),
-( '23', 'Mociones presentadas por los Corporativos y otros 
+( '23', 'Mociones presentadas por los Corporativos y otros
 ', '1988
 ', '120', '1·1 Expedientes de sesiones : mociones , borradores
 ', '698-2
 ', '', '#423120801C780D6EC1452A0' ),
 ( '24', 'Mociones.
-Contiene moción sobre revocación de la autorización a AEK sobre el uso del local sito en la c/ Zumalakarregi, 9      
+Contiene moción sobre revocación de la autorización a AEK sobre el uso del local sito en la c/ Zumalakarregi, 9
 ', '1989
 ', '121', '1·1 Expedientes de sesiones : mociones , borradores
 ', '880-6
@@ -475,7 +493,7 @@ Contiene moción sobre revocación de la autorización a AEK sobre el uso del lo
 
 
 -- Dump data of "anarbe" -----------------------------------
-INSERT INTO `anarbe`(`id`,`expediente`,`fecha`,`numdoc`,`clasificacion`,`signatura`,`observaciones`,`knosysid`) VALUES 
+INSERT INTO `anarbe`(`id`,`expediente`,`fecha`,`numdoc`,`clasificacion`,`signatura`,`observaciones`,`knosysid`) VALUES
 ( '1', 'Oficio de la Mancomunidad solicitando se adopte acuerdo plenario autorizando y avalando a la Mancomunidad en la solicitud de un crédito al Banco de Crédito Local.
 ', '30/07/1971
 ', '0', '2·8·1 Créditos y emisiones de deuda
@@ -643,7 +661,7 @@ ANEXOS:Resúmenes de las reuniones mantenidas con los propietarios de las fincas
 
 
 -- Dump data of "argazki" ----------------------------------
-INSERT INTO `argazki`(`id`,`deskribapena`,`barrutia`,`fecha`,`gaia`,`neurria`,`kolorea`,`zenbakia`,`oharrak`,`numdoc`,`knosysid`) VALUES 
+INSERT INTO `argazki`(`id`,`deskribapena`,`barrutia`,`fecha`,`gaia`,`neurria`,`kolorea`,`zenbakia`,`oharrak`,`numdoc`,`knosysid`) VALUES
 ( '1', 'Tarjeta postal de una batelera. Al fondo, San Pedro.
 ', 'San Juan y San Pedro.
 ', 'Desconocida
@@ -651,7 +669,7 @@ INSERT INTO `argazki`(`id`,`deskribapena`,`barrutia`,`fecha`,`gaia`,`neurria`,`k
 ', '14 x 9 cms.
 ', 'Coloreada
 ', '11
-', 'guregipuzkoa 
+', 'guregipuzkoa
 ', '0', '#423120801C77C34D0D14DF0' ),
 ( '2', 'Barco atracado en el puerto de Pasai San Pedro. Al fondo, Jaizkibel.
 ', 'San Pedro y San Juan
@@ -671,7 +689,7 @@ INSERT INTO `argazki`(`id`,`deskribapena`,`barrutia`,`fecha`,`gaia`,`neurria`,`k
 ', '13
 ', 'Texto: "Los dos Pasajes. Julio 1918"
 ', '2', '#423120801C77C34D0EDFDB0' ),
-( '4', 'Vista del puerto de Trintxerpe. 
+( '4', 'Vista del puerto de Trintxerpe.
 ', 'Trintxerpe
 ', 'Septiembre de 1925
 ', 'Puerto
@@ -833,7 +851,7 @@ Texto de la Heladería: " Helados de Corte. La Maravilla"
 ', 'Blanco y negro
 ', '43
 ', 'Dos copias
-Texto en la placa de la verja: " Ex-voto de  gracias por la batalla librada en Roncesvalles contra el ejército invasor de Carlo-Magno 
+Texto en la placa de la verja: " Ex-voto de  gracias por la batalla librada en Roncesvalles contra el ejército invasor de Carlo-Magno
 Texto en la placa del Palacio: "Helados de Corte. La Maravilla"
 ', '21', '#423120801C77C34D156D1A0' ),
 ( '23', 'Grupo escolar Nuestra Señora del Carmen en Trintxerpe.
@@ -907,7 +925,7 @@ S
 
 
 -- Dump data of "ciriza" -----------------------------------
-INSERT INTO `ciriza`(`id`,`signatura`,`data`,`deskribapena`,`sailkapena`,`oharrak`,`numdoc`,`knosysid`) VALUES 
+INSERT INTO `ciriza`(`id`,`signatura`,`data`,`deskribapena`,`sailkapena`,`oharrak`,`numdoc`,`knosysid`) VALUES
 ( '1', 'CI - 1
 ', '1977, 1979 eta 1980 urteetako nominak / Nóminas de 1977, 1979 y 1980
 ', '01-01-1977 / 31-12-1980
@@ -916,7 +934,7 @@ INSERT INTO `ciriza`(`id`,`signatura`,`data`,`deskribapena`,`sailkapena`,`oharra
 ', '0', '#40079EF01C95F761C300AE0' ),
 ( '2', 'CI - 2.01
 ', 'Casa Ciriza, S.A. TRANSHUE enpresako agente eta akziodunaren jabetzako Marcelina de Ciriza eta Virgen del Carmen itsasontzietako ontziratze-kontratuak / Contratos de embarque para los buques Marcelina de Ciriza y Virgen de la Estrella propiedad de Casa Ciriza, S.A. agente y accionista de TRANSHUE, S.A.y registrados en Argentina
-', '01-01-1977 / 31-12-1980 
+', '01-01-1977 / 31-12-1980
 ', '2.1. Kontratazioa
 ', '', '1', '#40079EF01C95F7746955AF0' ),
 ( '3', 'CI - 2.02
@@ -985,7 +1003,7 @@ INSERT INTO `ciriza`(`id`,`signatura`,`data`,`deskribapena`,`sailkapena`,`oharra
 ', 'Mari Ciriza eta Pili Ciriza itsasontzietako langileen 1975 urteko nominak / Nóminas de los trabajadores de los buques Mari Ciriza y Pili Ciriza del año 1975
 ', '01-01-1975 / 31-11-1975
 ', '2.4. Nominak
-', ' 
+', '
 ', '14', '#40079EF01C9601ABB0234F0' ),
 ( '16', 'CI - 5
 ', 'Zenbait itsasontzi eskaintza / Diversas ofertas de buques
@@ -1081,7 +1099,7 @@ INSERT INTO `ciriza`(`id`,`signatura`,`data`,`deskribapena`,`sailkapena`,`oharra
 
 
 -- Dump data of "consultas" --------------------------------
-INSERT INTO `consultas`(`id`,`izena`,`helbidea`,`gaia`,`enpresa`,`kontsulta`,`numdoc`,`knosysid`) VALUES 
+INSERT INTO `consultas`(`id`,`izena`,`helbidea`,`gaia`,`enpresa`,`kontsulta`,`numdoc`,`knosysid`) VALUES
 ( '1', 'Cofradía de Pescadores de Pasai San Pedro
 ', '', '', '', '1986
 ', '0', '#423120801C77CD9AC1C1EE0' ),
@@ -1126,7 +1144,7 @@ INSERT INTO `consultas`(`id`,`izena`,`helbidea`,`gaia`,`enpresa`,`kontsulta`,`nu
 ', '08/04/1987
 13/04/1987
 ', '11', '#423120801C77CD9AC5EF440' ),
-( '13', 'Maite Puente Sánchez (licenciada en Filosofía y Letras) 
+( '13', 'Maite Puente Sánchez (licenciada en Filosofía y Letras)
 ', '', '', 'Eusko Ikaskuntza
 ', '13/04/1987
 ', '12', '#423120801C77CD9AC613E30' ),
@@ -1202,7 +1220,7 @@ INSERT INTO `consultas`(`id`,`izena`,`helbidea`,`gaia`,`enpresa`,`kontsulta`,`nu
 
 
 -- Dump data of "entradas" ---------------------------------
-INSERT INTO `entradas`(`id`,`data`,`igorlea`,`deskribapena`,`signatura`,`numdoc`,`knosysid`) VALUES 
+INSERT INTO `entradas`(`id`,`data`,`igorlea`,`deskribapena`,`signatura`,`numdoc`,`knosysid`) VALUES
 ( '1', '16/04/1997
 ', 'Agustín, Administrativo de Gestión
 ', 'Reforma de cocina y baño en la c/ Lezo-bide, 12 - 3º D. Angel Berrotarán Britt (15/04/1997)
@@ -1234,7 +1252,7 @@ INSERT INTO `entradas`(`id`,`data`,`igorlea`,`deskribapena`,`signatura`,`numdoc`
 ', '490-13
 ', '7', '#423120801C77CD200C2C7D0' ),
 ( '7', '21/04/1997
-', 'Personal 
+', 'Personal
 ', 'Informe de la Técnico de Cultura sobre informatización de la biblioteca de Pasai Antxo (03/02/1997)
 ', '726-2
 ', '8', '#423120801C77CD200C538D0' ),
@@ -1363,36 +1381,36 @@ Contratista: URAK
 
 
 -- Dump data of "euskera" ----------------------------------
-INSERT INTO `euskera`(`id`,`espedientea`,`data`,`sailkapena`,`signatura`,`oharrak`,`numdoc`,`knosysid`) VALUES 
+INSERT INTO `euskera`(`id`,`espedientea`,`data`,`sailkapena`,`signatura`,`oharrak`,`numdoc`,`knosysid`) VALUES
 ( '1', 'Azterketa soziolinguistikoa egiteko SIADECO kontratatzea
 ', '1992
 ', '2-24
 2-3 Kontratazio espedienteak
 ', 'Euskera saila 1. kutxa
 ', '', '0', '#046CE9401D035588917D8E0' ),
-( '2', 'BERRIA egunkaria argitaratzen duen Euskarazko komunikazio taldea SAri akzioak erostea 
+( '2', 'BERRIA egunkaria argitaratzen duen Euskarazko komunikazio taldea SAri akzioak erostea
 ', '2004
 ', '2-24
 ', 'Euskera saila 1. kutxa
 ', '', '1', '#046CE9401D03558AF129850' ),
-( '3', 'Eusko Jaurlaritzari eskatutako dirulaguntzak 
+( '3', 'Eusko Jaurlaritzari eskatutako dirulaguntzak
 ', '1989
-', '2-24 Dirulaguntzen espedienteak 
+', '2-24 Dirulaguntzen espedienteak
 ', 'Euskera saila 1. kutxa
 ', '', '6', '#046CE9401D0355936307050' ),
 ( '4', 'Julia Otxoak idatzitako liburua aurkeztea
 ', '1990
-', '2-24 Jardueren espedienteak 
+', '2-24 Jardueren espedienteak
 ', 'Euskera saila 1. kutxa
 ', '', '7', '#046CE9401D03559538DAE60' ),
 ( '5', 'Egonaldiak familia euskaldunetan
 ', '1992, 1993, 1995
-', '2-24 Jardueren espedienteak 
+', '2-24 Jardueren espedienteak
 ', 'Euskera saila 1. kutxa
 ', '', '4', '#046CE9401D03558F89E9140' ),
-( '6', 'Udaleku irekiak 
+( '6', 'Udaleku irekiak
 ', '1994
-', '2-24 Jardueren espedienteak 
+', '2-24 Jardueren espedienteak
 ', 'Euskera saila 2. kutxa
 ', '', '8', '#046CE9401D0355E248F3F70' ),
 ( '7', 'Oarsoaldeko HITZA egunkariari dirulaguntza ematea
@@ -1400,137 +1418,137 @@ INSERT INTO `euskera`(`id`,`espedientea`,`data`,`sailkapena`,`signatura`,`oharra
 ', '2-24 Dirulaguntzen espedienteak
 ', 'Euskera saila 2. kutxa
 ', '', '10', '#046CE9401D0355EA316C200' ),
-( '8', 'Oarsoaldeko HITZA egunkarian publizitatea kontratatzea 
+( '8', 'Oarsoaldeko HITZA egunkarian publizitatea kontratatzea
 ', '2006
-', '2-24 
-2-3 Kontratazio espedienteak 
+', '2-24
+2-3 Kontratazio espedienteak
 ', 'Euskera saila 2. kutxa
 ', '', '9', '#046CE9401D0355E81D014C0' ),
 ( '9', 'Oarsoaldeko HITZA egunkarian publizitatea kontratatzea
 ', '2005
 ', '2-24
-2-3 Kontratazio espedienteak 
+2-3 Kontratazio espedienteak
 ', 'Euskera saila 2. kutxa
 ', '', '11', '#046CE9401D0355EC8F9B3B0' ),
-( '10', 'Oarsoaldeko HITZA egunkariari dirulaguntza ematea 
+( '10', 'Oarsoaldeko HITZA egunkariari dirulaguntza ematea
 ', '2005
 ', '2-24 Dirulaguntzen espedienteak
 ', 'Euskera saila 2. kutxa
 ', '', '12', '#046CE9401D0355F1194BCF0' ),
 ( '11', 'Oarsoaldeko HITZA egunkarian publizitatea kontratatzea
 ', '2003
-', '2-4 
-2-3 Kontratazio espedienteak 
+', '2-4
+2-3 Kontratazio espedienteak
 ', 'Euskera saila 2. kutxa
 ', '', '13', '#046CE9401D0355F36E61D00' ),
-( '12', 'Oarsoaldeako HITZA egunkarian publizitatea kontratatzea 
+( '12', 'Oarsoaldeako HITZA egunkarian publizitatea kontratatzea
 ', '2004
 ', '2-24
-2-3 Kontratazio espedienteak 
+2-3 Kontratazio espedienteak
 ', 'Euskera saila 2. kutxa
 ', '', '14', '#046CE9401D0355F55344AC0' ),
-( '13', 'Oarsoaldeko HITZA eta BERRIA egunkarietan iragarki ofizialak argitaratzeko kontratua 
+( '13', 'Oarsoaldeko HITZA eta BERRIA egunkarietan iragarki ofizialak argitaratzeko kontratua
 ', '2004
 ', '2-24
-2-3 Kontratazio espedienteak 
+2-3 Kontratazio espedienteak
 ', 'Euskera saila 2. kutxa
 ', '', '15', '#046CE9401D0355F89DC8440' ),
 ( '14', 'Oarsoaldeko HITZA egunkariari dirulaguntza ematea
 ', '2003
-', '2-24 Dirulaguntzen espedienteak 
+', '2-24 Dirulaguntzen espedienteak
 ', 'Euskera saila 2. kutxa
 ', '', '16', '#046CE9401D0355FAAD22B50' ),
 ( '15', 'Ikastetxeetan D ereduan matrikulatzeko kanpaina
 ', '2000
-', '2-24 Jardueren espedienteak 
+', '2-24 Jardueren espedienteak
 ', 'Euskera saila 2. kutxa
 ', '', '17', '#046CE9401D0355FC90AD540' ),
 ( '16', 'Ikastetxeetan D ereduan matrikulatzeko kanpaina
 ', '2001
-', '2-24 Jardueren espedienteak 
+', '2-24 Jardueren espedienteak
 ', 'Euskera saila 2. kutxa
 ', '', '18', '#046CE9401D0355FEEFBF7C0' ),
 ( '17', 'Ikastetxeetan D ereduan matrikulatzeko kanpaina
 ', '2002
-', '2-24 Jardueren espedienteak 
+', '2-24 Jardueren espedienteak
 ', 'Euskera saila 2. kutxa
 ', '', '19', '#046CE9401D0356006A89B30' ),
 ( '18', 'AEK euskaltegiari dirulaguntza ematea
 ', '1991
-', '2-24 Dirulaguntzen espedienteak 
+', '2-24 Dirulaguntzen espedienteak
 ', 'Euskera saial 3. kutxa
 ', '', '20', '#046CE9401D035605F0833D0' ),
-( '19', 'Euskararen aldeko jarduerei dirulaguntza ematea 
+( '19', 'Euskararen aldeko jarduerei dirulaguntza ematea
 ', '1992
-', '2-24 Dirulaguntzen espedienteak 
+', '2-24 Dirulaguntzen espedienteak
 ', 'Euskera saila 3. kutxa
 ', '', '21', '#046CE9401D03560F7820410' ),
-( '20', 'Euskeraren aldeko ekintzei dirulaguntzak ematea 
+( '20', 'Euskeraren aldeko ekintzei dirulaguntzak ematea
 ', '1988
-', '2-24 Dirulaguntzen saila 
+', '2-24 Dirulaguntzen saila
 ', 'Euskera saila 3. kutxa
 ', '', '23', '#046CE9401D03561F117C0F0' ),
-( '21', 'D ereduan matrikulatzeko kanpaina 
+( '21', 'D ereduan matrikulatzeko kanpaina
 ', '1999
-', '2-24 Jardueren espedienteak 
+', '2-24 Jardueren espedienteak
 ', 'Euskera saila 3. kutxa
 ', '', '24', '#046CE9401D03562186E8DF0' ),
-( '22', 'D ereduan matrikulatzeko kanpaina 
+( '22', 'D ereduan matrikulatzeko kanpaina
 ', '1998
-', '2-24 Jardueren espedienteak 
+', '2-24 Jardueren espedienteak
 ', 'Euskera saila 3. kutxa
 ', '', '25', '#046CE9401D035622CEE3460' ),
-( '23', 'D ereduan matrikulatzeko kanpaina 
+( '23', 'D ereduan matrikulatzeko kanpaina
 ', '1997
-', '2-24 Jardueren espedienteak 
+', '2-24 Jardueren espedienteak
 ', 'Euskera saila 3. kutxa
 ', '', '26', '#046CE9401D035623F95BF70' ),
-( '24', 'D ereduan matrikulatzeko kanpaina 
+( '24', 'D ereduan matrikulatzeko kanpaina
 ', '1996
 ', '2-24 Jardueren espedienteak
 ', 'Euskera saila 3. kutxa
 ', '', '27', '#046CE9401D0356253ECCF40' ),
-( '25', 'D ereduan matrikulatzeko kanpaina 
+( '25', 'D ereduan matrikulatzeko kanpaina
 ', '1995
-', '2-24 Jardueren espedienteak 
+', '2-24 Jardueren espedienteak
 ', 'Euskera saila 3. kutxa
 ', '', '28', '#046CE9401D0356267A41CA0' ),
 ( '26', 'D ereduan matrikulatzeko kanpaina
 ', '1994
-', '2-24 Jardueren espedienteak 
+', '2-24 Jardueren espedienteak
 ', 'Euskera saila 3. kutxa
 ', '', '29', '#046CE9401D0356279134EC0' ),
-( '27', 'D ereduan matrikulatzeko kanpaina 
+( '27', 'D ereduan matrikulatzeko kanpaina
 ', '1993
-', '2-24 Jardueren espedienteak 
+', '2-24 Jardueren espedienteak
 ', 'Euskera saila 3. kutxa
 ', '', '30', '#046CE9401D035628886B0E0' ),
-( '28', 'D ereduan matrikulatzeko kanpaina 
+( '28', 'D ereduan matrikulatzeko kanpaina
 ', '1992
-', '2-24 Dirulaguntzen espedienteak 
+', '2-24 Dirulaguntzen espedienteak
 ', 'Euskera saila 3. kutxa
 ', '', '31', '#046CE9401D03562E873BA70' ),
-( '29', 'D ereduan matrikulatzeko kanpaina 
+( '29', 'D ereduan matrikulatzeko kanpaina
 ', '1991
-', '2-24 Jardueren espedienteak 
+', '2-24 Jardueren espedienteak
 ', 'Euskera saila 3. kutxa
 ', '', '32', '#046CE9401D03562FC42FCA0' ),
-( '30', 'D ereduan matrikulatzeko kanpaina 
+( '30', 'D ereduan matrikulatzeko kanpaina
 ', '1988 - 1989
-', '2-24 Jardueren espedienteak 
+', '2-24 Jardueren espedienteak
 ', 'Euskera saila 3. kutxa
 ', '', '33', '#046CE9401D0356313AF3BB0' );
 -- ---------------------------------------------------------
 
 
 -- Dump data of "gazteria" ---------------------------------
-INSERT INTO `gazteria`(`id`,`espedientea`,`data`,`sailkapena`,`signatura`,`oharrak`,`numdoc`,`knosysid`) VALUES 
-( '1', 'Udalekuak: Udaleku irekiak eta Abenturaz blai 
+INSERT INTO `gazteria`(`id`,`espedientea`,`data`,`sailkapena`,`signatura`,`oharrak`,`numdoc`,`knosysid`) VALUES
+( '1', 'Udalekuak: Udaleku irekiak eta Abenturaz blai
 ', '1993
 ', '2-12 Jardueren espedienteak
 ', 'Gazteria eta kirola saila 1. kutxa
 ', '', '5', '#046CE9401D02FD6119F3E20' ),
-( '2', 'Gazte taldeei dirulaguntzak ematea 
+( '2', 'Gazte taldeei dirulaguntzak ematea
 ', '1992
 ', '2-12 Dirulaguntzen espedienteak
 ', 'Gazteria eta kirola saila 1. kutxa
@@ -1542,12 +1560,12 @@ INSERT INTO `gazteria`(`id`,`espedientea`,`data`,`sailkapena`,`signatura`,`oharr
 ', 'Gazteria eta kirola saila 1. kutxa
 ', 'Eskaerak
 ', '2', '#046CE9401D02FD584468CE0' ),
-( '4', 'Gabonetako haur festa 
+( '4', 'Gabonetako haur festa
 ', '1992
 ', '2-12 Jardueren espedienteak
 ', 'Gazteria eta kirola saila 1. kutxa
 ', '', '3', '#046CE9401D02FD5B2996040' ),
-( '5', 'Komiki lehiaketa 
+( '5', 'Komiki lehiaketa
 ', '1993
 ', '2-12 Jardueren espedienteak
 ', 'Gazteria eta kirola saila 1. kutxa
@@ -1557,9 +1575,9 @@ INSERT INTO `gazteria`(`id`,`espedientea`,`data`,`sailkapena`,`signatura`,`oharr
 ', '2-12 Jardueren espedienteak
 ', 'Gazteria eta kirola saila 2. kutxa
 ', '', '7', '#046CE9401D02FD6898ED350' ),
-( '7', 'Pasaiako gazte elkarteen 1. erakustaldia 
+( '7', 'Pasaiako gazte elkarteen 1. erakustaldia
 ', '1993
-', '2-12 Jardueren espedienteak 
+', '2-12 Jardueren espedienteak
 ', 'Gazteria eta kirola saila 2. kutxa
 ', '', '8', '#046CE9401D02FD6A4B708F0' ),
 ( '8', 'Gabonetako haur festa
@@ -1574,10 +1592,10 @@ INSERT INTO `gazteria`(`id`,`espedientea`,`data`,`sailkapena`,`signatura`,`oharr
 ', '', '10', '#046CE9401D02FD6E1FF0DC0' ),
 ( '10', 'PATA Pasai Antxoko talde antimilistaristari emandako dirulaguntzak
 ', '1993
-', '1-12 Dirulaguntzen espedienteak 
+', '1-12 Dirulaguntzen espedienteak
 ', 'Gazteria eta kirola saila 4. kutxa
 ', '', '12', '#046CE9401D02FD7CC8A6380' ),
-( '11', 'Foru Aldundiak emandako gazte taldeentzako dirulaguntzak 
+( '11', 'Foru Aldundiak emandako gazte taldeentzako dirulaguntzak
 ', '1993
 ', '2-12 Dirulaguntzen espedienteak
 ', 'Gazteria eta kirola saila 3. kutxa
@@ -1589,48 +1607,48 @@ INSERT INTO `gazteria`(`id`,`espedientea`,`data`,`sailkapena`,`signatura`,`oharr
 ', '', '13', '#046CE9401D02FD7F003CF40' ),
 ( '13', 'Abenturaz blai
 ', '1994
-', '1-12 Jardueren espedienteak 
+', '1-12 Jardueren espedienteak
 ', 'Gazteria eta kirola saila 5. kutxa
 ', '', '14', '#046CE9401D02FD82035E9F0' ),
-( '14', 'Abenturaz blai 
+( '14', 'Abenturaz blai
 ', '1995
-', '2-12 Jardueren espedienteak 
+', '2-12 Jardueren espedienteak
 ', 'Gazteria eta kirola saila 5. kutxa
 ', '', '17', '#046CE9401D02FD893AF6050' ),
 ( '15', 'Tailerrak
 ', '1995
-', '2-12 Jardueren espedienteak 
+', '2-12 Jardueren espedienteak
 ', 'Gazteria eta kirola saila 5. kutxa
 ', '', '16', '#046CE9401D02FD87DBBDE90' ),
-( '16', 'Kirol elkarteei emandako dirulaguntzak 
+( '16', 'Kirol elkarteei emandako dirulaguntzak
 ', '1994
 ', '2-12 Dirulaguntzen espedienteak
 ', 'Gazteria eta kirola saila 6. kutxa
 ', '', '18', '#046CE9401D02FD93DC36A50' ),
-( '17', 'Kirol elkarteei emandako dirulaguntzak 
+( '17', 'Kirol elkarteei emandako dirulaguntzak
 ', '1995
 ', '2-12 Dirulaguntzen espedienteak
 ', 'Gazteria eta kirola saila 6. kutxa
 ', '', '19', '#046CE9401D02FD9527C4930' ),
-( '18', 'Kirol elkarteei emandako dirulaguntzak 
+( '18', 'Kirol elkarteei emandako dirulaguntzak
 ', '1996
 ', '2-12 Dirulaguntzen espedienteak
 ', 'Gazteria eta kirola saila 6. kutxa
 ', '', '20', '#046CE9401D02FD9689AAB80' ),
-( '19', 'Gazte elkarteei emandako dirulaguntzak 
+( '19', 'Gazte elkarteei emandako dirulaguntzak
 ', '1995
-', '2-12 Dirulaguntzen espedienteak 
+', '2-12 Dirulaguntzen espedienteak
 ', 'Gazteria eta kirola saila 7. kutxa
 ', '', '21', '#046CE9401D02FD989D7E2E0' ),
-( '20', 'Gazte elkarteei emandako dirulaguntzak 
+( '20', 'Gazte elkarteei emandako dirulaguntzak
 ', '1994
-', '2-12 Dirulaguntzen espedienteak 
-', 'Gazteria eta kirola saila 8. kutxa 
+', '2-12 Dirulaguntzen espedienteak
+', 'Gazteria eta kirola saila 8. kutxa
 ', 'Memoriak
 ', '22', '#046CE9401D02FD9A78FC410' ),
-( '21', 'Udaleku irekiak. URTXINTXA 
+( '21', 'Udaleku irekiak. URTXINTXA
 ', '1995
-', '2-12 Jardueren espedienteak 
+', '2-12 Jardueren espedienteak
 ', 'Gazteria eta kirola saila 9. kutxa
 ', '', '24', '#046CE9401D02FD9DD182460' ),
 ( '22', 'Tailerrak
@@ -1640,49 +1658,207 @@ INSERT INTO `gazteria`(`id`,`espedientea`,`data`,`sailkapena`,`signatura`,`oharr
 ', '', '25', '#046CE9401D02FDBD904D420' ),
 ( '23', 'Udaleku irekiak. URTXINTXA
 ', '1996
-', '2-12 Jardueren espedienteak 
+', '2-12 Jardueren espedienteak
 ', 'Gazteria eta kirola saila 10. kutxa
 ', '', '26', '#046CE9401D02FDBF0A31FB0' ),
-( '24', 'Tailerrak 
+( '24', 'Tailerrak
 ', '1996 - 1997
-', '2-12 Jardueren espedienteak 
+', '2-12 Jardueren espedienteak
 ', 'Gazteria eta kirola saila 11. kutxa
 ', '', '27', '#046CE9401D02FDC0894E270' ),
-( '25', 'Gazte taldeei emandako dirulaguntzak 
+( '25', 'Gazte taldeei emandako dirulaguntzak
 ', '1997
-', '2-12 Dirulaguntzen espedienteak 
+', '2-12 Dirulaguntzen espedienteak
 ', 'Gazteria eta kirola saila 11. kutxa
 ', '', '30', '#046CE9401D02FE27C0C9C60' ),
-( '26', 'Gazte taldeei emandako dirulaguntzak 
+( '26', 'Gazte taldeei emandako dirulaguntzak
 ', '1998
-', '2-12 Dirulaguntzen espedienteak 
+', '2-12 Dirulaguntzen espedienteak
 ', 'Gazteria eta kirola saila 11. kutxa
 ', '', '31', '#046CE9401D02FE2975181C0' ),
 ( '27', 'Gazte taldeei emandako dirulaguntzak
 ', '1998
-', '2-12 Dirulaguntzen espedienteak 
+', '2-12 Dirulaguntzen espedienteak
 ', 'Gazteria eta kirola saila 11. kutxa
 ', '', '32', '#046CE9401D02FE2D4439E60' ),
 ( '28', 'Gazte taldeei emandako dirulaguntzak
 ', '1999
-', '2-12 Dirulaguntzen espedienteak 
+', '2-12 Dirulaguntzen espedienteak
 ', 'Gazteria eta kirola saila 11. kutxa
 ', '', '33', '#046CE9401D02FE2F3B6EB30' ),
-( '29', 'Gazteentzako tailerrak 
+( '29', 'Gazteentzako tailerrak
 ', '1997 - 1998
-', '2-12 Jardueren espedienteak 
+', '2-12 Jardueren espedienteak
 ', 'Gazteria eta kirola saila 12. kutxa
 ', '', '36', '#046CE9401D02FE32CDEB960' ),
-( '30', 'Abenturaz blai 
+( '30', 'Abenturaz blai
 ', '1996
-', '2-12 Jardueren espedienteak 
+', '2-12 Jardueren espedienteak
+', 'Gazteria eta kirola saila 12. kutxa
+', '', '37', '#046CE9401D02FE33ED0FE30' );
+-- ---------------------------------------------------------
+
+
+-- Dump data of "kirola" ---------------------------------
+INSERT INTO `kirola`(`id`,`espedientea`,`data`,`sailkapena`,`signatura`,`oharrak`,`numdoc`,`knosysid`) VALUES
+( '1', 'Udalekuak: Udaleku irekiak eta Abenturaz blai
+', '1993
+', '2-12 Jardueren espedienteak
+', 'Gazteria eta kirola saila 1. kutxa
+', '', '5', '#046CE9401D02FD6119F3E20' ),
+( '2', 'Gazte taldeei dirulaguntzak ematea
+', '1992
+', '2-12 Dirulaguntzen espedienteak
+', 'Gazteria eta kirola saila 1. kutxa
+', 'Proiektuak besterik ez dago
+', '1', '#046CE9401D02FD545FD1DA0' ),
+( '3', 'Gazte kanpamentuetarako dirulaguntzak ematea
+', '1992
+', '2-12 Dirulaguntzen espedienteak
+', 'Gazteria eta kirola saila 1. kutxa
+', 'Eskaerak
+', '2', '#046CE9401D02FD584468CE0' ),
+( '4', 'Gabonetako haur festa
+', '1992
+', '2-12 Jardueren espedienteak
+', 'Gazteria eta kirola saila 1. kutxa
+', '', '3', '#046CE9401D02FD5B2996040' ),
+( '5', 'Komiki lehiaketa
+', '1993
+', '2-12 Jardueren espedienteak
+', 'Gazteria eta kirola saila 1. kutxa
+', '', '4', '#046CE9401D02FD5EBABAAA0' ),
+( '6', 'Tailerrak
+', '1993
+', '2-12 Jardueren espedienteak
+', 'Gazteria eta kirola saila 2. kutxa
+', '', '7', '#046CE9401D02FD6898ED350' ),
+( '7', 'Pasaiako gazte elkarteen 1. erakustaldia
+', '1993
+', '2-12 Jardueren espedienteak
+', 'Gazteria eta kirola saila 2. kutxa
+', '', '8', '#046CE9401D02FD6A4B708F0' ),
+( '8', 'Gabonetako haur festa
+', '1993
+', '2-12 Jardueren espedienteak
+', 'Gazteria eta kirola saila 2. kutxa
+', '', '9', '#046CE9401D02FD6BFAD5920' ),
+( '9', 'Gazteriaren aldeko programetarako dirulaguntzak ematea
+', '1993
+', '2-12 Dirulaguntzen espedienteak
+', 'Gazteria eta kirola saila 2. kutxa
+', '', '10', '#046CE9401D02FD6E1FF0DC0' ),
+( '10', 'PATA Pasai Antxoko talde antimilistaristari emandako dirulaguntzak
+', '1993
+', '1-12 Dirulaguntzen espedienteak
+', 'Gazteria eta kirola saila 4. kutxa
+', '', '12', '#046CE9401D02FD7CC8A6380' ),
+( '11', 'Foru Aldundiak emandako gazte taldeentzako dirulaguntzak
+', '1993
+', '2-12 Dirulaguntzen espedienteak
+', 'Gazteria eta kirola saila 3. kutxa
+', '', '11', '#046CE9401D02FD73D276350' ),
+( '12', 'Tailerrak
+', '1994
+', '1-12 Jardueren espedienteak
+', 'Gazteria eta kirola saila 4. kutxa
+', '', '13', '#046CE9401D02FD7F003CF40' ),
+( '13', 'Abenturaz blai
+', '1994
+', '1-12 Jardueren espedienteak
+', 'Gazteria eta kirola saila 5. kutxa
+', '', '14', '#046CE9401D02FD82035E9F0' ),
+( '14', 'Abenturaz blai
+', '1995
+', '2-12 Jardueren espedienteak
+', 'Gazteria eta kirola saila 5. kutxa
+', '', '17', '#046CE9401D02FD893AF6050' ),
+( '15', 'Tailerrak
+', '1995
+', '2-12 Jardueren espedienteak
+', 'Gazteria eta kirola saila 5. kutxa
+', '', '16', '#046CE9401D02FD87DBBDE90' ),
+( '16', 'Kirol elkarteei emandako dirulaguntzak
+', '1994
+', '2-12 Dirulaguntzen espedienteak
+', 'Gazteria eta kirola saila 6. kutxa
+', '', '18', '#046CE9401D02FD93DC36A50' ),
+( '17', 'Kirol elkarteei emandako dirulaguntzak
+', '1995
+', '2-12 Dirulaguntzen espedienteak
+', 'Gazteria eta kirola saila 6. kutxa
+', '', '19', '#046CE9401D02FD9527C4930' ),
+( '18', 'Kirol elkarteei emandako dirulaguntzak
+', '1996
+', '2-12 Dirulaguntzen espedienteak
+', 'Gazteria eta kirola saila 6. kutxa
+', '', '20', '#046CE9401D02FD9689AAB80' ),
+( '19', 'Gazte elkarteei emandako dirulaguntzak
+', '1995
+', '2-12 Dirulaguntzen espedienteak
+', 'Gazteria eta kirola saila 7. kutxa
+', '', '21', '#046CE9401D02FD989D7E2E0' ),
+( '20', 'Gazte elkarteei emandako dirulaguntzak
+', '1994
+', '2-12 Dirulaguntzen espedienteak
+', 'Gazteria eta kirola saila 8. kutxa
+', 'Memoriak
+', '22', '#046CE9401D02FD9A78FC410' ),
+( '21', 'Udaleku irekiak. URTXINTXA
+', '1995
+', '2-12 Jardueren espedienteak
+', 'Gazteria eta kirola saila 9. kutxa
+', '', '24', '#046CE9401D02FD9DD182460' ),
+( '22', 'Tailerrak
+', '1995
+', '2-12 Jardueren espedienteak
+', 'Gazteria eta kirola saila 10. kutxa
+', '', '25', '#046CE9401D02FDBD904D420' ),
+( '23', 'Udaleku irekiak. URTXINTXA
+', '1996
+', '2-12 Jardueren espedienteak
+', 'Gazteria eta kirola saila 10. kutxa
+', '', '26', '#046CE9401D02FDBF0A31FB0' ),
+( '24', 'Tailerrak
+', '1996 - 1997
+', '2-12 Jardueren espedienteak
+', 'Gazteria eta kirola saila 11. kutxa
+', '', '27', '#046CE9401D02FDC0894E270' ),
+( '25', 'Gazte taldeei emandako dirulaguntzak
+', '1997
+', '2-12 Dirulaguntzen espedienteak
+', 'Gazteria eta kirola saila 11. kutxa
+', '', '30', '#046CE9401D02FE27C0C9C60' ),
+( '26', 'Gazte taldeei emandako dirulaguntzak
+', '1998
+', '2-12 Dirulaguntzen espedienteak
+', 'Gazteria eta kirola saila 11. kutxa
+', '', '31', '#046CE9401D02FE2975181C0' ),
+( '27', 'Gazte taldeei emandako dirulaguntzak
+', '1998
+', '2-12 Dirulaguntzen espedienteak
+', 'Gazteria eta kirola saila 11. kutxa
+', '', '32', '#046CE9401D02FE2D4439E60' ),
+( '28', 'Gazte taldeei emandako dirulaguntzak
+', '1999
+', '2-12 Dirulaguntzen espedienteak
+', 'Gazteria eta kirola saila 11. kutxa
+', '', '33', '#046CE9401D02FE2F3B6EB30' ),
+( '29', 'Gazteentzako tailerrak
+', '1997 - 1998
+', '2-12 Jardueren espedienteak
+', 'Gazteria eta kirola saila 12. kutxa
+', '', '36', '#046CE9401D02FE32CDEB960' ),
+( '30', 'Abenturaz blai
+', '1996
+', '2-12 Jardueren espedienteak
 ', 'Gazteria eta kirola saila 12. kutxa
 ', '', '37', '#046CE9401D02FE33ED0FE30' );
 -- ---------------------------------------------------------
 
 
 -- Dump data of "hutsak" -----------------------------------
-INSERT INTO `hutsak`(`id`,`egoera`,`signatura`,`zaharra`,`berria`,`numdoc`,`knosysid`) VALUES 
+INSERT INTO `hutsak`(`id`,`egoera`,`signatura`,`zaharra`,`berria`,`numdoc`,`knosysid`) VALUES
 ( '1', 'Modificado
 ', '782-5
 ', 'Certificaciones urbanísticas
@@ -1711,7 +1887,7 @@ Año 1995
 Obra txikiak 5-7
 ', 'Expediente personal de Rosa Tuquerres Flores (2009)
 ', '4', '#046CE9401CB2194F6F2E120' ),
-( '5', 'Modificación 
+( '5', 'Modificación
 ', '782-4
 ', 'Certificaciones urbanísticas
 Año 1982
@@ -1744,9 +1920,9 @@ Obra txikiak 6-2
 ', 'Certificaciones urbanísticas
 Año 1986
 Obra txikiak 6-3
-', 'Expediente personal de Jon Larretxea Lazkano 
+', 'Expediente personal de Jon Larretxea Lazkano
 ', '11', '#046CE9401CB21A724036B50' ),
-( '10', 'Modificado 
+( '10', 'Modificado
 ', '169-33
 ', 'Certificaciones urbanísticas
 Año 1989
@@ -1807,32 +1983,32 @@ Obra txikiak 7-15
 ', 'Certificaciones urbanísticas
 Año 1999
 Obra txikiak 6-7
-', 'Recurso contencioso-administrativo nº 342/2007 interpuesto por Miguel Simón González contra resolución del Ayuntamiento por la que se acuerda la inadmisión de la solicitud de nulidad de la liquidación por concesión de licencia de obras otorgada en 1991. Acumulado nº 534/2007 (2007 - 2010). 
+', 'Recurso contencioso-administrativo nº 342/2007 interpuesto por Miguel Simón González contra resolución del Ayuntamiento por la que se acuerda la inadmisión de la solicitud de nulidad de la liquidación por concesión de licencia de obras otorgada en 1991. Acumulado nº 534/2007 (2007 - 2010).
 342/2007 zenbakidun Administrazioarekiko Auzi Errekurtsoa Miguel Simón González jaunak aurkeztua Udal ebazpenaren aurka. Ebazpen honek erabakitzen du ez onartzea 1991. urtean emandako obra lizentzia baliogabetzeko eskaera, kitapenari dagokionez.  534/2007 zenbakikun errekurtso metatua (2007 - 2010)
 ', '15', '#046CE9401CB21AE7A89ABE0' ),
 ( '19', 'Modificado
 ', '1480-2
-', 'Certificaciones urbanísticas 
+', 'Certificaciones urbanísticas
 2007
 Obra txikiak 7-3
 ', 'Recurso contencioso-administrativo nº 237/06 interpuesto por Marina González contra inactividad del Ayuntamiento al no resolver el recurso de reposición interpuesto contra acuerdo de la Junta de Gobierno Local sobre reclamación patrimonial por caida en la c/ Oarso (2006 - 2007).
-237/06 zenbakidun Administrazioarekiko auzi errekurtsoa Marina González andreak aurkeztutakoa udalaren geldotasunaren aurka. Andre honek salatzen du Udalak ez diola erabazpenik eman Oarso kalean izandako erorikoagatik ondare erantzunkizunari buruz Tokiko Gobernu Batzarrak erabakitakoaren aurka aurkeztu zuen berraztertze errekurtsoari. 
+237/06 zenbakidun Administrazioarekiko auzi errekurtsoa Marina González andreak aurkeztutakoa udalaren geldotasunaren aurka. Andre honek salatzen du Udalak ez diola erabazpenik eman Oarso kalean izandako erorikoagatik ondare erantzunkizunari buruz Tokiko Gobernu Batzarrak erabakitakoaren aurka aurkeztu zuen berraztertze errekurtsoari.
 ', '17', '#046CE9401CB3471037FB140' ),
 ( '20', 'Anulado porque tampoco se ha localizado en otra signatura
 ', '929-3
-', 'Habilitación de oficinas en Euskadi Etorbidea, 53. Promotor: Entrecanales y Tavora SA 
+', 'Habilitación de oficinas en Euskadi Etorbidea, 53. Promotor: Entrecanales y Tavora SA
 ', '', '21', '#046CE9401CBE244BDE6E3B0' ),
-( '21', 'Modificado 
+( '21', 'Modificado
 ', '739-6
 ', 'Licencia de taxi. Fernando de la Palma
 2-18 Licencias de taxi
 ', 'Permuta de la vivienda de Donibane kalea, 136 - 1º, propiedad del Ayuntamiento de Pasaia, y la vivienda de Donibane kalea, 110 - 4º, propiedad de María Isabel Alcaraz Gamecho (2011)
 ', '23', '#046CE9401CC03F9CCA558B0' ),
-( '22', 'Modificado 
-', '59-8 
+( '22', 'Modificado
+', '59-8
 ', 'Licencia de taxi. Juan Marcos Mateo
 1962 - 1980
-2-18 Licencias de taxi 
+2-18 Licencias de taxi
 ', 'Expediente del taxista Francisco Javier Avila Nieto, licencia nº 34. 2011
 ', '22', '#046CE9401CC03F38D4446A0' ),
 ( '23', 'Modificado
@@ -1859,20 +2035,20 @@ Obra txikiak 7-3
 2-18 Licencias de taxi
 ', 'Selección de arquitecto para el programa Refuerzo del Area de Urbanismo - Arquitecto (María Iceta) 2008 -)
 ', '27', '#046CE9401CC0409F61EEB60' ),
-( '27', 'Modificado 
+( '27', 'Modificado
 ', '741-3
 ', 'Licencia de taxi nº 2. Jaime González García (1989 - 2006)
 2-18 Licencias de taxi
 ', 'Licencia de apertura para actividad de estudio fotográfico en Gure Zumardia, 30 planta baja a favor de Juan Rubén Carretero Cano, y licencia de obras (2008 -)
 ', '28', '#046CE9401CC040B9A7DF880' ),
-( '28', 'Modificado 
+( '28', 'Modificado
 ', '740-4
 ', 'Autorizaciones de licencias de taxi
 1979
 2-18 Licencias de taxi
 ', 'Licencia de apertura de actividad de bar en la c/ San Juan, 67 bajo a favor de José Ramón Ibarzabal Artano (1962)
 ', '29', '#046CE9401CC0599C044EEE0' ),
-( '29', 'Modificado 
+( '29', 'Modificado
 ', '740-13
 ', 'Licencia de taxi nº 6 Luis Ageitos Reiriz
 1959 - 1983
@@ -1889,8 +2065,8 @@ Obra txikiak 7-3
 
 
 -- Dump data of "kontratazioa" -----------------------------
-INSERT INTO `kontratazioa`(`id`,`espedientea`,`urtea`,`sailkapena`,`signatura`,`numdoc`,`knosysid`) VALUES 
-( '1', ' 
+INSERT INTO `kontratazioa`(`id`,`espedientea`,`urtea`,`sailkapena`,`signatura`,`numdoc`,`knosysid`) VALUES
+( '1', '
 ', '', '', '', '3', '#046CE9401CD23A4D43C1B10' ),
 ( '2', 'Bordaenean ezponda sendotzeko obrak kontratatzea / Contratación de las obras de estabilitzación de ladera en Bordaenea
 Proiektua: bai
@@ -1906,17 +2082,17 @@ Kontserbazio iraunkorra (ikusi Balorazioa)
 Acceso libre
 Erlazionatutako espedienteak: Escritura de dación en pago de local en la c/ Hamarretxeta, 22 - 24 bajo otorgada por AZGUIN SA 1997
 ', '1998 - 1999
-', '2-3 Kontratazio espedienteak 
-2-15-2 Proiektuak 
+', '2-3 Kontratazio espedienteak
+2-15-2 Proiektuak
 ', 'KUDEAKETA 7. kutxa
 lehen OM 4/98 caja nº 6
 ', '18', '#046CE9401CD291C5BE882C0' ),
-( '4', 'Contratación de las obras de reparación y consolidación de los desprendimientos situados en la zona próxima al polideportivo de Donibane / Donibaneko kiroldegiaren inguruan izandako lur-jausiak konpondu eta sendatzeko obrak kontratatzea 
+( '4', 'Contratación de las obras de reparación y consolidación de los desprendimientos situados en la zona próxima al polideportivo de Donibane / Donibaneko kiroldegiaren inguruan izandako lur-jausiak konpondu eta sendatzeko obrak kontratatzea
 Kontratista: Construcciones ERGA SL
-Proiektua: ez 
+Proiektua: ez
 Kontserbazio iraunkorra
 Acceso libre
-Erlazionatutako espedienteak: 1997ko ekainaren 1ean izandako uholdeak 
+Erlazionatutako espedienteak: 1997ko ekainaren 1ean izandako uholdeak
 ', '1997 - 1998
 ', '2-3 Kontratazio espedienteak
 ', 'KUDEAKETA 8. kutxa
@@ -1924,35 +2100,35 @@ Lehen V-12/97 inundaciones 97
 ', '19', '#046CE9401CD29C3B46E2010' ),
 ( '5', 'Reparación de desprendimiento y consolidación de ladera en Farolako bidea / Farolako bidean lur-jausia konpondu eta ezponda sendotzeko obrak kontratatzea
 Kontratista:
-Proiektua: ez 
+Proiektua: ez
 Kontserbazio iraunkorra
 Acceso libre
-Erlazionatutako espedienteak: 1997ko ekainaren 1ean izandako uholdeak 
+Erlazionatutako espedienteak: 1997ko ekainaren 1ean izandako uholdeak
 ', '1997 - 1998
 ', '2-3 Kontratazio espedienteak
 ', 'KUDEAKETA 8. kutxa
 lehen V-17/97 inundaciones 97
 ', '20', '#046CE9401CD29C4A58F1940' ),
-( '6', '2002ko abuztuan izandako uholdeak 
+( '6', '2002ko abuztuan izandako uholdeak
 ', '2002 - 2005
 ', '', 'KUDEAKETA 8. kutxa
 inundaciones 2002
 ', '21', '#046CE9401CD29C7D0087BA0' ),
-( '7', 'Hormak sendotzeko proiektuen erredakzioa kontratatzea ( Pasaia Donibaneko antzinako anbulatorioa, Victor Hugo etxea eta Urrestarazu Anaien kalea) / Contratación de la redacción de proyectos de afianzamiento de muros 
+( '7', 'Hormak sendotzeko proiektuen erredakzioa kontratatzea ( Pasaia Donibaneko antzinako anbulatorioa, Victor Hugo etxea eta Urrestarazu Anaien kalea) / Contratación de la redacción de proyectos de afianzamiento de muros
 Kontratista: Pedro María Azkue Elosegi
 Proiektua: bai
 Kontserbazio: ?
 Acceso libre
-Erlazionatutako espedienteak: 
+Erlazionatutako espedienteak:
 ', '1998
 ', '2-3 Kontratazio espedienteak
 ', 'KUDEAKETA 8. kutxa
 lehen V-7/98 caja nº 7
 ', '22', '#046CE9401CD29CB79261050' ),
-( '8', 'Termitek egindako erasoagatik proiektuak kontratatzea 
+( '8', 'Termitek egindako erasoagatik proiektuak kontratatzea
 Kontratista: Tecma
                    Mikel Landa Esparza
-', '1999 
+', '1999
 ', '2-16 Saneamendua (?)
 ', 'KUDEAKETA 8. kutxa
 lehen V-12/99 caja nº 7
@@ -1980,11 +2156,11 @@ lehen V-7/00 caja nº 8
 ', '28', '#046CE9401CD29DE4A43FAA0' ),
 ( '11', 'Azkuene kalea, 42. zenbakian hormak eta eskailerak konpondu eta sendotzea proiektuaren erredakzioa kontratatzea / Contratación de la redaccion del proyecto Reparación de muros y escaleras en Azkuene kalea, 42
 Contratista: KEMEN Estudios y Proyectos SL
-Proiektua: ez 
+Proiektua: ez
 Kontserbazio: ?
 Acceso libre
 ', '2000
-', '2-3 Kontratazio espedienteak 
+', '2-3 Kontratazio espedienteak
 ', 'KUDEAKETA 9. kutxa
 lehen V-8/00 caja nº 8
 ', '29', '#046CE9401CD29DF34C0F880' ),
@@ -2000,7 +2176,7 @@ lehen V-3/00 caja nº 8
 ', '31', '#046CE9401CD29E12D917420' ),
 ( '13', '3.03 Molinao - Itsas Adarra Hiri Arean urbanizazio proiektuaren erredakzioa kontratatzea / Contratación de la redacción del proyecto de urbanización del Area Urbana 3.03 Molinao Itsas Adarra
 Kontratista: Eduardo Ramos Platón y Rosario Ortiz de Zárate
-Proiektua: ez 
+Proiektua: ez
 Kontserbazio:
 Acceso libre
 ', '2000
@@ -2008,11 +2184,11 @@ Acceso libre
 ', 'KUDEAKETA 9. kutxa
 lehen V-2/00 caja nº 8
 ', '33', '#046CE9401CD29E2D78B9810' ),
-( '14', '1997ko ekainaren 1ean izandako  uholdeak 
+( '14', '1997ko ekainaren 1ean izandako  uholdeak
 Argazkiak eta bideoak
 Kontserbazio iraunkorra
 Acceso libre
-Erlazionatutako espedienteak: Ondoren egin ziren obrak 
+Erlazionatutako espedienteak: Ondoren egin ziren obrak
 ', '1997 - 1999
 ', '', 'KUDEAKETA 10 a, b, c kutxak
 ', '34', '#046CE9401CD29EC6AC24670' ),
@@ -2039,8 +2215,8 @@ Erlazionatutako espedienteak:
 lehen V-16/01 caja nº 10
 ', '44', '#046CE9401CD2CFC8C400900' ),
 ( '18', 'Bizkaia plaza urbanizazio proiektuaren erredakzioa kontratzeta / Contratación de la redacción del proyecto de urbanización de la plaza Bizkaia
-Kontratista: Eduardo Ramos Platón 
-Proiektua: ez 
+Kontratista: Eduardo Ramos Platón
+Proiektua: ez
 Kontserbazio iraunkorra
 Acceso libre
 Erlazionatutako espedienteak
@@ -2050,8 +2226,8 @@ Erlazionatutako espedienteak
 lehen V-18/01 caja nº 10
 ', '45', '#046CE9401CD2CFE143279A0' ),
 ( '19', 'San Pedro kalea, 7 eta 9. zenbakietan babespeko apartamentuen eraikinaren proiektuaren erredakzioa kontratatzea / Contratación de la redacción del proyecto de edificios de apartamentos tutelados en San Pedro kalea, 7 y 9
-Kontratista: Lehengaia Arquitectos 
-Proiektua: ez 
+Kontratista: Lehengaia Arquitectos
+Proiektua: ez
 Kontserbazio iraunkorra
 Acceso libre
 Erlazionatutako espedienteak:
@@ -2083,7 +2259,7 @@ lehen V-8/01 caja nº 9
 ', '37', '#046CE9401CD2C460C528580' ),
 ( '21', 'Contratación de la redacción del documento de Renovación Urbana del AU 2.06, 2.08 y 2.09 Trintxer-Azkuene / Trintxer - Azkuene 2.06, 2.08 eta 2.09 Hiri Eremua hiri berritxeko dokumentua erredakzioa kontratatzea
 Kontratista: LKS INGENIERIA
-Proiektua: ez 
+Proiektua: ez
 Kontserbazio iraunkorra
 Acceso libre
 Erlazionatutako espedienteak:
@@ -2094,15 +2270,15 @@ Erlazionatutako espedienteak:
 ', 'KUDEAKETA 11. kutxa
 lehen V-10/01 caja nº 9
 ', '38', '#046CE9401CD2C4735ACCE30' ),
-( '22', 'Contratatación del trabajo "Levantamiento topográfico de la zona Trintxerpe - Azkuene" / Trintxerpe - Azkuene zonako altxamendu topografikoa" lana kontratatzea 
+( '22', 'Contratatación del trabajo "Levantamiento topográfico de la zona Trintxerpe - Azkuene" / Trintxerpe - Azkuene zonako altxamendu topografikoa" lana kontratatzea
 Kontratista: LYT Ingeniería Topográfica e Informática
-Proiektua: ez 
+Proiektua: ez
 Kontserbazio iraunkorra
 Acceso libre
 Erlazionatutako espedienteak:
 - Contratación de la redacción del documento de Renovación Urbana Trintxer - Azkuene. KUDEAKETA 12. kutxa
 - Subvención para la redacción de Programa Estratégico de Renovación Urbana de trintxerpe. KUDEAKETA 11. kutxa
-', '2001 
+', '2001
 ', '2-3 Kontratazio espedienteak
 ', 'KUDEAKETA 11. kutxa
 Lehen V- 8/01 caja nº 9
@@ -2112,7 +2288,7 @@ Kontratista: Neurri Ingenieros
 Kontserbazio iraunkorra
 Acceso libre
 Erlazionatutako espedienteak
-', '2002 
+', '2002
 ', '2-3 Kontratazio espedienteak
 ', 'KUDEAKETA 12. kutxa
 lehen V-3/02 caja nº 11
@@ -2137,26 +2313,26 @@ lehen V-08/02 caja nº 13
 ', '49', '#046CE9401CD2D0A36FC9C20' ),
 ( '26', 'Arratoiak hil eta intsektuak kentzeko zerbitzua kontratatzea / Contratación del servicio de desratización y desinfección
 Kontratista: OIARSO
-Kontserbazioa: ez 
+Kontserbazioa: ez
 Acceso libre
 ', '2002
 ', '2-3 Kontratazio espedienteak
 ', 'KUDEAKETA 13. kutxa
 lehen V-4/02 caja n º 11
 ', '50', '#046CE9401CD2D0EA8561BE0' ),
-( '27', 'La Herrera portuaren guneko  Euskadi etorbidean dagoen Eustaquio Sagarzazu lantegiaren eraistea kontratatzea 
-Kontratista: REDENOR Reciclajes y demoliciones del norte SL 
+( '27', 'La Herrera portuaren guneko  Euskadi etorbidean dagoen Eustaquio Sagarzazu lantegiaren eraistea kontratatzea
+Kontratista: REDENOR Reciclajes y demoliciones del norte SL
 Proiektua: ez
 Kontserbazio iraunkorra
 Acceso libre
-Erlazionatutako espedienteak 
+Erlazionatutako espedienteak
 ', '2004
 ', '2-3 Kontratazioa
 ', 'KUDEAKETA 13. kutxa
 lehen OM 10/04 caja nº 13
 ', '52', '#046CE9401CD2EA294B0D950' ),
 ( '28', 'La Herrera portuaren guneko Euskadi etorbidean dagoen Aizkala SA lantegiaren eraistea kontratatzea / Contratación de la demolición del pabellón de Aizkala SA sito en Euskadi etorbidea, zona portuaria de La Herrera
-Kontratista: REDENOR Reciclajes y Demoliciones SL 
+Kontratista: REDENOR Reciclajes y Demoliciones SL
 Proiektua:
 Kontserbazio iraunkorra
 Acceso libre
@@ -2166,7 +2342,7 @@ Erlazionatutako espedienteak
 ', 'KUDEAKETA 13. kutxa
 lehen OM 9/04 caja nº 13
 ', '53', '#046CE9401CD2EA618737100' ),
-( '29', 'Andonaegiko futbol zelaian argiketaren instalazioa kontratatzea / Contratación de la instalación de alumbrado en el campo de fútbol de Andonaegi 
+( '29', 'Andonaegiko futbol zelaian argiketaren instalazioa kontratatzea / Contratación de la instalación de alumbrado en el campo de fútbol de Andonaegi
 Kontratista: ARGI Electromontajes SL
 Proiektua: ez
 Kontserbazio: ez (ikusi balorazioa)
@@ -2177,8 +2353,8 @@ Acceso libre
 lehen OM 12/04 caja nº 13
 ', '54', '#046CE9401CD2F4709420EC0' ),
 ( '30', 'Irrati-irakurketarako sistema duten ur-irakurgailuak ordezkatzeko obrak kontratatzea / Contratación de las obras de sustitución de contadores de agua con sistema de radiolectura
-Kontratista: Monedero Zerbitzuak 
-Proiektua: ez 
+Kontratista: Monedero Zerbitzuak
+Proiektua: ez
 Kontserbazio: ?
 Acceso libre
 ', '2004
@@ -2190,7 +2366,7 @@ lehen OM 7/04 caja nº 13
 
 
 -- Dump data of "kultura" ----------------------------------
-INSERT INTO `kultura`(`id`,`espedientea`,`data`,`sailkapena`,`signatura`,`oharrak`,`numdoc`,`knosysid`) VALUES 
+INSERT INTO `kultura`(`id`,`espedientea`,`data`,`sailkapena`,`signatura`,`oharrak`,`numdoc`,`knosysid`) VALUES
 ( '1', '7
 ', '', '', '', '', '25', '#046CE9401CAF7443D63FC00' ),
 ( '2', 'BRANKA Pasaiako herri aldizkaria
@@ -2248,7 +2424,7 @@ Argitaratzailea: Arnasa Euskara Elkartea
 - PASAJES. Revista anual. c/ Carretera. 1931, 1932, 1936
 ', '', '', 'Kultura Saila 17. kutxa
 ', '', '13', '#046CE9401CAF351FE9B1F80' ),
-( '12', 'HIRIAN aldizkaria (1. zenbakia - ). 
+( '12', 'HIRIAN aldizkaria (1. zenbakia - ).
 EDK editorea
 ', '', '', 'Kultura Saila 12. kutxa
 ', '', '26', '#046CE9401CB228254D74CC0' ),
@@ -2256,36 +2432,36 @@ EDK editorea
 1988
 - PITXU
 - Miguel Angel Belza. Victor Hugo
-- Pasaiako artisten erakusketa. Victor Hugo 
+- Pasaiako artisten erakusketa. Victor Hugo
 1989
-- Zumeta. Victor Hugo 
-- José L. Sanz. Victor Hugo 
+- Zumeta. Victor Hugo
+- José L. Sanz. Victor Hugo
 - Mikel Cristti. Victor Hugo
 1990
-- Luisi Vélez. Victor Hugo 
+- Luisi Vélez. Victor Hugo
 - Pilar Alava Mendieta. Victor Hugo
-- Belén Morena. Victor Hugo 
+- Belén Morena. Victor Hugo
 - Oier Villar. Antxoko Kultur Etxea
 - 1991
-- Kepa Lukas. Victor Hugo 
-- Pedro Venancio Gassis y Minondo. Victor Hugo 
-- Mensu. Victor Hugo 
-- Carlos Inda. Victor Hugo 
+- Kepa Lukas. Victor Hugo
+- Pedro Venancio Gassis y Minondo. Victor Hugo
+- Mensu. Victor Hugo
+- Carlos Inda. Victor Hugo
 - Estropadak. Antxoko Kultur Etxea
 - Pedro Niño. Victor Hugo
 1992
 - Jornadas sobre indigenismo. Antxoko Kultur Etxea
 - Los viajes portugueses y el encuentro de las civilizaciones. Antxoko Kultur Etxea
-- Bixen Etxabe. Victor Hugo 
-- Beltrán. Victor Hugo 
+- Bixen Etxabe. Victor Hugo
+- Beltrán. Victor Hugo
 - Luisi Vélez y Carlos Naucler. Antxoko Kultur Etxea
 1993
 - Bergarako margolariak. Victor Hugo
-- Iñaki Gómez, Pedro Aguirregomezcorta, Stoyab Voutchkov. Victor Hugo 
+- Iñaki Gómez, Pedro Aguirregomezcorta, Stoyab Voutchkov. Victor Hugo
 - Pasaia Cuba Solidaridad. Antxoko Kultur Etxea
 - Alumnos del estudio Arritxu. Antxoko Kultur Etxea
-- Mari Paz Jiménez. Victor Hugo 
-- Miguel Angel Alvarez. Victor Hugo 
+- Mari Paz Jiménez. Victor Hugo
+- Miguel Angel Alvarez. Victor Hugo
 - Txontxongilo artegintza erakusketa. Antxoko kultur etxea
 ', '', '2-11-1 Programas
 ', '1. kutxa
@@ -2293,117 +2469,117 @@ EDK editorea
 ', '0', '#046CE9401CAEC449CA6D170' ),
 ( '14', 'Erakusketen egitarauak eta kartelak / Programas y carteles de exposiciones:
 1994
-- Andrea Moccio. San Pedroko Udal Aretoa 
-- Victorio Montolivo. Victor Hugo 
+- Andrea Moccio. San Pedroko Udal Aretoa
+- Victorio Montolivo. Victor Hugo
 - Xabier Otero. Pasai Antxoko Kultur Etxea
-- Angeles Amutxastegi Esnaola. San Pedroko Udal Aretoa 
+- Angeles Amutxastegi Esnaola. San Pedroko Udal Aretoa
 - Borja Arratibel. San Pedroko Udal Aretoa
 - Calonge. Victor Hugo
 - Pasaiako artisten erakusketa. Miranda de Ebro
-- Juan Ramón Elisburu. Victor Hugo 
+- Juan Ramón Elisburu. Victor Hugo
 - Ricarko Ugarte.San Pedroko  Udal Aretoa
-- Akuarela ikusgai. Victor Hugo 
-- La Habanako grafika tailer esperimentala. Victor Hugo 
+- Akuarela ikusgai. Victor Hugo
+- La Habanako grafika tailer esperimentala. Victor Hugo
 - Manu Airas. Pasai Antxoko Kultur Etxea
 -  Gelasio Aranburu jaunari omenaldia
-- J. Ortiz Hierro. Victor Hugo 
+- J. Ortiz Hierro. Victor Hugo
 - Pasaiako Udalaren arte ondarearen erakusketa 1992 - 1993. Pasai Antxoko kultur etxea
 - J. Arocena. Pasai Antxoko kultur etxea
 - Tupa. Antxoko Kultur etxea
 1995
-- Jeanne Devoyon. Victor Hugo 
-- Posada en Pasaia. Victor Hugo 
+- Jeanne Devoyon. Victor Hugo
+- Posada en Pasaia. Victor Hugo
 - Eugenio Ortiz. San Pedroko Udal Aretoa
 - Carmen López Castillo. Victor Hugo
 - Josan López de Pariza. Antxoko kultur etxea
 - Iñigo Machain. Udal Aretoa San Pedro
 - Jesús María Corman. Antxoko Kultur etxea
-- Manpaso. Victor Hugo 
-- Koldobika Jauregi. Victor Hugo 
+- Manpaso. Victor Hugo
+- Koldobika Jauregi. Victor Hugo
 1996
-- Iñaki Rodríguez. San Pedroko  Udal Aretoa 
-- Maite Martiarena. Victor Hugo 
-- Tony D. Pájaro. San Pedroko Udal Aretoa 
+- Iñaki Rodríguez. San Pedroko  Udal Aretoa
+- Maite Martiarena. Victor Hugo
+- Tony D. Pájaro. San Pedroko Udal Aretoa
 - José María Ortiz. San Pedroko Udal Aretoa
 - 12 cm. San Pedroko Udal Aretoa
 1997
-- 12 cm. San Pedroko Udal Aretoa 
-- Carmen Muñoz. Victor Hugo 
-- Juan Berrozpe, Ainara Erentxun, Olatz Irigarai, Cristina Matas. Victor Hugo 
-- Asun del Pozo. Victor Hugo 
-- Virginio Bosch. Victor Hugo 
+- 12 cm. San Pedroko Udal Aretoa
+- Carmen Muñoz. Victor Hugo
+- Juan Berrozpe, Ainara Erentxun, Olatz Irigarai, Cristina Matas. Victor Hugo
+- Asun del Pozo. Victor Hugo
+- Virginio Bosch. Victor Hugo
 - Pedro Etxeberria Ansa jaunari omenaldia. Victor Hugo
 1998
-12 cm. Udal Aretoa San Pedro 
+12 cm. Udal Aretoa San Pedro
 1999
 - Txomin Txueka. Andoni Egaña. Antxoko Kultur Etxea
-- Jonathan Bernal. Victor Hugo 
-- 12 cm. San Pedroko Udal Aretoa 
-- Goiko. Victor Hugo 
-- Diego Vasallo & Carlos Inda. Victor Hugo 
-- Artelekuko Litografía. San Pedroko Udal Aretoa 
+- Jonathan Bernal. Victor Hugo
+- 12 cm. San Pedroko Udal Aretoa
+- Goiko. Victor Hugo
+- Diego Vasallo & Carlos Inda. Victor Hugo
+- Artelekuko Litografía. San Pedroko Udal Aretoa
 2000
-- 12 cm. San Pedroko Udal Aretoa 
--  Pasai Donibaneko aintzinako argazkiak. Victor Hugo 
+- 12 cm. San Pedroko Udal Aretoa
+-  Pasai Donibaneko aintzinako argazkiak. Victor Hugo
 - Ramiro Arrue. San Juan de Luz
 - Grabado de la Escuela de Arte de Pamplona. Antxoko Kultur Etxea
 - Victor Hugo Etxetik Guarda Etxera
-- Pasaiako ondare artistikoa. Victor Hugo 
+- Pasaiako ondare artistikoa. Victor Hugo
 - Sebastiâo Salgado. Antxoko Kultur Etxea
 - José Luis Román. Antxoko Kultur Etxea
 ', '', '2-11-1 Programas
 ', '2. kutxa
 ', 'Baliteke erakusketa batzuek espedientea edukitzea
 ', '1', '#046CE9401CAF032A133AD70' ),
-( '15', '                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Actas de la Comisión Informativa de Cultura y Reuskaldunización 
+( '15', '                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Actas de la Comisión Informativa de Cultura y Reuskaldunización
 ', '', '1-4 Actas
 ', 'Kultura Saila 7. kutxa
 ', '', '18', '#046CE9401CAF35286FAC650' ),
 ( '16', 'EDUKIA:
 - Ayudas de Diputación para Planes de Dinamización Cultural / Aldundiaren dirulaguntzak kultur dinamizazio planetarako  1988. 2-11-1 Expedientes de subvenciones / Dirulaguntzen espedienteak
-- Presentación de libros  / liburuen aurkezpenak  1989. 2-11-1 Expedientes de actividades / Jardueren espedienteak 
-- V Ttopara. Gipuzkoako Abesbatzen Elkartea. 1989. 2-11-1 Expedientes de actividades / Jardueren espedienteak 
-- X. Txistulari kontzertua. 1989. 2-11-1 Expedientes de actividades / Jardueren espedienteak 
-- Conciertos de agrupaciones locales / Herrietako elkarteen kontzertuak  1987, 1988, 1989. 2-11-1 Expedientes de actividades / Jardueren espedienteak 
-- 1989. Trikitalarien jaialdia. 2-11-1 Expedientes de actividades / Jardueren espedienteak 
-- Kontzertua. GANBARA. 1989. 2-11-1 Expedientes de actividades / Jardueren espedienteak 
-- Subvención para el Taller Municipal de Teatro de Pasaia /  Dirulaguntza Pasaiako udal antzerki tailerrarentzat 1987. 2-11-1 Expedientes de subvenciones / Dirulaguntzen espedienteak 
-- Subvención para el Taller Municipal de Teatro de Pasaia / Dirulaguntza Pasaiako udal antzerki tailerrarentzat 1989. 2-11-1 Expedientes de subvenciones / Dirulaguntzen espedienteak 
-- Subvención para el Taller Municipal de Teatro de Pasaia / Dirulaguntza Pasaiako udal antzerki tailerrarentzat 1988. 2-11-1 Expedientes de subvenciones / Dirulaguntzen espedienteak 
-- Antzerkia 1989 2-11-1 Expedientes de actividades / Jardueren espedienteak 
+- Presentación de libros  / liburuen aurkezpenak  1989. 2-11-1 Expedientes de actividades / Jardueren espedienteak
+- V Ttopara. Gipuzkoako Abesbatzen Elkartea. 1989. 2-11-1 Expedientes de actividades / Jardueren espedienteak
+- X. Txistulari kontzertua. 1989. 2-11-1 Expedientes de actividades / Jardueren espedienteak
+- Conciertos de agrupaciones locales / Herrietako elkarteen kontzertuak  1987, 1988, 1989. 2-11-1 Expedientes de actividades / Jardueren espedienteak
+- 1989. Trikitalarien jaialdia. 2-11-1 Expedientes de actividades / Jardueren espedienteak
+- Kontzertua. GANBARA. 1989. 2-11-1 Expedientes de actividades / Jardueren espedienteak
+- Subvención para el Taller Municipal de Teatro de Pasaia /  Dirulaguntza Pasaiako udal antzerki tailerrarentzat 1987. 2-11-1 Expedientes de subvenciones / Dirulaguntzen espedienteak
+- Subvención para el Taller Municipal de Teatro de Pasaia / Dirulaguntza Pasaiako udal antzerki tailerrarentzat 1989. 2-11-1 Expedientes de subvenciones / Dirulaguntzen espedienteak
+- Subvención para el Taller Municipal de Teatro de Pasaia / Dirulaguntza Pasaiako udal antzerki tailerrarentzat 1988. 2-11-1 Expedientes de subvenciones / Dirulaguntzen espedienteak
+- Antzerkia 1989 2-11-1 Expedientes de actividades / Jardueren espedienteak
 "Alpargatas cuando llueve" HIKA
 "Gaviotas subterráneas" TTOPO
 " El relevo" BEDEREN 1
-- Antzerkia 1988 2-11-1 Expedientes de actividades / Jardueren espedienteak 
+- Antzerkia 1988 2-11-1 Expedientes de actividades / Jardueren espedienteak
 "Terror bajo los hilos" TAUN - TAUN
 "Agur Eire agur" TTANTAK - TOPO
 "Grande Place" GEROA
-- Concurso para la portada de la revista Pasaia  Pasaia Aldizkariaren azalerako lehiaketa  1987 2-11-1 Expedientes de actividades / Jardueren espedienteak 
-- Tricentenario del nacimiento de Blas de Lezo / blas de Lezoren jaiotzaren hirugarren mendeurrena  1989 2-11-1 Expedientes de actividades / Jardueren espedienteak 
+- Concurso para la portada de la revista Pasaia  Pasaia Aldizkariaren azalerako lehiaketa  1987 2-11-1 Expedientes de actividades / Jardueren espedienteak
+- Tricentenario del nacimiento de Blas de Lezo / blas de Lezoren jaiotzaren hirugarren mendeurrena  1989 2-11-1 Expedientes de actividades / Jardueren espedienteak
 ', '', '', 'Kultura Saila 9. kutxa
 ', '', '15', '#046CE9401CAF352307CE600' ),
 ( '17', 'EDUKIA:
-- 1990 Subvenciones para planes de dinamización cultural / Dirulaguntza kultura dinamizazio planetarako 2-11-1 Expedientes de subvenciones / Dirulaguntzen espedienteak 
-- 1991 Subvención para la campaña verano de deporte / Uda Kanpainarako dirulaguntzak 2-12 Expedientes de subvenciones / Dirulaguntzen espedienteak 
-- XI. Euskadiko aurresku txapelketa. 2-11-1 Expedientes de actividades / Jardueren espedienteak 
+- 1990 Subvenciones para planes de dinamización cultural / Dirulaguntza kultura dinamizazio planetarako 2-11-1 Expedientes de subvenciones / Dirulaguntzen espedienteak
+- 1991 Subvención para la campaña verano de deporte / Uda Kanpainarako dirulaguntzak 2-12 Expedientes de subvenciones / Dirulaguntzen espedienteak
+- XI. Euskadiko aurresku txapelketa. 2-11-1 Expedientes de actividades / Jardueren espedienteak
 - Concurso de logotipos de Gas Pasaia / Gas Pasaiaren logotipo lehiaketa 1991
-- 25 aniversario de la Ikastola de San Pedro / San Pedroko ikastolaren 25. urteurrena 1991 2-11-1 Expedientes de actividades / Jardueren espedientak 
-- Música. Conciertos de agrupaciones locales / Musika. Herrietako taldeen kontzertuak  2-11-1 Expedientes de actividades / Jardueren espedienteak 
+- 25 aniversario de la Ikastola de San Pedro / San Pedroko ikastolaren 25. urteurrena 1991 2-11-1 Expedientes de actividades / Jardueren espedientak
+- Música. Conciertos de agrupaciones locales / Musika. Herrietako taldeen kontzertuak  2-11-1 Expedientes de actividades / Jardueren espedienteak
 - Antzerkia 1990: 2-11-1 Expedientes de actividades / Jardueren espedienteak
-"Antología" JORDI BERTRAN 
+"Antología" JORDI BERTRAN
 "El criado" TOPO
 "!Oh limpiadas! TEATRO CALLEJERO
 "Cogito" TEATRO DEL AIGUA
 "Voyeur" DUODENO. 1988
-- V. HAUR ABESBATZEN TTOPAKETA / v ENCUENTROS  DE COROS INFANTILES. 1991 2.11-1 Expedientes de actividades / Jardueren espedienteak 
+- V. HAUR ABESBATZEN TTOPAKETA / v ENCUENTROS  DE COROS INFANTILES. 1991 2.11-1 Expedientes de actividades / Jardueren espedienteak
 - 1990  Elkarteak: Antxo, Donibane 2-11-1 Expedientes de actividades / Jardueren espedienteak
 - 1989 Subvención para planes de dinamización cultural / Dirulaguntzak kultur dinamizazio planetarako 2-11-1 Expedientes de subvenciones / Dirulaguntzen espedienteak
 - Semana de la Juventud / Sanjuandar gaztediaren astea . Donibaneko Gazte Taldea 1984
 - Grupos de formación de la mujer / Emakumeentzako formazio taldeak  GATZAGA y CENTRO SOCIALES AZKUENE 1981
 - Memorias de los grupos de tiempo libre de  Antxo y San Pedro San Pedro eta Antxoko aisialdi taldeen txostenak  1983
-- 1984 Elkarteak 
-- 1985 Elkarteak 
-- 1987 Elkarteak 
+- 1984 Elkarteak
+- 1985 Elkarteak
+- 1987 Elkarteak
 - Erakusketak 1990:
 PASAJES
 LUISI VELEZ
@@ -2412,8 +2588,8 @@ EXPOSICION ESCOLAR
 PILAR MENDIETA
 BELEN MORENO
 OIER VILLAR
-PEDRO NIÑO 
-COLECTIVO WHITE SPIRIT serigrafiak 
+PEDRO NIÑO
+COLECTIVO WHITE SPIRIT serigrafiak
 - Batelera agertzen den postala erostea (1990)
 - Tercer centenario del nacimiento de Blas de Lezo /  Blas de Lezoren jaiotzaren hirugarren mendeurrena(1989)
 - Escuela de Formación Profesional de Donibane / Donibaneko Lanbide Heziketako Eskola
@@ -2430,7 +2606,7 @@ COLECTIVO WHITE SPIRIT serigrafiak
 - Ricardo Flecha. Kantaldia. Pasai Antxo
 - Festival cantautor / Kantautore jaialdia  Pasai Antxo
 - Pasaiako 19. umorezko antzerki jardunaldiak
-- Pasaiako 18. umorezko antzerki jardunaldiak 
+- Pasaiako 18. umorezko antzerki jardunaldiak
 - Kultur jardunaldiak. Pasai Antxo. 1983
 - Kultur jardunaldiak. Trintxerpe. 983
 - Pasaiako 25. umorezko antzerki jardunaldiak
@@ -2438,11 +2614,11 @@ COLECTIVO WHITE SPIRIT serigrafiak
 - 2006ko egutegia. Udalak argitaratutakoa
 - 2007ko egutegia. San Pedroko Fototekak argitaratua
 - Datarik gabeko liburuxkak
-- Alkartasuna II. Kultur Astea 
+- Alkartasuna II. Kultur Astea
 - I. Argazki Lehiaketa
 - Kultur Astea Pasai Antxon
 - Pasai Donibaneko erakusketa
-- X Aniversario del C F Sampedrotarra / CF Sampedrotarraren X. urteurrena 
+- X Aniversario del C F Sampedrotarra / CF Sampedrotarraren X. urteurrena
 - XI. umorezko antzerki jardunaldiak
 - VIII umorezko antzerki jardunaldiak
 - 1.er Concurso de fotografía para aficionados del País Vasco / I. Argazki Lehiaketa Euskal Herriko argazkizaleentzat .Cine - Club Pasajes. 1967
@@ -2451,18 +2627,18 @@ COLECTIVO WHITE SPIRIT serigrafiak
 ', '', '', 'Kultura Saila 14. kutxa
 ', '', '6', '#046CE9401CAF1CF64EBCDE0' ),
 ( '19', 'Edukia:
-- VI Jornadas de Teatro / VI. Antzerki jardunaldiak  1987.  2-11-1 Expedientes de subvenciones / Dirulaguntzen espedienteak 
-- Memoria cursos artesanales / Artisautza ikastaroen txostena 1987. 2-11-1 Expedientes de actividades culturales / Jardueren espedienteak 
+- VI Jornadas de Teatro / VI. Antzerki jardunaldiak  1987.  2-11-1 Expedientes de subvenciones / Dirulaguntzen espedienteak
+- Memoria cursos artesanales / Artisautza ikastaroen txostena 1987. 2-11-1 Expedientes de actividades culturales / Jardueren espedienteak
 - 2ª semana musico coral de San Pedro. II. musika - abesbatza astea 1987. 2-11-1 Expedientes de actividades culturales / Jardueren espedienteak
 - VII. aurresku txapelketa. 1987 2-11-1 Expedientes de actividades culturales / Jardueren espedienteak
-- San Pedroko 3. musika - abesbatza astea. 1988 2-11-1 Expedientes de actividades culturales / Jardueren espedienteak 
-- VIII. aurresku txapelketa. 1988. 2-11-1 Expedientes de actividades culturales / Jardueren espedienteak 
-- Kultur Bideetan 1988. 2-11-1 Expedientes de actividades culturales / Jardueren espedienteak 
+- San Pedroko 3. musika - abesbatza astea. 1988 2-11-1 Expedientes de actividades culturales / Jardueren espedienteak
+- VIII. aurresku txapelketa. 1988. 2-11-1 Expedientes de actividades culturales / Jardueren espedienteak
+- Kultur Bideetan 1988. 2-11-1 Expedientes de actividades culturales / Jardueren espedienteak
 - Solicitud de subvención para programa de drogodependencias / Dirulaguntza eskaera drogomenpekotasun programetarako  1988. 2-9 Asistencia social
-- 1989. Consideraciones de Herri Batasuna sobre programas de exposiciones y deporte / Herri Batasuna alderdiaren proposamena erakusketa eta kirol programen inguruan 
+- 1989. Consideraciones de Herri Batasuna sobre programas de exposiciones y deporte / Herri Batasuna alderdiaren proposamena erakusketa eta kirol programen inguruan
 - 1988. Memoria de la Escuela de Formación Profesional Pasai Donibane / Pasai Donibaneko Lanbide Heziketa Eskolaren txostena
-- 1988. Convenio de colaboración con Diputación para la Campaña de Actividades Deportivas / Lankidetza hitzarmena Aldundiarekin kirol ekintzen kanpainarako 
-- 1989. Exposición de etnografía / Etnografia erakusketa 
+- 1988. Convenio de colaboración con Diputación para la Campaña de Actividades Deportivas / Lankidetza hitzarmena Aldundiarekin kirol ekintzen kanpainarako
+- 1989. Exposición de etnografía / Etnografia erakusketa
 - 1988. Exposición de fósiles / Fosilen erakusketa
 - VII. jornadas de teatro de Pasaia. 1988
 ', '', '', 'Kultura Saila 18. kutxa
@@ -2475,9 +2651,9 @@ JOSU ORTIZ HIERRO
 IÑAKI GOMEZ
 XALU ARTISAUAK
 EL ARTE DE LA MARIONETA / TXOTXONGILOEN ARTEA
-DANTZA JANTZIAK 
-BERGARAKO MARGOLARIAK 
-PASAIA - CUBA ELKARTASUNA 
+DANTZA JANTZIAK
+BERGARAKO MARGOLARIAK
+PASAIA - CUBA ELKARTASUNA
 - Pasaia Gazteria Komiki lehiaketa
 - Erakusketak 1995:
 VICTORIA MONTOLIVO
@@ -2489,18 +2665,18 @@ ANDREA MOCCIO
 KOLDOBIKA JAUREGI
 JEAN DEVOYON
 MAMPASO
-JESUS MARIA CORMAN 
+JESUS MARIA CORMAN
 MAITE SAGARZAZU
 IÑIGO MATXAIN
 ', '', '', 'Kultura Saila 22. kutxa
 ', '', '30', '#046CE9401CB2418185A0980' ),
-( '21', 'Edukia: 
+( '21', 'Edukia:
 1- 1995. urteko kontzertuak:
 - Bob Marley
 - The Guanabana Dixieland Band
 - Irungo Atsegina Akordeoi Orkesta
 - Papa Joe´s marching band
-- X Musiko Koral Astea. Antolatzailea: Ondartxoko Abesbatza 
+- X Musiko Koral Astea. Antolatzailea: Ondartxoko Abesbatza
 - V. Musiko Jardunaldia. Donibane. Antolatzailea: Itsas Mendi
 2- Liburutegiak: Eusko Jaurlaritzak bidalitako txostena. 1995
 3- XV. Euskadiko Gipuzkoar Aurresku Txapelketa. 1995
@@ -2596,7 +2772,7 @@ Juan Carlos Cardesin. Victor Hugo
 "Victor Hugoren II. urteurrena" ekitaldiaren erakusketa kolektiboa
 Joel Desbouiges. Victor Hugo
 Mikel Dalbret. Victor Hugo
-Juantxo Egaña. Victor Hugo 
+Juantxo Egaña. Victor Hugo
 12 zm. San Pedro
 - 2002. Elkarteei emandako dirulaguntza
 - 2000. Ikuskizun eszenikoei emandako dirulaguntza
@@ -2615,7 +2791,7 @@ Topo antzerki taldea
 - 2001. Pasaiako XX. umorezko antzerki jardunaldiak
 - 2002. Pasaiako XXI. umorezko antzerki jardunaldiak
 - 2003. Pasaiako XXII. umorezko antzerki jardunaldiak
-- 2004. Pasaiako XXIII. umorezko antzerki jardunaldiak 
+- 2004. Pasaiako XXIII. umorezko antzerki jardunaldiak
 ', '', '', 'Kultura saila 32. kutxa
 ', '', '39', '#046CE9401CC95640FB9BA00' ),
 ( '27', 'Edukia:
@@ -2631,7 +2807,7 @@ Pasaia Musikal, Son del Río, Amaraun taldea, Kantautoren jaialdia
 "Literatura: askatasun bide". Koldo Eizagirre
 "Pasaia blues". Harkaitz Cano
 - 1999. Pasaiako I. kultur jardunaldiak (bertan behera geratu zen)
-- 2000. Portugal-i buruzko jardunaldiak 
+- 2000. Portugal-i buruzko jardunaldiak
 - 2000. Albaola museoari emandako dirulaguntza
 ', '', '', 'Kultura saila 35. kutxa
 ', '', '42', '#046CE9401CC9566E270D530' ),
@@ -2639,14 +2815,14 @@ Pasaia Musikal, Son del Río, Amaraun taldea, Kantautoren jaialdia
 - 2001. Erakusketak:
 Joseba Lizarralde eta Maritxu Intxausti
 Julio Matilla
-Arantza Arratibel 
-Iñaki Edroso 
+Arantza Arratibel
+Iñaki Edroso
 Aintzinako euskal herriko bizimodua postal irudietan
 Rafa Serras
 "Gatzik gabe lurra". Angela Mejías eta Antonio Di Bellonio
 J Luis Martínez Pasajes
 - 2001. Antzerkia:
-Ni Fu Ni Fa eta Lan Teatro antzerki taldeak 
+Ni Fu Ni Fa eta Lan Teatro antzerki taldeak
 "Bozinak, tronpetak eta zalaparta" Orratx Taldea
 Bientocadas Trés. Cuplé
 Alto Teatro
@@ -2663,7 +2839,7 @@ Alto Teatro
 ( '29', 'Edukia:
 - 1998.  Kultura eta hezkuntza batzorde informatiboaren aktak
 - 1998. Udal Musika Fundazioaren batzordeen aktak
-- 1998. Kontseilu eskolarra batzordearen aktak 
+- 1998. Kontseilu eskolarra batzordearen aktak
 - 1999. Pasaia Musikal batzordearen aktak
 ', '', '', 'kultura saila 38. kutxa
 ', '', '45', '#046CE9401CC9568C8A33BA0' ),
@@ -2681,7 +2857,7 @@ Mensu
 
 
 -- Dump data of "liburuxka" --------------------------------
-INSERT INTO `liburuxka`(`id`,`deskribapena`,`data`,`azalpenak`,`signatura`,`numdoc`,`knosysid`) VALUES 
+INSERT INTO `liburuxka`(`id`,`deskribapena`,`data`,`azalpenak`,`signatura`,`numdoc`,`knosysid`) VALUES
 ( '1', 'Pasajes tres
 14 minutos y 19 segundos
 Video formato BETA y formato VHS
@@ -2692,10 +2868,10 @@ Video formato BETA y formato VHS
 Contiene: himnos y canciones de remo y fútbol
 Intérpretes: Banda de la Sociedad Pasaitarra, Tamborreros - cantores de Pasai Donibane y San Pedro Abesbatza
 Productor: Pasaiako Udala
-', 'Desconocida 
+', 'Desconocida
 ', 'Letras de los himnos
-También hay dos cintas en el inventario del Archivo 
-', 'VHS / KASETAK 
+También hay dos cintas en el inventario del Archivo
+', 'VHS / KASETAK
 ', '7', '#046CE9401C9B1F16D51EC90' ),
 ( '3', 'La tradición vuelve a Pasajes
 Tele Donosti
@@ -2720,7 +2896,7 @@ Formato VHS
 ', 'Desconocida
 ', '', 'VHS, kasetask, DVD
 ', '9', '#046CE9401C9B36905582310' ),
-( '7', 'Un guía llamado Victor Hugo 
+( '7', 'Un guía llamado Victor Hugo
 Oarsoaldea
 Formato DVD
 ', 'Desconocida
@@ -2740,7 +2916,7 @@ nº 1 - 112
 ', '1944, 1945, 1946, 1949, 1950, 1951, 1952, 1953, 1954, 1955
 ', '', 'pasa a Kultur Saila
 ', '18', '#046CE9401C9B38C12C47CB0' ),
-( '10', 'Aldizkaria: PASAJES. Junta del Puerto de Pasajes 
+( '10', 'Aldizkaria: PASAJES. Junta del Puerto de Pasajes
 nº 1 - 2
 ', '1985 ?
 ', '', 'pasa a Kultur Saila
@@ -2757,17 +2933,17 @@ nº 2 - 19
 ', 'Son fotocopias. Años , 1954, 1955, 1957 son originales
 ', 'pasa a Kultur Saila
 ', '15', '#046CE9401C9B38364FED600' ),
-( '13', 'Aldizkaria: PASAJES 
+( '13', 'Aldizkaria: PASAJES
 Revista anual
 Dirección: c/ Carretera / c/ Iparraguirre
 ', '1931, 1932, 1936
-', 'Son fotocopias. 
+', 'Son fotocopias.
 ', 'pasa a Kultur Saila
 ', '14', '#046CE9401C9B3822D9464B0' ),
 ( '14', 'Rutas turísticas. Euzkadi
-Departamento de Comercio, Pesca y Turismo del Gobierno Vasco 
+Departamento de Comercio, Pesca y Turismo del Gobierno Vasco
 Video formato BETA
-', 'Desconocida 
+', 'Desconocida
 ', '', 'VHS, KASETAK, DVD, CD
 ', '4', '#046CE9401C9B1E8B0781AC0' ),
 ( '15', 'Oiarson aldeko artea (Manuel Lekuonari eskeinita)
@@ -2781,7 +2957,7 @@ Video formato BETA
 ', '3', '#046CE9401C9B1E86D2C0420' ),
 ( '16', 'Comercial Puerto de Pasajes
 (Junta de Obras del Puerto de Pasajes)
-Castellano 
+Castellano
 Video formato VHS
 ', 'Desconocida
 ', '', 'VHS
@@ -2790,7 +2966,7 @@ Video formato VHS
 (Junta de Obras del Puerto de Pasajes)
 Video formato BETA
 11 minutos
-', 'Desconocido 
+', 'Desconocido
 ', '', 'VHS
 ', '0', '#046CE9401C9B1E729E1DEC0' ),
 ( '18', 'Desconocida
@@ -2799,7 +2975,7 @@ Video formato Beta
 ', 'Desconocida
 ', '', 'VHS
 ', '1', '#046CE9401C9B1E76A354ED0' ),
-( '19', 'Tiples de la Schola Cantorum. 
+( '19', 'Tiples de la Schola Cantorum.
 Zuzendaria: Gelasio Aranburu
 CD
 ', '1930eko grabazioa
@@ -2824,18 +3000,18 @@ Video formato BETA y formato VHS
 
 
 -- Dump data of "obratxikiak" ------------------------------
-INSERT INTO `obratxikiak`(`id`,`espedientea`,`sailkapena`,`signatura`,`urtea`,`numdoc`,`knosysid`) VALUES 
-( '1', 'Bordalaborda, 17. zenbakiko behea D etxebizitzan sukaldea eta komuna jartzeko baimena, Mertxe Garmendia Alberdik eskatua 
-', 'Obra baimenak 
+INSERT INTO `obratxikiak`(`id`,`espedientea`,`sailkapena`,`signatura`,`urtea`,`numdoc`,`knosysid`) VALUES
+( '1', 'Bordalaborda, 17. zenbakiko behea D etxebizitzan sukaldea eta komuna jartzeko baimena, Mertxe Garmendia Alberdik eskatua
+', 'Obra baimenak
 ', 'Obra txikiak 1-51
 ', '2005
 ', '1', '#046CE9401CAAFC8CED50F30' ),
-( '2', 'Mendiola bidea, 9. zenbakiko partzelan itxidura jartzeko baimen eskaera, Eugenio Hermo Piñeirok eskatua 
+( '2', 'Mendiola bidea, 9. zenbakiko partzelan itxidura jartzeko baimen eskaera, Eugenio Hermo Piñeirok eskatua
 ', 'Obra lizentziak
 ', 'Obra txikiak 1-52
 ', '2009
 ', '0', '#046CE9401CAAFC847A1DA70' ),
-( '3', 'Eskalantegi, 11 - 3. B etxebizitzan sukaldea konpontzeko obra baimena, Leire Zaldua Gesalagak eskatua 
+( '3', 'Eskalantegi, 11 - 3. B etxebizitzan sukaldea konpontzeko obra baimena, Leire Zaldua Gesalagak eskatua
 ', 'Obra baimenak
 ', 'Obra txikiak 1-50
 ', '2005
@@ -2845,7 +3021,7 @@ INSERT INTO `obratxikiak`(`id`,`espedientea`,`sailkapena`,`signatura`,`urtea`,`n
 ', 'Obra txikiak 1-49
 ', '2005
 ', '3', '#046CE9401CAAFCC119AD770' ),
-( '5', 'Blas de Lezo, 4 - 3. B etxebizitzan sukaldea konpontzeko obra baimena, Ainara Goikoetxea Sanzek eskatua 
+( '5', 'Blas de Lezo, 4 - 3. B etxebizitzan sukaldea konpontzeko obra baimena, Ainara Goikoetxea Sanzek eskatua
 ', 'Obra baimenak
 ', 'Obra txikiak 1-48
 ', '2005
@@ -2856,7 +3032,7 @@ INSERT INTO `obratxikiak`(`id`,`espedientea`,`sailkapena`,`signatura`,`urtea`,`n
 ', '2004
 ', '5', '#046CE9401CAAFCC7C8A0650' ),
 ( '7', 'Pablo-enea, 16 - 3. B etxebizitzan María Elena Ferreira Da Silvak obrak egiteko eskatu zituen  baimena ezeztea
-', 'Obra lizentziak 
+', 'Obra lizentziak
 ', 'Obra txikiak 1-45
 ', '2004
 ', '7', '#046CE9401CAAFD4CB3B9E50' ),
@@ -2870,12 +3046,12 @@ INSERT INTO `obratxikiak`(`id`,`espedientea`,`sailkapena`,`signatura`,`urtea`,`n
 ', 'Obra txikiak 1-43
 ', '2004
 ', '9', '#046CE9401CAB391AB221D90' ),
-( '10', 'Gure Zumardia, 30 - 2. D etxebizitza konpontzeko obra lizentzia, María Jesús Otegi Arruabarrenak eskatua 
+( '10', 'Gure Zumardia, 30 - 2. D etxebizitza konpontzeko obra lizentzia, María Jesús Otegi Arruabarrenak eskatua
 ', 'Obra lizentziak
 ', 'Obra txikiak 1-40
 ', '2004
 ', '12', '#046CE9401CAB39258715560' ),
-( '11', 'Gure Zumardia, 3 - 5. ezkerreko etxebizitzan sukaldea eta komuna konpontzeko obra baimena, Josean Cubero Diezek 
+( '11', 'Gure Zumardia, 3 - 5. ezkerreko etxebizitzan sukaldea eta komuna konpontzeko obra baimena, Josean Cubero Diezek
 ', 'Obra baimenak
 ', 'Obra txikiak 1-39
 ', '2004
@@ -2885,22 +3061,22 @@ INSERT INTO `obratxikiak`(`id`,`espedientea`,`sailkapena`,`signatura`,`urtea`,`n
 ', 'Obra txikiak 1-38
 ', '2004
 ', '14', '#046CE9401CAB392CA38FD10' ),
-( '13', 'Zumalakarregi, 6 - 5. B etxebizitzan komuna konpontzeko obra baimena, Jorge Rodríguez Suárezek eskatua 
+( '13', 'Zumalakarregi, 6 - 5. B etxebizitzan komuna konpontzeko obra baimena, Jorge Rodríguez Suárezek eskatua
 ', 'Obra baimenak
 ', 'Obra txikiak 1-37
 ', '2004
 ', '15', '#046CE9401CAB3930BCBF200' ),
-( '14', 'Marqués de Seoane, 3 - 1. E etxebizitzan komuna konpontzeko obra baimena, Pedro Manuel Odriozola Galarragak eskatua 
-', 'Obra baimenak 
+( '14', 'Marqués de Seoane, 3 - 1. E etxebizitzan komuna konpontzeko obra baimena, Pedro Manuel Odriozola Galarragak eskatua
+', 'Obra baimenak
 ', 'Obra txikiak 1-36
 ', '2004
 ', '16', '#046CE9401CAB3932F2D9000' ),
-( '15', 'Pescadería, 29 - 1. C etxebizitzan komuna egiteko obra lizentzia, Ana María de Jesús Cristak eskatua 
-', 'Obra lizentziak 
+( '15', 'Pescadería, 29 - 1. C etxebizitzan komuna egiteko obra lizentzia, Ana María de Jesús Cristak eskatua
+', 'Obra lizentziak
 ', 'Obra txikiak 1-35
 ', '2004
 ', '17', '#046CE9401CAB39365402EF0' ),
-( '16', 'Kanpitxo, 11 - 1. B etxebizitzan sukaldea konpontzeko obra baimena, Daniel Monreal Villarrek eskatua 
+( '16', 'Kanpitxo, 11 - 1. B etxebizitzan sukaldea konpontzeko obra baimena, Daniel Monreal Villarrek eskatua
 ', 'Obra baimenak
 ', 'Obra txikiak 1-33
 ', '2004
@@ -2910,58 +3086,58 @@ INSERT INTO `obratxikiak`(`id`,`espedientea`,`sailkapena`,`signatura`,`urtea`,`n
 ', 'Obra txikiak 1-32
 ', '2004
 ', '20', '#046CE9401CAB39525D9A500' ),
-( '18', 'Lezo-bide, 13 - 2. C etxebizitzan komuna eta sukaldea konpontzeko obra baimena, Rafael Sánchez Aguirrek eskatua 
+( '18', 'Lezo-bide, 13 - 2. C etxebizitzan komuna eta sukaldea konpontzeko obra baimena, Rafael Sánchez Aguirrek eskatua
 ', 'Obra baimenak
 ', 'Obra txikiak 1-31
 ', '2004
 ', '21', '#046CE9401CAB3954A226EB0' ),
 ( '19', 'Arrandegi, 7 - 2. D etxebizitzan gasa jartzeko obra lizentzia, Estudio DEI SLk eskatua
-', 'Obra lizentziak 
+', 'Obra lizentziak
 ', 'Obra txikiak 1-30
 ', '2004
 ', '22', '#046CE9401CAB39589688D70' ),
-( '20', 'Axular plaza, 4. zenbakiak barruko patioak konpontzeko obra lizentzia, jabekideek eskatua 
-', 'Obra lizentziak 
+( '20', 'Axular plaza, 4. zenbakiak barruko patioak konpontzeko obra lizentzia, jabekideek eskatua
+', 'Obra lizentziak
 ', 'Obra txikiak 1-29
 ', '2004
 ', '23', '#046CE9401CAB395AB9D9250' ),
-( '21', 'Pablo-enea, 6 - 3. D etxebizitzan isolamendu akustikoa egiteko obra baimena, Alberto Savaira Espogeirak eskatua 
+( '21', 'Pablo-enea, 6 - 3. D etxebizitzan isolamendu akustikoa egiteko obra baimena, Alberto Savaira Espogeirak eskatua
 ', 'Obra baimenak
 ', 'Obra txikiak 1-28
 ', '2004
 ', '24', '#046CE9401CAB395D26565C0' ),
 ( '22', 'Hamarretxeta, 4 - 5. B etxebizitzan komuna konpontzeko obrak legeztasun baimena, Dora Varona Sánchezek eskatua
-', 'Obra lizentziak 
+', 'Obra lizentziak
 ', 'Obra txikiak 1-25
 ', '2004
 ', '25', '#046CE9401CAB3988FE57160' ),
-( '23', 'Lezo-bide, 13. zenbakian dagoen lokalean arotzia aldatzeko obra baimena, Néstor Mendibil Ordoñézek eskatua 
+( '23', 'Lezo-bide, 13. zenbakian dagoen lokalean arotzia aldatzeko obra baimena, Néstor Mendibil Ordoñézek eskatua
 ', 'Obra baimenak
 ', 'Obra txikiak 1-26
 ', '2004
 ', '26', '#046CE9401CAB398D69C7860' ),
 ( '24', 'Hamarretxeta, 8 behean dagoen lokalean hondakiñak kentzeko obra lizentzia, María Nieves Rodríguez Guillormek eskatua
-', 'Obra lizentziak 
+', 'Obra lizentziak
 ', 'Obra txikiak 1-25
 ', '2004
 ', '27', '#046CE9401CAB39907AC6FF0' ),
-( '25', 'Euskadi Etorbidea, 31 - 4. pisua 15. ateko etxebizitzan tabikeak aldatzeko obra lizentzia, Francisco Campo Roblesek eskatua 
-', 'Obra lizentziak 
+( '25', 'Euskadi Etorbidea, 31 - 4. pisua 15. ateko etxebizitzan tabikeak aldatzeko obra lizentzia, Francisco Campo Roblesek eskatua
+', 'Obra lizentziak
 ', 'Obra txikiak 1-24
 ', '2004
 ', '28', '#046CE9401CAB399413AA110' ),
-( '26', 'Igeldo, 4. zenbakian baranda aldatzeko obra lizentzia, jabekideek eskatua 
-', 'Obra lizentziak 
+( '26', 'Igeldo, 4. zenbakian baranda aldatzeko obra lizentzia, jabekideek eskatua
+', 'Obra lizentziak
 ', 'Obra txikiak 1-23
 ', '2004
 ', '29', '#046CE9401CAB39976BBD570' ),
-( '27', 'Faroko pasealekua, 3. zenbakiak ureko gorakari berri bat jartzeko obra baimena, jabekideek eskatua 
-', 'Obra baimenak 
+( '27', 'Faroko pasealekua, 3. zenbakiak ureko gorakari berri bat jartzeko obra baimena, jabekideek eskatua
+', 'Obra baimenak
 ', 'Obra txikiak 1-22
 ', '2004
 ', '30', '#046CE9401CAB399D3157F10' ),
-( '28', '         Lezo-bide, 15 - 5. B etxebizitzan balkoia konpontzeko obra lizentzia, Ortzuri Olaetxea Rodriguezek eskatua 
-', 'Obra lizentziak 
+( '28', '         Lezo-bide, 15 - 5. B etxebizitzan balkoia konpontzeko obra lizentzia, Ortzuri Olaetxea Rodriguezek eskatua
+', 'Obra lizentziak
 ', 'Obra txikiak 1-21
 ', '2004
 ', '31', '#046CE9401CAB39E01ED8B30' ),
@@ -2970,8 +3146,8 @@ INSERT INTO `obratxikiak`(`id`,`espedientea`,`sailkapena`,`signatura`,`urtea`,`n
 ', 'Obra txikiak 1-19
 ', '2004
 ', '33', '#046CE9401CAB39E601F2920' ),
-( '30', 'Faro pasealekua, 1 - 3. A etxebizitzan tabike bat botatzeko obra lizentzia, Jorge López Otazok eskatua 
-', 'Obra lizentziak 
+( '30', 'Faro pasealekua, 1 - 3. A etxebizitzan tabike bat botatzeko obra lizentzia, Jorge López Otazok eskatua
+', 'Obra lizentziak
 ', 'Obra txikiak 1-18
 ', '2004
 ', '34', '#046CE9401CAB39E94017A90' );
@@ -2979,7 +3155,7 @@ INSERT INTO `obratxikiak`(`id`,`espedientea`,`sailkapena`,`signatura`,`urtea`,`n
 
 
 -- Dump data of "pendientes" -------------------------------
-INSERT INTO `pendientes`(`id`,`espedientea`,`data`,`signatura`,`numdoc`,`knosysid`) VALUES 
+INSERT INTO `pendientes`(`id`,`espedientea`,`data`,`signatura`,`numdoc`,`knosysid`) VALUES
 ( '1', 'Puestos de pescado. Mercado de Trintxerpe
 ', '', 'caja nº 1, nº 3
 ', '2', '#423120801C77CD848583930' ),
@@ -3076,7 +3252,7 @@ INSERT INTO `pendientes`(`id`,`espedientea`,`data`,`signatura`,`numdoc`,`knosysi
 
 
 -- Dump data of "protokoloak" ------------------------------
-INSERT INTO `protokoloak`(`id`,`artxiboa`,`saila`,`signatura`,`eskribaua`,`data`,`laburpena`,`datuak`,`oharrak`,`bilatzaileak`,`numdoc`,`knosysid`) VALUES 
+INSERT INTO `protokoloak`(`id`,`artxiboa`,`saila`,`signatura`,`eskribaua`,`data`,`laburpena`,`datuak`,`oharrak`,`bilatzaileak`,`numdoc`,`knosysid`) VALUES
 ( '1', 'GPAH/AHPG OÑATI
 ', 'PT
 ', '3/3463, 4r.-5r
@@ -3108,7 +3284,7 @@ INSERT INTO `protokoloak`(`id`,`artxiboa`,`saila`,`signatura`,`eskribaua`,`data`
 ', '3/3463, 9r.-10r.
 ', 'Aginaga, Santiago
 ', '12/02/1792
-', 'Almoneda y remate de la provisión de vino de Pasaia por Francisco Trangoa (Pasaia). 
+', 'Almoneda y remate de la provisión de vino de Pasaia por Francisco Trangoa (Pasaia).
 ', 'Se describen las condiciones.
 ', '', 'Udal-jarduera-Ayuntamiento
 ', '3', '#0BD641601C5681B33061710' ),
@@ -3166,7 +3342,7 @@ INSERT INTO `protokoloak`(`id`,`artxiboa`,`saila`,`signatura`,`eskribaua`,`data`
 ', '3/3463, 56r.-57r.
 ', 'Aginaga, Santiago
 ', '29/03/1792
-', 'Poder otorgado por Juan Bautista Edoiaga (Pasaia), a favor de Domingo Hondano (Bilbo) para pedir lo que le debe Martín Jauregi (Bilbo). 
+', 'Poder otorgado por Juan Bautista Edoiaga (Pasaia), a favor de Domingo Hondano (Bilbo) para pedir lo que le debe Martín Jauregi (Bilbo).
 ', '', '', 'Kitapenak-Liquidación
 ', '10', '#0BD641601C5682E9BF49950' ),
 ( '12', 'GPAH/AHPG OÑATI
@@ -3174,7 +3350,7 @@ INSERT INTO `protokoloak`(`id`,`artxiboa`,`saila`,`signatura`,`eskribaua`,`data`
 ', '3/3463, 56r.-57r.
 ', 'Aginaga, Santiago
 ', '29/03/1792
-', ' Poder otorgado por Juan Bautista Edoiaga (Pasaia) a favor de  Domingo Hondano (Bilbo) para que intervenga en el juicio que tiene por una deuda contra Martín Jauregi. 
+', ' Poder otorgado por Juan Bautista Edoiaga (Pasaia) a favor de  Domingo Hondano (Bilbo) para que intervenga en el juicio que tiene por una deuda contra Martín Jauregi.
 ', '', '', 'Kitapenak-Liquidación
 ', '11', '#0BD641601C5682F24DC34D0' ),
 ( '13', 'GPAH/AHPG OÑATI
@@ -3215,7 +3391,7 @@ INSERT INTO `protokoloak`(`id`,`artxiboa`,`saila`,`signatura`,`eskribaua`,`data`
 ', '3/3463, 63r.-64v.
 ', 'Aginaga, Santiago
 ', '13/04/1792
-', ' Almoneda y remate de la provisión de carne de Pasaia por Pedro Mesene (Pasaia). 
+', ' Almoneda y remate de la provisión de carne de Pasaia por Pedro Mesene (Pasaia).
 ', 'Se describen las condiciones.
 ', '', 'Udal-jarduera-Ayuntamiento
 ', '16', '#0BD641601C56A657D3A6FB0' ),
@@ -3332,7 +3508,7 @@ INSERT INTO `protokoloak`(`id`,`artxiboa`,`saila`,`signatura`,`eskribaua`,`data`
 
 
 -- Dump data of "salidas" ----------------------------------
-INSERT INTO `salidas`(`id`,`espedientea`,`signatura`,`eskatzailea`,`irteera`,`sarrera`,`knosysid`,`numdoc`) VALUES 
+INSERT INTO `salidas`(`id`,`espedientea`,`signatura`,`eskatzailea`,`irteera`,`sarrera`,`knosysid`,`numdoc`) VALUES
 ( '1', 'Constitución de Ayuntamietno 1987
 ', '622-10
 ', 'Karmele, Auxiliar Administrativo de Secretaría
@@ -3411,7 +3587,7 @@ INSERT INTO `salidas`(`id`,`espedientea`,`signatura`,`eskatzailea`,`irteera`,`sa
 ', '02/04/1997
 ', '16/04/1997
 ', '#423120801C77CDAC1B57D40', '12' ),
-( '14', 'Obras en la c/ Azcuene, 22. Copropietarios 
+( '14', 'Obras en la c/ Azcuene, 22. Copropietarios
 ', '176-49
 ', 'Alberto, Auditoría
 ', '03/04/1997 (consulta)
@@ -3472,7 +3648,7 @@ INSERT INTO `salidas`(`id`,`espedientea`,`signatura`,`eskatzailea`,`irteera`,`sa
 ', '#423120801C77CDAC1E2CED0', '22' ),
 ( '24', 'Construcción de frontón
 ', '8 OM
-', 'Agustín, Administrativo de Gestión 
+', 'Agustín, Administrativo de Gestión
 ', '08/04/1997
 ', '08/04/1997
 ', '#423120801C77CDAC1E7B0D0', '23' ),
@@ -3516,83 +3692,83 @@ INSERT INTO `salidas`(`id`,`espedientea`,`signatura`,`eskatzailea`,`irteera`,`sa
 
 
 -- Dump data of "tablas" -----------------------------------
-INSERT INTO `tablas`(`id`,`serie`,`unidad`,`resolucion`,`observaciones`,`fecha`,`knosysid`,`numdoc`) VALUES 
+INSERT INTO `tablas`(`id`,`serie`,`unidad`,`resolucion`,`observaciones`,`fecha`,`knosysid`,`numdoc`) VALUES
 ( '1', 'Expediente por infracciones de tráfico, circulación de vehículos y seguridad vial / Trafikoen alorreko, ibilgailu motordunen zirkulazioaren eta bide segurtasunaren alorreko arau-hausteen zehapen espedientea
-', '', 'Eliminación total a los seis años a contar desde el final de la tramitación administrativa o, en su caso, de la judicial / Erabateko suntsiketa, sei urtera, betiere izapedetza administratiboa edota judiziala amaitu eta gero 
-', '', 'Orden de 11 de julio de 2011 / 2011ko uztailaren 11ko agindua 
+', '', 'Eliminación total a los seis años a contar desde el final de la tramitación administrativa o, en su caso, de la judicial / Erabateko suntsiketa, sei urtera, betiere izapedetza administratiboa edota judiziala amaitu eta gero
+', '', 'Orden de 11 de julio de 2011 / 2011ko uztailaren 11ko agindua
 ', '#046CE9401CEA3E4ACEC6E90', '0' ),
-( '2', 'Expediente de permisos, licencias y vacaciones / Baimen, lizentzia eta oporrak eskatzeko espedientea 
-', 'Departamento de Personal / Pertsonal Saila 
+( '2', 'Expediente de permisos, licencias y vacaciones / Baimen, lizentzia eta oporrak eskatzeko espedientea
+', 'Departamento de Personal / Pertsonal Saila
 ', 'Eliminación todal en el archivo de oficina a los dos años siguientes de finalizado el año natural de los documentos / Erabateko suntsiketa, bulegoko artxiboan dokumentuen urte naturala amaitu eta bi urtera
-', '', 'Orden de 11 de julio de 2011 / 2011ko uztailaren 11ko agindua 
+', '', 'Orden de 11 de julio de 2011 / 2011ko uztailaren 11ko agindua
 ', '#046CE9401CEA3E515CCBAA0', '1' ),
-( '3', 'Expediente de personal / Espediente pertsonala 
-', 'Departamento de Personal / Pertsonal saila 
+( '3', 'Expediente de personal / Espediente pertsonala
+', 'Departamento de Personal / Pertsonal saila
 ', 'Conservación permanente / Kontserbazio iraunkorra
-', '', 'Orden de 11 de julio de 2011 / 2011ko uztailaren 11ko agindua 
+', '', 'Orden de 11 de julio de 2011 / 2011ko uztailaren 11ko agindua
 ', '#046CE9401CEA3E545284B70', '2' ),
 ( '4', 'Expediente de formación de personal / Langileen prestakuntza espedientea
-', 'Departamento de Personal / Pertsonal saila 
+', 'Departamento de Personal / Pertsonal saila
 ', 'Eliminación total en el archivo de oficina a los cinco años, salvo los certificados que pasarían a archivarse en el expediente de personal / Erabateko suntsiketa, bulegoko artxiboan bost urtera, ziurtagiriak izan ezik. Ziurtagiriak espediente pertsonalean artxibatuko dira
-', '', 'Orden de 11 de julio de 2011 / 2011ko uztailren 11ko agindua 
+', '', 'Orden de 11 de julio de 2011 / 2011ko uztailren 11ko agindua
 ', '#046CE9401CEA3EA2F0ED8E0', '3' ),
 ( '5', 'Expediente de jubilación / Erretiro espedientea
-', 'Departamento de personal / Pertsonal saila 
+', 'Departamento de personal / Pertsonal saila
 ', 'Conservación permanente incluido en el expediente personal / Kontserbazio iraunkorra, espediente pertsonalean
-', '', 'Orden de 11 de julio de 2011 / 2011ko uztailaren 11ko agindua 
+', '', 'Orden de 11 de julio de 2011 / 2011ko uztailaren 11ko agindua
 ', '#046CE9401CEA3EAC29B5E80', '4' ),
 ( '6', 'Expediente de selección de personal / Langileen aukeraketarako espedientea
-', 'Departamento de Personal / Pertsonal saila 
+', 'Departamento de Personal / Pertsonal saila
 ', 'Conservación permanente. Se podrán eliminar en el archivo de oficina las instancias y documentación acreditativa de los aspirantes que no hubieran tomado parte en el proceso de selección a los sis meses de finalización del expediente; así como la documentación y los exámenes del personal que no haya superado las pruebas, una vez transcurridos cuatro años
 Kontserbazio iraunkorra. Bulegoko artxiboan suntsitu ahalko dira espedientea amaitu eta sei hilabetera hautaketako prozeduran parte hartu ez duten izangaien eskaerak eta aurkeztutako merezimenduak; eta baita ere hautaprobak gainditu ez dituztenen dokumentuak eta azterketak behin lau urte igaro eta gero
 ', '', 'Orden de 11 de julio de 2011 / 2011ko uztailaren 11ko agindua
 ', '#046CE9401CEA3EB693ADB30', '5' ),
-( '7', 'Expedientes de variaciones de nómina / Nominen aldaketen espedientea 
+( '7', 'Expedientes de variaciones de nómina / Nominen aldaketen espedientea
 ', 'Departamento de Personal / Pertsonal saila
-', 'Eliminación total cuando se haya agotado su utilidad administrativa y siempre que se conserven permanentemente los listados de nóminas / Erabateko suntsiketa, behin erabilera administratiboa amaitu eta gero, eta betiere nominen zerrendak betiko kontserbatzen dira 
+', 'Eliminación total cuando se haya agotado su utilidad administrativa y siempre que se conserven permanentemente los listados de nóminas / Erabateko suntsiketa, behin erabilera administratiboa amaitu eta gero, eta betiere nominen zerrendak betiko kontserbatzen dira
 ', '', 'Orden de 11 de julio de 2011 / 2011ko uztailaren 11ko agindua
 ', '#046CE9401CEA3EC4E156F40', '6' ),
-( '8', 'Expediente disciplinario de personal funcionario y personal laboral / Funtzionarioen eta lan-kontratadun langileen diziplinako espedientea 
-', 'Departamento de Personal / Pertsonal saila 
+( '8', 'Expediente disciplinario de personal funcionario y personal laboral / Funtzionarioen eta lan-kontratadun langileen diziplinako espedientea
+', 'Departamento de Personal / Pertsonal saila
 ', 'Kontserbazio iraunkorra / Conservación permanente
-', 'En el archivo municipal de Pasaia se archivaban con el expediente personal. 
-', 'Orden de 11 de julio de 2011 / 2011ko uztailaren 11ko agindua 
+', 'En el archivo municipal de Pasaia se archivaban con el expediente personal.
+', 'Orden de 11 de julio de 2011 / 2011ko uztailaren 11ko agindua
 ', '#046CE9401CEA482F7373FE0', '7' ),
-( '9', 'Liquidaciones a la mutualidad / Mutualitateko lilkidazioak 
-', 'Departamento de personal / Pertsonal saila 
+( '9', 'Liquidaciones a la mutualidad / Mutualitateko lilkidazioak
+', 'Departamento de personal / Pertsonal saila
 ', 'Eliminación total a los 53 años de la fecha del documento / Erabateko suntsiketa, dokumentuaren datatik berrogeita hamahiru urtera
 ', '', 'Orden de 11 de julio de 2011 / 2011ko uztailaren 11ko agindua
 ', '#046CE9401CEA48395B54900', '8' ),
-( '10', 'Liquidaciones TC1, TC2 / TC1 y TC2 likidazioak 
-', 'Departamento de Personal / Pertsonal saila 
+( '10', 'Liquidaciones TC1, TC2 / TC1 y TC2 likidazioak
+', 'Departamento de Personal / Pertsonal saila
 ', 'Eliminación total a los 53 años de la fecha del documento / Erabateko suntsiketa, dokumentuaren datatik berrogeita hamahiru urtera
 ', '', 'Orden de 11 de julio de 2011 / 2011ko uztailaren 11ko agindua
 ', '#046CE9401CEA48418394D90', '9' ),
-( '11', 'Solicitud de excedencia laboral / Lan-eszedentzia eskaera 
-', 'Departamento de personal / Pertsonal saila 
-', 'Eliminación parcial, excepto la solicitud y el documento que otorga el permiso y el de reingreso, que se incluirán en el expediente personal 
-Suntsiketa partziala, eskaera eta baimena eta jarduneko zerbitzura itzultzeko dokumentua espediente pertsonalean gordeko dira 
-', '', 'Orden de 11 de julio de 2011 / 2011ko uztailaren 11ko agindua 
+( '11', 'Solicitud de excedencia laboral / Lan-eszedentzia eskaera
+', 'Departamento de personal / Pertsonal saila
+', 'Eliminación parcial, excepto la solicitud y el documento que otorga el permiso y el de reingreso, que se incluirán en el expediente personal
+Suntsiketa partziala, eskaera eta baimena eta jarduneko zerbitzura itzultzeko dokumentua espediente pertsonalean gordeko dira
+', '', 'Orden de 11 de julio de 2011 / 2011ko uztailaren 11ko agindua
 ', '#046CE9401CEA4848C7FD7F0', '10' ),
-( '12', 'Expediente de control horario / Ordutegia kontrolatzeko espediente 
-', 'Departamento de Personal / Personal saila 
+( '12', 'Expediente de control horario / Ordutegia kontrolatzeko espediente
+', 'Departamento de Personal / Personal saila
 ', 'Eliminación total en el archio de oficina a los dos años desde la finalización del año natural en el que se han producido, excepto los que hayan generado algún expediente disciplinario, o algún otro procedimiento, que se conservarán hasta que los procedimientos incoados estén finalizados
-Erabateko suntsiketa, bulegoko artxiboan dokumentuak ekoitzi diren urte naturala amaitu eta bi urtera, diziplinako espedienteren bat edota beste prozeduraren bat sortu dituztenak izan ezik. Horiek irekitako prozedurak amatu arte kontserbatuko dira 
+Erabateko suntsiketa, bulegoko artxiboan dokumentuak ekoitzi diren urte naturala amaitu eta bi urtera, diziplinako espedienteren bat edota beste prozeduraren bat sortu dituztenak izan ezik. Horiek irekitako prozedurak amatu arte kontserbatuko dira
 ', '', 'Orden de 11 de julio de 2011 / 2011ko uztailaren 11ko agindua
 ', '#046CE9401CEA4857A5E5050', '11' ),
 ( '13', 'Liquidaciones del Impuesto sobre la Renta de las Personas Físicas IRPF / Pertsona Fisikoen Errentaren gaineko zergaren likidazioak PFEZ
-', 'Departamento de Personal / Pertsonal saila 
-', 'Eliminación total a los diez años de cierre del ejercicio presupuestario al cual pertenecen / Erabateko suntsiketa, dagokion aurrekontu ekitaldia itxi eta hamar urtera 
-', '', 'Orden de 11 de julio de 2011 / 2011ko uztailaren 11ko agindua 
+', 'Departamento de Personal / Pertsonal saila
+', 'Eliminación total a los diez años de cierre del ejercicio presupuestario al cual pertenecen / Erabateko suntsiketa, dagokion aurrekontu ekitaldia itxi eta hamar urtera
+', '', 'Orden de 11 de julio de 2011 / 2011ko uztailaren 11ko agindua
 ', '#046CE9401CEA485E2DA8360', '12' ),
-( '14', 'Expediente de comisión de servicios / Zerbitzu eginkizunen espedientea 
-', 'Departamento de Personal / Pertsonal saila 
+( '14', 'Expediente de comisión de servicios / Zerbitzu eginkizunen espedientea
+', 'Departamento de Personal / Pertsonal saila
 ', 'Conservación permanente incluido en el expediente personal / Kontserbazio iraunkorra, espediente pertsonalean
 ', '', 'Orden de 11 de julio de 2011 / 2011ko uztailaren 11ko agindua
 ', '#046CE9401CEA486DAF9F3F0', '13' ),
 ( '15', 'Expediente de préstamos de consumo / Kontsumorako maileguen espedientea
-', 'Departamento de Personal / Pertsonal saila 
-', 'Eliminación total en el archivo de oficina a los cinco años del cierre del espediente / Erabateko suntsiketa, bulegoko artxiboan espedientea itxi eta bost urtera 
+', 'Departamento de Personal / Pertsonal saila
+', 'Eliminación total en el archivo de oficina a los cinco años del cierre del espediente / Erabateko suntsiketa, bulegoko artxiboan espedientea itxi eta bost urtera
 ', 'En el archivo municipal se incluyen en el expediente personal
 ', 'Orden de 11 de julio de 2011 / 2011ko uztailaren 11ko agindua
 ', '#046CE9401CEA4872F9FDFF0', '14' ),
@@ -3602,22 +3778,22 @@ Erabateko suntsiketa, bulegoko artxiboan dokumentuak ekoitzi diren urte naturala
 ', '', 'Orden de 11 de julio de 2011 / 2011ko uztailaren 11ko agindua
 ', '#046CE9401CEA4874F1CC9B0', '15' ),
 ( '17', 'Expediente para la solicitud de ayudas técnicas y/o especializadas / Laguntza teknikoak edota espezializatuak eskatzeko espedientea
-', '', 'Eliminación total en el archivo de oficina a los cinco años a contar del cierre del expediente / Erabateko suntsiketa, bulegoko artxiboan espedientea itxi eta bost urtera 
+', '', 'Eliminación total en el archivo de oficina a los cinco años a contar del cierre del expediente / Erabateko suntsiketa, bulegoko artxiboan espedientea itxi eta bost urtera
 ', '', 'Orden de 3 de mayo de 2012 / 2012ko maiatzaren 3ko agindua
 ', '#046CE9401CEA49B2A15C900', '16' ),
 ( '18', 'Expediente para la solicitud de ayudas económicas para el acogimiento familiar de personas menores de edad / Adingabeak familietan hartzeko dirulaguntzak eskatzeko espedientea
 ', 'Gizartekintza
-', 'Eliminación total en el archivo de oficina a los cinco años a contar del cirre del expediente / Erabateko suntsiketa, bulegoko artxiboan espedientea itxi eta bost urtera 
+', 'Eliminación total en el archivo de oficina a los cinco años a contar del cirre del expediente / Erabateko suntsiketa, bulegoko artxiboan espedientea itxi eta bost urtera
 ', '', 'Orden de 3 de mayo de 2012 / 2012ko maiatzaren 3ko agindua
 ', '#046CE9401CEA49F47CD3830', '17' ),
-( '19', 'Expediente para la solicitud del programa Sendian de acompañamiento a personas mayores / Adinekoei laguntzeko Sendian programa eskatzeko espedientea 
+( '19', 'Expediente para la solicitud del programa Sendian de acompañamiento a personas mayores / Adinekoei laguntzeko Sendian programa eskatzeko espedientea
 ', 'Gizartekintza
 ', 'Eliminación total en el archivo de oficina a los cinco años a contar desde la concesión del expediente / Erabateko suntsiketa, bulegoko artxiboan espedientea eman eta bost urtera
 ', '', 'Orden de 3 de mayo de 2012 / 2012ko maiatzaren 2ko agindua
 ', '#046CE9401CEA49FA7302A30', '18' ),
-( '20', 'Expediente para la solicitud de tarjeta de estacionamiento para personas con discapacidad / Ezinduentzako aparkatzeko txartela eskatzeko espedientea 
+( '20', 'Expediente para la solicitud de tarjeta de estacionamiento para personas con discapacidad / Ezinduentzako aparkatzeko txartela eskatzeko espedientea
 ', 'Gizartekintza
-', 'Eliminación total en el archivo de oficina a los cinco años a contar del cierre del expediente / Erabateko suntsiketa, bulegoko artxiboan espedientea itxi eta bost urtera 
+', 'Eliminación total en el archivo de oficina a los cinco años a contar del cierre del expediente / Erabateko suntsiketa, bulegoko artxiboan espedientea itxi eta bost urtera
 ', '', 'Orden de 3 de mayo de 2012 / 2012ko maiatzaren 3ko agindua
 ', '#046CE9401CEA4A94A003940', '19' ),
 ( '21', 'Expediente para la solicitud de teleasistencia / Telelaguntza-zerbitzua eskatzeko espedientea
@@ -3625,20 +3801,20 @@ Erabateko suntsiketa, bulegoko artxiboan dokumentuak ekoitzi diren urte naturala
 ', 'Eliminación total en el archivo de oficina a los dos años a contar del cierre del expediente / Erabateko suntsiketa, bulegoko artxiboan espedientea itxi eta bi urtera
 ', '', 'Orden de 3 de mayo de 2012 / 2012ko maiatzaren 3ko agindua
 ', '#046CE9401CEA4A99B4965B0', '20' ),
-( '22', 'Expediente de ayudas económicas para el pago de tasas municipales de agua, basura y alcantarillado / Ur hornidurako, zabor bilketako eta estolderiako udal-tasak ordaintzeko dirulaguntza espedientea 
-', 'Gizartekintza 
-', 'Eliminación total en el archivo de oficina a los cinco años a contar del cierre del expediente / Erabateko suntsiketa, bulegoko artxiboan espedientea itxi eta bost urtera 
-', '', 'Orden de 3 de mayo de 2012 / 2012ko maiatzaren 3ko agindua 
-', '#046CE9401CEA4AA02CB3330', '21' ),
-( '23', 'Expediente para la concesión de ayudas para desplazamientos a programas educativo-terapeúticos de toxicómanos / Toxikomanoak programa hezitzaile terapeutkoetara joateko dirulaguntzak emateko espedientea 
+( '22', 'Expediente de ayudas económicas para el pago de tasas municipales de agua, basura y alcantarillado / Ur hornidurako, zabor bilketako eta estolderiako udal-tasak ordaintzeko dirulaguntza espedientea
 ', 'Gizartekintza
-', 'Eliminación total en el archivo de oficina a los cinco años a contar del cierre del expediente / Erabateko suntsiketa, bulegoko artxiboan espedientea itxi eta bost urtera 
+', 'Eliminación total en el archivo de oficina a los cinco años a contar del cierre del expediente / Erabateko suntsiketa, bulegoko artxiboan espedientea itxi eta bost urtera
+', '', 'Orden de 3 de mayo de 2012 / 2012ko maiatzaren 3ko agindua
+', '#046CE9401CEA4AA02CB3330', '21' ),
+( '23', 'Expediente para la concesión de ayudas para desplazamientos a programas educativo-terapeúticos de toxicómanos / Toxikomanoak programa hezitzaile terapeutkoetara joateko dirulaguntzak emateko espedientea
+', 'Gizartekintza
+', 'Eliminación total en el archivo de oficina a los cinco años a contar del cierre del expediente / Erabateko suntsiketa, bulegoko artxiboan espedientea itxi eta bost urtera
 ', '', 'Orden de 3 de mayo de 2012 / 2012ko maiatzaren 3ko agindua
 ', '#046CE9401CEA4AA701F2D10', '22' ),
-( '24', 'Expediente de subvención a hogares de jubilados / Zahar-etxeentzako dirulaguntza espedientea 
+( '24', 'Expediente de subvención a hogares de jubilados / Zahar-etxeentzako dirulaguntza espedientea
 ', 'Gizartekintza
-', 'Eliminación total en el archivo de oficina a los cinco años a contar del cierre del expediente / Erabatteko suntsiketa, bulegoko artxiboan espedientea itxi eta bost urtera 
-', '', 'Orden de 3 de mayo de 2012 / 2012ko maiatzaren 2ko agindua 
+', 'Eliminación total en el archivo de oficina a los cinco años a contar del cierre del expediente / Erabatteko suntsiketa, bulegoko artxiboan espedientea itxi eta bost urtera
+', '', 'Orden de 3 de mayo de 2012 / 2012ko maiatzaren 2ko agindua
 ', '#046CE9401CEA4AAF2E850F0', '23' );
 -- ---------------------------------------------------------
 

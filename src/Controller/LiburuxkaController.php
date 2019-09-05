@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Amp;
 use App\Entity\Liburuxka;
 use App\Form\LiburuxkaType;
 use App\Repository\LiburuxkaRepository;
+use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
@@ -18,32 +20,29 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/liburuxka")
  */
-class LiburuxkaController extends AbstractController
-{
+class LiburuxkaController extends AbstractController {
 
     /**
-     * @Route("/", name="liburuxka_index", methods={"GET"})
+     * @Route("/", name="liburuxka_index", methods={"GET", "POST"})
      * @param Request             $request
      * @param PaginatorInterface  $paginator
      * @param LiburuxkaRepository $liburuxkaRepository
      *
      * @param SessionInterface    $session
      *
+     * @param DbHelperService     $dbhelper
+     *
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginator, LiburuxkaRepository $liburuxkaRepository, SessionInterface $session): Response
-    {
-        /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = $liburuxkaRepository->createQueryBuilder('a');
-
-        $filter = $request->query->get('filter');
-        if ($filter) {
-            $queryBuilder->where('MATCH_AGAINST(a.azalpenak, a.data, a.deskribapena, a.signatura) AGAINST(:searchterm boolean)>0')
-                         ->setParameter('searchterm', $filter);
-        }
-
-        $query = $queryBuilder->getQuery();
-
+    public function index(
+        Request $request,
+        PaginatorInterface $paginator,
+        LiburuxkaRepository $liburuxkaRepository,
+        SessionInterface $session,
+        DbHelperService $dbhelper
+    ): Response {
+        $myFilters  = $dbhelper->getFinderParams($request->request->get('form'));
+        $query      = $liburuxkaRepository->getQueryByFinder($myFilters);
         $liburuxkas = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -51,19 +50,22 @@ class LiburuxkaController extends AbstractController
         );
 
         $myselection = $session->get('zertegi-selection');
-        if ($myselection !== null) {
+        if ($myselection !== null)
+        {
             if (array_key_exists('liburuxka', $myselection))
             {
                 $myselection = $myselection[ 'liburuxka' ];
             }
         }
 
+        $fields = $dbhelper->getAllEntityFields(Liburuxka::class);
 
         return $this->render(
             'liburuxka/index.html.twig',
             [
-                'liburuxkas' => $liburuxkas,
-                'myselection' => $myselection
+                'liburuxkas'  => $liburuxkas,
+                'myselection' => $myselection,
+                'fields'      => $fields,
             ]
         );
 
@@ -78,22 +80,27 @@ class LiburuxkaController extends AbstractController
     public function new(Request $request): Response
     {
         $liburuxka = new Liburuxka();
-        $form = $this->createForm(LiburuxkaType::class, $liburuxka);
+        $form      = $this->createForm(LiburuxkaType::class, $liburuxka);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($liburuxka);
             $entityManager->flush();
 
             $this->addFlash('success', 'Datuak ongi grabatu dira.');
+
             return $this->redirectToRoute('liburuxka_index');
         }
 
-        return $this->render('liburuxka/new.html.twig', [
-            'liburuxka' => $liburuxka,
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'liburuxka/new.html.twig',
+            [
+                'liburuxka' => $liburuxka,
+                'form'      => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -104,9 +111,12 @@ class LiburuxkaController extends AbstractController
      */
     public function show(Liburuxka $liburuxka): Response
     {
-        return $this->render('liburuxka/show.html.twig', [
-            'liburuxka' => $liburuxka,
-        ]);
+        return $this->render(
+            'liburuxka/show.html.twig',
+            [
+                'liburuxka' => $liburuxka,
+            ]
+        );
     }
 
     /**
@@ -121,19 +131,27 @@ class LiburuxkaController extends AbstractController
         $form = $this->createForm(LiburuxkaType::class, $liburuxka);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'Datuak ongi grabatu dira.');
-            return $this->redirectToRoute('liburuxka_index', [
-                'id' => $liburuxka->getId(),
-            ]);
+
+            return $this->redirectToRoute(
+                'liburuxka_index',
+                [
+                    'id' => $liburuxka->getId(),
+                ]
+            );
         }
 
-        return $this->render('liburuxka/edit.html.twig', [
-            'liburuxka' => $liburuxka,
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'liburuxka/edit.html.twig',
+            [
+                'liburuxka' => $liburuxka,
+                'form'      => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -145,26 +163,32 @@ class LiburuxkaController extends AbstractController
      */
     public function delete(Request $request, Liburuxka $liburuxka): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$liburuxka->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$liburuxka->getId(), $request->request->get('_token')))
+        {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($liburuxka);
             $entityManager->flush();
-        } elseif ( $request->isXmlHttpRequest()) {
+        } elseif ($request->isXmlHttpRequest())
+        {
             $message = 'CSRF token error';
-            $resp = [
+            $resp    = [
                 'code' => 500,
-                'data' => $message
+                'data' => $message,
             ];
-            return new JsonResponse($resp,500);
-        } else {
+
+            return new JsonResponse($resp, 500);
+        } else
+        {
             return $this->redirectToRoute('liburuxka_index');
         }
 
-        if ( $request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest())
+        {
             $resp = [
                 'code' => 200,
-                'data' => 'Ezabatua izan da'
+                'data' => 'Ezabatua izan da',
             ];
+
             return new JsonResponse($resp);
         }
 

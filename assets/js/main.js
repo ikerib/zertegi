@@ -9,6 +9,10 @@ $("#btn-save").on("click", function () {
     $("#hiddenbutton").click();
 });
 
+$("#btnFrmFinderSubmit").on("click", function () {
+    $("#frmFinder").submit();
+});
+
 // filter botoia. Testua badu witdh=500
 const $miLEn = $('#filter').val().length;
 if ( $miLEn >0 ) {

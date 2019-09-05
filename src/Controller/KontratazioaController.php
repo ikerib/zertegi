@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Amp;
 use App\Entity\Kontratazioa;
 use App\Form\KontratazioaType;
 use App\Repository\KontratazioaRepository;
+use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
@@ -21,28 +23,23 @@ class KontratazioaController extends AbstractController
 {
 
     /**
-     * @Route("/", name="kontratazioa_index", methods={"GET"})
+     * @Route("/", name="kontratazioa_index", methods={"GET", "POST"})
      * @param Request                $request
      * @param PaginatorInterface     $paginator
      * @param KontratazioaRepository $kontratazioaRepository
      *
      * @param SessionInterface       $session
      *
+     * @param DbHelperService        $dbhelper
+     *
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginator, KontratazioaRepository $kontratazioaRepository, SessionInterface $session): Response
+    public function index(Request $request, PaginatorInterface $paginator,
+        KontratazioaRepository $kontratazioaRepository, SessionInterface $session,
+        DbHelperService $dbhelper): Response
     {
-        /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = $kontratazioaRepository->createQueryBuilder('a');
-
-        $filter = $request->query->get('filter');
-        if ($filter) {
-            $queryBuilder->where('MATCH_AGAINST( a.espedientea, a.sailkapena, a.signatura, a.urtea) AGAINST(:searchterm boolean)>0')
-                         ->setParameter('searchterm', $filter);
-        }
-
-        $query = $queryBuilder->getQuery();
-
+        $myFilters=$dbhelper->getFinderParams($request->request->get('form'));
+        $query = $kontratazioaRepository->getQueryByFinder($myFilters);
         $kontratazioas = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -57,10 +54,13 @@ class KontratazioaController extends AbstractController
             }
         }
 
+        $fields = $dbhelper->getAllEntityFields(Kontratazioa::class);
+
         return $this->render(
             'kontratazioa/index.html.twig',
             [
                 'kontratazioas' => $kontratazioas,
+                'fields'      => $fields,
                 'myselection'   => $myselection
             ]
         );

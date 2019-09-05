@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Kirola{% endblock %}
+{% block header %}Kirola{% endblock %}
+{% block header_desc %}Zerrenda{% endblock %}
+{% block breadcrumbs %}
+    <li class="active">Kirola</li>
+    <li class="active">Zerrenda</li>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+
+    <div class="col-xs-12">
+
+        {% include '_finder.html.twig' with {'table': 'kirola', 'fields': fields } %}
+
+        <div class="box">
+            <div class="box-header">
+                <div class="box-header">
+                    <a href="{{ path('kirola_new') }}" id="btnBerria" class="btn btn-primary" ><i class="fa fa-plus"></i>&nbsp; {{ "Berria" | trans }}</a>
+                    <a href="{{ path('pdf') }}" id="btnPrint" class="btn btn-default">{{ "Inprimitu" | trans }}</a>
+                    <a href="javascript:void(0);" id="btnClearSelection" class="btn btn-default">{{ "Ezabatu aukeraketa" | trans }}</a>
+                </div>
+
+
+                <div class="box-tools">
+                    <form action="{{ path('kirola_index') }}" method="get">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <input id="filter" type="text" name="filter" class="form-control pull-right" placeholder="Buscar" value="{{ app.request.query.get('filter') }}">
+
+                            <div class="input-group-btn">
+                                <button id="btnFilter" type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    Erregistro kopurua: {{ kirolak.getTotalItemCount |number_format(0, ',', '.') }}
+                </div>
+                <div class="box-body">
+
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>
+                                <label>
+                                    <input id="checkAll" type="checkbox">
+                                </label>
+                            </th>
+                            <th>{{ knp_pagination_sortable(kirolak, 'Espedientea', 'a.espedientea') }}</th>
+                            <th>{{ knp_pagination_sortable(kirolak, 'Data', 'a.data') }}</th>
+                            <th>{{ knp_pagination_sortable(kirolak, 'Sailkapena', 'a.sailkapena') }}</th>
+                            <th>{{ knp_pagination_sortable(kirolak, 'Signatura', 'a.signatura') }}</th>
+                            <th>{{ knp_pagination_sortable(kirolak, 'Oharrak', 'a.oharrak') }}</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for kirola in kirolak %}
+                            <tr>
+                                <td><label>
+                                        <input type="checkbox" name="chkSelecion[]" class="chkSelecion" value="{{ kirola.id }}" data-table="kirola"
+                                                {% if kirola.id in myselection %} checked {% endif %}
+                                        >
+                                    </label>
+                                </td>
+                                <td>{{ kirola.espedientea }}</td>
+                                <td>{{ kirola.data }}</td>
+                                <td>{{ kirola.sailkapena }}</td>
+                                <td>{{ kirola.signatura }}</td>
+                                <td>{{ kirola.oharrak }}</td>
+                                <td>
+                                    <ul class="list-inline">
+                                        <li class=""><a href="{{ path('kirola_show', {'id': kirola.id}) }}"><i class="fas fa-eye btnShow"></i></a></li>
+                                        <li class=""><a href="{{ path('kirola_edit', {'id': kirola.id}) }}"><i class="fas fa-edit btnEdit"></i></a></li>
+                                        <li class=""><a href="#" class="deleteBtn" data-delete-url="{{ path('kirola_delete',{'id':kirola.id}) }}" data-id="{{ kirola.id }}" data-token="{{ csrf_token('delete' ~ kirola.id) }}"><i class="fas fa-trash text-danger"></i></a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="9">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="navigation text-center">
+                                {{ knp_pagination_render(kirolak) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- box -->
+
+        </div><!-- col-xs-12 -->
+    </div> <!--row -->
+
+    {#{{ include('amp/_delete_form.html.twig', {'amp': amp}) }}#}
+
+    {% endblock %}
+    {% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('jsDeleteForm') }}
+    {% endblock %}

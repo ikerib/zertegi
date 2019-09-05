@@ -19,32 +19,17 @@ class TablasRepository extends ServiceEntityRepository
         parent::__construct($registry, Tablas::class);
     }
 
-    // /**
-    //  * @return Tablas[] Returns an array of Tablas objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getQueryByFinder($arr): \Doctrine\ORM\Query
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('a');
+        foreach ($arr as $key => $value) {
+            $miindex = 0;
+            foreach ($value as $v) {
+                $qb->orWhere($qb->expr()->like('a.'.$key, ':v'.$key.$miindex))->setParameter('v'.$key.$miindex, '%'.$v.'%');
+                ++$miindex;
+            }
+        }
 
-    /*
-    public function findOneBySomeField($value): ?Tablas
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $qb->getQuery();
     }
-    */
 }

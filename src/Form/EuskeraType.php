@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Euskera;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,7 +17,12 @@ class EuskeraType extends AbstractType
             ->add('data')
             ->add('sailkapena')
             ->add('signatura')
-            ->add('oharrak')
+            ->add('oharrak',CKEditorType::class, array(
+                    'config' => array(
+                        'uiColor' => '#ffffff',
+                    ),
+                )
+            )
         ;
     }
 

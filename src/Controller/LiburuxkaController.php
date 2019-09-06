@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Amp;
+use App\Entity\Hutsak;
 use App\Entity\Liburuxka;
 use App\Form\LiburuxkaType;
 use App\Repository\LiburuxkaRepository;
@@ -10,6 +11,7 @@ use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -193,5 +195,29 @@ class LiburuxkaController extends AbstractController {
         }
 
         return $this->redirectToRoute('liburuxka_index');
+    }
+
+    /**
+     * @Route("/print/{id}", name="liburuxka_print", methods={"GET", "POST" })
+     * @param Request $request
+     *
+     * @param Liburuxka $liburuxka
+     * @param Pdf     $snappy
+     *
+     * @return Response
+     */
+    public function print(Request $request, Liburuxka $liburuxka, Pdf $snappy): Response
+    {
+        $html      = $this->renderView('liburuxka/pdf.html.twig', ['liburuxka'=>$liburuxka]);
+        $filename  = sprintf('liburuxka-%s.pdf', date('Y-m-d-hh-ss'));
+
+        return new Response(
+            $snappy->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
     }
 }

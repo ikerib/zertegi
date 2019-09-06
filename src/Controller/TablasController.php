@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Amp;
+use App\Entity\Protokoloak;
 use App\Entity\Tablas;
 use App\Form\TablasType;
 use App\Repository\TablasRepository;
@@ -10,6 +11,7 @@ use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -189,5 +191,29 @@ class TablasController extends AbstractController {
         }
 
         return $this->redirectToRoute('tablas_index');
+    }
+
+    /**
+     * @Route("/print/{id}", name="tablas_print", methods={"GET", "POST" })
+     * @param Request $request
+     *
+     * @param Tablas  $tabla
+     * @param Pdf     $snappy
+     *
+     * @return Response
+     */
+    public function print(Request $request, Tablas $tabla, Pdf $snappy): Response
+    {
+        $html      = $this->renderView('tablas/pdf.html.twig', ['tabla'=>$tabla]);
+        $filename  = sprintf('tablas-%s.pdf', date('Y-m-d-hh-ss'));
+
+        return new Response(
+            $snappy->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
     }
 }

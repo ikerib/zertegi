@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Amp;
+use App\Entity\Protokoloak;
 use App\Entity\Salidas;
 use App\Form\SalidasType;
 use App\Repository\SalidasRepository;
 use App\Service\DbHelperService;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -163,5 +165,29 @@ class SalidasController extends AbstractController
         }
 
         return $this->redirectToRoute('salidas_index');
+    }
+
+    /**
+     * @Route("/print/{id}", name="salidas_print", methods={"GET", "POST" })
+     * @param Request $request
+     *
+     * @param Salidas $salidas
+     * @param Pdf     $snappy
+     *
+     * @return Response
+     */
+    public function print(Request $request, Salidas $salidas, Pdf $snappy): Response
+    {
+        $html      = $this->renderView('salidas/pdf.html.twig', ['salidas'=>$salidas]);
+        $filename  = sprintf('salidas-%s.pdf', date('Y-m-d-hh-ss'));
+
+        return new Response(
+            $snappy->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
     }
 }

@@ -2,12 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Amp;
+use App\Entity\Euskera;
 use App\Entity\Hutsak;
 use App\Form\HutsakType;
 use App\Repository\HutsakRepository;
+use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,22 +33,17 @@ class HutsakController extends AbstractController
      *
      * @param SessionInterface   $session
      *
+     * @param DbHelperService    $dbhelper
+     *
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginator, HutsakRepository $hutsakRepository, SessionInterface $session): Response
+    public function index(Request $request, PaginatorInterface $paginator,
+        HutsakRepository $hutsakRepository, SessionInterface $session,
+        DbHelperService $dbhelper
+    ): Response
     {
-        /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = $hutsakRepository->createQueryBuilder('a');
-
-        $filter = $request->query->get('filter');
-        if ($filter)
-        {
-            $queryBuilder->where('MATCH_AGAINST(a.berria, a.egoera, a.signatura, a.zaharra) AGAINST(:searchterm boolean)>0')
-                         ->setParameter('searchterm', $filter);
-        }
-
-        $query = $queryBuilder->getQuery();
-
+        $myFilters = $dbhelper->getFinderParams($request->request->get('form'));
+        $query     = $hutsakRepository->getQueryByFinder($myFilters);
         $hutsaks = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -59,11 +58,14 @@ class HutsakController extends AbstractController
             }
         }
 
+        $fields = $dbhelper->getAllEntityFields(Hutsak::class);
+
         return $this->render(
             'hutsak/index.html.twig',
             [
                 'hutsaks' => $hutsaks,
-                'myselection' => $myselection
+                'myselection' => $myselection,
+                'fields'    => $fields
             ]
         );
     }
@@ -168,5 +170,29 @@ class HutsakController extends AbstractController
         }
 
         return $this->redirectToRoute('hutsak_index');
+    }
+
+    /**
+     * @Route("/print/{id}", name="hutsak_print", methods={"GET", "POST" })
+     * @param Request $request
+     *
+     * @param Hutsak  $hutsak
+     * @param Pdf     $snappy
+     *
+     * @return Response
+     */
+    public function print(Request $request, Hutsak $hutsak, Pdf $snappy): Response
+    {
+        $html      = $this->renderView('hutsak/pdf.html.twig', ['hutsak'=>$hutsak]);
+        $filename  = sprintf('hutsak-%s.pdf', date('Y-m-d-hh-ss'));
+
+        return new Response(
+            $snappy->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
     }
 }

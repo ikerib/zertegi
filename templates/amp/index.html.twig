@@ -19,7 +19,7 @@
             <div class="box-header">
                 <div class="btn-group">
                     <a href="{{ path('amp_new') }}" id="btnBerria" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; {{ "Berria" | trans }}</a>
-                    <a href="{{ path('pdf') }}" id="btnPrint" class="btn btn-default">{{ "Inprimitu" | trans }}</a>
+                    <a href="{{ path('pdf') }}" id="btnPrint" class="btn btn-default"><i class="fa fa-fw fa-print"></i> {{ "Inprimitu" | trans }}</a>
                     <a href="javascript:void(0);" id="btnClearSelection" class="btn btn-default">{{ "Ezabatu aukeraketa" | trans }}</a>
                 </div>
 
@@ -56,7 +56,6 @@
                                     <input id="checkAll" type="checkbox">
                                 </label>
                             </th>
-                            <th>{{ knp_pagination_sortable(amps, 'Id', 'a.id') }}</th>
                             <th>{{ knp_pagination_sortable(amps, 'Expediente', 'a.expediente') }}</th>
                             <th>{{ knp_pagination_sortable(amps, 'Fecha', 'a.fecha') }}</th>
                             <th>{{ knp_pagination_sortable(amps, 'Clasificacion', 'a.clasificacion') }}</th>
@@ -73,7 +72,6 @@
                                                 {% if amp.id in myselection %} checked {% endif %}
                                         >
                                     </label></td>
-                                <td>{{ amp.id }}</td>
                                 <td>{{ amp.expediente|length > 150 ? amp.expediente|slice(0,150)~'...' : amp.expediente }}</td>
                                 <td>{{ amp.fecha }}</td>
                                 <td>{{ amp.clasificacion }}</td>

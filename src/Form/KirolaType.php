@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Kirola;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,9 +17,12 @@ class KirolaType extends AbstractType
             ->add('data')
             ->add('sailkapena')
             ->add('signatura')
-            ->add('oharrak')
-            ->add('numdoc')
-            ->add('knosysid')
+            ->add('oharrak',CKEditorType::class, array(
+                    'config' => array(
+                        'uiColor' => '#ffffff',
+                    ),
+                )
+            )
         ;
     }
 

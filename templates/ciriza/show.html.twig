@@ -17,16 +17,16 @@
                 <div class="box-header">
                     <div class="box-tools box-tools-left" data-toggle="tooltip" title="" data-original-title="Status">
                         <a class="btn btn-sm btn-primary" href="{{ path('ciriza_edit', {'id': ciriza.id}) }}"><i class="fas fa-edit"></i> Aldatu</a>
+                        <a class="btn btn-sm btn-default" href="{{ path('ciriza_index') }}"><i class="fa fa-fw fa-arrow-alt-circle-left" aria-hidden="true"></i> {{ 'Zerrendara itzuli' | trans }}</a>
+                        <div class="box-tools pull-right">
+                            <a id="btnPrint" class="btn btn-sm btn-default" href="{{ path('ciriza_print', {'id': ciriza.id}) }}"><i class="fa fa-fw fa-print"></i> {{ "Inprimitu" | trans }}</a>
+                        </div>
                     </div>
                 </div>
                 <div class="box-body">
                     <div class="row">&nbsp;</div>
                     <table class="table">
                         <tbody>
-                        <tr>
-                            <th>Id</th>
-                            <td>{{ ciriza.id }}</td>
-                        </tr>
                         <tr>
                             <th>Signatura</th>
                             <td>{{ ciriza.signatura }}</td>
@@ -46,14 +46,6 @@
                         <tr>
                             <th>Oharrak</th>
                             <td>{{ ciriza.oharrak }}</td>
-                        </tr>
-                        <tr>
-                            <th>Numdoc</th>
-                            <td>{{ ciriza.numdoc }}</td>
-                        </tr>
-                        <tr>
-                            <th>Knosysid</th>
-                            <td>{{ ciriza.knosysid }}</td>
                         </tr>
                         </tbody>
                     </table>

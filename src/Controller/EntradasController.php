@@ -10,6 +10,7 @@ use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -193,5 +194,29 @@ class EntradasController extends AbstractController {
         }
 
         return $this->redirectToRoute('entradas_index');
+    }
+
+    /**
+     * @Route("/print/{id}", name="entradas_print", methods={"GET", "POST" })
+     * @param Request  $request
+     *
+     * @param Entradas $entrada
+     * @param Pdf      $snappy
+     *
+     * @return Response
+     */
+    public function print(Request $request, Entradas $entrada, Pdf $snappy): Response
+    {
+        $html      = $this->renderView('entradas/pdf.html.twig', ['entrada' => $entrada]);
+        $filename  = sprintf('entrada-%s.pdf', date('Y-m-d-hh-ss'));
+
+        return new Response(
+            $snappy->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
     }
 }

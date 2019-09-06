@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Ciriza;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,9 +15,19 @@ class CirizaType extends AbstractType
         $builder
             ->add('signatura')
             ->add('data')
-            ->add('deskribapena')
+            ->add('deskribapena',CKEditorType::class, array(
+                    'config' => array(
+                        'uiColor' => '#ffffff',
+                    ),
+                )
+            )
             ->add('sailkapena')
-            ->add('oharrak')
+            ->add('oharrak',CKEditorType::class, array(
+                    'config' => array(
+                        'uiColor' => '#ffffff',
+                    ),
+                )
+            )
         ;
     }
 

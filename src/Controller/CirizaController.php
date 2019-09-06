@@ -10,6 +10,7 @@ use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -193,5 +194,29 @@ class CirizaController extends AbstractController {
         }
 
         return $this->redirectToRoute('ciriza_index');
+    }
+
+    /**
+     * @Route("/print/{id}", name="ciriza_print", methods={"GET", "POST" })
+     * @param Request $request
+     *
+     * @param Ciriza  $ciriza
+     * @param Pdf     $snappy
+     *
+     * @return Response
+     */
+    public function print(Request $request, Ciriza $ciriza, Pdf $snappy): Response
+    {
+        $html      = $this->renderView('ciriza/pdf.html.twig', [ 'ciriza' => $ciriza ]);
+        $filename  = sprintf('ciriza-%s.pdf', date('Y-m-d-hh-ss'));
+
+        return new Response(
+            $snappy->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
     }
 }

@@ -53,6 +53,34 @@
         <source>Bilatzailea</source>
         <target>Bilatzailea</target>
       </trans-unit>
+      <trans-unit id="ZrUGVxi" resname="Zerrendara itzuli">
+        <source>Zerrendara itzuli</source>
+        <target>Zerrendara itzuli</target>
+      </trans-unit>
+      <trans-unit id="Kontsultaaaaa" resname="Kontsulta">
+        <source>Kontsulta</source>
+        <target>Kontsulta</target>
+      </trans-unit>
+      <trans-unit id="Expedienteaa" resname="Expediente">
+        <source>Expediente</source>
+        <target>Espedientea</target>
+      </trans-unit>
+      <trans-unit id="Fechaaaa" resname="Fecha">
+        <source>Fecha</source>
+        <target>Fetxa</target>
+      </trans-unit>
+      <trans-unit id="Clasificacion" resname="Clasificacion">
+        <source>Clasificacion</source>
+        <target>Sailkapena</target>
+      </trans-unit>
+      <trans-unit id="Signaturaaaa" resname="Signatura">
+        <source>Signatura</source>
+        <target>Signatura</target>
+      </trans-unit>
+      <trans-unit id="Observacionesaaaa" resname="Observaciones">
+        <source>Observaciones</source>
+        <target>Oharrak</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

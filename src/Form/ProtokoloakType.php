@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Protokoloak;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,7 +20,12 @@ class ProtokoloakType extends AbstractType
             ->add('data')
             ->add('laburpena')
             ->add('datuak')
-            ->add('oharrak')
+            ->add('oharrak',CKEditorType::class, array(
+                    'config' => array(
+                        'uiColor' => '#ffffff',
+                    ),
+                )
+            )
             ->add('bilatzaileak')
         ;
     }

@@ -8,6 +8,7 @@ use App\Repository\AmpRepository;
 use App\Service\DbHelperService;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -210,21 +211,22 @@ class AmpController extends AbstractController {
 
 
     /**
-     * @Route("/print", name="amp_print", methods={"GET", "POST" })
-     * @param Request       $request
-     * @param AmpRepository $ampRepository
+     * @Route("/print/{id}", name="amp_print", methods={"GET", "POST" })
+     * @param Request $request
+     *
+     * @param Amp     $amp
+     *
+     * @param Pdf     $snappy
      *
      * @return Response
      */
-    public function print(Request $request, AmpRepository $ampRepository): Response
+    public function print(Request $request, Amp $amp, Pdf $snappy): Response
     {
-        $selection = $request->get('chkSeleccion');
-        $amp       = $ampRepository->find($selection[ 0 ]);
-        $html      = $this->renderView('amp/show.html.twig', ['amp' => $amp]);
-        $filename  = sprintf('specifications-%s.pdf', date('Y-m-d-hh-ss'));
+        $html      = $this->renderView('amp/pdf.html.twig', ['amp' => $amp]);
+        $filename  = sprintf('amp-%s.pdf', date('Y-m-d-hh-ss'));
 
         return new Response(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            $snappy->getOutputFromHtml($html),
             200,
             [
                 'Content-Type'        => 'application/pdf',

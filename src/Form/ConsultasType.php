@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Consultas;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,7 +17,12 @@ class ConsultasType extends AbstractType
             ->add('helbidea')
             ->add('gaia')
             ->add('enpresa')
-            ->add('kontsulta')
+            ->add('kontsulta',CKEditorType::class, array(
+                    'config' => array(
+                        'uiColor' => '#ffffff',
+                    ),
+                )
+            )
         ;
     }
 

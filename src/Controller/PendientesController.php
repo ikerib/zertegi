@@ -7,9 +7,8 @@ use App\Entity\Pendientes;
 use App\Form\PendientesType;
 use App\Repository\PendientesRepository;
 use App\Service\DbHelperService;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -166,5 +165,29 @@ class PendientesController extends AbstractController
         }
 
         return $this->redirectToRoute('pendientes_index');
+    }
+
+    /**
+     * @Route("/print/{id}", name="pendientes_print", methods={"GET", "POST" })
+     * @param Request $request
+     *
+     * @param Pendientes $pendientes
+     * @param Pdf     $snappy
+     *
+     * @return Response
+     */
+    public function print(Request $request, Pendientes $pendientes, Pdf $snappy): Response
+    {
+        $html      = $this->renderView('pendientes/pdf.html.twig', ['pendientes'=>$pendientes]);
+        $filename  = sprintf('pendientes-%s.pdf', date('Y-m-d-hh-ss'));
+
+        return new Response(
+            $snappy->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
     }
 }

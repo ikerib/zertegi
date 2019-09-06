@@ -34,12 +34,12 @@ class AmpRepository extends ServiceEntityRepository
                     $contLoop=0;
                     foreach ($value as $v) {
                         $toFind = [' ',',','?'];
-                        $clean = str_replace($toFind, '_', $v);
+                        $clean = str_replace($toFind, '__', $v);
 
-                        $qb->orWhere(
-                            $qb->expr()->andX(
-                                $qb->expr()->andX($expr->like('a.'.$field, ':v'.$field.$miindex)),
-                                $qb->expr()->andX($expr->like('a.'.$field, ':v2'.$field.$miindex))
+                        $qb->andWhere(
+                            $qb->expr()->orX(
+                                $qb->expr()->orX($expr->like('a.'.$field, ':v'.$field.$miindex)),
+                                $qb->expr()->orX($expr->like('a.'.$field, ':v2'.$field.$miindex))
                             )
                         )->setParameter('v'.$field.$miindex, '%'.$v.'%')
                         ->setParameter('v2'.$field.$miindex, '%'.$clean.'%');

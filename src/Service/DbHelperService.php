@@ -8,6 +8,7 @@ use Doctrine\DBAL\Driver\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\Ldap\Adapter\ConnectionInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -80,13 +81,10 @@ class DbHelperService {
         return $fields;
     }
 
-    public function mySearch($table, $fields)
+    public function mySearch($table, $fields): FormView
     {
         $form = $this->formFactory->createBuilder()
                                   ->setAction($this->router->generate((string)$table.'_index'));
-        $form->add('Kontsulta', null, [
-            'required' => false
-        ]);
         foreach ($fields as $field)
         {
                 $form->add(
@@ -104,7 +102,7 @@ class DbHelperService {
         return $form->getForm()->createView();
     }
 
-    public function getFinderParams($filters)
+    public function getFinderParams($filters): array
     {
 
 

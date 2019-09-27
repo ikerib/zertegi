@@ -6,6 +6,7 @@ use App\Entity\Amp;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use function Doctrine\ORM\QueryBuilder;
 
 
 /**
@@ -22,36 +23,79 @@ class AmpRepository extends ServiceEntityRepository
         parent::__construct($registry, Amp::class);
     }
 
-    public function getQueryByFinder($arr, $fields): Query
+    public function getQueryByFinder($arr, $fields): bool
     {
         $qb = $this->createQueryBuilder('a');
         $expr = $qb->expr();
-        foreach ($arr as $key => $value) {
-            $miindex = 0;
-            if ( $key === 'Kontsulta') {
-                foreach ($fields as $field) {
-                    foreach ($value as $v) {
-                        $toFind = [' ',',','?'];
-                        $clean = str_replace($toFind, '__', $v);
+//        foreach ($arr as $key => $value) {
+//            $miindex = 0;
+//            foreach ($value as $v) {
+//                $qb->orWhere($qb->expr()->like('a.'.$key, ':v'.$key.$miindex))->setParameter('v'.$key.$miindex, '%'.$v.'%');
+//                    ++$miindex;
+//            }
+//        }
 
-                        $qb->andWhere(
-                            $qb->expr()->orX(
-                                $expr->like($field, '%'.$v.'%'),
-                                $expr->like($field, '%'.$clean.'%')
-                            )
-                        )
-                        ;
-                    }
-                }
-            } else {
-                foreach ($value as $v) {
-                    $qb->andWhere($qb->expr()->like('a.'.$key, ':v'.$key.$miindex))->setParameter('v'.$key.$miindex, '%'.$v.'%');
-                    ++$miindex;
+
+//        $exp1 =$qb->expr()->orX(
+//            $qb->expr()->gt(2,1),
+//            $qb->expr()->lt(3,2)
+//        );
+//        $qb->andWhere(
+//          $exp1
+//        );
+//
+//        $exp2 = $qb->expr()->orX(
+//            $qb->expr()->gt(8, 6),
+//            $qb->expr()->lt(5, 2)
+//        );
+//        $qb->andWhere(
+//            $exp2
+//        );
+
+//        $miindex = 0;
+//        $xp =null;
+//        foreach ($arr as $key=>$value) {
+//            foreach ($value as $i => $iValue) {
+//                $toFind = [' ',',','?'];
+//                $clean = str_replace($toFind, '__', $iValue);
+//                $xp = $qb->expr()->orX(
+//                    $qb->expr()->like('a.'.$key, ':v'.$key.$miindex),
+//                    $qb->expr()->like('a.'.$key, ':vclean'.$miindex)
+//                );
+//                $qb->andWhere($xp)->setParameter('v'.$key.$miindex, '%'.$iValue.'%');
+//                $qb->andWhere($xp)->setParameter('vclean'.$miindex, '%'.$clean.'%');
+//                $miindex++;
+//            }
+//
+//
+//        }
+
+        $SQL = 'SELECT * FROM Amp WHERE ';
+        $andLehena = true;
+        foreach ($arr as $key=>$value) {
+            $orText = '';
+            $orFirst=true;
+            foreach ($value as $i => $iValue) {
+                $toFind = [' ',',','?'];
+                $clean = str_replace($toFind, '__', $iValue);
+                $orText = $key.' LIKE %'.$iValue.'% OR '.$key.' LIKE %'.$clean.'%';
+                if ($andLehena) {
+                    $andLehena=false;
+                    $SQL .= '('.$orText.')';
+                } else {
+                    $SQL .= ' AND ('.$orText.')';
                 }
             }
+
         }
 
+        $conn = $qb->getEntityManager()->getConnection();
+        $stmt = $conn->prepare($SQL);
 
-        return $qb->getQuery();
+        return $stmt->execute();
+
+
+//        return $qb->getQuery();
+
     }
 }

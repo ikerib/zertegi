@@ -40,7 +40,7 @@ class AmpController extends AbstractController {
         DbHelperService $dbhelper): Response
     {
         $fields = $dbhelper->getAllEntityFields(Amp::class);
-        $myFilters=$dbhelper->getFinderParams($request->request->get('form'));
+        $myFilters=$dbhelper->getFinderParams($request->query->get('form'));
         $query = $ampRepository->getQueryByFinder($myFilters, $fields);
         $amps = $paginator->paginate(
             $query, /* query NOT result */
@@ -63,6 +63,7 @@ class AmpController extends AbstractController {
                 'amps'        => $amps,
                 'fields'      => $fields,
                 'myselection' => $myselection,
+                'finderdata'    => $request->query->get('form')
             ]
         );
     }

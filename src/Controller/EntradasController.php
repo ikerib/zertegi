@@ -68,6 +68,7 @@ class EntradasController extends AbstractController {
                 'entradas'    => $entradas,
                 'myselection' => $myselection,
                 'fields'      => $fields,
+                'finderdata'    => $request->query->get('form')
             ]
         );
     }

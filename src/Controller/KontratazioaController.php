@@ -63,7 +63,8 @@ class KontratazioaController extends AbstractController
             [
                 'kontratazioas' => $kontratazioas,
                 'fields'      => $fields,
-                'myselection'   => $myselection
+                'myselection'   => $myselection,
+                'finderdata'    => $request->query->get('form')
             ]
         );
 

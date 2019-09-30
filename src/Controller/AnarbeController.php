@@ -65,6 +65,7 @@ class AnarbeController extends AbstractController
                 'anarbes'        => $anarbes,
                 'fields'      => $fields,
                 'myselection' => $myselection,
+                'finderdata'    => $request->query->get('form')
             ]
         );
     }

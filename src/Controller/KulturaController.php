@@ -69,6 +69,7 @@ class KulturaController extends AbstractController {
                 'kulturas'    => $kulturas,
                 'myselection' => $myselection,
                 'fields'      => $fields,
+                'finderdata'    => $request->query->get('form')
             ]
         );
     }

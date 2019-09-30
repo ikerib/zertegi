@@ -63,7 +63,8 @@ class ProtokoloakController extends AbstractController
             [
                 'protokoloaks'  => $protokoloaks,
                 'myselection'   => $myselection,
-                'fields'        => $fields
+                'fields'        => $fields,
+                'finderdata'    => $request->query->get('form')
             ]
         );
     }

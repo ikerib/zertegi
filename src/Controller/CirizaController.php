@@ -68,6 +68,7 @@ class CirizaController extends AbstractController {
                 'cirizas'     => $cirizas,
                 'myselection' => $myselection,
                 'fields'      => $fields,
+                'finderdata'    => $request->query->get('form')
             ]
         );
     }

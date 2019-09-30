@@ -67,6 +67,7 @@ class ConsultasController extends AbstractController {
                 'consultas'   => $consultas,
                 'myselection' => $myselection,
                 'fields'      => $fields,
+                'finderdata'    => $request->query->get('form')
             ]
         );
     }

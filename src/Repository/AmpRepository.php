@@ -81,7 +81,7 @@ class AmpRepository extends ServiceEntityRepository
                     $iValue = str_replace('"','', $iValue);
                     $toFind = [' ',',','?'];
                     $clean = str_replace($toFind, '__', $iValue);
-                    $orText = $key.' LIKE "%'.$iValue.'%" OR '.$key.' LIKE "%'.$clean.'%"';
+                    $orText = $key.' LIKE "'.$iValue.'%" OR '.$key.' LIKE "'.$clean.'%"';
                     if ($andLehena) {
                         $andLehena=false;
                         $SQL .= '('.$orText.')';

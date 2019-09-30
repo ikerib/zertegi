@@ -43,10 +43,7 @@ class DbHelperService {
     {
         $sql = "SELECT table_name, table_rows from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'zertegi' and table_name != 'migration_versions';";
 
-        /** @var []  $tables */
-        $tables = $this->connection->fetchAll($sql);
-
-        return $tables;
+        return $this->connection->fetchAll($sql);
     }
 
     public function getAllEntityFields($table): array

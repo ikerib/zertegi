@@ -60,7 +60,8 @@ class SalidasController extends AbstractController
             [
                 'salidas' => $salidas,
                 'myselection' => $myselection,
-                'fields' => $fields
+                'fields' => $fields,
+                'finderdata'    => $request->query->get('form')
             ]
         );
     }

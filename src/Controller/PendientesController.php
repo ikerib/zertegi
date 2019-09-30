@@ -60,7 +60,8 @@ class PendientesController extends AbstractController
             [
                 'pendientes' => $pendientes,
                 'myselection' => $myselection,
-                'fields'    => $fields
+                'fields'    => $fields,
+                'finderdata'    => $request->query->get('form')
             ]
         );
     }

@@ -66,7 +66,8 @@ class ArgazkiController extends AbstractController {
             [
                 'argazkis'    => $argazkis,
                 'myselection' => $myselection,
-                'fields'       => $fields
+                'fields'       => $fields,
+                'finderdata'    => $request->query->get('form')
             ]
         );
     }

@@ -64,7 +64,8 @@ class KirolaController extends AbstractController
             [
                 'kirolak' => $kirolak,
                 'myselection' => $myselection,
-                'fields'    => $fields
+                'fields'    => $fields,
+                'finderdata'    => $request->query->get('form')
             ]
         );
     }

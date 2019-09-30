@@ -65,7 +65,8 @@ class HutsakController extends AbstractController
             [
                 'hutsaks' => $hutsaks,
                 'myselection' => $myselection,
-                'fields'    => $fields
+                'fields'    => $fields,
+                'finderdata'    => $request->query->get('form')
             ]
         );
     }

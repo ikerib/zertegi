@@ -64,7 +64,8 @@ class GazteriaController extends AbstractController
             [
                 'gazterias' => $gazterias,
                 'myselection' => $myselection,
-                'fields'    => $fields
+                'fields'    => $fields,
+                'finderdata'    => $request->query->get('form')
             ]
         );
     }

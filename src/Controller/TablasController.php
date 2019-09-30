@@ -65,6 +65,7 @@ class TablasController extends AbstractController {
                 'tablas'      => $tablas,
                 'myselection' => $myselection,
                 'fields'      => $fields,
+                'finderdata'    => $request->query->get('form')
             ]
         );
     }

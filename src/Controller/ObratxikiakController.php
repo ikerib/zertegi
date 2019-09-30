@@ -65,7 +65,8 @@ class ObratxikiakController extends AbstractController
             [
                 'obratxikiaks' => $obratxikiaks,
                 'myselection'   => $myselection,
-                'fields'    => $fields
+                'fields'    => $fields,
+                'finderdata'    => $request->query->get('form')
             ]
         );
 

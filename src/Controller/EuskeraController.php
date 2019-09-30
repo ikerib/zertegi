@@ -63,7 +63,8 @@ class EuskeraController extends AbstractController
             [
                 'euskeras' => $euskeras,
                 'myselection' => $myselection,
-                'fields'    => $fields
+                'fields'    => $fields,
+                'finderdata'    => $request->query->get('form')
             ]
         );
     }

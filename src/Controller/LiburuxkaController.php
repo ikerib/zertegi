@@ -68,6 +68,7 @@ class LiburuxkaController extends AbstractController {
                 'liburuxkas'  => $liburuxkas,
                 'myselection' => $myselection,
                 'fields'      => $fields,
+                'finderdata'    => $request->query->get('form')
             ]
         );
 

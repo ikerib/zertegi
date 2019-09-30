@@ -8,6 +8,8 @@ require('@fortawesome/fontawesome-free/js/all.js');
 
 require('./adminlte');
 
+require("./jquery.highlight");
+
 $(document).ready(function() {
     $('[data-toggle="popover"]').popover();
 });

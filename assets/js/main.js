@@ -3,6 +3,26 @@ import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/pu
 
 Routing.setRoutingData(routes);
 
+$(document).ready(function () {
+
+    // begiratu eta bilaketa bat den
+    let empty = true;
+    let text2highlight = [];
+    $('input[type="text"]').each(function(){
+        if($(this).val()!==""){
+            const t = $(this).val().replace(/\"/g,'').replace(/\&/g,'');
+            text2highlight.push(t);
+            empty =false;
+            return false;
+        }
+    });
+
+    if ( empty === false ) { // datuak ditu beraz bilaketa da
+
+        $('body').highlight(text2highlight);
+    }
+
+});
 
 // FORMULARIOAK
 $("#btn-save").on("click", function () {
@@ -11,6 +31,42 @@ $("#btn-save").on("click", function () {
 
 $("#btnFrmFinderSubmit").on("click", function () {
     $("#frmFinder").submit();
+});
+
+$("#btnFrmFinderReset").on("click", function () {
+    $(':input', frmFinder).each(function() {
+
+        var type = this.type;
+
+        var tag = this.tagName.toLowerCase(); // normalize case
+
+        // it's ok to reset the value attr of text inputs,
+
+        // password inputs, and textareas
+
+        if (type === 'text' || type === 'password' || tag === 'textarea')
+
+            this.value = "";
+
+        // checkboxes and radios need to have their checked state cleared
+
+        // but should *not* have their 'value' changed
+
+        else if (type === 'checkbox' || type === 'radio')
+
+            this.checked = false;
+
+        // select elements need to have their 'selectedIndex' property set to -1
+
+        // (this works for both single and multiple select elements)
+
+        else if (tag === 'select')
+
+            this.selectedIndex = -1;
+
+    });
+
+
 });
 
 // filter botoia. Testua badu witdh=500

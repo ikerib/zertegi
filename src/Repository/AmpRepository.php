@@ -23,7 +23,7 @@ class AmpRepository extends ServiceEntityRepository
         parent::__construct($registry, Amp::class);
     }
 
-    public function getQueryByFinder($arr, $fields): bool
+    public function getQueryByFinder($arr, $fields)
     {
         $qb = $this->createQueryBuilder('a');
         $expr = $qb->expr();
@@ -70,29 +70,35 @@ class AmpRepository extends ServiceEntityRepository
 //
 //        }
 
-        $SQL = 'SELECT * FROM Amp WHERE ';
-        $andLehena = true;
-        foreach ($arr as $key=>$value) {
-            $orText = '';
-            $orFirst=true;
-            foreach ($value as $i => $iValue) {
-                $toFind = [' ',',','?'];
-                $clean = str_replace($toFind, '__', $iValue);
-                $orText = $key.' LIKE %'.$iValue.'% OR '.$key.' LIKE %'.$clean.'%';
-                if ($andLehena) {
-                    $andLehena=false;
-                    $SQL .= '('.$orText.')';
-                } else {
-                    $SQL .= ' AND ('.$orText.')';
+        $SQL = 'SELECT * FROM amp';
+        if ( [] !== $arr) {
+            $SQL = 'SELECT * FROM amp WHERE ';
+            $andLehena = true;
+            foreach ($arr as $key=>$value) {
+                $orText = '';
+                $orFirst=true;
+                foreach ($value as $i => $iValue) {
+                    $iValue = str_replace('"','', $iValue);
+                    $toFind = [' ',',','?'];
+                    $clean = str_replace($toFind, '__', $iValue);
+                    $orText = $key.' LIKE "%'.$iValue.'%" OR '.$key.' LIKE "%'.$clean.'%"';
+                    if ($andLehena) {
+                        $andLehena=false;
+                        $SQL .= '('.$orText.')';
+                    } else {
+                        $SQL .= ' AND ('.$orText.')';
+                    }
                 }
-            }
 
+            }
         }
+
 
         $conn = $qb->getEntityManager()->getConnection();
         $stmt = $conn->prepare($SQL);
 
-        return $stmt->execute();
+        $stmt->execute();
+        return $stmt->fetchAll();
 
 
 //        return $qb->getQuery();

@@ -81,10 +81,11 @@ class DbHelperService {
         return $fields;
     }
 
-    public function mySearch($table, $fields): FormView
+    public function mySearch($table, $fields, $finderdata): FormView
     {
         $form = $this->formFactory->createBuilder()
-                                  ->setAction($this->router->generate((string)$table.'_index'));
+                                  ->setAction($this->router->generate((string)$table.'_index'))
+                                    ->setMethod('GET');
         foreach ($fields as $field)
         {
                 $form->add(
@@ -99,6 +100,7 @@ class DbHelperService {
             );
         }
 
+        $form->setData($finderdata);
         return $form->getForm()->createView();
     }
 

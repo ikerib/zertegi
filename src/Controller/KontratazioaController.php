@@ -40,7 +40,7 @@ class KontratazioaController extends AbstractController
         KontratazioaRepository $kontratazioaRepository, SessionInterface $session,
         DbHelperService $dbhelper): Response
     {
-        $myFilters=$dbhelper->getFinderParams($request->request->get('form'));
+        $myFilters=$dbhelper->getFinderParams($request->query->get('form'));
         $query = $kontratazioaRepository->getQueryByFinder($myFilters);
         $kontratazioas = $paginator->paginate(
             $query, /* query NOT result */
@@ -64,8 +64,7 @@ class KontratazioaController extends AbstractController
                 'kontratazioas' => $kontratazioas,
                 'fields'      => $fields,
                 'myselection'   => $myselection,
-                'finderdata'    => $request->query->get('form')
-            ]
+                'finderdata'    => $request->query->get('form')            ]
         );
 
     }

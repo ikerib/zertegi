@@ -6,7 +6,6 @@ namespace App\Service;
 
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Ldap\Adapter\ConnectionInterface;
@@ -78,11 +77,21 @@ class DbHelperService {
         return $fields;
     }
 
-    public function mySearch($table, $fields, $finderdata): FormView
+    public function mySearchForm($table, $fields, $finderdata): FormView
     {
         $form = $this->formFactory->createBuilder()
                                   ->setAction($this->router->generate((string)$table.'_index'))
                                     ->setMethod('GET');
+
+        $form->add('Kontsulta', null, [
+            'label' => '---- KONTSULTA ----',
+            'help' => 'Ezarritako testua datu baseko eremu guztietan bilatuko du',
+            'required' => false,
+            'attr' => [
+                'class' => 'inputKontsulta'
+            ]
+        ]);
+
         foreach ($fields as $field)
         {
                 $form->add(
@@ -99,6 +108,79 @@ class DbHelperService {
 
         $form->setData($finderdata);
         return $form->getForm()->createView();
+    }
+
+    public function performSearch($query, $fields): array
+    {
+        /* if no $query params do basic select */
+        $SQL = 'SELECT * FROM amp';
+
+
+        if ( [] !== $query) { // has params
+            $SQL = 'SELECT * FROM amp WHERE ';
+            if ( array_key_exists('Kontsulta', $query) )// if konsulta, find all in every field, ignore other fields
+            {
+                $sqlText = '';
+                $queryParamsArray = $query[ 'Kontsulta' ];
+
+                $lehena = true;
+                foreach ($queryParamsArray as $param) {
+                    $sublehena = true;
+                    $subSQL='';
+                    foreach ($fields as $field) {
+
+                        $param = str_replace('"','', $param);
+                        $sqlText = 'replace('.$field.", ',','') like '%".$param."%'";
+                        if ($sublehena) {
+                            $sublehena=false;
+                            $subSQL .= '('.$sqlText.')';
+                        } else {
+                            $subSQL .= ' or ('.$sqlText.')';
+                        }
+
+                    }
+
+                    if ($lehena) {
+                        $lehena = false;
+                        $SQL .= '('.$subSQL.')';
+                    } else {
+                        $SQL .= ' and ('.$subSQL.')';
+                    }
+
+
+                }
+
+            } else {
+
+                $andLehena = true;
+                foreach ($query as $key=>$value) {
+                    $orText = '';
+                    $orFirst=true;
+                    foreach ($value as $i => $iValue) {
+                        $iValue = str_replace('"','', $iValue);
+                        $toFind = [' ',',','?'];
+
+                        $orText = 'replace('.$key.", ',','') like '%".$iValue."%'";
+
+                        if ($andLehena) {
+                            $andLehena=false;
+                            $SQL .= '('.$orText.')';
+                        } else {
+                            $SQL .= ' AND ('.$orText.')';
+                        }
+                    }
+
+                }
+            }
+
+        }
+
+
+        $conn = $this->em->getConnection();
+        $stmt = $conn->prepare($SQL);
+
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 
     public function getFinderParams($filters): array

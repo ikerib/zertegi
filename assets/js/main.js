@@ -10,8 +10,10 @@ $(document).ready(function () {
     let text2highlight = [];
     $('input[type="text"]').each(function(){
         if($(this).val()!==""){
-            const t = $(this).val().replace(/\"/g,'').replace(/\&/g,'');
-            text2highlight.push(t);
+            const t = $(this).val().replace(/\"/g,'').split(/\&/g);
+            $.each(t,function (index, value) {
+                text2highlight.push(value);
+            });
             empty =false;
             return false;
         }
@@ -68,24 +70,6 @@ $("#btnFrmFinderReset").on("click", function () {
 
 
 });
-
-// filter botoia. Testua badu witdh=500
-const $miLEn = $('#filter').val().length;
-if ( $miLEn >0 ) {
-    $('#filter').width(500);
-}
-$('#filter').focus(function()
-{
-    /*to make this flexible, I'm storing the current width in an attribute*/
-    $(this).attr('data-default', $(this).width());
-    $(this).animate({ width: 500 }, 'slow');
-}).blur(function()
-{
-    /* lookup the original width */
-    var w = $(this).attr('data-default');
-    $(this).animate({ width: w }, 'slow');
-});
-
 
 $(".btn-delete-trigger").on("click", function () {
     bootbox.confirm("¿Estas seguro?", function ( resp ) {

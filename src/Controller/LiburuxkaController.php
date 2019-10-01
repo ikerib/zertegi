@@ -43,7 +43,7 @@ class LiburuxkaController extends AbstractController {
         SessionInterface $session,
         DbHelperService $dbhelper
     ): Response {
-        $myFilters  = $dbhelper->getFinderParams($request->request->get('form'));
+        $myFilters  = $dbhelper->getFinderParams($request->query->get('form'));
         $query      = $liburuxkaRepository->getQueryByFinder($myFilters);
         $liburuxkas = $paginator->paginate(
             $query, /* query NOT result */
@@ -68,8 +68,7 @@ class LiburuxkaController extends AbstractController {
                 'liburuxkas'  => $liburuxkas,
                 'myselection' => $myselection,
                 'fields'      => $fields,
-                'finderdata'    => $request->query->get('form')
-            ]
+                'finderdata'    => $request->query->get('form')            ]
         );
 
     }

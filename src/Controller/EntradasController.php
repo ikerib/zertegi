@@ -42,7 +42,7 @@ class EntradasController extends AbstractController {
         SessionInterface $session,
         DbHelperService $dbhelper
     ): Response {
-        $myFilters = $dbhelper->getFinderParams($request->request->get('form'));
+        $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
         $query     = $entradasRepository->getQueryByFinder($myFilters);
 
         $entradas = $paginator->paginate(
@@ -68,8 +68,7 @@ class EntradasController extends AbstractController {
                 'entradas'    => $entradas,
                 'myselection' => $myselection,
                 'fields'      => $fields,
-                'finderdata'    => $request->query->get('form')
-            ]
+                'finderdata'    => $request->query->get('form')            ]
         );
     }
 

@@ -40,7 +40,7 @@ class AnarbeController extends AbstractController
         DbHelperService $dbhelper
     ): Response
     {
-        $myFilters=$dbhelper->getFinderParams($request->request->get('form'));
+        $myFilters=$dbhelper->getFinderParams($request->query->get('form'));
 
         $query = $anarbeRepository->getQueryByFinder($myFilters);
 
@@ -65,8 +65,7 @@ class AnarbeController extends AbstractController
                 'anarbes'        => $anarbes,
                 'fields'      => $fields,
                 'myselection' => $myselection,
-                'finderdata'    => $request->query->get('form')
-            ]
+                'finderdata'    => $request->query->get('form')            ]
         );
     }
 

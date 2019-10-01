@@ -43,7 +43,7 @@ class KulturaController extends AbstractController {
         SessionInterface $session,
         DbHelperService $dbhelper
     ): Response {
-        $myFilters = $dbhelper->getFinderParams($request->request->get('form'));
+        $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
         $query     = $kulturaRepository->getQueryByFinder($myFilters);
         $kulturas  = $paginator->paginate(
             $query, /* query NOT result */
@@ -69,8 +69,7 @@ class KulturaController extends AbstractController {
                 'kulturas'    => $kulturas,
                 'myselection' => $myselection,
                 'fields'      => $fields,
-                'finderdata'    => $request->query->get('form')
-            ]
+                'finderdata'    => $request->query->get('form')            ]
         );
     }
 

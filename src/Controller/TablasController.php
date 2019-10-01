@@ -43,8 +43,10 @@ class TablasController extends AbstractController {
         SessionInterface $session,
         DbHelperService $dbhelper
     ): Response {
+
+        $fields = $dbhelper->getAllEntityFields(Tablas::class);
         $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
-        $query     = $tablasRepository->getQueryByFinder($myFilters);
+        $query = $dbhelper->performSearch('tablas',$myFilters, $fields);
         $tablas    = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,

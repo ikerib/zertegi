@@ -37,8 +37,9 @@ class PendientesController extends AbstractController
         PendientesRepository $pendientesRepository, SessionInterface $session,
         DbHelperService $dbhelper): Response
     {
+        $fields = $dbhelper->getAllEntityFields(Pendientes::class);
         $myFilters=$dbhelper->getFinderParams($request->query->get('form'));
-        $query = $pendientesRepository->getQueryByFinder($myFilters);
+        $query = $dbhelper->performSearch('pendientes',$myFilters, $fields);
         $pendientes = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,

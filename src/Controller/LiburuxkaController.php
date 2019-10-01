@@ -43,8 +43,10 @@ class LiburuxkaController extends AbstractController {
         SessionInterface $session,
         DbHelperService $dbhelper
     ): Response {
+
+        $fields = $dbhelper->getAllEntityFields(Liburuxka::class);
         $myFilters  = $dbhelper->getFinderParams($request->query->get('form'));
-        $query      = $liburuxkaRepository->getQueryByFinder($myFilters);
+        $query = $dbhelper->performSearch('liburuxka',$myFilters, $fields);
         $liburuxkas = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,

@@ -110,14 +110,14 @@ class DbHelperService {
         return $form->getForm()->createView();
     }
 
-    public function performSearch($query, $fields): array
+    public function performSearch($entityName, $query, $fields): array
     {
         /* if no $query params do basic select */
-        $SQL = 'SELECT * FROM amp';
+        $SQL = 'SELECT * FROM '.$entityName;
 
 
         if ( [] !== $query) { // has params
-            $SQL = 'SELECT * FROM amp WHERE ';
+            $SQL = 'SELECT * FROM '.$entityName.' WHERE ';
             if ( array_key_exists('Kontsulta', $query) )// if konsulta, find all in every field, ignore other fields
             {
                 $sqlText = '';

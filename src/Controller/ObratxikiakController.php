@@ -41,8 +41,9 @@ class ObratxikiakController extends AbstractController
         ObratxikiakRepository $obratxikiakRepository, SessionInterface $session,
         DbHelperService $dbhelper): Response
     {
+        $fields = $dbhelper->getAllEntityFields(Obratxikiak::class);
         $myFilters=$dbhelper->getFinderParams($request->query->get('form'));
-        $query = $obratxikiakRepository->getQueryByFinder($myFilters);
+        $query = $dbhelper->performSearch('obratxikiak',$myFilters, $fields);
         $obratxikiaks = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,

@@ -41,8 +41,9 @@ class GazteriaController extends AbstractController
         DbHelperService $dbhelper
     ): Response
     {
+        $fields = $dbhelper->getAllEntityFields(Gazteria::class);
         $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
-        $query     = $gazteriaRepository->getQueryByFinder($myFilters);
+        $query = $dbhelper->performSearch('gazteria', $myFilters, $fields);
         $gazterias = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,

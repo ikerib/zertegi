@@ -43,8 +43,9 @@ class KulturaController extends AbstractController {
         SessionInterface $session,
         DbHelperService $dbhelper
     ): Response {
+        $fields = $dbhelper->getAllEntityFields(Kultura::class);
         $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
-        $query     = $kulturaRepository->getQueryByFinder($myFilters);
+        $query = $dbhelper->performSearch('kultura',$myFilters, $fields);
         $kulturas  = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,

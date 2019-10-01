@@ -40,8 +40,9 @@ class KontratazioaController extends AbstractController
         KontratazioaRepository $kontratazioaRepository, SessionInterface $session,
         DbHelperService $dbhelper): Response
     {
+        $fields = $dbhelper->getAllEntityFields(Kontratazioa::class);
         $myFilters=$dbhelper->getFinderParams($request->query->get('form'));
-        $query = $kontratazioaRepository->getQueryByFinder($myFilters);
+        $query = $dbhelper->performSearch('kontratazioa',$myFilters, $fields);
         $kontratazioas = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,

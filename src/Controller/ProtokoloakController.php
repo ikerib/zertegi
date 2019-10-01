@@ -40,8 +40,10 @@ class ProtokoloakController extends AbstractController
         ProtokoloakRepository $protokoloakRepository, SessionInterface $session,
         DbHelperService $dbhelper): Response
     {
+
+        $fields = $dbhelper->getAllEntityFields(Protokoloak::class);
         $myFilters=$dbhelper->getFinderParams($request->query->get('form'));
-        $query = $protokoloakRepository->getQueryByFinder($myFilters);
+        $query = $dbhelper->performSearch('protokoloak',$myFilters, $fields);
         $protokoloaks = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,

@@ -41,8 +41,9 @@ class KirolaController extends AbstractController
         DbHelperService $dbhelper
     ): Response
     {
+        $fields = $dbhelper->getAllEntityFields(Kirola::class);
         $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
-        $query     = $kirolaRepository->getQueryByFinder($myFilters);
+        $query = $dbhelper->performSearch('kirola',$myFilters, $fields);
         $kirolak = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,

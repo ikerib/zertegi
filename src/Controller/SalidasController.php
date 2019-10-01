@@ -39,8 +39,9 @@ class SalidasController extends AbstractController
         SalidasRepository $salidasRepository, SessionInterface $session,
         DbHelperService $dbhelper): Response
     {
+        $fields = $dbhelper->getAllEntityFields(Salidas::class);
         $myFilters=$dbhelper->getFinderParams($request->query->get('form'));
-        $query = $salidasRepository->getQueryByFinder($myFilters);
+        $query = $dbhelper->performSearch('salidas',$myFilters, $fields);
         $salidas = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,

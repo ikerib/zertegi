@@ -41,7 +41,7 @@ class AmpController extends AbstractController {
     {
         $fields = $dbhelper->getAllEntityFields(Amp::class);
         $myFilters=$dbhelper->getFinderParams($request->query->get('form'));
-        $query = $dbhelper->performSearch($myFilters, $fields);
+        $query = $dbhelper->performSearch('amp',$myFilters, $fields);
         $amps = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,

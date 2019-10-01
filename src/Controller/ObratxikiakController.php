@@ -41,7 +41,7 @@ class ObratxikiakController extends AbstractController
         ObratxikiakRepository $obratxikiakRepository, SessionInterface $session,
         DbHelperService $dbhelper): Response
     {
-        $myFilters=$dbhelper->getFinderParams($request->request->get('form'));
+        $myFilters=$dbhelper->getFinderParams($request->query->get('form'));
         $query = $obratxikiakRepository->getQueryByFinder($myFilters);
         $obratxikiaks = $paginator->paginate(
             $query, /* query NOT result */
@@ -66,8 +66,7 @@ class ObratxikiakController extends AbstractController
                 'obratxikiaks' => $obratxikiaks,
                 'myselection'   => $myselection,
                 'fields'    => $fields,
-                'finderdata'    => $request->query->get('form')
-            ]
+                'finderdata'    => $request->query->get('form')            ]
         );
 
     }

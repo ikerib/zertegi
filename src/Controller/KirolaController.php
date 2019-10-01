@@ -41,7 +41,7 @@ class KirolaController extends AbstractController
         DbHelperService $dbhelper
     ): Response
     {
-        $myFilters = $dbhelper->getFinderParams($request->request->get('form'));
+        $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
         $query     = $kirolaRepository->getQueryByFinder($myFilters);
         $kirolak = $paginator->paginate(
             $query, /* query NOT result */
@@ -65,8 +65,7 @@ class KirolaController extends AbstractController
                 'kirolak' => $kirolak,
                 'myselection' => $myselection,
                 'fields'    => $fields,
-                'finderdata'    => $request->query->get('form')
-            ]
+                'finderdata'    => $request->query->get('form')            ]
         );
     }
 

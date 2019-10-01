@@ -70,35 +70,7 @@ class AmpRepository extends ServiceEntityRepository
 //
 //        }
 
-        $SQL = 'SELECT * FROM amp';
-        if ( [] !== $arr) {
-            $SQL = 'SELECT * FROM amp WHERE ';
-            $andLehena = true;
-            foreach ($arr as $key=>$value) {
-                $orText = '';
-                $orFirst=true;
-                foreach ($value as $i => $iValue) {
-                    $iValue = str_replace('"','', $iValue);
-                    $toFind = [' ',',','?'];
-                    $clean = str_replace($toFind, '__', $iValue);
-                    $orText = $key.' LIKE "'.$iValue.'%" OR '.$key.' LIKE "'.$clean.'%"';
-                    if ($andLehena) {
-                        $andLehena=false;
-                        $SQL .= '('.$orText.')';
-                    } else {
-                        $SQL .= ' AND ('.$orText.')';
-                    }
-                }
 
-            }
-        }
-
-
-        $conn = $qb->getEntityManager()->getConnection();
-        $stmt = $conn->prepare($SQL);
-
-        $stmt->execute();
-        return $stmt->fetchAll();
 
 
 //        return $qb->getQuery();

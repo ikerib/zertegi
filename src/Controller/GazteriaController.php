@@ -41,7 +41,7 @@ class GazteriaController extends AbstractController
         DbHelperService $dbhelper
     ): Response
     {
-        $myFilters = $dbhelper->getFinderParams($request->request->get('form'));
+        $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
         $query     = $gazteriaRepository->getQueryByFinder($myFilters);
         $gazterias = $paginator->paginate(
             $query, /* query NOT result */
@@ -65,8 +65,7 @@ class GazteriaController extends AbstractController
                 'gazterias' => $gazterias,
                 'myselection' => $myselection,
                 'fields'    => $fields,
-                'finderdata'    => $request->query->get('form')
-            ]
+                'finderdata'    => $request->query->get('form')            ]
         );
     }
 

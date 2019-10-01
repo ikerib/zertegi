@@ -39,7 +39,7 @@ class SalidasController extends AbstractController
         SalidasRepository $salidasRepository, SessionInterface $session,
         DbHelperService $dbhelper): Response
     {
-        $myFilters=$dbhelper->getFinderParams($request->request->get('form'));
+        $myFilters=$dbhelper->getFinderParams($request->query->get('form'));
         $query = $salidasRepository->getQueryByFinder($myFilters);
         $salidas = $paginator->paginate(
             $query, /* query NOT result */
@@ -61,8 +61,7 @@ class SalidasController extends AbstractController
                 'salidas' => $salidas,
                 'myselection' => $myselection,
                 'fields' => $fields,
-                'finderdata'    => $request->query->get('form')
-            ]
+                'finderdata'    => $request->query->get('form')            ]
         );
     }
 

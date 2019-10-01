@@ -40,7 +40,7 @@ class ProtokoloakController extends AbstractController
         ProtokoloakRepository $protokoloakRepository, SessionInterface $session,
         DbHelperService $dbhelper): Response
     {
-        $myFilters=$dbhelper->getFinderParams($request->request->get('form'));
+        $myFilters=$dbhelper->getFinderParams($request->query->get('form'));
         $query = $protokoloakRepository->getQueryByFinder($myFilters);
         $protokoloaks = $paginator->paginate(
             $query, /* query NOT result */
@@ -64,8 +64,7 @@ class ProtokoloakController extends AbstractController
                 'protokoloaks'  => $protokoloaks,
                 'myselection'   => $myselection,
                 'fields'        => $fields,
-                'finderdata'    => $request->query->get('form')
-            ]
+                'finderdata'    => $request->query->get('form')            ]
         );
     }
 

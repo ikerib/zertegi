@@ -40,7 +40,7 @@ class EuskeraController extends AbstractController
         EuskeraRepository $euskeraRepository, SessionInterface $session,
         DbHelperService $dbhelper): Response
     {
-        $myFilters = $dbhelper->getFinderParams($request->request->get('form'));
+        $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
         $query     = $euskeraRepository->getQueryByFinder($myFilters);
         $euskeras = $paginator->paginate(
             $query, /* query NOT result */
@@ -64,8 +64,7 @@ class EuskeraController extends AbstractController
                 'euskeras' => $euskeras,
                 'myselection' => $myselection,
                 'fields'    => $fields,
-                'finderdata'    => $request->query->get('form')
-            ]
+                'finderdata'    => $request->query->get('form')            ]
         );
     }
 

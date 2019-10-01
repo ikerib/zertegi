@@ -42,7 +42,7 @@ class HutsakController extends AbstractController
         DbHelperService $dbhelper
     ): Response
     {
-        $myFilters = $dbhelper->getFinderParams($request->request->get('form'));
+        $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
         $query     = $hutsakRepository->getQueryByFinder($myFilters);
         $hutsaks = $paginator->paginate(
             $query, /* query NOT result */
@@ -66,8 +66,7 @@ class HutsakController extends AbstractController
                 'hutsaks' => $hutsaks,
                 'myselection' => $myselection,
                 'fields'    => $fields,
-                'finderdata'    => $request->query->get('form')
-            ]
+                'finderdata'    => $request->query->get('form')            ]
         );
     }
 

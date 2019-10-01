@@ -19,8 +19,12 @@
             <div class="box-header">
                 <div class="box-header">
                     <a href="{{ path('liburuxka_new') }}" id="btnBerria" class="btn btn-primary" ><i class="fa fa-plus"></i>&nbsp; {{ "Berria" | trans }}</a>
-                    <a href="{{ path('pdf') }}" id="btnPrint" class="btn btn-default">{{ "Inprimitu" | trans }}</a>
-                    <a href="javascript:void(0);" id="btnClearSelection" class="btn btn-default">{{ "Ezabatu aukeraketa" | trans }}</a>
+                    <a href="{{ path('pdf') }}" id="btnPrint" class="btn btn-default">
+                        <i class="fa fa-fw fa-print"></i>{{ "Inprimitu" | trans }}
+                        {% if app.session.get('zertegi-selection') %}
+                            ({{ kount }})
+                        {% endif %}
+                    </a>                    <a href="javascript:void(0);" id="btnClearSelection" class="btn btn-default">{{ "Ezabatu aukeraketa" | trans }}</a>
                 </div>
 
                 <div class="box-tools">

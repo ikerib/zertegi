@@ -147,6 +147,14 @@
                 {% endfor %}
             {% endfor %}
 
+            {% if app.session.get('zertegi-selection') %}
+                {% set kount = 0 %}
+                {% set sel = app.session.get('zertegi-selection') %}
+                {% for key, value in sel %}
+                    {% set kount = kount + (value|length) %}
+                {% endfor %}
+            {% endif %}
+
             {% block body %}{% endblock %}
 
         </section>

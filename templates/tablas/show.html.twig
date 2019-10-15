@@ -29,7 +29,7 @@
                         <tbody>
                         <tr>
                             <th>Serie</th>
-                            <td>{{ tabla.serie }}</td>
+                            <td>{{ tabla.serie  | raw }}</td>
                         </tr>
                         <tr>
                             <th>Unidad</th>
@@ -37,11 +37,11 @@
                         </tr>
                         <tr>
                             <th>Resolucion</th>
-                            <td>{{ tabla.resolucion }}</td>
+                            <td>{{ tabla.resolucion  | raw }}</td>
                         </tr>
                         <tr>
                             <th>Observaciones</th>
-                            <td>{{ tabla.observaciones }}</td>
+                            <td>{{ tabla.observaciones | raw  }}</td>
                         </tr>
                         <tr>
                             <th>Fecha</th>

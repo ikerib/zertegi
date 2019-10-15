@@ -29,7 +29,7 @@
                     <tbody>
                         <tr>
                             <th>Expediente</th>
-                            <td>{{ amp.expediente }}</td>
+                            <td>{{ amp.expediente | raw }}</td>
                         </tr>
                         <tr>
                             <th>Fecha</th>
@@ -37,11 +37,11 @@
                         </tr>
                         <tr>
                             <th>Clasificacion</th>
-                            <td>{{ amp.clasificacion }}</td>
+                            <td>{{ amp.clasificacion | raw  }}</td>
                         </tr>
                         <tr>
                             <th>Signatura</th>
-                            <td>{{ amp.signatura }}</td>
+                            <td>{{ amp.signatura | raw  }}</td>
                         </tr>
                         <tr>
                             <th>Observaciones</th>

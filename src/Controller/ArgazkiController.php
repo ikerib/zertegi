@@ -42,8 +42,9 @@ class ArgazkiController extends AbstractController {
         SessionInterface $session,
         DbHelperService $dbhelper
     ): Response {
+        $fields = $dbhelper->getAllEntityFields(Argazki::class);
         $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
-        $query     = $argazkiRepository->getQueryByFinder($myFilters);
+        $query = $dbhelper->performSearch('argazki',$myFilters, $fields);
         $argazkis  = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -58,8 +59,6 @@ class ArgazkiController extends AbstractController {
                 $myselection = $myselection[ 'argazki' ];
             }
         }
-
-        $fields = $dbhelper->getAllEntityFields(Argazki::class);
 
         return $this->render(
             'argazki/index.html.twig',

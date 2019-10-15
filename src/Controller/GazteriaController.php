@@ -58,8 +58,6 @@ class GazteriaController extends AbstractController
             }
         }
 
-        $fields = $dbhelper->getAllEntityFields(Gazteria::class);
-
         return $this->render(
             'gazteria/index.html.twig',
             [

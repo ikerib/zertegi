@@ -115,20 +115,17 @@ class DbHelperService {
         /* if no $query params do basic select */
         $SQL = 'SELECT * FROM '.$entityName;
 
-
         if ( [] !== $query) { // has params
             $SQL = 'SELECT * FROM '.$entityName.' WHERE ';
             if ( array_key_exists('Kontsulta', $query) )// if konsulta, find all in every field, ignore other fields
             {
                 $sqlText = '';
                 $queryParamsArray = $query[ 'Kontsulta' ];
-
                 $lehena = true;
                 foreach ($queryParamsArray as $param) {
                     $sublehena = true;
                     $subSQL='';
                     foreach ($fields as $field) {
-
                         $param = str_replace('"','', $param);
                         $sqlText = 'replace('.$field.", ',','') like '%".$param."%'";
                         if ($sublehena) {
@@ -137,7 +134,6 @@ class DbHelperService {
                         } else {
                             $subSQL .= ' or ('.$sqlText.')';
                         }
-
                     }
 
                     if ($lehena) {
@@ -146,12 +142,8 @@ class DbHelperService {
                     } else {
                         $SQL .= ' and ('.$subSQL.')';
                     }
-
-
                 }
-
             } else {
-
                 $andLehena = true;
                 foreach ($query as $key=>$value) {
                     $orText = '';
@@ -169,26 +161,20 @@ class DbHelperService {
                             $SQL .= ' AND ('.$orText.')';
                         }
                     }
-
                 }
             }
-
         }
-
 
         $conn = $this->em->getConnection();
         $stmt = $conn->prepare($SQL);
-
         $stmt->execute();
+
         return $stmt->fetchAll();
     }
 
     public function getFinderParams($filters): array
     {
-
-
         $myFilters = [];
-
         if ($filters)
         {
             foreach ($filters as $key => $value)

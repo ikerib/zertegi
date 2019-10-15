@@ -55,8 +55,6 @@ class AmpController extends AbstractController {
             $myselection = $myselection[ 'amp' ];
         }
 
-
-
         return $this->render(
             'amp/index.html.twig',
             [

@@ -40,10 +40,9 @@ class AnarbeController extends AbstractController
         DbHelperService $dbhelper
     ): Response
     {
+        $fields = $dbhelper->getAllEntityFields(Anarbe::class);
         $myFilters=$dbhelper->getFinderParams($request->query->get('form'));
-
-        $query = $anarbeRepository->getQueryByFinder($myFilters);
-
+        $query = $dbhelper->performSearch('anarbe',$myFilters, $fields);
         $anarbes = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -56,8 +55,6 @@ class AnarbeController extends AbstractController
         {
             $myselection = $myselection[ 'anarbe' ];
         }
-
-        $fields = $dbhelper->getAllEntityFields(Anarbe::class);
 
         return $this->render(
             'anarbe/index.html.twig',

@@ -42,8 +42,9 @@ class EntradasController extends AbstractController {
         SessionInterface $session,
         DbHelperService $dbhelper
     ): Response {
+        $fields = $dbhelper->getAllEntityFields(Entradas::class);
         $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
-        $query     = $entradasRepository->getQueryByFinder($myFilters);
+        $query = $dbhelper->performSearch('entradas',$myFilters, $fields);
 
         $entradas = $paginator->paginate(
             $query, /* query NOT result */
@@ -60,7 +61,6 @@ class EntradasController extends AbstractController {
             }
         }
 
-        $fields = $dbhelper->getAllEntityFields(Entradas::class);
 
         return $this->render(
             'entradas/index.html.twig',

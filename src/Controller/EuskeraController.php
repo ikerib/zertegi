@@ -40,8 +40,9 @@ class EuskeraController extends AbstractController
         EuskeraRepository $euskeraRepository, SessionInterface $session,
         DbHelperService $dbhelper): Response
     {
+        $fields = $dbhelper->getAllEntityFields(Euskera::class);
         $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
-        $query     = $euskeraRepository->getQueryByFinder($myFilters);
+        $query = $dbhelper->performSearch('euskera',$myFilters, $fields);
         $euskeras = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -55,8 +56,6 @@ class EuskeraController extends AbstractController
                 $myselection = $myselection[ 'euskera' ];
             }
         }
-
-        $fields = $dbhelper->getAllEntityFields(Euskera::class);
 
         return $this->render(
             'euskera/index.html.twig',

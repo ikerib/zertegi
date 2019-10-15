@@ -42,8 +42,9 @@ class ConsultasController extends AbstractController {
         SessionInterface $session,
         DbHelperService $dbhelper
     ): Response {
+        $fields = $dbhelper->getAllEntityFields(Consultas::class);
         $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
-        $query     = $consultasRepository->getQueryByFinder($myFilters);
+        $query = $dbhelper->performSearch('consultas',$myFilters, $fields);
         $consultas = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -58,8 +59,6 @@ class ConsultasController extends AbstractController {
                 $myselection = $myselection[ 'consultas' ];
             }
         }
-
-        $fields = $dbhelper->getAllEntityFields(Consultas::class);
 
         return $this->render(
             'consultas/index.html.twig',

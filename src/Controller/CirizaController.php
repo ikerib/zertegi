@@ -42,8 +42,9 @@ class CirizaController extends AbstractController {
         SessionInterface $session,
         DbHelperService $dbhelper
     ): Response {
+        $fields = $dbhelper->getAllEntityFields(Ciriza::class);
         $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
-        $query     = $cirizaRepository->getQueryByFinder($myFilters);
+        $query = $dbhelper->performSearch('ciriza',$myFilters, $fields);
 
         $cirizas = $paginator->paginate(
             $query, /* query NOT result */
@@ -59,8 +60,6 @@ class CirizaController extends AbstractController {
                 $myselection = $myselection[ 'ciriza' ];
             }
         }
-
-        $fields = $dbhelper->getAllEntityFields(Ciriza::class);
 
         return $this->render(
             'ciriza/index.html.twig',

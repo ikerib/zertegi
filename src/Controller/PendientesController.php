@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Amp;
 use App\Entity\Pendientes;
 use App\Form\PendientesType;
+use App\Repository\LogRepository;
 use App\Repository\PendientesRepository;
 use App\Service\DbHelperService;
 use Knp\Component\Pager\PaginatorInterface;
@@ -24,22 +25,22 @@ class PendientesController extends AbstractController
 
     /**
      * @Route("/", name="pendientes_index", methods={"GET", "POST"})
-     * @param Request              $request
-     * @param PaginatorInterface   $paginator
-     * @param PendientesRepository $pendientesRepository
-     *
-     * @param SessionInterface     $session
-     * @param DbHelperService      $dbhelper
+     * @param Request                       $request
+     * @param PaginatorInterface            $paginator
+     * @param PendientesRepository          $pendientesRepository
+     * @param SessionInterface              $session
+     * @param DbHelperService               $dbhelper
+     * @param \App\Repository\LogRepository $logRepository
      *
      * @return Response
      */
     public function index(Request $request, PaginatorInterface $paginator,
-        PendientesRepository $pendientesRepository, SessionInterface $session,
-        DbHelperService $dbhelper): Response
+                          PendientesRepository $pendientesRepository, SessionInterface $session,
+                          DbHelperService $dbhelper, LogRepository $logRepository): Response
     {
-        $fields = $dbhelper->getAllEntityFields(Pendientes::class);
-        $myFilters=$dbhelper->getFinderParams($request->query->get('form'));
-        $query = $dbhelper->performSearch('pendientes',$myFilters, $fields);
+        $fields     = $dbhelper->getAllEntityFields(Pendientes::class);
+        $myFilters  = $dbhelper->getFinderParams($request->query->get('form'));
+        $query      = $dbhelper->performSearch('pendientes', $myFilters, $fields, $_SERVER['REQUEST_URI']);
         $pendientes = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -48,21 +49,22 @@ class PendientesController extends AbstractController
 
         $myselection = $session->get('zertegi-selection');
         if ($myselection !== null) {
-            if (array_key_exists('pendiente', $myselection))
-            {
-                $myselection = $myselection[ 'pendiente' ];
+            if (array_key_exists('pendiente', $myselection)) {
+                $myselection = $myselection['pendiente'];
             }
         }
 
         $fields = $dbhelper->getAllEntityFields(Pendientes::class);
+        $logs   = $logRepository->findBy([], ['id' => 'DESC'], 10);
 
         return $this->render(
             'pendientes/index.html.twig',
             [
-                'pendientes' => $pendientes,
+                'logs'        => $logs,
+                'pendientes'  => $pendientes,
                 'myselection' => $myselection,
-                'fields'    => $fields,
-                'finderdata'    => $request->query->get('form')            ]
+                'fields'      => $fields,
+                'finderdata'  => $request->query->get('form')]
         );
     }
 
@@ -75,7 +77,7 @@ class PendientesController extends AbstractController
     public function new(Request $request): Response
     {
         $pendiente = new Pendientes();
-        $form = $this->createForm(PendientesType::class, $pendiente);
+        $form      = $this->createForm(PendientesType::class, $pendiente);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -89,7 +91,7 @@ class PendientesController extends AbstractController
 
         return $this->render('pendientes/new.html.twig', [
             'pendiente' => $pendiente,
-            'form' => $form->createView(),
+            'form'      => $form->createView(),
         ]);
     }
 
@@ -129,7 +131,7 @@ class PendientesController extends AbstractController
 
         return $this->render('pendientes/edit.html.twig', [
             'pendiente' => $pendiente,
-            'form' => $form->createView(),
+            'form'      => $form->createView(),
         ]);
     }
 
@@ -142,22 +144,22 @@ class PendientesController extends AbstractController
      */
     public function delete(Request $request, Pendientes $pendiente): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$pendiente->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $pendiente->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($pendiente);
             $entityManager->flush();
-        } elseif ( $request->isXmlHttpRequest()) {
+        } elseif ($request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
-            $resp = [
+            $resp    = [
                 'code' => 500,
                 'data' => $message
             ];
-            return new JsonResponse($resp,500);
+            return new JsonResponse($resp, 500);
         } else {
             return $this->redirectToRoute('pendientes_index');
         }
 
-        if ( $request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest()) {
             $resp = [
                 'code' => 200,
                 'data' => 'Ezabatua izan da'
@@ -170,17 +172,17 @@ class PendientesController extends AbstractController
 
     /**
      * @Route("/print/{id}", name="pendientes_print", methods={"GET", "POST" })
-     * @param Request $request
+     * @param Request    $request
      *
      * @param Pendientes $pendientes
-     * @param Pdf     $snappy
+     * @param Pdf        $snappy
      *
      * @return Response
      */
     public function print(Request $request, Pendientes $pendientes, Pdf $snappy): Response
     {
-        $html      = $this->renderView('pendientes/pdf.html.twig', ['pendientes'=>$pendientes]);
-        $filename  = sprintf('pendientes-%s.pdf', date('Y-m-d-hh-ss'));
+        $html     = $this->renderView('pendientes/pdf.html.twig', ['pendientes' => $pendientes]);
+        $filename = sprintf('pendientes-%s.pdf', date('Y-m-d-hh-ss'));
 
         return new Response(
             $snappy->getOutputFromHtml($html),

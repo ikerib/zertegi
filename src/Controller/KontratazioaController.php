@@ -7,6 +7,7 @@ use App\Entity\Hutsak;
 use App\Entity\Kontratazioa;
 use App\Form\KontratazioaType;
 use App\Repository\KontratazioaRepository;
+use App\Repository\LogRepository;
 use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
@@ -18,6 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+
 /**
  * @Route("/admin/kontratazioa")
  */
@@ -26,23 +28,22 @@ class KontratazioaController extends AbstractController
 
     /**
      * @Route("/", name="kontratazioa_index", methods={"GET", "POST"})
-     * @param Request                $request
-     * @param PaginatorInterface     $paginator
-     * @param KontratazioaRepository $kontratazioaRepository
-     *
-     * @param SessionInterface       $session
-     *
-     * @param DbHelperService        $dbhelper
+     * @param Request                       $request
+     * @param PaginatorInterface            $paginator
+     * @param KontratazioaRepository        $kontratazioaRepository
+     * @param SessionInterface              $session
+     * @param DbHelperService               $dbhelper
+     * @param \App\Repository\LogRepository $logRepository
      *
      * @return Response
      */
     public function index(Request $request, PaginatorInterface $paginator,
-        KontratazioaRepository $kontratazioaRepository, SessionInterface $session,
-        DbHelperService $dbhelper): Response
+                          KontratazioaRepository $kontratazioaRepository, SessionInterface $session,
+                          DbHelperService $dbhelper, LogRepository $logRepository): Response
     {
-        $fields = $dbhelper->getAllEntityFields(Kontratazioa::class);
-        $myFilters=$dbhelper->getFinderParams($request->query->get('form'));
-        $query = $dbhelper->performSearch('kontratazioa',$myFilters, $fields);
+        $fields        = $dbhelper->getAllEntityFields(Kontratazioa::class);
+        $myFilters     = $dbhelper->getFinderParams($request->query->get('form'));
+        $query         = $dbhelper->performSearch('kontratazioa', $myFilters, $fields, $_SERVER['REQUEST_URI']);
         $kontratazioas = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -51,21 +52,22 @@ class KontratazioaController extends AbstractController
 
         $myselection = $session->get('zertegi-selection');
         if ($myselection !== null) {
-            if (array_key_exists('kontratazioa', $myselection))
-            {
-                $myselection = $myselection[ 'kontratazioa' ];
+            if (array_key_exists('kontratazioa', $myselection)) {
+                $myselection = $myselection['kontratazioa'];
             }
         }
 
         $fields = $dbhelper->getAllEntityFields(Kontratazioa::class);
+        $logs   = $logRepository->findBy([], ['id' => 'DESC'], 10);
 
         return $this->render(
             'kontratazioa/index.html.twig',
             [
+                'logs'          => $logs,
                 'kontratazioas' => $kontratazioas,
-                'fields'      => $fields,
+                'fields'        => $fields,
                 'myselection'   => $myselection,
-                'finderdata'    => $request->query->get('form')            ]
+                'finderdata'    => $request->query->get('form')]
         );
 
     }
@@ -79,7 +81,7 @@ class KontratazioaController extends AbstractController
     public function new(Request $request): Response
     {
         $kontratazioa = new Kontratazioa();
-        $form = $this->createForm(KontratazioaType::class, $kontratazioa);
+        $form         = $this->createForm(KontratazioaType::class, $kontratazioa);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -93,7 +95,7 @@ class KontratazioaController extends AbstractController
 
         return $this->render('kontratazioa/new.html.twig', [
             'kontratazioa' => $kontratazioa,
-            'form' => $form->createView(),
+            'form'         => $form->createView(),
         ]);
     }
 
@@ -133,7 +135,7 @@ class KontratazioaController extends AbstractController
 
         return $this->render('kontratazioa/edit.html.twig', [
             'kontratazioa' => $kontratazioa,
-            'form' => $form->createView(),
+            'form'         => $form->createView(),
         ]);
     }
 
@@ -146,22 +148,22 @@ class KontratazioaController extends AbstractController
      */
     public function delete(Request $request, Kontratazioa $kontratazioa): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$kontratazioa->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $kontratazioa->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($kontratazioa);
             $entityManager->flush();
-        } elseif ( $request->isXmlHttpRequest()) {
+        } elseif ($request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
-            $resp = [
+            $resp    = [
                 'code' => 500,
                 'data' => $message
             ];
-            return new JsonResponse($resp,500);
+            return new JsonResponse($resp, 500);
         } else {
             return $this->redirectToRoute('kontratazioa_index');
         }
 
-        if ( $request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest()) {
             $resp = [
                 'code' => 200,
                 'data' => 'Ezabatua izan da'
@@ -183,8 +185,8 @@ class KontratazioaController extends AbstractController
      */
     public function print(Request $request, Kontratazioa $kontratazioa, Pdf $snappy): Response
     {
-        $html      = $this->renderView('kontratazioa/pdf.html.twig', ['kontratazioa'=>$kontratazioa]);
-        $filename  = sprintf('kontratazioa-%s.pdf', date('Y-m-d-hh-ss'));
+        $html     = $this->renderView('kontratazioa/pdf.html.twig', ['kontratazioa' => $kontratazioa]);
+        $filename = sprintf('kontratazioa-%s.pdf', date('Y-m-d-hh-ss'));
 
         return new Response(
             $snappy->getOutputFromHtml($html),

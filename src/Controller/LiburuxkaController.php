@@ -7,6 +7,7 @@ use App\Entity\Hutsak;
 use App\Entity\Liburuxka;
 use App\Form\LiburuxkaType;
 use App\Repository\LiburuxkaRepository;
+use App\Repository\LogRepository;
 use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
@@ -22,17 +23,17 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/liburuxka")
  */
-class LiburuxkaController extends AbstractController {
+class LiburuxkaController extends AbstractController
+{
 
     /**
      * @Route("/", name="liburuxka_index", methods={"GET", "POST"})
-     * @param Request             $request
-     * @param PaginatorInterface  $paginator
-     * @param LiburuxkaRepository $liburuxkaRepository
-     *
-     * @param SessionInterface    $session
-     *
-     * @param DbHelperService     $dbhelper
+     * @param Request                       $request
+     * @param PaginatorInterface            $paginator
+     * @param LiburuxkaRepository           $liburuxkaRepository
+     * @param \App\Repository\LogRepository $logRepository
+     * @param SessionInterface              $session
+     * @param DbHelperService               $dbhelper
      *
      * @return Response
      */
@@ -40,13 +41,15 @@ class LiburuxkaController extends AbstractController {
         Request $request,
         PaginatorInterface $paginator,
         LiburuxkaRepository $liburuxkaRepository,
+        LogRepository $logRepository,
         SessionInterface $session,
         DbHelperService $dbhelper
-    ): Response {
+    ): Response
+    {
 
-        $fields = $dbhelper->getAllEntityFields(Liburuxka::class);
+        $fields     = $dbhelper->getAllEntityFields(Liburuxka::class);
         $myFilters  = $dbhelper->getFinderParams($request->query->get('form'));
-        $query = $dbhelper->performSearch('liburuxka',$myFilters, $fields);
+        $query      = $dbhelper->performSearch('liburuxka', $myFilters, $fields, $_SERVER['REQUEST_URI']);
         $liburuxkas = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -54,23 +57,23 @@ class LiburuxkaController extends AbstractController {
         );
 
         $myselection = $session->get('zertegi-selection');
-        if ($myselection !== null)
-        {
-            if (array_key_exists('liburuxka', $myselection))
-            {
-                $myselection = $myselection[ 'liburuxka' ];
+        if ($myselection !== null) {
+            if (array_key_exists('liburuxka', $myselection)) {
+                $myselection = $myselection['liburuxka'];
             }
         }
 
         $fields = $dbhelper->getAllEntityFields(Liburuxka::class);
+        $logs   = $logRepository->findBy([], ['id' => 'DESC'], 10);
 
         return $this->render(
             'liburuxka/index.html.twig',
             [
+                'logs'        => $logs,
                 'liburuxkas'  => $liburuxkas,
                 'myselection' => $myselection,
                 'fields'      => $fields,
-                'finderdata'    => $request->query->get('form')            ]
+                'finderdata'  => $request->query->get('form')]
         );
 
     }
@@ -87,8 +90,7 @@ class LiburuxkaController extends AbstractController {
         $form      = $this->createForm(LiburuxkaType::class, $liburuxka);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($liburuxka);
             $entityManager->flush();
@@ -135,8 +137,7 @@ class LiburuxkaController extends AbstractController {
         $form = $this->createForm(LiburuxkaType::class, $liburuxka);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'Datuak ongi grabatu dira.');
@@ -167,13 +168,11 @@ class LiburuxkaController extends AbstractController {
      */
     public function delete(Request $request, Liburuxka $liburuxka): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$liburuxka->getId(), $request->request->get('_token')))
-        {
+        if ($this->isCsrfTokenValid('delete' . $liburuxka->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($liburuxka);
             $entityManager->flush();
-        } elseif ($request->isXmlHttpRequest())
-        {
+        } elseif ($request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
             $resp    = [
                 'code' => 500,
@@ -181,13 +180,11 @@ class LiburuxkaController extends AbstractController {
             ];
 
             return new JsonResponse($resp, 500);
-        } else
-        {
+        } else {
             return $this->redirectToRoute('liburuxka_index');
         }
 
-        if ($request->isXmlHttpRequest())
-        {
+        if ($request->isXmlHttpRequest()) {
             $resp = [
                 'code' => 200,
                 'data' => 'Ezabatua izan da',
@@ -201,17 +198,17 @@ class LiburuxkaController extends AbstractController {
 
     /**
      * @Route("/print/{id}", name="liburuxka_print", methods={"GET", "POST" })
-     * @param Request $request
+     * @param Request   $request
      *
      * @param Liburuxka $liburuxka
-     * @param Pdf     $snappy
+     * @param Pdf       $snappy
      *
      * @return Response
      */
     public function print(Request $request, Liburuxka $liburuxka, Pdf $snappy): Response
     {
-        $html      = $this->renderView('liburuxka/pdf.html.twig', ['liburuxka'=>$liburuxka]);
-        $filename  = sprintf('liburuxka-%s.pdf', date('Y-m-d-hh-ss'));
+        $html     = $this->renderView('liburuxka/pdf.html.twig', ['liburuxka' => $liburuxka]);
+        $filename = sprintf('liburuxka-%s.pdf', date('Y-m-d-hh-ss'));
 
         return new Response(
             $snappy->getOutputFromHtml($html),

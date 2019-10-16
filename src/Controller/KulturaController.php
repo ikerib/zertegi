@@ -7,6 +7,7 @@ use App\Entity\Hutsak;
 use App\Entity\Kultura;
 use App\Form\KulturaType;
 use App\Repository\KulturaRepository;
+use App\Repository\LogRepository;
 use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
@@ -22,17 +23,17 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/kultura")
  */
-class KulturaController extends AbstractController {
+class KulturaController extends AbstractController
+{
 
     /**
      * @Route("/", name="kultura_index", methods={"GET", "POST"})
-     * @param Request            $request
-     * @param PaginatorInterface $paginator
-     * @param KulturaRepository  $kulturaRepository
-     *
-     * @param SessionInterface   $session
-     *
-     * @param DbHelperService    $dbhelper
+     * @param Request                       $request
+     * @param PaginatorInterface            $paginator
+     * @param KulturaRepository             $kulturaRepository
+     * @param \App\Repository\LogRepository $logRepository
+     * @param SessionInterface              $session
+     * @param DbHelperService               $dbhelper
      *
      * @return Response
      */
@@ -40,12 +41,14 @@ class KulturaController extends AbstractController {
         Request $request,
         PaginatorInterface $paginator,
         KulturaRepository $kulturaRepository,
+        LogRepository $logRepository,
         SessionInterface $session,
         DbHelperService $dbhelper
-    ): Response {
-        $fields = $dbhelper->getAllEntityFields(Kultura::class);
+    ): Response
+    {
+        $fields    = $dbhelper->getAllEntityFields(Kultura::class);
         $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
-        $query = $dbhelper->performSearch('kultura',$myFilters, $fields);
+        $query     = $dbhelper->performSearch('kultura', $myFilters, $fields, $_SERVER['REQUEST_URI']);
         $kulturas  = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -53,24 +56,23 @@ class KulturaController extends AbstractController {
         );
 
         $myselection = $session->get('zertegi-selection');
-        if ($myselection !== null)
-        {
-            if (array_key_exists('kultura', $myselection))
-            {
-                $myselection = $myselection[ 'kultura' ];
+        if ($myselection !== null) {
+            if (array_key_exists('kultura', $myselection)) {
+                $myselection = $myselection['kultura'];
             }
         }
 
         $fields = $dbhelper->getAllEntityFields(Kultura::class);
-
+        $logs   = $logRepository->findBy([], ['id' => 'DESC'], 10);
 
         return $this->render(
             'kultura/index.html.twig',
             [
+                'logs'        => $logs,
                 'kulturas'    => $kulturas,
                 'myselection' => $myselection,
                 'fields'      => $fields,
-                'finderdata'    => $request->query->get('form')            ]
+                'finderdata'  => $request->query->get('form')]
         );
     }
 
@@ -86,8 +88,7 @@ class KulturaController extends AbstractController {
         $form    = $this->createForm(KulturaType::class, $kultura);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($kultura);
             $entityManager->flush();
@@ -134,8 +135,7 @@ class KulturaController extends AbstractController {
         $form = $this->createForm(KulturaType::class, $kultura);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'Datuak ongi grabatu dira.');
@@ -166,13 +166,11 @@ class KulturaController extends AbstractController {
      */
     public function delete(Request $request, Kultura $kultura): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$kultura->getId(), $request->request->get('_token')))
-        {
+        if ($this->isCsrfTokenValid('delete' . $kultura->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($kultura);
             $entityManager->flush();
-        } elseif ($request->isXmlHttpRequest())
-        {
+        } elseif ($request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
             $resp    = [
                 'code' => 500,
@@ -180,13 +178,11 @@ class KulturaController extends AbstractController {
             ];
 
             return new JsonResponse($resp, 500);
-        } else
-        {
+        } else {
             return $this->redirectToRoute('kultura_index');
         }
 
-        if ($request->isXmlHttpRequest())
-        {
+        if ($request->isXmlHttpRequest()) {
             $resp = [
                 'code' => 200,
                 'data' => 'Ezabatua izan da',
@@ -209,8 +205,8 @@ class KulturaController extends AbstractController {
      */
     public function print(Request $request, Kultura $kultura, Pdf $snappy): Response
     {
-        $html      = $this->renderView('kultura/pdf.html.twig', ['kultura'=>$kultura]);
-        $filename  = sprintf('kultura-%s.pdf', date('Y-m-d-hh-ss'));
+        $html     = $this->renderView('kultura/pdf.html.twig', ['kultura' => $kultura]);
+        $filename = sprintf('kultura-%s.pdf', date('Y-m-d-hh-ss'));
 
         return new Response(
             $snappy->getOutputFromHtml($html),

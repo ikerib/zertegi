@@ -6,6 +6,7 @@ use App\Entity\Amp;
 use App\Entity\Entradas;
 use App\Form\EntradasType;
 use App\Repository\EntradasRepository;
+use App\Repository\LogRepository;
 use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
@@ -21,17 +22,17 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/entradas")
  */
-class EntradasController extends AbstractController {
+class EntradasController extends AbstractController
+{
 
     /**
      * @Route("/", name="entradas_index", methods={"GET"})
-     * @param Request            $request
-     * @param PaginatorInterface $paginator
-     * @param EntradasRepository $entradasRepository
-     *
-     * @param SessionInterface   $session
-     *
-     * @param DbHelperService    $dbhelper
+     * @param Request                       $request
+     * @param PaginatorInterface            $paginator
+     * @param EntradasRepository            $entradasRepository
+     * @param \App\Repository\LogRepository $logRepository
+     * @param SessionInterface              $session
+     * @param DbHelperService               $dbhelper
      *
      * @return Response
      */
@@ -39,12 +40,14 @@ class EntradasController extends AbstractController {
         Request $request,
         PaginatorInterface $paginator,
         EntradasRepository $entradasRepository,
+        LogRepository $logRepository,
         SessionInterface $session,
         DbHelperService $dbhelper
-    ): Response {
-        $fields = $dbhelper->getAllEntityFields(Entradas::class);
+    ): Response
+    {
+        $fields    = $dbhelper->getAllEntityFields(Entradas::class);
         $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
-        $query = $dbhelper->performSearch('entradas',$myFilters, $fields);
+        $query     = $dbhelper->performSearch('entradas', $myFilters, $fields, $_SERVER['REQUEST_URI']);
 
         $entradas = $paginator->paginate(
             $query, /* query NOT result */
@@ -53,22 +56,21 @@ class EntradasController extends AbstractController {
         );
 
         $myselection = $session->get('zertegi-selection');
-        if ($myselection !== null)
-        {
-            if (array_key_exists('entradas', $myselection))
-            {
-                $myselection = $myselection[ 'entradas' ];
+        if ($myselection !== null) {
+            if (array_key_exists('entradas', $myselection)) {
+                $myselection = $myselection['entradas'];
             }
         }
-
+        $logs = $logRepository->findBy([], ['id' => 'DESC'], 10);
 
         return $this->render(
             'entradas/index.html.twig',
             [
+                'logs'        => $logs,
                 'entradas'    => $entradas,
                 'myselection' => $myselection,
                 'fields'      => $fields,
-                'finderdata'    => $request->query->get('form')            ]
+                'finderdata'  => $request->query->get('form')]
         );
     }
 
@@ -84,8 +86,7 @@ class EntradasController extends AbstractController {
         $form    = $this->createForm(EntradasType::class, $entrada);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($entrada);
             $entityManager->flush();
@@ -132,8 +133,7 @@ class EntradasController extends AbstractController {
         $form = $this->createForm(EntradasType::class, $entrada);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'Datuak ongi grabatu dira.');
@@ -164,13 +164,11 @@ class EntradasController extends AbstractController {
      */
     public function delete(Request $request, Entradas $entrada): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$entrada->getId(), $request->request->get('_token')))
-        {
+        if ($this->isCsrfTokenValid('delete' . $entrada->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($entrada);
             $entityManager->flush();
-        } elseif ($request->isXmlHttpRequest())
-        {
+        } elseif ($request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
             $resp    = [
                 'code' => 500,
@@ -178,13 +176,11 @@ class EntradasController extends AbstractController {
             ];
 
             return new JsonResponse($resp, 500);
-        } else
-        {
+        } else {
             return $this->redirectToRoute('entradas_index');
         }
 
-        if ($request->isXmlHttpRequest())
-        {
+        if ($request->isXmlHttpRequest()) {
             $resp = [
                 'code' => 200,
                 'data' => 'Ezabatua izan da',
@@ -207,8 +203,8 @@ class EntradasController extends AbstractController {
      */
     public function print(Request $request, Entradas $entrada, Pdf $snappy): Response
     {
-        $html      = $this->renderView('entradas/pdf.html.twig', ['entrada' => $entrada]);
-        $filename  = sprintf('entrada-%s.pdf', date('Y-m-d-hh-ss'));
+        $html     = $this->renderView('entradas/pdf.html.twig', ['entrada' => $entrada]);
+        $filename = sprintf('entrada-%s.pdf', date('Y-m-d-hh-ss'));
 
         return new Response(
             $snappy->getOutputFromHtml($html),

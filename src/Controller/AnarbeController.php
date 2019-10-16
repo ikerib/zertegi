@@ -6,6 +6,7 @@ use App\Entity\Amp;
 use App\Entity\Anarbe;
 use App\Form\AnarbeType;
 use App\Repository\AnarbeRepository;
+use App\Repository\LogRepository;
 use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
@@ -26,24 +27,24 @@ class AnarbeController extends AbstractController
 
     /**
      * @Route("/", name="anarbe_index", methods={"GET", "POST"})
-     * @param Request            $request
-     * @param PaginatorInterface $paginator
-     * @param AnarbeRepository   $anarbeRepository
-     * @param SessionInterface   $session
-     *
-     * @param DbHelperService    $dbhelper
+     * @param Request                       $request
+     * @param PaginatorInterface            $paginator
+     * @param AnarbeRepository              $anarbeRepository
+     * @param SessionInterface              $session
+     * @param DbHelperService               $dbhelper
+     * @param \App\Repository\LogRepository $logRepository
      *
      * @return Response
      */
     public function index(Request $request, PaginatorInterface $paginator,
-        AnarbeRepository $anarbeRepository, SessionInterface $session,
-        DbHelperService $dbhelper
+                          AnarbeRepository $anarbeRepository, SessionInterface $session,
+                          DbHelperService $dbhelper, LogRepository $logRepository
     ): Response
     {
-        $fields = $dbhelper->getAllEntityFields(Anarbe::class);
-        $myFilters=$dbhelper->getFinderParams($request->query->get('form'));
-        $query = $dbhelper->performSearch('anarbe',$myFilters, $fields);
-        $anarbes = $paginator->paginate(
+        $fields    = $dbhelper->getAllEntityFields(Anarbe::class);
+        $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
+        $query     = $dbhelper->performSearch('anarbe', $myFilters, $fields, $_SERVER['REQUEST_URI']);
+        $anarbes   = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
             $request->query->getInt('limit', 10)/*limit per page*/
@@ -51,18 +52,20 @@ class AnarbeController extends AbstractController
 
 
         $myselection = $session->get('zertegi-selection');
-        if (($myselection !== null) && (array_key_exists('anarbe', $myselection)))
-        {
-            $myselection = $myselection[ 'anarbe' ];
+        if (($myselection !== null) && (array_key_exists('anarbe', $myselection))) {
+            $myselection = $myselection['anarbe'];
         }
+
+        $logs = $logRepository->findBy([], ['id' => 'DESC'], 10);
 
         return $this->render(
             'anarbe/index.html.twig',
             [
-                'anarbes'        => $anarbes,
+                'logs'        => $logs,
+                'anarbes'     => $anarbes,
                 'fields'      => $fields,
                 'myselection' => $myselection,
-                'finderdata'    => $request->query->get('form')            ]
+                'finderdata'  => $request->query->get('form')]
         );
     }
 
@@ -75,7 +78,7 @@ class AnarbeController extends AbstractController
     public function new(Request $request): Response
     {
         $anarbe = new Anarbe();
-        $form = $this->createForm(AnarbeType::class, $anarbe);
+        $form   = $this->createForm(AnarbeType::class, $anarbe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -89,7 +92,7 @@ class AnarbeController extends AbstractController
 
         return $this->render('anarbe/new.html.twig', [
             'anarbe' => $anarbe,
-            'form' => $form->createView(),
+            'form'   => $form->createView(),
         ]);
     }
 
@@ -129,7 +132,7 @@ class AnarbeController extends AbstractController
 
         return $this->render('anarbe/edit.html.twig', [
             'anarbe' => $anarbe,
-            'form' => $form->createView(),
+            'form'   => $form->createView(),
         ]);
     }
 
@@ -142,23 +145,23 @@ class AnarbeController extends AbstractController
      */
     public function delete(Request $request, Anarbe $anarbe): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$anarbe->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $anarbe->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($anarbe);
             $entityManager->flush();
 
-        }elseif ( $request->isXmlHttpRequest()) {
+        } elseif ($request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
-            $resp = [
+            $resp    = [
                 'code' => 500,
                 'data' => $message
             ];
-            return new JsonResponse($resp,500);
+            return new JsonResponse($resp, 500);
         } else {
             return $this->redirectToRoute('anarbe_index');
         }
 
-        if ( $request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest()) {
             $resp = [
                 'code' => 200,
                 'data' => 'Ezabatua izan da'
@@ -180,8 +183,8 @@ class AnarbeController extends AbstractController
      */
     public function print(Request $request, Anarbe $anarbe, Pdf $snappy): Response
     {
-        $html      = $this->renderView('anarbe/pdf.html.twig', ['anarbe' => $anarbe]);
-        $filename  = sprintf('anarbe-%s.pdf', date('Y-m-d-hh-ss'));
+        $html     = $this->renderView('anarbe/pdf.html.twig', ['anarbe' => $anarbe]);
+        $filename = sprintf('anarbe-%s.pdf', date('Y-m-d-hh-ss'));
 
         return new Response(
             $snappy->getOutputFromHtml($html),

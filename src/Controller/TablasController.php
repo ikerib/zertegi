@@ -6,6 +6,7 @@ use App\Entity\Amp;
 use App\Entity\Protokoloak;
 use App\Entity\Tablas;
 use App\Form\TablasType;
+use App\Repository\LogRepository;
 use App\Repository\TablasRepository;
 use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
@@ -22,17 +23,17 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/tablas")
  */
-class TablasController extends AbstractController {
+class TablasController extends AbstractController
+{
 
     /**
      * @Route("/", name="tablas_index", methods={"GET", "POST"})
-     * @param Request            $request
-     * @param PaginatorInterface $paginator
-     * @param TablasRepository   $tablasRepository
-     *
-     * @param SessionInterface   $session
-     *
-     * @param DbHelperService    $dbhelper
+     * @param Request                       $request
+     * @param PaginatorInterface            $paginator
+     * @param TablasRepository              $tablasRepository
+     * @param \App\Repository\LogRepository $logRepository
+     * @param SessionInterface              $session
+     * @param DbHelperService               $dbhelper
      *
      * @return Response
      */
@@ -40,13 +41,15 @@ class TablasController extends AbstractController {
         Request $request,
         PaginatorInterface $paginator,
         TablasRepository $tablasRepository,
+        LogRepository $logRepository,
         SessionInterface $session,
         DbHelperService $dbhelper
-    ): Response {
+    ): Response
+    {
 
-        $fields = $dbhelper->getAllEntityFields(Tablas::class);
+        $fields    = $dbhelper->getAllEntityFields(Tablas::class);
         $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
-        $query = $dbhelper->performSearch('tablas',$myFilters, $fields);
+        $query     = $dbhelper->performSearch('tablas', $myFilters, $fields, $_SERVER['REQUEST_URI']);
         $tablas    = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -54,20 +57,21 @@ class TablasController extends AbstractController {
         );
 
         $myselection = $session->get('zertegi-selection');
-        if (($myselection !== null) && array_key_exists('tablas', $myselection))
-        {
-            $myselection = $myselection[ 'tablas' ];
+        if (($myselection !== null) && array_key_exists('tablas', $myselection)) {
+            $myselection = $myselection['tablas'];
         }
 
         $fields = $dbhelper->getAllEntityFields(Tablas::class);
+        $logs   = $logRepository->findBy([], ['id' => 'DESC'], 10);
 
         return $this->render(
             'tablas/index.html.twig',
             [
+                'logs'        => $logs,
                 'tablas'      => $tablas,
                 'myselection' => $myselection,
                 'fields'      => $fields,
-                'finderdata'    => $request->query->get('form')            ]
+                'finderdata'  => $request->query->get('form')]
         );
     }
 
@@ -83,8 +87,7 @@ class TablasController extends AbstractController {
         $form  = $this->createForm(TablasType::class, $tabla);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($tabla);
             $entityManager->flush();
@@ -131,8 +134,7 @@ class TablasController extends AbstractController {
         $form = $this->createForm(TablasType::class, $tabla);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'Aldaketak ongi gorde dira.');
@@ -163,13 +165,11 @@ class TablasController extends AbstractController {
      */
     public function delete(Request $request, Tablas $tabla): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$tabla->getId(), $request->request->get('_token')))
-        {
+        if ($this->isCsrfTokenValid('delete' . $tabla->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($tabla);
             $entityManager->flush();
-        } elseif ($request->isXmlHttpRequest())
-        {
+        } elseif ($request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
             $resp    = [
                 'code' => 500,
@@ -177,13 +177,11 @@ class TablasController extends AbstractController {
             ];
 
             return new JsonResponse($resp, 500);
-        } else
-        {
+        } else {
             return $this->redirectToRoute('tablas_index');
         }
 
-        if ($request->isXmlHttpRequest())
-        {
+        if ($request->isXmlHttpRequest()) {
             $resp = [
                 'code' => 200,
                 'data' => 'Ezabatua izan da',
@@ -206,8 +204,8 @@ class TablasController extends AbstractController {
      */
     public function print(Request $request, Tablas $tabla, Pdf $snappy): Response
     {
-        $html      = $this->renderView('tablas/pdf.html.twig', ['tabla'=>$tabla]);
-        $filename  = sprintf('tablas-%s.pdf', date('Y-m-d-hh-ss'));
+        $html     = $this->renderView('tablas/pdf.html.twig', ['tabla' => $tabla]);
+        $filename = sprintf('tablas-%s.pdf', date('Y-m-d-hh-ss'));
 
         return new Response(
             $snappy->getOutputFromHtml($html),

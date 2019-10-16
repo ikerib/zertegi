@@ -6,6 +6,7 @@ use App\Entity\Amp;
 use App\Entity\Argazki;
 use App\Form\ArgazkiType;
 use App\Repository\ArgazkiRepository;
+use App\Repository\LogRepository;
 use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
@@ -22,29 +23,32 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/argazki")
  */
-class ArgazkiController extends AbstractController {
+class ArgazkiController extends AbstractController
+{
 
     /**
      * @Route("/", name="argazki_index", methods={"GET", "POST"})
-     * @param Request            $request
-     * @param ArgazkiRepository  $argazkiRepository
-     * @param PaginatorInterface $paginator
-     * @param SessionInterface   $session
-     *
-     * @param DbHelperService    $dbhelper
+     * @param Request                       $request
+     * @param ArgazkiRepository             $argazkiRepository
+     * @param \App\Repository\LogRepository $logRepository
+     * @param PaginatorInterface            $paginator
+     * @param SessionInterface              $session
+     * @param DbHelperService               $dbhelper
      *
      * @return Response
      */
     public function index(
         Request $request,
         ArgazkiRepository $argazkiRepository,
+        LogRepository $logRepository,
         PaginatorInterface $paginator,
         SessionInterface $session,
         DbHelperService $dbhelper
-    ): Response {
-        $fields = $dbhelper->getAllEntityFields(Argazki::class);
+    ): Response
+    {
+        $fields    = $dbhelper->getAllEntityFields(Argazki::class);
         $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
-        $query = $dbhelper->performSearch('argazki',$myFilters, $fields);
+        $query     = $dbhelper->performSearch('argazki', $myFilters, $fields, $_SERVER['REQUEST_URI']);
         $argazkis  = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -52,21 +56,22 @@ class ArgazkiController extends AbstractController {
         );
 
         $myselection = $session->get('zertegi-selection');
-        if ($myselection !== null)
-        {
-            if (array_key_exists('argazki', $myselection))
-            {
-                $myselection = $myselection[ 'argazki' ];
+        if ($myselection !== null) {
+            if (array_key_exists('argazki', $myselection)) {
+                $myselection = $myselection['argazki'];
             }
         }
+
+        $logs = $logRepository->findBy([], ['id' => 'DESC'], 10);
 
         return $this->render(
             'argazki/index.html.twig',
             [
+                'logs'        => $logs,
                 'argazkis'    => $argazkis,
                 'myselection' => $myselection,
-                'fields'       => $fields,
-                'finderdata'    => $request->query->get('form')            ]
+                'fields'      => $fields,
+                'finderdata'  => $request->query->get('form')]
         );
     }
 
@@ -82,8 +87,7 @@ class ArgazkiController extends AbstractController {
         $form    = $this->createForm(ArgazkiType::class, $argazki);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($argazki);
             $entityManager->flush();
@@ -130,8 +134,7 @@ class ArgazkiController extends AbstractController {
         $form = $this->createForm(ArgazkiType::class, $argazki);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'Aldaketak ongi gorde dira.');
@@ -162,14 +165,12 @@ class ArgazkiController extends AbstractController {
      */
     public function delete(Request $request, Argazki $argazki): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$argazki->getId(), $request->request->get('_token')))
-        {
+        if ($this->isCsrfTokenValid('delete' . $argazki->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($argazki);
             $entityManager->flush();
 
-        } elseif ($request->isXmlHttpRequest())
-        {
+        } elseif ($request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
             $resp    = [
                 'code' => 500,
@@ -177,13 +178,11 @@ class ArgazkiController extends AbstractController {
             ];
 
             return new JsonResponse($resp, 500);
-        } else
-        {
+        } else {
             return $this->redirectToRoute('argazki_index');
         }
 
-        if ($request->isXmlHttpRequest())
-        {
+        if ($request->isXmlHttpRequest()) {
             $resp = [
                 'code' => 200,
                 'data' => 'Ezabatua izan da',
@@ -206,8 +205,8 @@ class ArgazkiController extends AbstractController {
      */
     public function print(Request $request, Argazki $argazki, Pdf $snappy): Response
     {
-        $html      = $this->renderView('argazki/pdf.html.twig', ['argazki' => $argazki]);
-        $filename  = sprintf('argazki-%s.pdf', date('Y-m-d-hh-ss'));
+        $html     = $this->renderView('argazki/pdf.html.twig', ['argazki' => $argazki]);
+        $filename = sprintf('argazki-%s.pdf', date('Y-m-d-hh-ss'));
 
         return new Response(
             $snappy->getOutputFromHtml($html),

@@ -7,6 +7,7 @@ use App\Entity\Euskera;
 use App\Entity\Gazteria;
 use App\Form\GazteriaType;
 use App\Repository\GazteriaRepository;
+use App\Repository\LogRepository;
 use App\Service\DbHelperService;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
@@ -26,24 +27,23 @@ class GazteriaController extends AbstractController
 
     /**
      * @Route("/", name="gazteria_index", methods={"GET"})
-     * @param Request            $request
-     * @param PaginatorInterface $paginator
-     * @param GazteriaRepository $gazteriaRepository
-     *
-     * @param SessionInterface   $session
-     *
-     * @param DbHelperService    $dbhelper
+     * @param Request                       $request
+     * @param PaginatorInterface            $paginator
+     * @param GazteriaRepository            $gazteriaRepository
+     * @param SessionInterface              $session
+     * @param DbHelperService               $dbhelper
+     * @param \App\Repository\LogRepository $logRepository
      *
      * @return Response
      */
     public function index(Request $request, PaginatorInterface $paginator,
-        GazteriaRepository $gazteriaRepository, SessionInterface $session,
-        DbHelperService $dbhelper
+                          GazteriaRepository $gazteriaRepository, SessionInterface $session,
+                          DbHelperService $dbhelper, LogRepository $logRepository
     ): Response
     {
-        $fields = $dbhelper->getAllEntityFields(Gazteria::class);
+        $fields    = $dbhelper->getAllEntityFields(Gazteria::class);
         $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
-        $query = $dbhelper->performSearch('gazteria', $myFilters, $fields);
+        $query     = $dbhelper->performSearch('gazteria', $myFilters, $fields, $_SERVER['REQUEST_URI']);
         $gazterias = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -52,19 +52,20 @@ class GazteriaController extends AbstractController
 
         $myselection = $session->get('zertegi-selection');
         if ($myselection !== null) {
-            if (array_key_exists('gazteria', $myselection))
-            {
-                $myselection = $myselection[ 'gazteria' ];
+            if (array_key_exists('gazteria', $myselection)) {
+                $myselection = $myselection['gazteria'];
             }
         }
+        $logs = $logRepository->findBy([], ['id' => 'DESC'], 10);
 
         return $this->render(
             'gazteria/index.html.twig',
             [
-                'gazterias' => $gazterias,
+                'logs'        => $logs,
+                'gazterias'   => $gazterias,
                 'myselection' => $myselection,
-                'fields'    => $fields,
-                'finderdata'    => $request->query->get('form')            ]
+                'fields'      => $fields,
+                'finderdata'  => $request->query->get('form')]
         );
     }
 
@@ -77,7 +78,7 @@ class GazteriaController extends AbstractController
     public function new(Request $request): Response
     {
         $gazterium = new Gazteria();
-        $form = $this->createForm(GazteriaType::class, $gazterium);
+        $form      = $this->createForm(GazteriaType::class, $gazterium);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -91,7 +92,7 @@ class GazteriaController extends AbstractController
 
         return $this->render('gazteria/new.html.twig', [
             'gazterium' => $gazterium,
-            'form' => $form->createView(),
+            'form'      => $form->createView(),
         ]);
     }
 
@@ -131,7 +132,7 @@ class GazteriaController extends AbstractController
 
         return $this->render('gazteria/edit.html.twig', [
             'gazterium' => $gazterium,
-            'form' => $form->createView(),
+            'form'      => $form->createView(),
         ]);
     }
 
@@ -144,22 +145,22 @@ class GazteriaController extends AbstractController
      */
     public function delete(Request $request, Gazteria $gazterium): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$gazterium->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $gazterium->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($gazterium);
             $entityManager->flush();
-        } elseif ( $request->isXmlHttpRequest()) {
+        } elseif ($request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
-            $resp = [
+            $resp    = [
                 'code' => 500,
                 'data' => $message
             ];
-            return new JsonResponse($resp,500);
+            return new JsonResponse($resp, 500);
         } else {
             return $this->redirectToRoute('gazteria_index');
         }
 
-        if ( $request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest()) {
             $resp = [
                 'code' => 200,
                 'data' => 'Ezabatua izan da'
@@ -181,8 +182,8 @@ class GazteriaController extends AbstractController
      */
     public function print(Request $request, Gazteria $gazteria, Pdf $snappy): Response
     {
-        $html      = $this->renderView('gazteria/pdf.html.twig', [ 'gazteria' => $gazteria ]);
-        $filename  = sprintf('gazteria-%s.pdf', date('Y-m-d-hh-ss'));
+        $html     = $this->renderView('gazteria/pdf.html.twig', ['gazteria' => $gazteria]);
+        $filename = sprintf('gazteria-%s.pdf', date('Y-m-d-hh-ss'));
 
         return new Response(
             $snappy->getOutputFromHtml($html),

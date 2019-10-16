@@ -6,6 +6,7 @@ use App\Entity\Amp;
 use App\Entity\Protokoloak;
 use App\Entity\Salidas;
 use App\Form\SalidasType;
+use App\Repository\LogRepository;
 use App\Repository\SalidasRepository;
 use App\Service\DbHelperService;
 use Doctrine\ORM\QueryBuilder;
@@ -26,43 +27,44 @@ class SalidasController extends AbstractController
 
     /**
      * @Route("/", name="salidas_index", methods={"GET", "POST"})
-     * @param Request            $request
-     * @param PaginatorInterface $paginator
-     * @param SalidasRepository  $salidasRepository
-     * @param SessionInterface   $session
-     *
-     * @param DbHelperService    $dbhelper
+     * @param Request                       $request
+     * @param PaginatorInterface            $paginator
+     * @param SalidasRepository             $salidasRepository
+     * @param SessionInterface              $session
+     * @param DbHelperService               $dbhelper
+     * @param \App\Repository\LogRepository $logRepository
      *
      * @return Response
      */
     public function index(Request $request, PaginatorInterface $paginator,
-        SalidasRepository $salidasRepository, SessionInterface $session,
-        DbHelperService $dbhelper): Response
+                          SalidasRepository $salidasRepository, SessionInterface $session,
+                          DbHelperService $dbhelper, LogRepository $logRepository): Response
     {
-        $fields = $dbhelper->getAllEntityFields(Salidas::class);
-        $myFilters=$dbhelper->getFinderParams($request->query->get('form'));
-        $query = $dbhelper->performSearch('salidas',$myFilters, $fields);
-        $salidas = $paginator->paginate(
+        $fields    = $dbhelper->getAllEntityFields(Salidas::class);
+        $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
+        $query     = $dbhelper->performSearch('salidas', $myFilters, $fields, $_SERVER['REQUEST_URI']);
+        $salidas   = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
             $request->query->getInt('limit', 10)/*limit per page*/
         );
 
         $myselection = $session->get('zertegi-selection');
-        if (($myselection !== null) && array_key_exists('salidas', $myselection))
-        {
-            $myselection = $myselection[ 'salidas' ];
+        if (($myselection !== null) && array_key_exists('salidas', $myselection)) {
+            $myselection = $myselection['salidas'];
         }
 
         $fields = $dbhelper->getAllEntityFields(Salidas::class);
+        $logs   = $logRepository->findBy([], ['id' => 'DESC'], 10);
 
         return $this->render(
             'salidas/index.html.twig',
             [
-                'salidas' => $salidas,
+                'logs'        => $logs,
+                'salidas'     => $salidas,
                 'myselection' => $myselection,
-                'fields' => $fields,
-                'finderdata'    => $request->query->get('form')            ]
+                'fields'      => $fields,
+                'finderdata'  => $request->query->get('form')]
         );
     }
 
@@ -75,7 +77,7 @@ class SalidasController extends AbstractController
     public function new(Request $request): Response
     {
         $salida = new Salidas();
-        $form = $this->createForm(SalidasType::class, $salida);
+        $form   = $this->createForm(SalidasType::class, $salida);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -89,7 +91,7 @@ class SalidasController extends AbstractController
 
         return $this->render('salidas/new.html.twig', [
             'salida' => $salida,
-            'form' => $form->createView(),
+            'form'   => $form->createView(),
         ]);
     }
 
@@ -129,7 +131,7 @@ class SalidasController extends AbstractController
 
         return $this->render('salidas/edit.html.twig', [
             'salida' => $salida,
-            'form' => $form->createView(),
+            'form'   => $form->createView(),
         ]);
     }
 
@@ -142,22 +144,22 @@ class SalidasController extends AbstractController
      */
     public function delete(Request $request, Salidas $salida): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$salida->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $salida->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($salida);
             $entityManager->flush();
-        } elseif ( $request->isXmlHttpRequest()) {
+        } elseif ($request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
-            $resp = [
+            $resp    = [
                 'code' => 500,
                 'data' => $message
             ];
-            return new JsonResponse($resp,500);
+            return new JsonResponse($resp, 500);
         } else {
             return $this->redirectToRoute('salidas_index');
         }
 
-        if ( $request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest()) {
             $resp = [
                 'code' => 200,
                 'data' => 'Ezabatua izan da'
@@ -179,8 +181,8 @@ class SalidasController extends AbstractController
      */
     public function print(Request $request, Salidas $salidas, Pdf $snappy): Response
     {
-        $html      = $this->renderView('salidas/pdf.html.twig', ['salidas'=>$salidas]);
-        $filename  = sprintf('salidas-%s.pdf', date('Y-m-d-hh-ss'));
+        $html     = $this->renderView('salidas/pdf.html.twig', ['salidas' => $salidas]);
+        $filename = sprintf('salidas-%s.pdf', date('Y-m-d-hh-ss'));
 
         return new Response(
             $snappy->getOutputFromHtml($html),

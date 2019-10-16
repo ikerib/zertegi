@@ -22,7 +22,8 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/amp")
  */
-class AmpController extends AbstractController {
+class AmpController extends AbstractController
+{
 
     /**
      * @Route("/", name="amp_index", methods={"GET", "POST"})
@@ -36,15 +37,15 @@ class AmpController extends AbstractController {
      * @return Response
      */
     public function index(Request $request, AmpRepository $ampRepository,
-        PaginatorInterface $paginator,
-        SessionInterface $session,
-        DbHelperService $dbhelper,
-        LogRepository $logRepository): Response
+                          PaginatorInterface $paginator,
+                          SessionInterface $session,
+                          DbHelperService $dbhelper,
+                          LogRepository $logRepository): Response
     {
-        $fields = $dbhelper->getAllEntityFields(Amp::class);
-        $myFilters=$dbhelper->getFinderParams($request->query->get('form'));
-        $query = $dbhelper->performSearch('amp',$myFilters, $fields, $_SERVER['REQUEST_URI']);
-        $amps = $paginator->paginate(
+        $fields    = $dbhelper->getAllEntityFields(Amp::class);
+        $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
+        $query     = $dbhelper->performSearch('amp', $myFilters, $fields, $_SERVER['REQUEST_URI']);
+        $amps      = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
             $request->query->getInt('limit', 10)/*limit per page*/
@@ -52,21 +53,20 @@ class AmpController extends AbstractController {
 
 
         $myselection = $session->get('zertegi-selection');
-        if (($myselection !== null) && (array_key_exists('amp', $myselection)))
-        {
-            $myselection = $myselection[ 'amp' ];
+        if (($myselection !== null) && (array_key_exists('amp', $myselection))) {
+            $myselection = $myselection['amp'];
         }
-        $logs = $logRepository->findBy([],['id'=>'DESC'],10);
+        $logs = $logRepository->findBy([], ['id' => 'DESC'], 10);
 
 
         return $this->render(
             'amp/index.html.twig',
             [
-                'logs'      => $logs,
+                'logs'        => $logs,
                 'amps'        => $amps,
                 'fields'      => $fields,
                 'myselection' => $myselection,
-                'finderdata'    => $request->query->get('form')
+                'finderdata'  => $request->query->get('form')
             ]
         );
     }
@@ -90,8 +90,7 @@ class AmpController extends AbstractController {
         );
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($amp);
             $entityManager->flush();
@@ -139,8 +138,7 @@ class AmpController extends AbstractController {
         $form = $this->createForm(AmpType::class, $amp);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'Aldaketak ongi gorde dira.');
@@ -171,14 +169,12 @@ class AmpController extends AbstractController {
      */
     public function delete(Request $request, Amp $amp): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$amp->getId(), $request->request->get('_token')))
-        {
+        if ($this->isCsrfTokenValid('delete' . $amp->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($amp);
             $entityManager->flush();
 
-        } elseif ($request->isXmlHttpRequest())
-        {
+        } elseif ($request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
             $resp    = [
                 'code' => 500,
@@ -186,13 +182,11 @@ class AmpController extends AbstractController {
             ];
 
             return new JsonResponse($resp, 500);
-        } else
-        {
+        } else {
             return $this->redirectToRoute('amp_index');
         }
 
-        if ($request->isXmlHttpRequest())
-        {
+        if ($request->isXmlHttpRequest()) {
             $resp = [
                 'code' => 200,
                 'data' => 'Ezabatua izan da',
@@ -224,8 +218,8 @@ class AmpController extends AbstractController {
      */
     public function print(Request $request, Amp $amp, Pdf $snappy): Response
     {
-        $html      = $this->renderView('amp/pdf.html.twig', ['amp' => $amp]);
-        $filename  = sprintf('amp-%s.pdf', date('Y-m-d-hh-ss'));
+        $html     = $this->renderView('amp/pdf.html.twig', ['amp' => $amp]);
+        $filename = sprintf('amp-%s.pdf', date('Y-m-d-hh-ss'));
 
         return new Response(
             $snappy->getOutputFromHtml($html),

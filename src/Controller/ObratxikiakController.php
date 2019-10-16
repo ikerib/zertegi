@@ -6,6 +6,7 @@ use App\Entity\Amp;
 use App\Entity\Liburuxka;
 use App\Entity\Obratxikiak;
 use App\Form\ObratxikiakType;
+use App\Repository\LogRepository;
 use App\Repository\ObratxikiakRepository;
 use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
@@ -38,12 +39,12 @@ class ObratxikiakController extends AbstractController
      * @return Response
      */
     public function index(Request $request, PaginatorInterface $paginator,
-        ObratxikiakRepository $obratxikiakRepository, SessionInterface $session,
-        DbHelperService $dbhelper): Response
+                          ObratxikiakRepository $obratxikiakRepository, SessionInterface $session,
+                          DbHelperService $dbhelper, LogRepository $logRepository): Response
     {
-        $fields = $dbhelper->getAllEntityFields(Obratxikiak::class);
-        $myFilters=$dbhelper->getFinderParams($request->query->get('form'));
-        $query = $dbhelper->performSearch('obratxikiak',$myFilters, $fields);
+        $fields       = $dbhelper->getAllEntityFields(Obratxikiak::class);
+        $myFilters    = $dbhelper->getFinderParams($request->query->get('form'));
+        $query        = $dbhelper->performSearch('obratxikiak', $myFilters, $fields, $_SERVER['REQUEST_URI']);
         $obratxikiaks = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -52,22 +53,22 @@ class ObratxikiakController extends AbstractController
 
         $myselection = $session->get('zertegi-selection');
         if ($myselection !== null) {
-            if (array_key_exists('obratxikiak', $myselection))
-            {
-                $myselection = $myselection[ 'obratxikiak' ];
+            if (array_key_exists('obratxikiak', $myselection)) {
+                $myselection = $myselection['obratxikiak'];
             }
         }
 
         $fields = $dbhelper->getAllEntityFields(Obratxikiak::class);
-
+        $logs   = $logRepository->findBy([], ['id' => 'DESC'], 10);
 
         return $this->render(
             'obratxikiak/index.html.twig',
             [
+                'logs'         => $logs,
                 'obratxikiaks' => $obratxikiaks,
-                'myselection'   => $myselection,
-                'fields'    => $fields,
-                'finderdata'    => $request->query->get('form')            ]
+                'myselection'  => $myselection,
+                'fields'       => $fields,
+                'finderdata'   => $request->query->get('form')]
         );
 
     }
@@ -81,7 +82,7 @@ class ObratxikiakController extends AbstractController
     public function new(Request $request): Response
     {
         $obratxikiak = new Obratxikiak();
-        $form = $this->createForm(ObratxikiakType::class, $obratxikiak);
+        $form        = $this->createForm(ObratxikiakType::class, $obratxikiak);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -95,7 +96,7 @@ class ObratxikiakController extends AbstractController
 
         return $this->render('obratxikiak/new.html.twig', [
             'obratxikiak' => $obratxikiak,
-            'form' => $form->createView(),
+            'form'        => $form->createView(),
         ]);
     }
 
@@ -135,7 +136,7 @@ class ObratxikiakController extends AbstractController
 
         return $this->render('obratxikiak/edit.html.twig', [
             'obratxikiak' => $obratxikiak,
-            'form' => $form->createView(),
+            'form'        => $form->createView(),
         ]);
     }
 
@@ -148,22 +149,22 @@ class ObratxikiakController extends AbstractController
      */
     public function delete(Request $request, Obratxikiak $obratxikiak): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$obratxikiak->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $obratxikiak->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($obratxikiak);
             $entityManager->flush();
-        } elseif ( $request->isXmlHttpRequest()) {
+        } elseif ($request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
-            $resp = [
+            $resp    = [
                 'code' => 500,
                 'data' => $message
             ];
-            return new JsonResponse($resp,500);
+            return new JsonResponse($resp, 500);
         } else {
             return $this->redirectToRoute('obratxikiak_index');
         }
 
-        if ( $request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest()) {
             $resp = [
                 'code' => 200,
                 'data' => 'Ezabatua izan da'
@@ -176,17 +177,17 @@ class ObratxikiakController extends AbstractController
 
     /**
      * @Route("/print/{id}", name="obratxikiak_print", methods={"GET", "POST" })
-     * @param Request $request
+     * @param Request     $request
      *
      * @param Obratxikiak $obratxikia
-     * @param Pdf     $snappy
+     * @param Pdf         $snappy
      *
      * @return Response
      */
     public function print(Request $request, Obratxikiak $obratxikia, Pdf $snappy): Response
     {
-        $html      = $this->renderView('obratxikiak/pdf.html.twig', ['obratxikiak'=>$obratxikia]);
-        $filename  = sprintf('obratxikia-%s.pdf', date('Y-m-d-hh-ss'));
+        $html     = $this->renderView('obratxikiak/pdf.html.twig', ['obratxikiak' => $obratxikia]);
+        $filename = sprintf('obratxikia-%s.pdf', date('Y-m-d-hh-ss'));
 
         return new Response(
             $snappy->getOutputFromHtml($html),

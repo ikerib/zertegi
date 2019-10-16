@@ -7,6 +7,7 @@ use App\Entity\Euskera;
 use App\Entity\Hutsak;
 use App\Form\HutsakType;
 use App\Repository\HutsakRepository;
+use App\Repository\LogRepository;
 use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
@@ -27,25 +28,24 @@ class HutsakController extends AbstractController
 
     /**
      * @Route("/", name="hutsak_index", methods={"GET"})
-     * @param Request            $request
-     * @param PaginatorInterface $paginator
-     * @param HutsakRepository   $hutsakRepository
-     *
-     * @param SessionInterface   $session
-     *
-     * @param DbHelperService    $dbhelper
+     * @param Request                       $request
+     * @param PaginatorInterface            $paginator
+     * @param HutsakRepository              $hutsakRepository
+     * @param SessionInterface              $session
+     * @param DbHelperService               $dbhelper
+     * @param \App\Repository\LogRepository $logRepository
      *
      * @return Response
      */
     public function index(Request $request, PaginatorInterface $paginator,
-        HutsakRepository $hutsakRepository, SessionInterface $session,
-        DbHelperService $dbhelper
+                          HutsakRepository $hutsakRepository, SessionInterface $session,
+                          DbHelperService $dbhelper, LogRepository $logRepository
     ): Response
     {
-        $fields = $dbhelper->getAllEntityFields(Hutsak::class);
+        $fields    = $dbhelper->getAllEntityFields(Hutsak::class);
         $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
-        $query = $dbhelper->performSearch('hutsak',$myFilters, $fields);
-        $hutsaks = $paginator->paginate(
+        $query     = $dbhelper->performSearch('hutsak', $myFilters, $fields, $_SERVER['REQUEST_URI']);
+        $hutsaks   = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
             $request->query->getInt('limit', 10)/*limit per page*/
@@ -53,21 +53,22 @@ class HutsakController extends AbstractController
 
         $myselection = $session->get('zertegi-selection');
         if ($myselection !== null) {
-            if (array_key_exists('hutsak', $myselection))
-            {
-                $myselection = $myselection[ 'hutsak' ];
+            if (array_key_exists('hutsak', $myselection)) {
+                $myselection = $myselection['hutsak'];
             }
         }
 
         $fields = $dbhelper->getAllEntityFields(Hutsak::class);
+        $logs   = $logRepository->findBy([], ['id' => 'DESC'], 10);
 
         return $this->render(
             'hutsak/index.html.twig',
             [
-                'hutsaks' => $hutsaks,
+                'logs'        => $logs,
+                'hutsaks'     => $hutsaks,
                 'myselection' => $myselection,
-                'fields'    => $fields,
-                'finderdata'    => $request->query->get('form')            ]
+                'fields'      => $fields,
+                'finderdata'  => $request->query->get('form')]
         );
     }
 
@@ -80,7 +81,7 @@ class HutsakController extends AbstractController
     public function new(Request $request): Response
     {
         $hutsak = new Hutsak();
-        $form = $this->createForm(HutsakType::class, $hutsak);
+        $form   = $this->createForm(HutsakType::class, $hutsak);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -94,7 +95,7 @@ class HutsakController extends AbstractController
 
         return $this->render('hutsak/new.html.twig', [
             'hutsak' => $hutsak,
-            'form' => $form->createView(),
+            'form'   => $form->createView(),
         ]);
     }
 
@@ -134,7 +135,7 @@ class HutsakController extends AbstractController
 
         return $this->render('hutsak/edit.html.twig', [
             'hutsak' => $hutsak,
-            'form' => $form->createView(),
+            'form'   => $form->createView(),
         ]);
     }
 
@@ -147,22 +148,22 @@ class HutsakController extends AbstractController
      */
     public function delete(Request $request, Hutsak $hutsak): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$hutsak->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $hutsak->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($hutsak);
             $entityManager->flush();
-        } elseif ( $request->isXmlHttpRequest()) {
+        } elseif ($request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
-            $resp = [
+            $resp    = [
                 'code' => 500,
                 'data' => $message
             ];
-            return new JsonResponse($resp,500);
+            return new JsonResponse($resp, 500);
         } else {
             return $this->redirectToRoute('hutsak_index');
         }
 
-        if ( $request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest()) {
             $resp = [
                 'code' => 200,
                 'data' => 'Ezabatua izan da'
@@ -184,8 +185,8 @@ class HutsakController extends AbstractController
      */
     public function print(Request $request, Hutsak $hutsak, Pdf $snappy): Response
     {
-        $html      = $this->renderView('hutsak/pdf.html.twig', ['hutsak'=>$hutsak]);
-        $filename  = sprintf('hutsak-%s.pdf', date('Y-m-d-hh-ss'));
+        $html     = $this->renderView('hutsak/pdf.html.twig', ['hutsak' => $hutsak]);
+        $filename = sprintf('hutsak-%s.pdf', date('Y-m-d-hh-ss'));
 
         return new Response(
             $snappy->getOutputFromHtml($html),

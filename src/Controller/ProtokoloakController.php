@@ -6,6 +6,7 @@ use App\Entity\Amp;
 use App\Entity\Liburuxka;
 use App\Entity\Protokoloak;
 use App\Form\ProtokoloakType;
+use App\Repository\LogRepository;
 use App\Repository\ProtokoloakRepository;
 use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
@@ -18,6 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+
 /**
  * @Route("/admin/protokoloak")
  */
@@ -26,24 +28,23 @@ class ProtokoloakController extends AbstractController
 
     /**
      * @Route("/", name="protokoloak_index", methods={"GET", "POST"})
-     * @param Request               $request
-     * @param PaginatorInterface    $paginator
-     * @param ProtokoloakRepository $protokoloakRepository
-     *
-     * @param SessionInterface      $session
-     *
-     * @param DbHelperService       $dbhelper
+     * @param Request                       $request
+     * @param PaginatorInterface            $paginator
+     * @param ProtokoloakRepository         $protokoloakRepository
+     * @param SessionInterface              $session
+     * @param DbHelperService               $dbhelper
+     * @param \App\Repository\LogRepository $logRepository
      *
      * @return Response
      */
     public function index(Request $request, PaginatorInterface $paginator,
-        ProtokoloakRepository $protokoloakRepository, SessionInterface $session,
-        DbHelperService $dbhelper): Response
+                          ProtokoloakRepository $protokoloakRepository, SessionInterface $session,
+                          DbHelperService $dbhelper, LogRepository $logRepository): Response
     {
 
-        $fields = $dbhelper->getAllEntityFields(Protokoloak::class);
-        $myFilters=$dbhelper->getFinderParams($request->query->get('form'));
-        $query = $dbhelper->performSearch('protokoloak',$myFilters, $fields);
+        $fields       = $dbhelper->getAllEntityFields(Protokoloak::class);
+        $myFilters    = $dbhelper->getFinderParams($request->query->get('form'));
+        $query        = $dbhelper->performSearch('protokoloak', $myFilters, $fields, $_SERVER['REQUEST_URI']);
         $protokoloaks = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -52,21 +53,22 @@ class ProtokoloakController extends AbstractController
 
         $myselection = $session->get('zertegi-selection');
         if ($myselection !== null) {
-            if (array_key_exists('protokoloak', $myselection))
-            {
-                $myselection = $myselection[ 'protokoloak' ];
+            if (array_key_exists('protokoloak', $myselection)) {
+                $myselection = $myselection['protokoloak'];
             }
         }
 
         $fields = $dbhelper->getAllEntityFields(Protokoloak::class);
+        $logs   = $logRepository->findBy([], ['id' => 'DESC'], 10);
 
         return $this->render(
             'protokoloak/index.html.twig',
             [
-                'protokoloaks'  => $protokoloaks,
-                'myselection'   => $myselection,
-                'fields'        => $fields,
-                'finderdata'    => $request->query->get('form')            ]
+                'logs'         => $logs,
+                'protokoloaks' => $protokoloaks,
+                'myselection'  => $myselection,
+                'fields'       => $fields,
+                'finderdata'   => $request->query->get('form')]
         );
     }
 
@@ -79,7 +81,7 @@ class ProtokoloakController extends AbstractController
     public function new(Request $request): Response
     {
         $protokoloak = new Protokoloak();
-        $form = $this->createForm(ProtokoloakType::class, $protokoloak);
+        $form        = $this->createForm(ProtokoloakType::class, $protokoloak);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -93,7 +95,7 @@ class ProtokoloakController extends AbstractController
 
         return $this->render('protokoloak/new.html.twig', [
             'protokoloak' => $protokoloak,
-            'form' => $form->createView(),
+            'form'        => $form->createView(),
         ]);
     }
 
@@ -133,7 +135,7 @@ class ProtokoloakController extends AbstractController
 
         return $this->render('protokoloak/edit.html.twig', [
             'protokoloak' => $protokoloak,
-            'form' => $form->createView(),
+            'form'        => $form->createView(),
         ]);
     }
 
@@ -146,22 +148,22 @@ class ProtokoloakController extends AbstractController
      */
     public function delete(Request $request, Protokoloak $protokoloak): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$protokoloak->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $protokoloak->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($protokoloak);
             $entityManager->flush();
-        } elseif ( $request->isXmlHttpRequest()) {
+        } elseif ($request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
-            $resp = [
+            $resp    = [
                 'code' => 500,
                 'data' => $message
             ];
-            return new JsonResponse($resp,500);
+            return new JsonResponse($resp, 500);
         } else {
             return $this->redirectToRoute('protokoloak_index');
         }
 
-        if ( $request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest()) {
             $resp = [
                 'code' => 200,
                 'data' => 'Ezabatua izan da'
@@ -174,17 +176,17 @@ class ProtokoloakController extends AbstractController
 
     /**
      * @Route("/print/{id}", name="protokoloak_print", methods={"GET", "POST" })
-     * @param Request $request
+     * @param Request     $request
      *
      * @param Protokoloak $protokoloak
-     * @param Pdf     $snappy
+     * @param Pdf         $snappy
      *
      * @return Response
      */
     public function print(Request $request, Protokoloak $protokoloak, Pdf $snappy): Response
     {
-        $html      = $this->renderView('protokoloak/pdf.html.twig', ['protokoloak'=>$protokoloak]);
-        $filename  = sprintf('protokoloak-%s.pdf', date('Y-m-d-hh-ss'));
+        $html     = $this->renderView('protokoloak/pdf.html.twig', ['protokoloak' => $protokoloak]);
+        $filename = sprintf('protokoloak-%s.pdf', date('Y-m-d-hh-ss'));
 
         return new Response(
             $snappy->getOutputFromHtml($html),

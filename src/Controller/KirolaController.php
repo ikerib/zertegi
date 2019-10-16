@@ -7,6 +7,7 @@ use App\Entity\Hutsak;
 use App\Entity\Kirola;
 use App\Form\KirolaType;
 use App\Repository\KirolaRepository;
+use App\Repository\LogRepository;
 use App\Service\DbHelperService;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
@@ -26,25 +27,24 @@ class KirolaController extends AbstractController
 
     /**
      * @Route("/", name="kirola_index", methods={"GET"})
-     * @param Request            $request
-     * @param PaginatorInterface $paginator
-     * @param KirolaRepository   $kirolaRepository
-     *
-     * @param SessionInterface   $session
-     *
-     * @param DbHelperService    $dbhelper
+     * @param Request                       $request
+     * @param PaginatorInterface            $paginator
+     * @param KirolaRepository              $kirolaRepository
+     * @param SessionInterface              $session
+     * @param DbHelperService               $dbhelper
+     * @param \App\Repository\LogRepository $logRepository
      *
      * @return Response
      */
     public function index(Request $request, PaginatorInterface $paginator,
-        KirolaRepository $kirolaRepository, SessionInterface $session,
-        DbHelperService $dbhelper
+                          KirolaRepository $kirolaRepository, SessionInterface $session,
+                          DbHelperService $dbhelper, LogRepository $logRepository
     ): Response
     {
-        $fields = $dbhelper->getAllEntityFields(Kirola::class);
+        $fields    = $dbhelper->getAllEntityFields(Kirola::class);
         $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
-        $query = $dbhelper->performSearch('kirola',$myFilters, $fields);
-        $kirolak = $paginator->paginate(
+        $query     = $dbhelper->performSearch('kirola', $myFilters, $fields, $_SERVER['REQUEST_URI']);
+        $kirolak   = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
             $request->query->getInt('limit', 10)/*limit per page*/
@@ -52,21 +52,22 @@ class KirolaController extends AbstractController
 
         $myselection = $session->get('zertegi-selection');
         if ($myselection !== null) {
-            if (array_key_exists('kirola', $myselection))
-            {
-                $myselection = $myselection[ 'kirola' ];
+            if (array_key_exists('kirola', $myselection)) {
+                $myselection = $myselection['kirola'];
             }
         }
 
         $fields = $dbhelper->getAllEntityFields(Kirola::class);
+        $logs   = $logRepository->findBy([], ['id' => 'DESC'], 10);
 
         return $this->render(
             'kirola/index.html.twig',
             [
-                'kirolak' => $kirolak,
+                'logs'        => $logs,
+                'kirolak'     => $kirolak,
                 'myselection' => $myselection,
-                'fields'    => $fields,
-                'finderdata'    => $request->query->get('form')            ]
+                'fields'      => $fields,
+                'finderdata'  => $request->query->get('form')]
         );
     }
 
@@ -79,7 +80,7 @@ class KirolaController extends AbstractController
     public function new(Request $request): Response
     {
         $kirola = new Kirola();
-        $form = $this->createForm(KirolaType::class, $kirola);
+        $form   = $this->createForm(KirolaType::class, $kirola);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -93,7 +94,7 @@ class KirolaController extends AbstractController
 
         return $this->render('kirola/new.html.twig', [
             'kirola' => $kirola,
-            'form' => $form->createView(),
+            'form'   => $form->createView(),
         ]);
     }
 
@@ -133,7 +134,7 @@ class KirolaController extends AbstractController
 
         return $this->render('kirola/edit.html.twig', [
             'kirola' => $kirola,
-            'form' => $form->createView(),
+            'form'   => $form->createView(),
         ]);
     }
 
@@ -146,22 +147,22 @@ class KirolaController extends AbstractController
      */
     public function delete(Request $request, Kirola $kirola): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$kirola->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $kirola->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($kirola);
             $entityManager->flush();
-        } elseif ( $request->isXmlHttpRequest()) {
+        } elseif ($request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
-            $resp = [
+            $resp    = [
                 'code' => 500,
                 'data' => $message
             ];
-            return new JsonResponse($resp,500);
+            return new JsonResponse($resp, 500);
         } else {
             return $this->redirectToRoute('kirola_index');
         }
 
-        if ( $request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest()) {
             $resp = [
                 'code' => 200,
                 'data' => 'Ezabatua izan da'
@@ -183,8 +184,8 @@ class KirolaController extends AbstractController
      */
     public function print(Request $request, Kirola $kirola, Pdf $snappy): Response
     {
-        $html      = $this->renderView('kirola/pdf.html.twig', ['kirola'=>$kirola]);
-        $filename  = sprintf('kirola-%s.pdf', date('Y-m-d-hh-ss'));
+        $html     = $this->renderView('kirola/pdf.html.twig', ['kirola' => $kirola]);
+        $filename = sprintf('kirola-%s.pdf', date('Y-m-d-hh-ss'));
 
         return new Response(
             $snappy->getOutputFromHtml($html),

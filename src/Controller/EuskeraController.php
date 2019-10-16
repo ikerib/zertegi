@@ -7,6 +7,7 @@ use App\Entity\Entradas;
 use App\Entity\Euskera;
 use App\Form\EuskeraType;
 use App\Repository\EuskeraRepository;
+use App\Repository\LogRepository;
 use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
@@ -18,6 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+
 /**
  * @Route("/admin/euskera")
  */
@@ -26,24 +28,23 @@ class EuskeraController extends AbstractController
 
     /**
      * @Route("/", name="euskera_index", methods={"GET"})
-     * @param Request            $request
-     * @param PaginatorInterface $paginator
-     * @param EuskeraRepository  $euskeraRepository
-     *
-     * @param SessionInterface   $session
-     *
-     * @param DbHelperService    $dbhelper
+     * @param Request                       $request
+     * @param PaginatorInterface            $paginator
+     * @param EuskeraRepository             $euskeraRepository
+     * @param SessionInterface              $session
+     * @param DbHelperService               $dbhelper
+     * @param \App\Repository\LogRepository $logRepository
      *
      * @return Response
      */
     public function index(Request $request, PaginatorInterface $paginator,
-        EuskeraRepository $euskeraRepository, SessionInterface $session,
-        DbHelperService $dbhelper): Response
+                          EuskeraRepository $euskeraRepository, SessionInterface $session,
+                          DbHelperService $dbhelper, LogRepository $logRepository): Response
     {
-        $fields = $dbhelper->getAllEntityFields(Euskera::class);
+        $fields    = $dbhelper->getAllEntityFields(Euskera::class);
         $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
-        $query = $dbhelper->performSearch('euskera',$myFilters, $fields);
-        $euskeras = $paginator->paginate(
+        $query     = $dbhelper->performSearch('euskera', $myFilters, $fields, $_SERVER['REQUEST_URI']);
+        $euskeras  = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
             $request->query->getInt('limit', 10)/*limit per page*/
@@ -51,19 +52,20 @@ class EuskeraController extends AbstractController
 
         $myselection = $session->get('zertegi-selection');
         if ($myselection !== null) {
-            if (array_key_exists('euskera', $myselection))
-            {
-                $myselection = $myselection[ 'euskera' ];
+            if (array_key_exists('euskera', $myselection)) {
+                $myselection = $myselection['euskera'];
             }
         }
+        $logs = $logRepository->findBy([], ['id' => 'DESC'], 10);
 
         return $this->render(
             'euskera/index.html.twig',
             [
-                'euskeras' => $euskeras,
+                'logs'        => $logs,
+                'euskeras'    => $euskeras,
                 'myselection' => $myselection,
-                'fields'    => $fields,
-                'finderdata'    => $request->query->get('form')            ]
+                'fields'      => $fields,
+                'finderdata'  => $request->query->get('form')]
         );
     }
 
@@ -76,7 +78,7 @@ class EuskeraController extends AbstractController
     public function new(Request $request): Response
     {
         $euskera = new Euskera();
-        $form = $this->createForm(EuskeraType::class, $euskera);
+        $form    = $this->createForm(EuskeraType::class, $euskera);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -90,7 +92,7 @@ class EuskeraController extends AbstractController
 
         return $this->render('euskera/new.html.twig', [
             'euskera' => $euskera,
-            'form' => $form->createView(),
+            'form'    => $form->createView(),
         ]);
     }
 
@@ -130,7 +132,7 @@ class EuskeraController extends AbstractController
 
         return $this->render('euskera/edit.html.twig', [
             'euskera' => $euskera,
-            'form' => $form->createView(),
+            'form'    => $form->createView(),
         ]);
     }
 
@@ -143,22 +145,22 @@ class EuskeraController extends AbstractController
      */
     public function delete(Request $request, Euskera $euskera): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$euskera->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $euskera->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($euskera);
             $entityManager->flush();
-        } elseif ( $request->isXmlHttpRequest()) {
+        } elseif ($request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
-            $resp = [
+            $resp    = [
                 'code' => 500,
                 'data' => $message
             ];
-            return new JsonResponse($resp,500);
+            return new JsonResponse($resp, 500);
         } else {
             return $this->redirectToRoute('euskera_index');
         }
 
-        if ( $request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest()) {
             $resp = [
                 'code' => 200,
                 'data' => 'Ezabatua izan da'
@@ -180,8 +182,8 @@ class EuskeraController extends AbstractController
      */
     public function print(Request $request, Euskera $euskera, Pdf $snappy): Response
     {
-        $html      = $this->renderView('euskera/pdf.html.twig', [ 'euskera' => $euskera ]);
-        $filename  = sprintf('euskera-%s.pdf', date('Y-m-d-hh-ss'));
+        $html     = $this->renderView('euskera/pdf.html.twig', ['euskera' => $euskera]);
+        $filename = sprintf('euskera-%s.pdf', date('Y-m-d-hh-ss'));
 
         return new Response(
             $snappy->getOutputFromHtml($html),

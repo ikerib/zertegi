@@ -6,6 +6,7 @@ use App\Entity\Amp;
 use App\Entity\Consultas;
 use App\Form\ConsultasType;
 use App\Repository\ConsultasRepository;
+use App\Repository\LogRepository;
 use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
@@ -21,17 +22,17 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/consultas")
  */
-class ConsultasController extends AbstractController {
+class ConsultasController extends AbstractController
+{
 
     /**
      * @Route("/", name="consultas_index", methods={"GET", "POST"})
-     * @param Request             $request
-     * @param PaginatorInterface  $paginator
-     * @param ConsultasRepository $consultasRepository
-     *
-     * @param SessionInterface    $session
-     *
-     * @param DbHelperService     $dbhelper
+     * @param Request                       $request
+     * @param PaginatorInterface            $paginator
+     * @param ConsultasRepository           $consultasRepository
+     * @param \App\Repository\LogRepository $logRepository
+     * @param SessionInterface              $session
+     * @param DbHelperService               $dbhelper
      *
      * @return Response
      */
@@ -39,12 +40,14 @@ class ConsultasController extends AbstractController {
         Request $request,
         PaginatorInterface $paginator,
         ConsultasRepository $consultasRepository,
+        LogRepository $logRepository,
         SessionInterface $session,
         DbHelperService $dbhelper
-    ): Response {
-        $fields = $dbhelper->getAllEntityFields(Consultas::class);
+    ): Response
+    {
+        $fields    = $dbhelper->getAllEntityFields(Consultas::class);
         $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
-        $query = $dbhelper->performSearch('consultas',$myFilters, $fields);
+        $query     = $dbhelper->performSearch('consultas', $myFilters, $fields, $_SERVER['REQUEST_URI']);
         $consultas = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -52,21 +55,21 @@ class ConsultasController extends AbstractController {
         );
 
         $myselection = $session->get('zertegi-selection');
-        if ($myselection !== null)
-        {
-            if (array_key_exists('consultas', $myselection))
-            {
-                $myselection = $myselection[ 'consultas' ];
+        if ($myselection !== null) {
+            if (array_key_exists('consultas', $myselection)) {
+                $myselection = $myselection['consultas'];
             }
         }
+        $logs = $logRepository->findBy([], ['id' => 'DESC'], 10);
 
         return $this->render(
             'consultas/index.html.twig',
             [
+                'logs'        => $logs,
                 'consultas'   => $consultas,
                 'myselection' => $myselection,
                 'fields'      => $fields,
-                'finderdata'    => $request->query->get('form')            ]
+                'finderdata'  => $request->query->get('form')]
         );
     }
 
@@ -82,8 +85,7 @@ class ConsultasController extends AbstractController {
         $form     = $this->createForm(ConsultasType::class, $consulta);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($consulta);
             $entityManager->flush();
@@ -130,8 +132,7 @@ class ConsultasController extends AbstractController {
         $form = $this->createForm(ConsultasType::class, $consulta);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'Aldaketak ongi gorde dira.');
@@ -162,13 +163,11 @@ class ConsultasController extends AbstractController {
      */
     public function delete(Request $request, Consultas $consulta): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$consulta->getId(), $request->request->get('_token')))
-        {
+        if ($this->isCsrfTokenValid('delete' . $consulta->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($consulta);
             $entityManager->flush();
-        } elseif ($request->isXmlHttpRequest())
-        {
+        } elseif ($request->isXmlHttpRequest()) {
             $message = 'CSRF token error';
             $resp    = [
                 'code' => 500,
@@ -176,13 +175,11 @@ class ConsultasController extends AbstractController {
             ];
 
             return new JsonResponse($resp, 500);
-        } else
-        {
+        } else {
             return $this->redirectToRoute('consultas_index');
         }
 
-        if ($request->isXmlHttpRequest())
-        {
+        if ($request->isXmlHttpRequest()) {
             $resp = [
                 'code' => 200,
                 'data' => 'Ezabatua izan da',
@@ -205,8 +202,8 @@ class ConsultasController extends AbstractController {
      */
     public function print(Request $request, Consultas $consulta, Pdf $snappy): Response
     {
-        $html      = $this->renderView('consultas/pdf.html.twig', ['consulta' => $consulta]);
-        $filename  = sprintf('consulta-%s.pdf', date('Y-m-d-hh-ss'));
+        $html     = $this->renderView('consultas/pdf.html.twig', ['consulta' => $consulta]);
+        $filename = sprintf('consulta-%s.pdf', date('Y-m-d-hh-ss'));
 
         return new Response(
             $snappy->getOutputFromHtml($html),

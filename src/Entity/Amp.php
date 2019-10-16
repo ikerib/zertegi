@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AmpRepository")
@@ -50,6 +51,19 @@ class Amp
      * @ORM\Column(type="text", nullable=true)
      */
     private $knosysid;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $created;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updated;
+
 
     public function getId(): ?int
     {
@@ -136,6 +150,42 @@ class Amp
     public function setKnosysid(?string $knosysid): self
     {
         $this->knosysid = $knosysid;
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(\DateTimeInterface $created): self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?\DateTimeInterface
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(\DateTimeInterface $updated): self
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    public function getContentChangedBy(): ?string
+    {
+        return $this->contentChangedBy;
+    }
+
+    public function setContentChangedBy(?string $contentChangedBy): self
+    {
+        $this->contentChangedBy = $contentChangedBy;
 
         return $this;
     }

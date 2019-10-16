@@ -6,6 +6,7 @@ use App\Entity\Amp;
 use App\Entity\Ciriza;
 use App\Form\CirizaType;
 use App\Repository\CirizaRepository;
+use App\Repository\LogRepository;
 use App\Service\DbHelperService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
@@ -25,13 +26,14 @@ class CirizaController extends AbstractController {
 
     /**
      * @Route("/", name="ciriza_index", methods={"GET", "POST"})
-     * @param Request            $request
-     * @param PaginatorInterface $paginator
-     * @param CirizaRepository   $cirizaRepository
+     * @param Request                       $request
+     * @param PaginatorInterface            $paginator
+     * @param CirizaRepository              $cirizaRepository
      *
-     * @param SessionInterface   $session
+     * @param \App\Repository\LogRepository $logRepository
+     * @param SessionInterface              $session
      *
-     * @param DbHelperService    $dbhelper
+     * @param DbHelperService               $dbhelper
      *
      * @return Response
      */
@@ -39,6 +41,7 @@ class CirizaController extends AbstractController {
         Request $request,
         PaginatorInterface $paginator,
         CirizaRepository $cirizaRepository,
+        LogRepository $logRepository,
         SessionInterface $session,
         DbHelperService $dbhelper
     ): Response {
@@ -60,10 +63,11 @@ class CirizaController extends AbstractController {
                 $myselection = $myselection[ 'ciriza' ];
             }
         }
-
+        $logs = $logRepository->findBy([],['id'=>'DESC'],10);
         return $this->render(
             'ciriza/index.html.twig',
             [
+                'logs'      => $logs,
                 'cirizas'     => $cirizas,
                 'myselection' => $myselection,
                 'fields'      => $fields,

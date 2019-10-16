@@ -4,11 +4,14 @@
 namespace App\Service;
 
 
+use App\Entity\Log;
+use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Ldap\Adapter\ConnectionInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 class DbHelperService {
@@ -29,13 +32,18 @@ class DbHelperService {
      * @var ConnectionInterface
      */
     private $connection;
+    /**
+     * @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface
+     */
+    private $urlGenerator;
 
-    public function __construct(EntityManagerInterface $em, FormFactoryInterface $formFactory, RouterInterface $router, Connection $connection)
+    public function __construct(EntityManagerInterface $em, FormFactoryInterface $formFactory, RouterInterface $router, Connection $connection, UrlGeneratorInterface $urlGenerator)
     {
         $this->em          = $em;
         $this->formFactory = $formFactory;
         $this->router      = $router;
         $this->connection  = $connection;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function getAllTables()
@@ -110,7 +118,7 @@ class DbHelperService {
         return $form->getForm()->createView();
     }
 
-    public function performSearch($entityName, $query, $fields): array
+    public function performSearch($entityName, $query, $fields, $uri): array
     {
         /* if no $query params do basic select */
         $SQL = 'SELECT * FROM '.$entityName;
@@ -165,7 +173,18 @@ class DbHelperService {
             }
         }
 
+        if ( $query) {
+            /** @var Log $log */
+            $log = new Log();
+            $log->setTabla($entityName);
+            $log->setDescription(json_encode($query));
+            $log->setUrl($uri);
+            $this->em->persist($log);
+            $this->em->flush();
+        }
+
         $conn = $this->em->getConnection();
+
         $stmt = $conn->prepare($SQL);
         $stmt->execute();
 

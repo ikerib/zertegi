@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Amp;
 use App\Form\AmpType;
 use App\Repository\AmpRepository;
+use App\Repository\LogRepository;
 use App\Service\DbHelperService;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
@@ -25,23 +26,24 @@ class AmpController extends AbstractController {
 
     /**
      * @Route("/", name="amp_index", methods={"GET", "POST"})
-     * @param Request            $request
-     * @param AmpRepository      $ampRepository
-     * @param PaginatorInterface $paginator
-     * @param SessionInterface   $session
-     *
-     * @param DbHelperService    $dbhelper
+     * @param Request                       $request
+     * @param AmpRepository                 $ampRepository
+     * @param PaginatorInterface            $paginator
+     * @param SessionInterface              $session
+     * @param DbHelperService               $dbhelper
+     * @param \App\Repository\LogRepository $logRepository
      *
      * @return Response
      */
     public function index(Request $request, AmpRepository $ampRepository,
         PaginatorInterface $paginator,
         SessionInterface $session,
-        DbHelperService $dbhelper): Response
+        DbHelperService $dbhelper,
+        LogRepository $logRepository): Response
     {
         $fields = $dbhelper->getAllEntityFields(Amp::class);
         $myFilters=$dbhelper->getFinderParams($request->query->get('form'));
-        $query = $dbhelper->performSearch('amp',$myFilters, $fields);
+        $query = $dbhelper->performSearch('amp',$myFilters, $fields, $_SERVER['REQUEST_URI']);
         $amps = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -54,10 +56,13 @@ class AmpController extends AbstractController {
         {
             $myselection = $myselection[ 'amp' ];
         }
+        $logs = $logRepository->findBy([],['id'=>'DESC'],10);
+
 
         return $this->render(
             'amp/index.html.twig',
             [
+                'logs'      => $logs,
                 'amps'        => $amps,
                 'fields'      => $fields,
                 'myselection' => $myselection,
@@ -65,7 +70,6 @@ class AmpController extends AbstractController {
             ]
         );
     }
-
 
     /**
      * @Route("/new", name="amp_new", methods={"GET","POST"})
@@ -207,7 +211,6 @@ class AmpController extends AbstractController {
                     ->setMethod($method)
                     ->getForm();
     }
-
 
     /**
      * @Route("/print/{id}", name="amp_print", methods={"GET", "POST" })

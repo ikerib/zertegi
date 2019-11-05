@@ -125,6 +125,25 @@ class AmpController extends AbstractController
         );
     }
 
+    /**
+     * @Route("/{id}/apli/{num}", name="amp_apli", methods={"GET"})
+     * @param Amp $amp
+     *
+     * @param     $num
+     *
+     * @return Response
+     */
+    public function apli(Amp $amp, $num): Response
+    {
+        return $this->render(
+            'amp/apli.html.twig',
+            [
+                'amp' => $amp,
+                'num' => $num
+            ]
+        );
+    }
+
 
     /**
      * @Route("/{id}/edit", name="amp_edit", methods={"GET","POST"})

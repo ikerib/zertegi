@@ -27,6 +27,7 @@ Encore
     .addStyleEntry('cssApp', './assets/css/app.scss')
     .addStyleEntry('cssLogin', './assets/css/login.scss')
     .addStyleEntry('cssAdminLTE', './assets/css/AdminLTE.css')
+    .addStyleEntry('cssApli', './assets/css/apli.scss')
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 

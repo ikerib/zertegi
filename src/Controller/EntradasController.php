@@ -122,6 +122,24 @@ class EntradasController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/apli/{num}", name="entradas_apli", methods={"GET"})
+     * @param Entradas $entradas
+     *
+     * @param     $num
+     *
+     * @return Response
+     */
+    public function apli(Entradas $entradas, $num): Response
+    {
+        return $this->render('entradas/apli.html.twig',
+                             [
+                                 'entradas' => $entradas,
+                                 'num' => $num
+                             ]
+        );
+    }
+
+    /**
      * @Route("/{id}/edit", name="entradas_edit", methods={"GET","POST"})
      * @param Request  $request
      * @param Entradas $entrada

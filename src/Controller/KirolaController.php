@@ -112,6 +112,24 @@ class KirolaController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/apli/{num}", name="kirola_apli", methods={"GET"})
+     * @param Kirola $kirola
+     *
+     * @param     $num
+     *
+     * @return Response
+     */
+    public function apli(Kirola $kirola, $num): Response
+    {
+        return $this->render('kirola/apli.html.twig',
+                             [
+                                 'kirola' => $kirola,
+                                 'num' => $num
+                             ]
+        );
+    }
+
+    /**
      * @Route("/{id}/edit", name="kirola_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Kirola  $kirola

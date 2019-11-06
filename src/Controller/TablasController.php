@@ -123,6 +123,25 @@ class TablasController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/apli/{num}", name="tablas_apli", methods={"GET"})
+     * @param Tablas $tabla
+     *
+     * @param     $num
+     *
+     * @return Response
+     */
+    public function apli(Tablas $tabla, $num): Response
+    {
+        return $this->render('tablas/apli.html.twig',
+                             [
+                                 'tabla' => $tabla,
+                                 'num' => $num
+                             ]
+        );
+    }
+
+
+    /**
      * @Route("/{id}/edit", name="tablas_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Tablas  $tabla

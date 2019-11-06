@@ -109,6 +109,24 @@ class PendientesController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/apli/{num}", name="pendientes_apli", methods={"GET"})
+     * @param Pendientes $pendiente
+     *
+     * @param     $num
+     *
+     * @return Response
+     */
+    public function apli(Pendientes $pendiente, $num): Response
+    {
+        return $this->render('pendientes/apli.html.twig',
+                             [
+                                 'pendiente' => $pendiente,
+                                 'num' => $num
+                             ]
+        );
+    }
+
+    /**
      * @Route("/{id}/edit", name="pendientes_edit", methods={"GET","POST"})
      * @param Request    $request
      * @param Pendientes $pendiente

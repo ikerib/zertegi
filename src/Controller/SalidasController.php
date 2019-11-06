@@ -109,6 +109,24 @@ class SalidasController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/apli/{num}", name="salidas_apli", methods={"GET"})
+     * @param Salidas $salida
+     *
+     * @param     $num
+     *
+     * @return Response
+     */
+    public function apli(Salidas $salida, $num): Response
+    {
+        return $this->render('salidas/apli.html.twig',
+                             [
+                                 'salida' => $salida,
+                                 'num' => $num
+                             ]
+        );
+    }
+
+    /**
      * @Route("/{id}/edit", name="salidas_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Salidas $salida

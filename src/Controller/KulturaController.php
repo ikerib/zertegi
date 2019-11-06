@@ -124,6 +124,24 @@ class KulturaController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/apli/{num}", name="kultura_apli", methods={"GET"})
+     * @param Kultura $kultura
+     *
+     * @param     $num
+     *
+     * @return Response
+     */
+    public function apli(Kultura $kultura, $num): Response
+    {
+        return $this->render('kultura/apli.html.twig',
+                             [
+                                 'kultura' => $kultura,
+                                 'num' => $num
+                             ]
+        );
+    }
+
+    /**
      * @Route("/{id}/edit", name="kultura_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Kultura $kultura

@@ -19,6 +19,9 @@
                         <a class="btn btn-sm btn-primary" href="{{ path('consultas_edit', {'id': consulta.id}) }}"><i class="fas fa-edit"></i> Aldatu</a>
                         <a class="btn btn-sm btn-default" href="{{ path('consultas_index') }}"><i class="fa fa-fw fa-arrow-alt-circle-left" aria-hidden="true"></i> {{ 'Zerrendara itzuli' | trans }}</a>
                         <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+                                Etiketa inprimatu
+                            </button>
                             <a id="btnPrint" class="btn btn-sm btn-default" href="{{ path('consultas_print', {'id': consulta.id}) }}"><i class="fa fa-fw fa-print"></i> {{ "Inprimitu" | trans }}</a>
                         </div>
                     </div>
@@ -54,6 +57,8 @@
             </div>
         </div>
     </div>
+
+    {{ include('consultas/_apli_modal.html.twig') }}
 
 {% endblock %}
 {% block javascripts %}

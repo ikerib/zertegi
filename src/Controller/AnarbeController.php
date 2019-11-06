@@ -110,6 +110,25 @@ class AnarbeController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/apli/{num}", name="anarbe_apli", methods={"GET"})
+     * @param Anarbe $anarbe
+     *
+     * @param     $num
+     *
+     * @return Response
+     */
+    public function apli(Anarbe $anarbe, $num): Response
+    {
+        return $this->render(
+            'anarbe/apli.html.twig',
+            [
+                'anarbe' => $anarbe,
+                'num' => $num
+            ]
+        );
+    }
+
+    /**
      * @Route("/{id}/edit", name="anarbe_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Anarbe  $anarbe

@@ -113,6 +113,24 @@ class KontratazioaController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/apli/{num}", name="kontratazioa_apli", methods={"GET"})
+     * @param Kontratazioa $kontratazioa
+     *
+     * @param     $num
+     *
+     * @return Response
+     */
+    public function apli(Kontratazioa $kontratazioa, $num): Response
+    {
+        return $this->render('kontratazioa/apli.html.twig',
+                             [
+                                 'kontratazioa' => $kontratazioa,
+                                 'num' => $num
+                             ]
+        );
+    }
+
+    /**
      * @Route("/{id}/edit", name="kontratazioa_edit", methods={"GET","POST"})
      * @param Request      $request
      * @param Kontratazioa $kontratazioa

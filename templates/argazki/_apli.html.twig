@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Argazki{% endblock %}
+{% block header %}Argazki{% endblock %}
+{% block header_desc %}{{ argazki.id }} ikusten{% endblock %}
+{% block breadcrumbs %}
+    <li class="active">Argazki</li>
+    <li class="active">Ikusi</li>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+
+        <div class="col-xs-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <div class="box-tools box-tools-left" data-toggle="tooltip" title="" data-original-title="Status">
+                        <a class="btn btn-sm btn-primary" href="{{ path('argazki_edit', {'id': argazki.id}) }}"><i class="fas fa-edit"></i> Aldatu</a>
+                        <a class="btn btn-sm btn-default" href="{{ path('argazki_index') }}"><i class="fa fa-fw fa-arrow-alt-circle-left" aria-hidden="true"></i> {{ 'Zerrendara itzuli' | trans }}</a>
+                        <div class="box-tools pull-right">
+                            <a id="btnPrint" class="btn btn-sm btn-default" href="{{ path('argazki_print', {'id': argazki.id}) }}"><i class="fa fa-fw fa-print"></i> {{ "Inprimitu" | trans }}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">&nbsp;</div>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Deskribapena</th>
+                            <td>{{ argazki.deskribapena | raw  }}</td>
+                        </tr>
+                        <tr>
+                            <th>Barrutia</th>
+                            <td>{{ argazki.barrutia | raw  }}</td>
+                        </tr>
+                        <tr>
+                            <th>Fecha</th>
+                            <td>{{ argazki.fecha }}</td>
+                        </tr>
+                        <tr>
+                            <th>Gaia</th>
+                            <td>{{ argazki.gaia  | raw }}</td>
+                        </tr>
+                        <tr>
+                            <th>Neurria</th>
+                            <td>{{ argazki.neurria | raw  }}</td>
+                        </tr>
+                        <tr>
+                            <th>Kolorea</th>
+                            <td>{{ argazki.kolorea }}</td>
+                        </tr>
+                        <tr>
+                            <th>Zenbakia</th>
+                            <td>{{ argazki.zenbakia }}</td>
+                        </tr>
+                        <tr>
+                            <th>Oharrak</th>
+                            <td>{{ argazki.oharrak | raw  }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('jsDeleteForm') }}
+{% endblock %}

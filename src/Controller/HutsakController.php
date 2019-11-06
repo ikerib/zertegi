@@ -113,6 +113,24 @@ class HutsakController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/apli/{num}", name="hutsak_apli", methods={"GET"})
+     * @param Hutsak $hutsak
+     *
+     * @param     $num
+     *
+     * @return Response
+     */
+    public function apli(Hutsak $hutsak, $num): Response
+    {
+        return $this->render('hutsak/apli.html.twig',
+                             [
+                                 'hutsak' => $hutsak,
+                                 'num' => $num
+                             ]
+        );
+    }
+
+    /**
      * @Route("/{id}/edit", name="hutsak_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Hutsak  $hutsak

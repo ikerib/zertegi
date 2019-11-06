@@ -126,6 +126,24 @@ class LiburuxkaController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/apli/{num}", name="liburuxka_apli", methods={"GET"})
+     * @param Liburuxka $liburuxka
+     *
+     * @param     $num
+     *
+     * @return Response
+     */
+    public function apli(Liburuxka $liburuxka, $num): Response
+    {
+        return $this->render('liburuxka/apli.html.twig',
+                             [
+                                 'liburuxka' => $liburuxka,
+                                 'num' => $num
+                             ]
+        );
+    }
+
+    /**
      * @Route("/{id}/edit", name="liburuxka_edit", methods={"GET","POST"})
      * @param Request   $request
      * @param Liburuxka $liburuxka

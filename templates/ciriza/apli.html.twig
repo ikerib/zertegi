@@ -3,18 +3,19 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style media="screen,print">
-        @page  {
+        @page {
             size: auto;
             margin: 0mm;
             font-size: 10px;
         }
-        body
-        {
-            background-color:#FFFFFF;
-            border: solid 1px black ;
+
+        body {
+            background-color: #FFFFFF;
+            border: solid 1px black;
             font-size: 10px;
-            margin: 0;  /* this affects the margin on the content before sending to printer */
+            margin: 0; /* this affects the margin on the content before sending to printer */
         }
+
         * {
             box-sizing: border-box;
         }
@@ -38,36 +39,36 @@
 <div class="row">
     <div class="column">
         {% if num == "1" %}
-            {{ include('amp/_apli.html.twig', {'id': amp.id}) }}
+            {{ include('ciriza/_apli.html.twig', {'id': ciriza.id}) }}
         {% endif %}
     </div>
     <div class="column">
         {% if num == "2" %}
-            {{ include('amp/_apli.html.twig', {'id': amp.id}) }}
+            {{ include('ciriza/_apli.html.twig', {'id': ciriza.id}) }}
         {% endif %}
     </div>
 </div>
 <div class="row">
     <div class="column">
         {% if num == "3" %}
-            {{ include('amp/_apli.html.twig', {'id': amp.id}) }}
+            {{ include('ciriza/_apli.html.twig', {'id': ciriza.id}) }}
         {% endif %}
     </div>
     <div class="column">
         {% if num == "4" %}
-            {{ include('amp/_apli.html.twig', {'id': amp.id}) }}
+            {{ include('ciriza/_apli.html.twig', {'id': ciriza.id}) }}
         {% endif %}
     </div>
 </div>
 <div class="row">
     <div class="column">
         {% if num == "5" %}
-            {{ include('amp/_apli.html.twig', {'id': amp.id}) }}
+            {{ include('ciriza/_apli.html.twig', {'id': ciriza.id}) }}
         {% endif %}
     </div>
     <div class="column">
         {% if num == "6" %}
-            {{ include('amp/_apli.html.twig', {'id': amp.id}) }}
+            {{ include('ciriza/_apli.html.twig', {'id': ciriza.id}) }}
         {% endif %}
     </div>
 </div>
@@ -75,16 +76,15 @@
 <div class="row">
     <div class="column">
         {% if num == "7" %}
-            {{ include('amp/_apli.html.twig', {'id': amp.id}) }}
+            {{ include('ciriza/_apli.html.twig', {'id': ciriza.id}) }}
         {% endif %}
     </div>
     <div class="column">
         {% if num == "8" %}
-            {{ include('amp/_apli.html.twig', {'id': amp.id}) }}
+            {{ include('ciriza/_apli.html.twig', {'id': ciriza.id}) }}
         {% endif %}
     </div>
 </div>
-
 
 
 </body>

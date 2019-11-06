@@ -121,6 +121,24 @@ class ConsultasController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/apli/{num}", name="consultas_apli", methods={"GET"})
+     * @param Consultas $consulta
+     *
+     * @param     $num
+     *
+     * @return Response
+     */
+    public function apli(Consultas $consulta, $num): Response
+    {
+        return $this->render('consultas/apli.html.twig',
+            [
+                'consulta' => $consulta,
+                'num' => $num
+            ]
+        );
+    }
+
+    /**
      * @Route("/{id}/edit", name="consultas_edit", methods={"GET","POST"})
      * @param Request   $request
      * @param Consultas $consulta

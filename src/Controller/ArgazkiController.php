@@ -123,6 +123,25 @@ class ArgazkiController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/apli/{num}", name="argazki_apli", methods={"GET"})
+     * @param Argazki $argazki
+     *
+     * @param     $num
+     *
+     * @return Response
+     */
+    public function apli(Argazki $argazki, $num): Response
+    {
+        return $this->render(
+            'argazki/apli.html.twig',
+            [
+                'argazki' => $argazki,
+                'num' => $num
+            ]
+        );
+    }
+
+    /**
      * @Route("/{id}/edit", name="argazki_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Argazki $argazki

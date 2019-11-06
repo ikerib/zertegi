@@ -2,14 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Amp;
 use App\Entity\Ciriza;
 use App\Form\CirizaType;
 use App\Repository\CirizaRepository;
 use App\Repository\LogRepository;
 use App\Service\DbHelperService;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -47,7 +44,7 @@ class CirizaController extends AbstractController {
     ): Response {
         $fields = $dbhelper->getAllEntityFields(Ciriza::class);
         $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
-        $query = $dbhelper->performSearch('ciriza',$myFilters, $fields);
+        $query = $dbhelper->performSearch('ciriza',$myFilters, $fields, $_SERVER['REQUEST_URI']);
 
         $cirizas = $paginator->paginate(
             $query, /* query NOT result */
@@ -119,6 +116,25 @@ class CirizaController extends AbstractController {
             'ciriza/show.html.twig',
             [
                 'ciriza' => $ciriza,
+            ]
+        );
+    }
+
+    /**
+     * @Route("/{id}/apli/{num}", name="ciriza_apli", methods={"GET"})
+     * @param Ciriza $ciriza
+     *
+     * @param     $num
+     *
+     * @return Response
+     */
+    public function apli(Ciriza $ciriza, $num): Response
+    {
+        return $this->render(
+            'ciriza/apli.html.twig',
+            [
+                'ciriza' => $ciriza,
+                'num' => $num
             ]
         );
     }

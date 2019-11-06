@@ -114,6 +114,24 @@ class ObratxikiakController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/apli/{num}", name="obratxikiak_apli", methods={"GET"})
+     * @param Obratxikiak $obratxikiak
+     *
+     * @param     $num
+     *
+     * @return Response
+     */
+    public function apli(Obratxikiak $obratxikiak, $num): Response
+    {
+        return $this->render('obratxikiak/apli.html.twig',
+                             [
+                                 'obratxikiak' => $obratxikiak,
+                                 'num' => $num
+                             ]
+        );
+    }
+
+    /**
      * @Route("/{id}/edit", name="obratxikiak_edit", methods={"GET","POST"})
      * @param Request     $request
      * @param Obratxikiak $obratxikiak

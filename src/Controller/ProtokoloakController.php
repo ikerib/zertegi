@@ -113,6 +113,24 @@ class ProtokoloakController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/apli/{num}", name="protokoloak_apli", methods={"GET"})
+     * @param Protokoloak $protokoloak
+     *
+     * @param     $num
+     *
+     * @return Response
+     */
+    public function apli(Protokoloak $protokoloak, $num): Response
+    {
+        return $this->render('protokoloak/apli.html.twig',
+                             [
+                                 'protokoloak' => $protokoloak,
+                                 'num' => $num
+                             ]
+        );
+    }
+
+    /**
      * @Route("/{id}/edit", name="protokoloak_edit", methods={"GET","POST"})
      * @param Request     $request
      * @param Protokoloak $protokoloak

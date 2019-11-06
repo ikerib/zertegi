@@ -110,6 +110,24 @@ class EuskeraController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/apli/{num}", name="euskera_apli", methods={"GET"})
+     * @param Euskera $euskera
+     *
+     * @param     $num
+     *
+     * @return Response
+     */
+    public function apli(Euskera $euskera, $num): Response
+    {
+        return $this->render('euskera/apli.html.twig',
+                             [
+                                 'euskera' => $euskera,
+                                 'num' => $num
+                             ]
+        );
+    }
+
+    /**
      * @Route("/{id}/edit", name="euskera_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Euskera $euskera

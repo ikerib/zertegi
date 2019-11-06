@@ -110,6 +110,24 @@ class GazteriaController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/apli/{num}", name="gazteria_apli", methods={"GET"})
+     * @param Gazteria $gazterium
+     *
+     * @param     $num
+     *
+     * @return Response
+     */
+    public function apli(Gazteria $gazterium, $num): Response
+    {
+        return $this->render('gazteria/apli.html.twig',
+                             [
+                                 'gazterium' => $gazterium,
+                                 'num' => $num
+                             ]
+        );
+    }
+
+    /**
      * @Route("/{id}/edit", name="gazteria_edit", methods={"GET","POST"})
      * @param Request  $request
      * @param Gazteria $gazterium

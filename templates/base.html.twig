@@ -56,10 +56,12 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Datu Baseak <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu" id>
                         {% set dbs = bilatzailea.getAllTables %}
+                        {{ dump(dbs) }}
                         {% for db in dbs %}
-                            {% if not (db.table_name starts with "log")  %}
-                                <li><a href="{{ path(db.table_name ~ '_index') }}">{{ db.table_name| capitalize  }}</a></li>
-                            {% endif %}
+                            {{ dump(db) }}
+{#                            {% if not (db.table_name starts with "log")  %}#}
+{#                                <li><a href="{{ path(db.table_name ~ '_index') }}">{{ db.table_name| capitalize  }}</a></li>#}
+{#                            {% endif %}#}
                         {% endfor %}
                     </ul>
                 </li>

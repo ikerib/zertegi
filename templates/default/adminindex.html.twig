@@ -17,20 +17,20 @@
                 <div class="box-body">
                     {% for table in tables %}
 
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <a href="{{ "/" ~ app.request.locale ~ "/admin/" ~ table.table_name }}">
-                                <div class="info-box">
-                                    <span class="info-box-icon bg-aqua"></span>
+{#                        <div class="col-md-3 col-sm-6 col-xs-12">#}
+{#                            <a href="{{ "/" ~ app.request.locale ~ "/admin/" ~ table.table_name }}">#}
+{#                                <div class="info-box">#}
+{#                                    <span class="info-box-icon bg-aqua"></span>#}
 
-                                    <div class="info-box-content">
-                                        <span class="info-box-text">{{ table.table_name }}</span>
-                                        <span class="info-box-number">{{ table.table_rows |number_format(0, ',', '.') }}</span>
-                                    </div>
-                                    <!-- /.info-box-content -->
-                                </div>
-                            </a>
-                            <!-- /.info-box -->
-                        </div><!-- col-md-3 col-sm-6 col-xs-12 -->
+{#                                    <div class="info-box-content">#}
+{#                                        <span class="info-box-text">{{ table.table_name }}</span>#}
+{#                                        <span class="info-box-number">{{ table.table_rows |number_format(0, ',', '.') }}</span>#}
+{#                                    </div>#}
+{#                                    <!-- /.info-box-content -->#}
+{#                                </div>#}
+{#                            </a>#}
+{#                            <!-- /.info-box -->#}
+{#                        </div><!-- col-md-3 col-sm-6 col-xs-12 -->#}
 
                     {% endfor %}
                 </div>

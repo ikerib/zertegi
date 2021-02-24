@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Ciriza;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Ciriza|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,11 +15,11 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class CirizaRepository extends ServiceEntityRepository
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Ciriza::class);
     }
-
+    
     public function getQueryByFinder($arr): \Doctrine\ORM\Query
     {
         $qb = $this->createQueryBuilder('a');

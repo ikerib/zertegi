@@ -57,30 +57,30 @@
         <source>Zerrendara itzuli</source>
         <target>Volver a la lista</target>
       </trans-unit>
-      <trans-unit id="Kontsultaaaaa" resname="Kontsulta">
+      <trans-unit id="roN2Uou" resname="Kontsulta">
         <source>Kontsulta</source>
         <target>Consulta</target>
       </trans-unit>
-      <trans-unit id="Expedienteaa" resname="Expediente">
+      <trans-unit id="zt2HO1Y" resname="Expediente">
         <source>Expediente</source>
         <target>Expediente</target>
       </trans-unit>
-      <trans-unit id="Fechaaaa" resname="Fecha">
+      <trans-unit id="k7Kp73g" resname="Fecha">
         <source>Fecha</source>
         <target>Fecha</target>
       </trans-unit>
-      <trans-unit id="Clasificacion" resname="Clasificacion">
+      <trans-unit id="xpyWYHL" resname="Clasificacion">
         <source>Clasificacion</source>
         <target>Clasificacion</target>
       </trans-unit>
-      <trans-unit id="Signaturaaaa" resname="Signatura">
+      <trans-unit id="ePWEZaw" resname="Signatura">
         <source>Signatura</source>
         <target>Signatura</target>
       </trans-unit>
-      <trans-unit id="Observacionesaaaa" resname="Observaciones">
+      <trans-unit id="jvYLbZT" resname="Observaciones">
         <source>Observaciones</source>
         <target>Observaciones</target>
       </trans-unit>
-      </body>
+    </body>
   </file>
 </xliff>

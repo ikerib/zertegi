@@ -55,7 +55,7 @@
                                         >
                                     </label>
                                 </td>
-                                <td>{{ liburuxka.deskribapena }}</td>
+                                <td>{{ liburuxka.deskribapena | raw|length > 150 ? liburuxka.deskribapena  | raw|slice(0,150)~'...' : liburuxka.deskribapena | raw }}</td>
                                 <td>{{ liburuxka.data }}</td>
                                 <td>{{ liburuxka.azalpenak }}</td>
                                 <td>{{ liburuxka.signatura }}</td>

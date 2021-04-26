@@ -155,12 +155,9 @@ class DbHelperService {
                 $andLehena = true;
                 foreach ($query as $key=>$value) {
                     $orText = '';
-                    $orFirst=true;
                     foreach ($value as $i => $iValue) {
-                        $iValue = str_replace('"','', $iValue);
-                        $toFind = [' ',',','?'];
-
-                        $orText = 'replace('.$key.", ',','') like '%".$iValue."%'";
+                        $iValue = str_replace(array('"', '*'), array('', '%'), $iValue);
+                        $orText = 'replace('.$key.", ',','') like '$iValue'";
 
                         if ($andLehena) {
                             $andLehena=false;
@@ -174,7 +171,6 @@ class DbHelperService {
         }
 
         if ( $query) {
-            /** @var Log $log */
             $log = new Log();
             $log->setTabla($entityName);
             $log->setDescription(json_encode($query));

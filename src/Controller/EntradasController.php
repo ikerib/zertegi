@@ -30,7 +30,7 @@ class EntradasController extends AbstractController
      * @param Request                       $request
      * @param PaginatorInterface            $paginator
      * @param EntradasRepository            $entradasRepository
-     * @param \App\Repository\LogRepository $logRepository
+     * @param LogRepository $logRepository
      * @param SessionInterface              $session
      * @param DbHelperService               $dbhelper
      *

@@ -10,6 +10,8 @@ use App\Entity\Argazki;
 use App\Entity\Ciriza;
 use App\Entity\Consultas;
 use App\Entity\Entradas;
+use App\Entity\Euskera;
+use App\Entity\Gazteria;
 use App\Entity\Log;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Driver\Connection;
@@ -155,6 +157,12 @@ class DbHelperService {
                             break;
                         case 'entradas':
                             $queryBuilder = $this->em->getRepository(Entradas::class)->fullTextSearch($filter);
+                            break;
+                        case 'euskera':
+                            $queryBuilder = $this->em->getRepository(Euskera::class)->fullTextSearch($filter);
+                            break;
+                        case 'gazteria':
+                            $queryBuilder = $this->em->getRepository(Gazteria::class)->fullTextSearch($filter);
                             break;
                     }
 

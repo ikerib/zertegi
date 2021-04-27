@@ -8,6 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EuskeraRepository")
+ * @ORM\Table(name="euskera", indexes={@ORM\Index(columns={"espedientea", "data", "sailkapena", "oharrak"}, flags={"fulltext"})})
  */
 class Euskera
 {

@@ -4,6 +4,8 @@
 namespace App\Service;
 
 
+use App\Entity\Amp;
+use App\Entity\Anarbe;
 use App\Entity\Log;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Driver\Connection;
@@ -118,40 +120,35 @@ class DbHelperService {
         return $form->getForm()->createView();
     }
 
-    public function performSearch($entityName, $query, $fields, $uri): array
+    public function performSearch($entityName, $query, $fields, $uri)
     {
         /* if no $query params do basic select */
         $SQL = 'SELECT * FROM '.$entityName;
 
         if ( [] !== $query) { // has params
-            $SQL = 'SELECT * FROM '.$entityName.' WHERE ';
             if ( array_key_exists('Kontsulta', $query) )// if konsulta, find all in every field, ignore other fields
             {
-                $sqlText = '';
-                $queryParamsArray = $query[ 'Kontsulta' ];
-                $lehena = true;
-                foreach ($queryParamsArray as $param) {
-                    $sublehena = true;
-                    $subSQL='';
-                    foreach ($fields as $field) {
-                        $param = str_replace('"','', $param);
-                        $sqlText = 'replace('.$field.", ',','') like '%".$param."%'";
-                        if ($sublehena) {
-                            $sublehena=false;
-                            $subSQL .= '('.$sqlText.')';
-                        } else {
-                            $subSQL .= ' or ('.$sqlText.')';
-                        }
+                // FULLTEXT search
+                $filter = $query[ 'Kontsulta' ];
+                if ($filter) {
+                    $queryBuilder=null;
+                    switch ($entityName)
+                    {
+                        case 'amp':
+                            $queryBuilder = $this->em->getRepository(Amp::class)->fullTextSearch($filter);
+                            break;
+                        case 'anarbe':
+                            $queryBuilder = $this->em->getRepository(Anarbe::class)->fullTextSearch($filter);
+                            break;
                     }
 
-                    if ($lehena) {
-                        $lehena = false;
-                        $SQL .= '('.$subSQL.')';
-                    } else {
-                        $SQL .= ' and ('.$subSQL.')';
-                    }
+                    return $queryBuilder->getQuery();
                 }
+
+
+
             } else {
+                $SQL = 'SELECT * FROM '.$entityName.' WHERE ';
                 $andLehena = true;
                 foreach ($query as $key=>$value) {
                     $orText = '';
@@ -185,6 +182,30 @@ class DbHelperService {
         $stmt->execute();
 
         return $stmt->fetchAll();
+    }
+
+    public function performFullTextSearch ($entityName, $query, $fields, $uri)
+    {
+        if ( array_key_exists('Kontsulta', $query) )// if konsulta, find all in every field, ignore other fields
+        {
+
+        } else {
+            $andLehena = true;
+            foreach ($query as $key=>$value) {
+                $orText = '';
+                foreach ($value as $i => $iValue) {
+                    $iValue = str_replace(array('"', '*'), array('', '%'), $iValue);
+                    $orText = 'replace('.$key.", ',','') like '$iValue'";
+
+                    if ($andLehena) {
+                        $andLehena=false;
+                        $SQL .= '('.$orText.')';
+                    } else {
+                        $SQL .= ' AND ('.$orText.')';
+                    }
+                }
+            }
+        }
     }
 
     public function getFinderParams($filters): array

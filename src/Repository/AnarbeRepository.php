@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Anarbe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -33,5 +34,14 @@ class AnarbeRepository extends ServiceEntityRepository
         }
 
         return $qb->getQuery();
+    }
+
+    public function fullTextSearch($filter): \Doctrine\ORM\QueryBuilder
+    {
+        $qb = $this->createQueryBuilder( 'a');
+        $qb->andWhere('MATCH_AGAINST(a.expediente, a.clasificacion, a.signatura, a.observaciones) AGAINST (:searchterm boolean) > 0')
+            ->setParameter('searchterm',$filter);
+
+        return $qb;
     }
 }

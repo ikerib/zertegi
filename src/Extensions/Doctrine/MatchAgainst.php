@@ -1,11 +1,10 @@
 <?php
 
-
 namespace App\Extensions\Doctrine;
-
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\Lexer;
+
 class MatchAgainst extends FunctionNode
 {
     /** @var array list of \Doctrine\ORM\Query\AST\PathExpression */

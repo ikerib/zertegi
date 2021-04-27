@@ -14,6 +14,8 @@ use App\Entity\Euskera;
 use App\Entity\Gazteria;
 use App\Entity\Hutsak;
 use App\Entity\Kirola;
+use App\Entity\Kontratazioa;
+use App\Entity\Kultura;
 use App\Entity\Log;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Driver\Connection;
@@ -171,6 +173,12 @@ class DbHelperService {
                             break;
                         case 'kirola':
                             $queryBuilder = $this->em->getRepository(Kirola::class)->fullTextSearch($filter);
+                            break;
+                        case 'kontratazioa':
+                            $queryBuilder = $this->em->getRepository(Kontratazioa::class)->fullTextSearch($filter);
+                            break;
+                        case 'kultura':
+                            $queryBuilder = $this->em->getRepository(Kultura::class)->fullTextSearch($filter);
                             break;
                     }
 

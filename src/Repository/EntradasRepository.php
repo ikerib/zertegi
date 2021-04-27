@@ -33,4 +33,13 @@ class EntradasRepository extends ServiceEntityRepository
 
         return $qb->getQuery();
     }
+
+    public function fullTextSearch($filter): \Doctrine\ORM\QueryBuilder
+    {
+        $qb = $this->createQueryBuilder( 'a');
+        $qb->andWhere('MATCH_AGAINST(a.data, a.igorlea, a.deskribapena) AGAINST (:searchterm boolean) > 0')
+            ->setParameter('searchterm',$filter);
+
+        return $qb;
+    }
 }

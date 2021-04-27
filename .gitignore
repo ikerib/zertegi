@@ -52,6 +52,7 @@ vendor/
 /public/build/*
 
 /.env
+/.env.local
 
 ###> lexik/jwt-authentication-bundle ###
 /config/jwt/*.pem

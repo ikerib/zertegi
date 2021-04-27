@@ -60,7 +60,7 @@
                                                 {% if amp.id in myselection %} checked {% endif %}
                                         >
                                     </label></td>
-                                <td>{{ amp.expediente|length > 150 ? amp.expediente|slice(0,150)~'...' : amp.expediente }}</td>
+                                <td>{{ amp.expediente|length > 150 ? amp.expediente|slice(0,150)~'...'|raw : amp.expediente | raw }}</td>
                                 <td>{{ amp.fecha }}</td>
                                 <td>{{ amp.clasificacion }}</td>
                                 <td>{{ amp.signatura }}</td>

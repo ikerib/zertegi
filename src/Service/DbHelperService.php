@@ -6,6 +6,8 @@ namespace App\Service;
 
 use App\Entity\Amp;
 use App\Entity\Anarbe;
+use App\Entity\Argazki;
+use App\Entity\Ciriza;
 use App\Entity\Log;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Driver\Connection;
@@ -139,6 +141,12 @@ class DbHelperService {
                             break;
                         case 'anarbe':
                             $queryBuilder = $this->em->getRepository(Anarbe::class)->fullTextSearch($filter);
+                            break;
+                        case 'argazki':
+                            $queryBuilder = $this->em->getRepository(Argazki::class)->fullTextSearch($filter);
+                            break;
+                        case 'ciriza':
+                            $queryBuilder = $this->em->getRepository(Ciriza::class)->fullTextSearch($filter);
                             break;
                     }
 

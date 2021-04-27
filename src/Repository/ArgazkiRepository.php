@@ -34,4 +34,13 @@ class ArgazkiRepository extends ServiceEntityRepository
 
         return $qb->getQuery();
     }
+
+    public function fullTextSearch($filter): \Doctrine\ORM\QueryBuilder
+    {
+        $qb = $this->createQueryBuilder( 'a');
+        $qb->andWhere('MATCH_AGAINST(a.deskribapena, a.barrutia, a.gaia, a.oharrak) AGAINST (:searchterm boolean) > 0')
+            ->setParameter('searchterm',$filter);
+
+        return $qb;
+    }
 }

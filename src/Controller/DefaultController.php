@@ -78,7 +78,6 @@ class DefaultController extends AbstractController
      */
     public function adminindex(DbHelperService $dbhelper): Response
     {
-        dump($dbhelper->getAllTables());
         return $this->render('default/adminindex.html.twig', [
             'tables' => $dbhelper->getAllTables()
         ]);

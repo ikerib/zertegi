@@ -10,7 +10,7 @@ require 'recipe/symfony4.php';
 set('application', 'zertegi');
 
 // Project repository
-set('repository', 'git@github.com:ikerib/zertegi.git');
+set('repository', 'https://github.com/ikerib/zertegi.git');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true);
@@ -42,7 +42,7 @@ after('deploy:failed', 'deploy:unlock');
 
 // Migrate database before symlink new release.
 
-before('deploy:symlink', 'database:migrate');
+//before('deploy:symlink', 'database:migrate');
 
 
 

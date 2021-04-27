@@ -16,7 +16,13 @@ use App\Entity\Hutsak;
 use App\Entity\Kirola;
 use App\Entity\Kontratazioa;
 use App\Entity\Kultura;
+use App\Entity\Liburuxka;
 use App\Entity\Log;
+use App\Entity\Obratxikiak;
+use App\Entity\Pendientes;
+use App\Entity\Protokoloak;
+use App\Entity\Salidas;
+use App\Entity\Tablas;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -180,6 +186,25 @@ class DbHelperService {
                         case 'kultura':
                             $queryBuilder = $this->em->getRepository(Kultura::class)->fullTextSearch($filter);
                             break;
+                        case 'liburuxka':
+                            $queryBuilder = $this->em->getRepository(Liburuxka::class)->fullTextSearch($filter);
+                            break;
+                        case 'obratxikiak':
+                            $queryBuilder = $this->em->getRepository(Obratxikiak::class)->fullTextSearch($filter);
+                            break;
+                        case 'pendientes':
+                            $queryBuilder = $this->em->getRepository(Pendientes::class)->fullTextSearch($filter);
+                            break;
+                        case 'protokoloak':
+                            $queryBuilder = $this->em->getRepository(Protokoloak::class)->fullTextSearch($filter);
+                            break;
+                        case 'salidas':
+                            $queryBuilder = $this->em->getRepository(Salidas::class)->fullTextSearch($filter);
+                            break;
+                        case 'tablas':
+                            $queryBuilder = $this->em->getRepository(Tablas::class)->fullTextSearch($filter);
+                            break;
+
                     }
 
                     return $queryBuilder->getQuery();

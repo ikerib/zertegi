@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Liburuxka;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -32,5 +32,14 @@ class LiburuxkaRepository extends ServiceEntityRepository
         }
 
         return $qb->getQuery();
+    }
+
+    public function fullTextSearch($filter): \Doctrine\ORM\QueryBuilder
+    {
+        $qb = $this->createQueryBuilder( 'a');
+        $qb->andWhere('MATCH_AGAINST(a.deskribapena, a.data, a.azalpenak) AGAINST (:searchterm boolean) > 0')
+            ->setParameter('searchterm',$filter);
+
+        return $qb;
     }
 }

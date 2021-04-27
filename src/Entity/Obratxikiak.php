@@ -8,6 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ObratxikiakRepository")
+ * @ORM\Table(name="obratxikiak", indexes={@ORM\Index(columns={"espedientea", "sailkapena"}, flags={"fulltext"})})
  */
 class Obratxikiak
 {

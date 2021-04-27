@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Salidas;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -32,5 +33,14 @@ class SalidasRepository extends ServiceEntityRepository
         }
 
         return $qb->getQuery();
+    }
+
+    public function fullTextSearch($filter): \Doctrine\ORM\QueryBuilder
+    {
+        $qb = $this->createQueryBuilder( 'a');
+        $qb->andWhere('MATCH_AGAINST( a.espedientea, a.eskatzailea, a.irteera, a.sarrera) AGAINST (:searchterm boolean) > 0')
+            ->setParameter('searchterm',$filter);
+
+        return $qb;
     }
 }

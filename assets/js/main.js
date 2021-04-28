@@ -1,3 +1,5 @@
+import {confirm} from "bootbox";
+
 const routes = require('../../public/js/fos_js_routes.json');
 import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
 
@@ -75,7 +77,7 @@ $("#btnFrmFinderReset").on("click", function () {
 });
 
 $(".btn-delete-trigger").on("click", function () {
-    bootbox.confirm("¿Estas seguro?", function ( resp ) {
+    confirm("¿Estas seguro?", function (resp ) {
         if ( resp === true ) {
             $(".form-delete-button").click();
         }
@@ -105,16 +107,32 @@ $(".chkSelecion").on("change", function () {
     const miid = $(this).val();
     const table = $(this).data("table");
     const url = Routing.generate("api_save_selection", { 'table': table, 'id': miid });
-    console.log(url);
-    $.post(url);
-
+    $.post(url)
+        .done(function (data) {
+            $('#mySeleccionCount').html("(" + data.count + ")");
+        })
+        .fail(function (xhr, status, error) {
+            alert('Arazo bat egon da selekzioa gordetzerakoan ,jarri harremanetan informatika zerbitzuarekin');
+            console.log(xhr);
+            console.log(status);
+            console.log(error);
+        });
 });
 
 $("#btnClearSelection").on("click", function () {
     const url = Routing.generate("api_clear_selection");
-    $.post(url, function (  ) {
-        $('.chkSelecion').prop( "checked", false );
-    });
+    $.post(url)
+        .done( function (  ) {
+            $('.chkSelecion').prop( "checked", false );
+            $('#mySeleccionCount').html("");
+        })
+        .fail(function (xhr, status, error) {
+            alert('Arazo bat egon da selekzioa gordetzerakoan ,jarri harremanetan informatika zerbitzuarekin');
+            console.log(xhr);
+            console.log(status);
+            console.log(error);
+        })
+    ;
 
 });
 

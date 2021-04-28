@@ -66,8 +66,11 @@ class ApiController extends AbstractFOSRestController
 
         $session->set( 'zertegi-selection',$mySelection);
 
-
-        return new JsonResponse('Ok', 200);
+        $resp = [
+            'result' => 'Ok',
+            'count'  => array_sum(array_map("count", $mySelection))
+        ];
+        return new JsonResponse($resp, 200);
 
     }
 }

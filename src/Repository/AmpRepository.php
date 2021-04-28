@@ -22,12 +22,12 @@ class AmpRepository extends ServiceEntityRepository
         parent::__construct($registry, Amp::class);
     }
 
-    public function fullTextSearch($filter): QueryBuilder
+    public function fullTextSearch($filter): \Doctrine\ORM\Query
     {
         $qb = $this->createQueryBuilder( 'a');
         $qb->andWhere('MATCH_AGAINST(a.expediente, a.clasificacion, a.signatura, a.observaciones) AGAINST (:searchterm boolean) > 0')
             ->setParameter('searchterm',$filter);
 
-        return $qb;
+        return $qb->getQuery();
     }
 }

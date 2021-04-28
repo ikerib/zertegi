@@ -147,67 +147,67 @@ class DbHelperService {
                 // FULLTEXT search
                 $filter = $query[ 'Kontsulta' ];
                 if ($filter) {
-                    $queryBuilder=null;
+                    $searchQuery=null;
                     switch ($entityName)
                     {
                         case 'amp':
-                            $queryBuilder = $this->em->getRepository(Amp::class)->fullTextSearch($filter);
+                            $searchQuery = $this->em->getRepository(Amp::class)->fullTextSearch($filter);
                             break;
                         case 'anarbe':
-                            $queryBuilder = $this->em->getRepository(Anarbe::class)->fullTextSearch($filter);
+                            $searchQuery = $this->em->getRepository(Anarbe::class)->fullTextSearch($filter);
                             break;
                         case 'argazki':
-                            $queryBuilder = $this->em->getRepository(Argazki::class)->fullTextSearch($filter);
+                            $searchQuery = $this->em->getRepository(Argazki::class)->fullTextSearch($filter);
                             break;
                         case 'ciriza':
-                            $queryBuilder = $this->em->getRepository(Ciriza::class)->fullTextSearch($filter);
+                            $searchQuery = $this->em->getRepository(Ciriza::class)->fullTextSearch($filter);
                             break;
                         case 'consultas':
-                            $queryBuilder = $this->em->getRepository(Consultas::class)->fullTextSearch($filter);
+                            $searchQuery = $this->em->getRepository(Consultas::class)->fullTextSearch($filter);
                             break;
                         case 'entradas':
-                            $queryBuilder = $this->em->getRepository(Entradas::class)->fullTextSearch($filter);
+                            $searchQuery = $this->em->getRepository(Entradas::class)->fullTextSearch($filter);
                             break;
                         case 'euskera':
-                            $queryBuilder = $this->em->getRepository(Euskera::class)->fullTextSearch($filter);
+                            $searchQuery = $this->em->getRepository(Euskera::class)->fullTextSearch($filter);
                             break;
                         case 'gazteria':
-                            $queryBuilder = $this->em->getRepository(Gazteria::class)->fullTextSearch($filter);
+                            $searchQuery = $this->em->getRepository(Gazteria::class)->fullTextSearch($filter);
                             break;
                         case 'hutsak':
-                            $queryBuilder = $this->em->getRepository(Hutsak::class)->fullTextSearch($filter);
+                            $searchQuery = $this->em->getRepository(Hutsak::class)->fullTextSearch($filter);
                             break;
                         case 'kirola':
-                            $queryBuilder = $this->em->getRepository(Kirola::class)->fullTextSearch($filter);
+                            $searchQuery = $this->em->getRepository(Kirola::class)->fullTextSearch($filter);
                             break;
                         case 'kontratazioa':
-                            $queryBuilder = $this->em->getRepository(Kontratazioa::class)->fullTextSearch($filter);
+                            $searchQuery = $this->em->getRepository(Kontratazioa::class)->fullTextSearch($filter);
                             break;
                         case 'kultura':
-                            $queryBuilder = $this->em->getRepository(Kultura::class)->fullTextSearch($filter);
+                            $searchQuery = $this->em->getRepository(Kultura::class)->fullTextSearch($filter);
                             break;
                         case 'liburuxka':
-                            $queryBuilder = $this->em->getRepository(Liburuxka::class)->fullTextSearch($filter);
+                            $searchQuery = $this->em->getRepository(Liburuxka::class)->fullTextSearch($filter);
                             break;
                         case 'obratxikiak':
-                            $queryBuilder = $this->em->getRepository(Obratxikiak::class)->fullTextSearch($filter);
+                            $searchQuery = $this->em->getRepository(Obratxikiak::class)->fullTextSearch($filter);
                             break;
                         case 'pendientes':
-                            $queryBuilder = $this->em->getRepository(Pendientes::class)->fullTextSearch($filter);
+                            $searchQuery = $this->em->getRepository(Pendientes::class)->fullTextSearch($filter);
                             break;
                         case 'protokoloak':
-                            $queryBuilder = $this->em->getRepository(Protokoloak::class)->fullTextSearch($filter);
+                            $searchQuery = $this->em->getRepository(Protokoloak::class)->fullTextSearch($filter);
                             break;
                         case 'salidas':
-                            $queryBuilder = $this->em->getRepository(Salidas::class)->fullTextSearch($filter);
+                            $searchQuery = $this->em->getRepository(Salidas::class)->fullTextSearch($filter);
                             break;
                         case 'tablas':
-                            $queryBuilder = $this->em->getRepository(Tablas::class)->fullTextSearch($filter);
+                            $searchQuery = $this->em->getRepository(Tablas::class)->fullTextSearch($filter);
                             break;
 
                     }
 
-                    return $queryBuilder->getQuery();
+                    return $searchQuery;
                 }
 
 

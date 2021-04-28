@@ -34,12 +34,12 @@ class KirolaRepository extends ServiceEntityRepository
         return $qb->getQuery();
     }
 
-    public function fullTextSearch($filter): \Doctrine\ORM\QueryBuilder
+    public function fullTextSearch($filter): \Doctrine\ORM\Query
     {
         $qb = $this->createQueryBuilder( 'a');
         $qb->andWhere('MATCH_AGAINST(a.data, a.sailkapena, a.oharrak) AGAINST (:searchterm boolean) > 0')
             ->setParameter('searchterm',$filter);
 
-        return $qb;
+        return $qb->getQuery();
     }
 }

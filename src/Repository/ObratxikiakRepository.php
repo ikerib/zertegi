@@ -35,12 +35,12 @@ class ObratxikiakRepository extends ServiceEntityRepository
         return $qb->getQuery();
     }
 
-    public function fullTextSearch($filter): \Doctrine\ORM\QueryBuilder
+    public function fullTextSearch($filter): \Doctrine\ORM\Query
     {
         $qb = $this->createQueryBuilder( 'a');
         $qb->andWhere('MATCH_AGAINST(a.espedientea, a.sailkapena) AGAINST (:searchterm boolean) > 0')
             ->setParameter('searchterm',$filter);
 
-        return $qb;
+        return $qb->getQuery();
     }
 }

@@ -4,9 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Pendientes;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\DBAL\Query\QueryBuilder;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
+
 
 /**
  * @method Pendientes|null find($id, $lockMode = null, $lockVersion = null)
@@ -35,12 +35,12 @@ class PendientesRepository extends ServiceEntityRepository
         return $qb->getQuery();
     }
 
-    public function fullTextSearch($filter): \Doctrine\ORM\QueryBuilder
+    public function fullTextSearch($filter): Query
     {
         $qb = $this->createQueryBuilder( 'a');
         $qb->andWhere('MATCH_AGAINST(a.espedientea, a.data) AGAINST (:searchterm boolean) > 0')
             ->setParameter('searchterm',$filter);
 
-        return $qb;
+        return $qb->getQuery();
     }
 }

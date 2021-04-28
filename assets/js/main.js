@@ -10,8 +10,11 @@ $(document).ready(function () {
     let text2highlight = [];
     $('input[type="text"]').each(function(){
         if($(this).val()!==""){
-            const t = $(this).val().replace(/\"/g,'').split(/\&/g);
+            let searchTerms=$(this).val().replace(/[|&;$%@"<>()+,*"]/g, "");
+            const t = searchTerms.split(/[ ,]+/g);
+            console.log(t);
             $.each(t,function (index, value) {
+                console.log(value)
                 text2highlight.push(value);
             });
             empty =false;

@@ -43,4 +43,13 @@ class ConsultasRepository extends ServiceEntityRepository
 
         return $qb;
     }
+
+    public function fieldFullTextSearch($field, $filter): \Doctrine\ORM\Query
+    {
+        $qb = $this->createQueryBuilder( 'a');
+        $qb->andWhere("MATCH_AGAINST(a.$field) AGAINST (:searchterm boolean) > 0")
+            ->setParameter('searchterm',$filter);
+
+        return $qb->getQuery();
+    }
 }

@@ -38,7 +38,16 @@ class ProtokoloakRepository extends ServiceEntityRepository
     public function fullTextSearch($filter): \Doctrine\ORM\Query
     {
         $qb = $this->createQueryBuilder( 'a');
-        $qb->andWhere('MATCH_AGAINST(a.artxiboa, a.saila, a.eskribaua, a.data, a.laburpena, a.datuak, a.oharrak, a.bilatzaileak) AGAINST (:searchterm boolean) > 0')
+        $qb->andWhere('MATCH_AGAINST(a.artxiboa, a.saila, a.signatura, a.eskribaua, a.data, a.laburpena, a.datuak, a.oharrak, a.bilatzaileak) AGAINST (:searchterm boolean) > 0')
+            ->setParameter('searchterm',$filter);
+
+        return $qb->getQuery();
+    }
+
+    public function fieldFullTextSearch($field, $filter): \Doctrine\ORM\Query
+    {
+        $qb = $this->createQueryBuilder( 'a');
+        $qb->andWhere("MATCH_AGAINST(a.$field) AGAINST (:searchterm boolean) > 0")
             ->setParameter('searchterm',$filter);
 
         return $qb->getQuery();

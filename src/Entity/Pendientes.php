@@ -8,7 +8,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PendientesRepository")
- * @ORM\Table(name="pendientes", indexes={@ORM\Index(columns={"espedientea", "data"}, flags={"fulltext"})})
+ * @ORM\Table(name="pendientes", indexes={
+ *     @ORM\Index(columns={"espedientea", "data", "signatura"}, flags={"fulltext"}),
+ *     @ORM\Index(columns={"espedientea"}, flags={"fulltext"}),
+ *     @ORM\Index(columns={"data"}, flags={"fulltext"}),
+ *     @ORM\Index(columns={"signatura"}, flags={"fulltext"})
+ * })
  */
 class Pendientes
 {

@@ -37,7 +37,16 @@ class KulturaRepository extends ServiceEntityRepository
     public function fullTextSearch($filter): \Doctrine\ORM\Query
     {
         $qb = $this->createQueryBuilder( 'a');
-        $qb->andWhere('MATCH_AGAINST( a.espedientea, a.sailkapena, a.data, a.oharrak) AGAINST (:searchterm boolean) > 0')
+        $qb->andWhere('MATCH_AGAINST( a.espedientea, a.sailkapena, a.data, a.signatura, a.oharrak) AGAINST (:searchterm boolean) > 0')
+            ->setParameter('searchterm',$filter);
+
+        return $qb->getQuery();
+    }
+
+    public function fieldFullTextSearch($field, $filter): \Doctrine\ORM\Query
+    {
+        $qb = $this->createQueryBuilder( 'a');
+        $qb->andWhere("MATCH_AGAINST(a.$field) AGAINST (:searchterm boolean) > 0")
             ->setParameter('searchterm',$filter);
 
         return $qb->getQuery();

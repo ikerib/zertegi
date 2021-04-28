@@ -213,20 +213,66 @@ class DbHelperService {
 
 
             } else {
-                $SQL = 'SELECT * FROM '.$entityName.' WHERE ';
-                $andLehena = true;
                 foreach ($query as $key=>$value) {
-                    $orText = '';
                     foreach ($value as $i => $iValue) {
-                        $iValue = str_replace(array('"', '*'), array('', '%'), $iValue);
-                        $orText = 'replace('.$key.", ',','') like '$iValue'";
-
-                        if ($andLehena) {
-                            $andLehena=false;
-                            $SQL .= '('.$orText.')';
-                        } else {
-                            $SQL .= ' AND ('.$orText.')';
+                        $searchQuery = null;
+                        switch ($entityName) {
+                            case 'amp':
+                                $searchQuery = $this->em->getRepository(Amp::class)->fieldFullTextSearch($key, $iValue);
+                                break;
+                            case 'anarbe':
+                                $searchQuery = $this->em->getRepository(Anarbe::class)->fieldFullTextSearch($key, $iValue);
+                                break;
+                            case 'argazki':
+                                $searchQuery = $this->em->getRepository(Argazki::class)->fieldFullTextSearch($key, $iValue);
+                                break;
+                            case 'ciriza':
+                                $searchQuery = $this->em->getRepository(Ciriza::class)->fieldFullTextSearch($key, $iValue);
+                                break;
+                            case 'consultas':
+                                $searchQuery = $this->em->getRepository(Consultas::class)->fieldFullTextSearch($key, $iValue);
+                                break;
+                            case 'entradas':
+                                $searchQuery = $this->em->getRepository(Entradas::class)->fieldFullTextSearch($key, $iValue);
+                                break;
+                            case 'euskera':
+                                $searchQuery = $this->em->getRepository(Euskera::class)->fieldFullTextSearch($key, $iValue);
+                                break;
+                            case 'gazteria':
+                                $searchQuery = $this->em->getRepository(Gazteria::class)->fieldFullTextSearch($key, $iValue);
+                                break;
+                            case 'hutsak':
+                                $searchQuery = $this->em->getRepository(Hutsak::class)->fieldFullTextSearch($key, $iValue);
+                                break;
+                            case 'kirola':
+                                $searchQuery = $this->em->getRepository(Kirola::class)->fieldFullTextSearch($key, $iValue);
+                                break;
+                            case 'kontratazioa':
+                                $searchQuery = $this->em->getRepository(Kontratazioa::class)->fieldFullTextSearch($key, $iValue);
+                                break;
+                            case 'kultura':
+                                $searchQuery = $this->em->getRepository(Kultura::class)->fieldFullTextSearch($key, $iValue);
+                                break;
+                            case 'liburuxka':
+                                $searchQuery = $this->em->getRepository(Liburuxka::class)->fieldFullTextSearch($key, $iValue);
+                                break;
+                            case 'obratxikiak':
+                                $searchQuery = $this->em->getRepository(Obratxikiak::class)->fieldFullTextSearch($key, $iValue);
+                                break;
+                            case 'pendientes':
+                                $searchQuery = $this->em->getRepository(Pendientes::class)->fieldFullTextSearch($key, $iValue);
+                                break;
+                            case 'protokoloak':
+                                $searchQuery = $this->em->getRepository(Protokoloak::class)->fieldFullTextSearch($key, $iValue);
+                                break;
+                            case 'salidas':
+                                $searchQuery = $this->em->getRepository(Salidas::class)->fieldFullTextSearch($key, $iValue);
+                                break;
+                            case 'tablas':
+                                $searchQuery = $this->em->getRepository(Tablas::class)->fieldFullTextSearch($key, $iValue);
+                                break;
                         }
+                        return $searchQuery;
                     }
                 }
             }

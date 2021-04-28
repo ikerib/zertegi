@@ -5,10 +5,16 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArgazkiRepository")
- * @ORM\Table(name="argazki", indexes={@ORM\Index(columns={"deskribapena", "barrutia", "gaia", "oharrak"}, flags={"fulltext"})})
+ * @ORM\Table(name="argazki", indexes={
+ *     @ORM\Index(columns={"deskribapena", "barrutia", "fecha", "gaia", "oharrak"}, flags={"fulltext"}),
+ *     @ORM\Index(columns={"deskribapena"}, flags={"fulltext"}),
+ *     @ORM\Index(columns={"barrutia"}, flags={"fulltext"}),
+ *     @ORM\Index(columns={"fecha"}, flags={"fulltext"}),
+ *     @ORM\Index(columns={"gaia"}, flags={"fulltext"}),
+ *     @ORM\Index(columns={"oharrak"}, flags={"fulltext"})
+ * })
  */
 class Argazki
 {

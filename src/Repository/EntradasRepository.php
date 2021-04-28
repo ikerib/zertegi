@@ -37,9 +37,18 @@ class EntradasRepository extends ServiceEntityRepository
     public function fullTextSearch($filter): \Doctrine\ORM\QueryBuilder
     {
         $qb = $this->createQueryBuilder( 'a');
-        $qb->andWhere('MATCH_AGAINST(a.data, a.igorlea, a.deskribapena) AGAINST (:searchterm boolean) > 0')
+        $qb->andWhere('MATCH_AGAINST(a.data, a.igorlea, a.deskribapena, a.signatura) AGAINST (:searchterm boolean) > 0')
             ->setParameter('searchterm',$filter);
 
         return $qb;
+    }
+
+    public function fieldFullTextSearch($field, $filter): \Doctrine\ORM\Query
+    {
+        $qb = $this->createQueryBuilder( 'a');
+        $qb->andWhere("MATCH_AGAINST(a.$field) AGAINST (:searchterm boolean) > 0")
+            ->setParameter('searchterm',$filter);
+
+        return $qb->getQuery();
     }
 }

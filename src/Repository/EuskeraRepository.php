@@ -37,9 +37,18 @@ class EuskeraRepository extends ServiceEntityRepository
     public function fullTextSearch($filter): \Doctrine\ORM\QueryBuilder
     {
         $qb = $this->createQueryBuilder( 'a');
-        $qb->andWhere('MATCH_AGAINST(a.espedientea, a.data, a.sailkapena, a.oharrak) AGAINST (:searchterm boolean) > 0')
+        $qb->andWhere('MATCH_AGAINST(a.espedientea, a.data, a.sailkapena, a.signatura, a.oharrak) AGAINST (:searchterm boolean) > 0')
             ->setParameter('searchterm',$filter);
 
         return $qb;
+    }
+
+    public function fieldFullTextSearch($field, $filter): \Doctrine\ORM\Query
+    {
+        $qb = $this->createQueryBuilder( 'a');
+        $qb->andWhere("MATCH_AGAINST(a.$field) AGAINST (:searchterm boolean) > 0")
+            ->setParameter('searchterm',$filter);
+
+        return $qb->getQuery();
     }
 }

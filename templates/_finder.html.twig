@@ -41,6 +41,7 @@
                 <tr>
                     <th>Datu Basea</th>
                     <th>Bilaketa</th>
+                    <th>Fetxa</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -49,6 +50,7 @@
                     <tr>
                         <td>{{ log.tabla }}</td>
                         <td>{{ log.description }}</td>
+                        <td>{{ log.created ? log.created|date('Y-m-d H:i:s') : '' }}</td>
                         <td><a class="btn btn-sm" href="{{ log.url }}">Bilatu</a></td>
                     </tr>
 

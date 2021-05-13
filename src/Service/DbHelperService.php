@@ -284,6 +284,7 @@ class DbHelperService {
 //                }
                 if ( $query) {
                     $log = new Log();
+                    $log->setCreated(new \DateTime());
                     $log->setTabla($entityName);
                     $log->setDescription(json_encode($query));
                     $log->setUrl($uri);

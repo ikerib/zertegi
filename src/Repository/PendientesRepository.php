@@ -44,11 +44,18 @@ class PendientesRepository extends ServiceEntityRepository
         return $qb->getQuery();
     }
 
-    public function fieldFullTextSearch($field, $filter): \Doctrine\ORM\Query
+    public function fieldFullTextSearch($query): \Doctrine\ORM\Query
     {
-        $qb = $this->createQueryBuilder( 'a');
-        $qb->andWhere("MATCH_AGAINST(a.$field) AGAINST (:searchterm boolean) > 0")
-            ->setParameter('searchterm',$filter);
+        $qb = $this->createQueryBuilder('a');
+        $andStatements = $qb->expr()->andX();
+        foreach ($query as $key=>$value) {
+            foreach ($value as $i => $iValue) {
+                $andStatements->add(
+                    $qb->expr()->like("a.$key", $qb->expr()->literal('%' . $iValue . '%'))
+                );
+            }
+        }
+        $qb->andWhere($andStatements);
 
         return $qb->getQuery();
     }

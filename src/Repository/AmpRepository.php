@@ -33,9 +33,12 @@ class AmpRepository extends ServiceEntityRepository
 
     public function fieldFullTextSearch($query): \Doctrine\ORM\Query
     {
+
         $qb = $this->createQueryBuilder('a');
         $andStatements = $qb->expr()->andX();
         foreach ($query as $key=>$value) {
+            // begiratu espazioak dituen
+            $value = explode(" ", $value[0]);
             foreach ($value as $i => $iValue) {
                 $andStatements->add(
                     $qb->expr()->like("a.$key", $qb->expr()->literal('%' . $iValue . '%'))

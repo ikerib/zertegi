@@ -32,7 +32,7 @@ class AmpController extends AbstractController
      * @param PaginatorInterface            $paginator
      * @param SessionInterface              $session
      * @param DbHelperService               $dbhelper
-     * @param \App\Repository\LogRepository $logRepository
+     * @param LogRepository $logRepository
      *
      * @return Response
      */

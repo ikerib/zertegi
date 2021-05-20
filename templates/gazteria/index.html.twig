@@ -81,13 +81,37 @@
                         {% endfor %}
                         </tbody>
                     </table>
+
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
                             <div class="navigation text-center">
                                 {{ knp_pagination_render(gazterias) }}
                             </div>
                         </div>
+                        <div class="col-sm-4">
+                            <div class="navigation text-right">
+                                <nav>
+                                    <div class="pagination">
+                                        <div class="form-group">
+                                            <label for="cmblimit">Orrikatzea: &nbsp;</label>
+                                            <div class="btn-group">
+                                                <a class="btn btn-default btn-flat"
+                                                   href="{{ path('gazteria_index', {'limit':10}) }}">10</a>
+                                                <a class="btn btn-default btn-flat"
+                                                   href="{{ path('gazteria_index', {'limit':25}) }}">25</a>
+                                                <a class="btn btn-default btn-flat"
+                                                   href="{{ path('gazteria_index', {'limit':50}) }}">50</a>
+                                                <a class="btn btn-default btn-flat"
+                                                   href="{{ path('gazteria_index', {'limit':100}) }}">100</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div><!-- box -->
 

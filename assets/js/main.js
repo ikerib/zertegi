@@ -29,6 +29,8 @@ $(document).ready(function () {
         $('body').highlight(text2highlight);
     }
 
+
+
 });
 
 // FORMULARIOAK

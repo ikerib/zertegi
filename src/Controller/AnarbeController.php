@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Amp;
 use App\Entity\Anarbe;
 use App\Form\AnarbeType;
+use App\Form\BerrikusiAnarbeType;
 use App\Repository\AnarbeRepository;
 use App\Repository\LogRepository;
 use App\Service\DbHelperService;
@@ -67,6 +68,23 @@ class AnarbeController extends AbstractController
                 'myselection' => $myselection,
                 'finderdata'  => $request->query->get('form')]
         );
+    }
+
+
+    /**
+     * @Route("/rebisioa", name="anarbe_rebisioa")
+     */
+    public function rebisioa(Request $request, PaginatorInterface $paginator, AnarbeRepository $anarbeRepository): Response
+    {
+        $query = $anarbeRepository->getAllBerrikusi();
+        $anarbes  = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 10)/*limit per page*/
+        );
+        return $this->render('anarbe/rebisioa.html.twig', [
+            'anarbes' => $anarbes,
+        ]);
     }
 
     /**
@@ -153,6 +171,34 @@ class AnarbeController extends AbstractController
             'anarbe' => $anarbe,
             'form'   => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/berrikusi/{id}", name="anarbe_berrikusi", methods={"GET","POST"})
+     * @param Request $request
+     * @param Anarbe     $anarbe
+     *
+     * @return Response
+     */
+    public function berrikusi(Request $request, Anarbe $anarbe): Response
+    {
+        $form = $this->createForm(BerrikusiAnarbeType::class, $anarbe);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $anarbe->setBerrikusi(false);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Aldaketak ongi gorde dira.');
+            return $this->redirectToRoute('anarbe_rebisioa');
+        }
+
+        return $this->render(
+            'anarbe/berrikusi.html.twig',
+            [
+                'anarbe'  => $anarbe,
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**

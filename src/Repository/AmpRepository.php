@@ -22,7 +22,7 @@ class AmpRepository extends ServiceEntityRepository
         parent::__construct($registry, Amp::class);
     }
 
-    public function getAllBerrikusi()
+    public function getAllBerrikusi(): \Doctrine\ORM\Query
     {
         $qb = $this->createQueryBuilder('a');
         $qb->andWhere('a.berrikusi = 1');

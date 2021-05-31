@@ -73,6 +73,26 @@ class Anarbe
      */
     private $updated;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $berrikusi;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusi_clasificacion;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusi_expediente;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusi_observaciones;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -182,6 +202,54 @@ class Anarbe
     public function setUpdated(?\DateTimeInterface $updated): self
     {
         $this->updated = $updated;
+
+        return $this;
+    }
+
+    public function getBerrikusiClasificacion(): ?string
+    {
+        return $this->berrikusi_clasificacion;
+    }
+
+    public function setBerrikusiClasificacion(?string $berrikusi_clasificacion): self
+    {
+        $this->berrikusi_clasificacion = $berrikusi_clasificacion;
+
+        return $this;
+    }
+
+    public function getBerrikusiExpediente(): ?string
+    {
+        return $this->berrikusi_expediente;
+    }
+
+    public function setBerrikusiExpediente(?string $berrikusi_expediente): self
+    {
+        $this->berrikusi_expediente = $berrikusi_expediente;
+
+        return $this;
+    }
+
+    public function getBerrikusiObservaciones(): ?string
+    {
+        return $this->berrikusi_observaciones;
+    }
+
+    public function setBerrikusiObservaciones(?string $berrikusi_observaciones): self
+    {
+        $this->berrikusi_observaciones = $berrikusi_observaciones;
+
+        return $this;
+    }
+
+    public function getBerrikusi(): ?bool
+    {
+        return $this->berrikusi;
+    }
+
+    public function setBerrikusi(?bool $berrikusi): self
+    {
+        $this->berrikusi = $berrikusi;
 
         return $this;
     }

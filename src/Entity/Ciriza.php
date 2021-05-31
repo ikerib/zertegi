@@ -73,6 +73,36 @@ class Ciriza
      */
     private $knosysid;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $berrikusi;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $berrikusiSignatura;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusiData;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusiDeskribapena;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $berrikusiSailkapena;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusiOharrak;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -182,6 +212,78 @@ class Ciriza
     public function setUpdated(?\DateTimeInterface $updated): self
     {
         $this->updated = $updated;
+
+        return $this;
+    }
+
+    public function getBerrikusiSignatura(): ?string
+    {
+        return $this->berrikusiSignatura;
+    }
+
+    public function setBerrikusiSignatura(?string $berrikusiSignatura): self
+    {
+        $this->berrikusiSignatura = $berrikusiSignatura;
+
+        return $this;
+    }
+
+    public function getBerrikusiData(): ?string
+    {
+        return $this->berrikusiData;
+    }
+
+    public function setBerrikusiData(?string $berrikusiData): self
+    {
+        $this->berrikusiData = $berrikusiData;
+
+        return $this;
+    }
+
+    public function getBerrikusiDeskribapena(): ?string
+    {
+        return $this->berrikusiDeskribapena;
+    }
+
+    public function setBerrikusiDeskribapena(?string $berrikusiDeskribapena): self
+    {
+        $this->berrikusiDeskribapena = $berrikusiDeskribapena;
+
+        return $this;
+    }
+
+    public function getBerrikusiSailkapena(): ?string
+    {
+        return $this->berrikusiSailkapena;
+    }
+
+    public function setBerrikusiSailkapena(?string $berrikusiSailkapena): self
+    {
+        $this->berrikusiSailkapena = $berrikusiSailkapena;
+
+        return $this;
+    }
+
+    public function getBerrikusiOharrak(): ?string
+    {
+        return $this->berrikusiOharrak;
+    }
+
+    public function setBerrikusiOharrak(?string $berrikusiOharrak): self
+    {
+        $this->berrikusiOharrak = $berrikusiOharrak;
+
+        return $this;
+    }
+
+    public function getBerrikusi(): ?bool
+    {
+        return $this->berrikusi;
+    }
+
+    public function setBerrikusi(?bool $berrikusi): self
+    {
+        $this->berrikusi = $berrikusi;
 
         return $this;
     }

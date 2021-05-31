@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Ciriza;
+use App\Form\BerrikusiCirizaType;
 use App\Form\CirizaType;
 use App\Repository\CirizaRepository;
 use App\Repository\LogRepository;
@@ -70,6 +71,22 @@ class CirizaController extends AbstractController {
                 'fields'      => $fields,
                 'finderdata'    => $request->query->get('form')            ]
         );
+    }
+
+    /**
+     * @Route("/rebisioa", name="ciriza_rebisioa")
+     */
+    public function rebisioa(Request $request, PaginatorInterface $paginator, CirizaRepository $cirizaRepository): Response
+    {
+        $query = $cirizaRepository->getAllBerrikusi();
+        $cirizas  = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 10)/*limit per page*/
+        );
+        return $this->render('ciriza/rebisioa.html.twig', [
+            'cirizas' => $cirizas,
+        ]);
     }
 
     /**
@@ -170,6 +187,33 @@ class CirizaController extends AbstractController {
             [
                 'ciriza' => $ciriza,
                 'form'   => $form->createView(),
+            ]
+        );
+    }
+
+    /**
+     * @Route("/berrikusi/{id}", name="ciriza_berrikusi", methods={"GET","POST"})
+     * @param Request $request
+     * @param Ciriza $ciriza
+     * @return Response
+     */
+    public function berrikusi(Request $request, Ciriza $ciriza): Response
+    {
+        $form = $this->createForm(BerrikusiCirizaType::class, $ciriza);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $ciriza->setBerrikusi(false);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Aldaketak ongi gorde dira.');
+            return $this->redirectToRoute('ciriza_rebisioa');
+        }
+
+        return $this->render(
+            'ciriza/berrikusi.html.twig',
+            [
+                'ciriza'  => $ciriza,
+                'form' => $form->createView(),
             ]
         );
     }

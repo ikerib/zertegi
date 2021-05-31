@@ -1,0 +1,26 @@
+{{ form_start(form) }}
+<div class="col-xs-6">
+    <div class="text-center"><h3>Zertegi</h3></div>
+    <div class="row">&nbsp;</div>
+    {{ form_row(form.signatura) }}
+    {{ form_row(form.data) }}
+    {{ form_row(form.deskribapena) }}
+    {{ form_row(form.sailkapena) }}
+    {{ form_row(form.oharrak) }}
+</div>
+<div class="col-xs-6">
+    <div class="text-center"><h3>Knosys</h3></div>
+    <div class="row">&nbsp;</div>
+    {{ form_row(form.berrikusiSignatura) }}
+    {{ form_row(form.berrikusiData) }}
+    {{ form_row(form.berrikusiDeskribapena) }}
+    {{ form_row(form.berrikusiSailkapena) }}
+    {{ form_row(form.berrikusiOharrak) }}
+</div>
+
+
+<div style="display: none;">
+    <button id="hiddenbutton" class="btn">{{ button_label|default('Gorde eta zerrendatik kendu') }}</button>
+</div>
+
+{{ form_end(form) }}

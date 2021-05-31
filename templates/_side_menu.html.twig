@@ -44,6 +44,7 @@
         <ul class="treeview-menu">
             <li {% if app.request.get('_route') in ["ciriza_index", "ciriza_edit", "ciriza_show"] %}class="active" {% endif %}><a href="{{ path('ciriza_index') }}">Zerrenda</a></li>
             <li {% if app.request.get('_route') == "ciriza_new" %}class="active" {% endif %}><a href="{{ path('ciriza_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "ciriza_rebisioa" %}class="active" {% endif %}><a href="{{ path('ciriza_rebisioa') }}">Rebisioa</a></li>
         </ul>
     </li>
 

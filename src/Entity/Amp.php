@@ -72,6 +72,26 @@ class Amp
      */
     private $updated;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $berrikusi;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private ?string $berrikusiClasificacion;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private ?string $berrikusiExpediente;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private ?string $berrikusiObservaciones;
+
 
     public function getId(): ?int
     {
@@ -194,6 +214,54 @@ class Amp
     public function setContentChangedBy(?string $contentChangedBy): self
     {
         $this->contentChangedBy = $contentChangedBy;
+
+        return $this;
+    }
+
+    public function getBerrikusi(): ?bool
+    {
+        return $this->berrikusi;
+    }
+
+    public function setBerrikusi(?bool $berrikusi): self
+    {
+        $this->berrikusi = $berrikusi;
+
+        return $this;
+    }
+
+    public function getBerrikusiClasificacion(): ?string
+    {
+        return $this->berrikusiClasificacion;
+    }
+
+    public function setBerrikusiClasificacion(?string $berrikusiClasificacion): self
+    {
+        $this->berrikusiClasificacion = $berrikusiClasificacion;
+
+        return $this;
+    }
+
+    public function getBerrikusiExpediente(): ?string
+    {
+        return $this->berrikusiExpediente;
+    }
+
+    public function setBerrikusiExpediente(?string $berrikusiExpediente): self
+    {
+        $this->berrikusiExpediente = $berrikusiExpediente;
+
+        return $this;
+    }
+
+    public function getBerrikusiObservaciones(): ?string
+    {
+        return $this->berrikusiObservaciones;
+    }
+
+    public function setBerrikusiObservaciones(?string $berrikusiObservaciones): self
+    {
+        $this->berrikusiObservaciones = $berrikusiObservaciones;
 
         return $this;
     }

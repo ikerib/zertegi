@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Amp{% endblock %}
+{% block header %}Amp{% endblock %}
+{% block header_desc %}Rebisioa{% endblock %}
+{% block breadcrumbs %}
+    <li class="active">Amp</li>
+    <li class="active">Rebisioa</li>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+
+    <div class="col-xs-12">
+
+        <div class="box">
+            <div class="box-header">
+                <div class="box-tools">
+                    <p class="text-right">{{ "Nº Registros:" | trans }} {{ amps.getTotalItemCount |number_format(0, ',', '.') }}</p>
+                </div>
+                <div class="box-body">
+{#id, clasificacion, expediente, fecha, numdoc, observaciones, signatura#}
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+
+                            .<th>Clasificacion</th>
+                            <th>Expediente</th>
+                            <th>Observaciones</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for amp in amps %}
+                            <tr>
+                                <td>{{ amp.clasificacion | raw }}</td>
+                                <td>{{ amp.expediente | raw }}</td>
+                                <td>{{ amp.observaciones | raw }}</td>
+                                <td>
+                                    <ul class="list-inline">
+                                        <li><a href="{{ path('amp_berrikusi', {'id': amp.id}) }}"><i class="fas fa-edit btnEdit"></i></a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="9">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            <div class="navigation text-center">
+                                {{ knp_pagination_render(amps) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="navigation text-right">
+                                <nav>
+                                    <div class="pagination">
+                                        <div class="form-group">
+                                            <label for="cmblimit">Orrikatzea: &nbsp;</label>
+                                            <div class="btn-group">
+                                                <a class="btn btn-default btn-flat" href="{{ path('amp_index', {'limit':10}) }}">10</a>
+                                                <a class="btn btn-default btn-flat" href="{{ path('amp_index', {'limit':25}) }}">25</a>
+                                                <a class="btn btn-default btn-flat" href="{{ path('amp_index', {'limit':50}) }}">50</a>
+                                                <a class="btn btn-default btn-flat" href="{{ path('amp_index', {'limit':100}) }}">100</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- box -->
+
+        </div><!-- col-xs-12 -->
+    </div> <!--row -->
+
+    {#{{ include('amp/_delete_form.html.twig', {'amp': amp}) }}#}
+
+    {% endblock %}
+    {% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('jsDeleteForm') }}
+    {% endblock %}

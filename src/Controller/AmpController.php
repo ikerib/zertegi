@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Amp;
 use App\Form\AmpType;
+use App\Form\BerrikusiAmpType;
 use App\Repository\AmpRepository;
 use App\Repository\LogRepository;
 use App\Service\DbHelperService;
@@ -69,6 +70,22 @@ class AmpController extends AbstractController
                 'finderdata'  => $request->query->get('form')
             ]
         );
+    }
+
+    /**
+     * @Route("/rebisioa", name="amp_rebisioa")
+     */
+    public function rebisioa(Request $request, PaginatorInterface $paginator, AmpRepository $ampRepository): Response
+    {
+        $query = $ampRepository->getAllBerrikusi();
+        $amps  = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 10)/*limit per page*/
+        );
+        return $this->render('amp/rebisioa.html.twig', [
+            'amps' => $amps,
+        ]);
     }
 
     /**
@@ -172,6 +189,35 @@ class AmpController extends AbstractController
 
         return $this->render(
             'amp/edit.html.twig',
+            [
+                'amp'  => $amp,
+                'form' => $form->createView(),
+            ]
+        );
+    }
+
+
+    /**
+     * @Route("/berrikusi/{id}", name="amp_berrikusi", methods={"GET","POST"})
+     * @param Request $request
+     * @param Amp     $amp
+     *
+     * @return Response
+     */
+    public function berrikusi(Request $request, Amp $amp): Response
+    {
+        $form = $this->createForm(BerrikusiAmpType::class, $amp);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $amp->setBerrikusi(false);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Aldaketak ongi gorde dira.');
+            return $this->redirectToRoute('amp_rebisioa');
+        }
+
+        return $this->render(
+            'amp/berrikusi.html.twig',
             [
                 'amp'  => $amp,
                 'form' => $form->createView(),

@@ -8,6 +8,7 @@
         <ul class="treeview-menu">
             <li {% if app.request.get('_route') in ["amp_index", "amp_edit", "amp_show" ] %}class="active" {% endif %}><a href="{{ path('amp_index') }}">Zerrenda</a></li>
             <li {% if app.request.get('_route') == "amp_new" %}class="active" {% endif %}><a href="{{ path('amp_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "amp_rebisioa" %}class="active" {% endif %}><a href="{{ path('amp_rebisioa') }}">Rebisioa</a></li>
         </ul>
     </li>
 

@@ -32,6 +32,7 @@
         <ul class="treeview-menu">
             <li {% if app.request.get('_route') in ["argazki_index", "argazki_edit", "argazki_show"] %}class="active" {% endif %}><a href="{{ path('argazki_index') }}">Zerrenda</a></li>
             <li {% if app.request.get('_route') == "argazki_new" %}class="active" {% endif %}><a href="{{ path('argazki_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "argazki_rebisioa" %}class="active" {% endif %}><a href="{{ path('argazki_rebisioa') }}">Rebisioa</a></li>
         </ul>
     </li>
 

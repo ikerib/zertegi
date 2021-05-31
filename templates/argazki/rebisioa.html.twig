@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Amp{% endblock %}
-{% block header %}Amp{% endblock %}
+{% block title %}Argazki{% endblock %}
+{% block header %}Argazki{% endblock %}
 {% block header_desc %}Rebisioa{% endblock %}
 {% block breadcrumbs %}
-    <li class="active">Amp</li>
+    <li class="active">Argazki</li>
     <li class="active">Rebisioa</li>
 {% endblock %}
 
@@ -16,28 +16,28 @@
         <div class="box">
             <div class="box-header">
                 <div class="box-tools">
-                    <p class="text-right">{{ "Nº Registros:" | trans }} {{ amps.getTotalItemCount |number_format(0, ',', '.') }}</p>
+                    <p class="text-right">{{ "Nº Registros:" | trans }} {{ argazkis.getTotalItemCount |number_format(0, ',', '.') }}</p>
                 </div>
                 <div class="box-body">
-{#id, clasificacion, expediente, fecha, numdoc, observaciones, signatura#}
+                    {#id, clasificacion, expediente, fecha, numdoc, observaciones, signatura#}
                     <table class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>Clasificacion</th>
-                            <th>Expediente</th>
-                            <th>Observaciones</th>
+                            <th>Gaia</th>
+                            <th>Deskribapena</th>
+                            <th>Zenbakia</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for amp in amps %}
+                        {% for argazki in argazkis %}
                             <tr>
-                                <td>{{ amp.clasificacion | raw }}</td>
-                                <td>{{ amp.expediente | raw }}</td>
-                                <td>{{ amp.observaciones | raw }}</td>
+                                <td>{{ argazki.gaia | raw }}</td>
+                                <td>{{ argazki.deskribapena | raw }}</td>
+                                <td>{{ argazki.zenbakia | raw }}</td>
                                 <td>
                                     <ul class="list-inline">
-                                        <li><a href="{{ path('amp_berrikusi', {'id': amp.id}) }}"><i class="fas fa-edit btnEdit"></i></a></li>
+                                        <li><a href="{{ path('argazki_berrikusi', {'id': argazki.id}) }}"><i class="fas fa-edit btnEdit"></i></a></li>
                                     </ul>
                                 </td>
                             </tr>
@@ -52,7 +52,7 @@
                         <div class="col-sm-4"></div>
                         <div class="col-sm-4">
                             <div class="navigation text-center">
-                                {{ knp_pagination_render(amps) }}
+                                {{ knp_pagination_render(argazkis) }}
                             </div>
                         </div>
                         <div class="col-sm-4">

@@ -87,6 +87,51 @@ class Argazki
      */
     private $knosysid;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $berrikusi;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusiDeskribapena;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $berrikusiBarrutia;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $berrikusiFecha;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $berrikusiGaia;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $berrikusiNeurria;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $berrikusiKolorea;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $berrikusiZenbakia;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusiOharrak;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -232,6 +277,114 @@ class Argazki
     public function setUpdated(?\DateTimeInterface $updated): self
     {
         $this->updated = $updated;
+
+        return $this;
+    }
+
+    public function getBerrikusiDeskribapena(): ?string
+    {
+        return $this->berrikusiDeskribapena;
+    }
+
+    public function setBerrikusiDeskribapena(?string $berrikusiDeskribapena): self
+    {
+        $this->berrikusiDeskribapena = $berrikusiDeskribapena;
+
+        return $this;
+    }
+
+    public function getBerrikusiBarrutia(): ?string
+    {
+        return $this->berrikusiBarrutia;
+    }
+
+    public function setBerrikusiBarrutia(?string $berrikusiBarrutia): self
+    {
+        $this->berrikusiBarrutia = $berrikusiBarrutia;
+
+        return $this;
+    }
+
+    public function getBerrikusiFecha(): ?string
+    {
+        return $this->berrikusiFecha;
+    }
+
+    public function setBerrikusiFecha(?string $berrikusiFecha): self
+    {
+        $this->berrikusiFecha = $berrikusiFecha;
+
+        return $this;
+    }
+
+    public function getBerrikusiGaia(): ?string
+    {
+        return $this->berrikusiGaia;
+    }
+
+    public function setBerrikusiGaia(?string $berrikusiGaia): self
+    {
+        $this->berrikusiGaia = $berrikusiGaia;
+
+        return $this;
+    }
+
+    public function getBerrikusiNeurria(): ?string
+    {
+        return $this->berrikusiNeurria;
+    }
+
+    public function setBerrikusiNeurria(?string $berrikusiNeurria): self
+    {
+        $this->berrikusiNeurria = $berrikusiNeurria;
+
+        return $this;
+    }
+
+    public function getBerrikusiKolorea(): ?string
+    {
+        return $this->berrikusiKolorea;
+    }
+
+    public function setBerrikusiKolorea(?string $berrikusiKolorea): self
+    {
+        $this->berrikusiKolorea = $berrikusiKolorea;
+
+        return $this;
+    }
+
+    public function getBerrikusiZenbakia(): ?string
+    {
+        return $this->berrikusiZenbakia;
+    }
+
+    public function setBerrikusiZenbakia(?string $berrikusiZenbakia): self
+    {
+        $this->berrikusiZenbakia = $berrikusiZenbakia;
+
+        return $this;
+    }
+
+    public function getBerrikusiOharrak(): ?string
+    {
+        return $this->berrikusiOharrak;
+    }
+
+    public function setBerrikusiOharrak(?string $berrikusiOharrak): self
+    {
+        $this->berrikusiOharrak = $berrikusiOharrak;
+
+        return $this;
+    }
+
+    public function getBerrikusi(): ?bool
+    {
+        return $this->berrikusi;
+    }
+
+    public function setBerrikusi(?bool $berrikusi): self
+    {
+        $this->berrikusi = $berrikusi;
 
         return $this;
     }

@@ -61,4 +61,11 @@ class ArgazkiRepository extends ServiceEntityRepository
 
         return $qb->getQuery();
     }
+
+    public function getAllBerrikusi(): \Doctrine\ORM\Query
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->andWhere('a.berrikusi = 1');
+        return $qb->getQuery();
+    }
 }

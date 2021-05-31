@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Amp;
 use App\Entity\Argazki;
 use App\Form\ArgazkiType;
+use App\Form\BerrikusiAmpType;
+use App\Form\BerrikusiArgazkiType;
 use App\Repository\ArgazkiRepository;
 use App\Repository\LogRepository;
 use App\Service\DbHelperService;
@@ -73,6 +74,22 @@ class ArgazkiController extends AbstractController
                 'fields'      => $fields,
                 'finderdata'  => $request->query->get('form')]
         );
+    }
+
+    /**
+     * @Route("/rebisioa", name="argazki_rebisioa")
+     */
+    public function rebisioa(Request $request, PaginatorInterface $paginator, ArgazkiRepository $argazkiRepository): Response
+    {
+        $query = $argazkiRepository->getAllBerrikusi();
+        $argazkis  = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 10)/*limit per page*/
+        );
+        return $this->render('argazki/rebisioa.html.twig', [
+            'argazkis' => $argazkis,
+        ]);
     }
 
     /**
@@ -171,6 +188,34 @@ class ArgazkiController extends AbstractController
             [
                 'argazki' => $argazki,
                 'form'    => $form->createView(),
+            ]
+        );
+    }
+
+    /**
+     * @Route("/berrikusi/{id}", name="argazki_berrikusi", methods={"GET","POST"})
+     * @param Request $request
+     * @param Argazki $argazki
+     *
+     * @return Response
+     */
+    public function berrikusi(Request $request, Argazki $argazki): Response
+    {
+        $form = $this->createForm(BerrikusiArgazkiType::class, $argazki);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $argazki->setBerrikusi(false);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Aldaketak ongi gorde dira.');
+            return $this->redirectToRoute('argazki_rebisioa');
+        }
+
+        return $this->render(
+            'argazki/berrikusi.html.twig',
+            [
+                'argazki'  => $argazki,
+                'form' => $form->createView(),
             ]
         );
     }

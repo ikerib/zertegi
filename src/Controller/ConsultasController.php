@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Amp;
 use App\Entity\Consultas;
+use App\Form\BerrikusiConsultasType;
 use App\Form\ConsultasType;
 use App\Repository\ConsultasRepository;
 use App\Repository\LogRepository;
@@ -71,6 +72,22 @@ class ConsultasController extends AbstractController
                 'fields'      => $fields,
                 'finderdata'  => $request->query->get('form')]
         );
+    }
+
+    /**
+     * @Route("/rebisioa", name="consultas_rebisioa")
+     */
+    public function rebisioa(Request $request, PaginatorInterface $paginator, ConsultasRepository $consultasRepository): Response
+    {
+        $query = $consultasRepository->getAllBerrikusi();
+        $consultas  = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 10)/*limit per page*/
+        );
+        return $this->render('consultas/rebisioa.html.twig', [
+            'consultas' => $consultas,
+        ]);
     }
 
     /**
@@ -171,6 +188,34 @@ class ConsultasController extends AbstractController
             ]
         );
     }
+
+    /**
+     * @Route("/berrikusi/{id}", name="consultas_berrikusi", methods={"GET","POST"})
+     * @param Request $request
+     * @param Consultas $consultas
+     * @return Response
+     */
+    public function berrikusi(Request $request, Consultas $consultas): Response
+    {
+        $form = $this->createForm(BerrikusiConsultasType::class, $consultas);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $consultas->setBerrikusi(false);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Aldaketak ongi gorde dira.');
+            return $this->redirectToRoute('consulta_rebisioa');
+        }
+
+        return $this->render(
+            'consultas/berrikusi.html.twig',
+            [
+                'consulta'  => $consultas,
+                'form' => $form->createView(),
+            ]
+        );
+    }
+
 
     /**
      * @Route("/{id}", name="consultas_delete", methods={"DELETE"}, options = { "expose" = true })

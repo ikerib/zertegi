@@ -73,6 +73,36 @@ class Consultas
      */
     private $updated;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $berrikusi;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusiIzena;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusiGaia;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusiKontsulta;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusiEnpresa;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusiHelbidea;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -182,6 +212,78 @@ class Consultas
     public function setUpdated(?\DateTimeInterface $updated): self
     {
         $this->updated = $updated;
+
+        return $this;
+    }
+
+    public function getBerrikusi(): ?bool
+    {
+        return $this->berrikusi;
+    }
+
+    public function setBerrikusi(?bool $berrikusi): self
+    {
+        $this->berrikusi = $berrikusi;
+
+        return $this;
+    }
+
+    public function getBerrikusiIzena(): ?string
+    {
+        return $this->berrikusiIzena;
+    }
+
+    public function setBerrikusiIzena(?string $berrikusiIzena): self
+    {
+        $this->berrikusiIzena = $berrikusiIzena;
+
+        return $this;
+    }
+
+    public function getBerrikusiGaia(): ?string
+    {
+        return $this->berrikusiGaia;
+    }
+
+    public function setBerrikusiGaia(?string $berrikusiGaia): self
+    {
+        $this->berrikusiGaia = $berrikusiGaia;
+
+        return $this;
+    }
+
+    public function getBerrikusiKontsulta(): ?string
+    {
+        return $this->berrikusiKontsulta;
+    }
+
+    public function setBerrikusiKontsulta(?string $berrikusiKontsulta): self
+    {
+        $this->berrikusiKontsulta = $berrikusiKontsulta;
+
+        return $this;
+    }
+
+    public function getBerrikusiEnpresa(): ?string
+    {
+        return $this->berrikusiEnpresa;
+    }
+
+    public function setBerrikusiEnpresa(?string $berrikusiEnpresa): self
+    {
+        $this->berrikusiEnpresa = $berrikusiEnpresa;
+
+        return $this;
+    }
+
+    public function getBerrikusiHelbidea(): ?string
+    {
+        return $this->berrikusiHelbidea;
+    }
+
+    public function setBerrikusiHelbidea(?string $berrikusiHelbidea): self
+    {
+        $this->berrikusiHelbidea = $berrikusiHelbidea;
 
         return $this;
     }

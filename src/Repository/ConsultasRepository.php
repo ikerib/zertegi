@@ -44,7 +44,14 @@ class ConsultasRepository extends ServiceEntityRepository
         return $qb;
     }
 
-    public function fieldFullTextSearch($query): \Doctrine\ORM\Query
+    public function getAllBerrikusi(): \Doctrine\ORM\Query
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->andWhere('a.berrikusi = 1');
+        return $qb->getQuery();
+    }
+
+        public function fieldFullTextSearch($query): \Doctrine\ORM\Query
     {
         $qb = $this->createQueryBuilder('a');
         $andStatements = $qb->expr()->andX();

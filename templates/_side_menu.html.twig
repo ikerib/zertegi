@@ -56,6 +56,7 @@
         <ul class="treeview-menu">
             <li {% if app.request.get('_route') in ["consultas_index", "consultas_edit", "consultas_show"] %}class="active" {% endif %}><a href="{{ path('consultas_index') }}">Zerrenda</a></li>
             <li {% if app.request.get('_route') == "consultas_new" %}class="active" {% endif %}><a href="{{ path('consultas_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "consultas_rebisioa" %}class="active" {% endif %}><a href="{{ path('consultas_rebisioa') }}">Rebisioa</a></li>
         </ul>
     </li>
 

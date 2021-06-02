@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Kultura aldatu{% endblock %}
-{% block header %}Kultura{% endblock %}
-{% block header_desc %}{{ kultura.id }} aldatzen{% endblock %}
+{% block title %}Obratxikia aldatu{% endblock %}
+{% block header %}Obratxikia{% endblock %}
+{% block header_desc %}{{ obratxikiak.id }} aldatzen{% endblock %}
 {% block breadcrumbs %}
-    <li class="active">Kultura</li>
+    <li class="active">Obratxikia</li>
     <li class="active">Berrikusi</li>
 {% endblock %}
 
@@ -17,12 +17,12 @@
                 <div class="box-header">
                     <div class="box-tools box-tools-left" data-toggle="tooltip" title="" data-original-title="Status">
                         <a id="btn-save" class="btn btn-sm btn-primary"><i class="fa fa-save"></i>&nbsp; Gorde eta Zerrendatik ezabatu</a>
-                        <a href="{{ path('kultura_rebisioa') }}" id="btn-return" class="btn btn-sm btn-secondaru"><i class="fa fa-arrow-alt-circle-left"></i>&nbsp; Itzuli zerrendara</a>
+                        <a href="{{ path('obratxikiak_rebisioa') }}" id="btn-return" class="btn btn-sm btn-secondaru"><i class="fa fa-arrow-alt-circle-left"></i>&nbsp; Itzuli zerrendara</a>
                     </div>
                 </div>
                 <div class="box-body">
                     <div class="row">&nbsp;</div>
-                    {{ include('kultura/_form_berrikusi.html.twig', {'button_label': 'Update'}) }}
+                    {{ include('obratxikiak/_form_berrikusi.html.twig', {'button_label': 'Update'}) }}
 
                 </div>
             </div>

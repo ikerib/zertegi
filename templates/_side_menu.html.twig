@@ -160,6 +160,7 @@
         <ul class="treeview-menu">
             <li {% if app.request.get('_route') in ["obratxikiak_index", "obratxikiak_edit", "obratxikiak_show"] %}class="active" {% endif %}><a href="{{ path('obratxikiak_index') }}">Zerrenda</a></li>
             <li {% if app.request.get('_route') == "obratxikiak_new" %}class="active" {% endif %}><a href="{{ path('obratxikiak_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "obratxikiak_rebisioa" %}class="active" {% endif %}><a href="{{ path('obratxikiak_rebisioa') }}">Rebisioa</a></li>
         </ul>
     </li>
 

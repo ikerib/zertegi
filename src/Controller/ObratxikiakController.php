@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Amp;
 use App\Entity\Liburuxka;
 use App\Entity\Obratxikiak;
+use App\Form\BerrikusiObratxikiakType;
 use App\Form\ObratxikiakType;
 use App\Repository\LogRepository;
 use App\Repository\ObratxikiakRepository;
@@ -28,14 +29,14 @@ class ObratxikiakController extends AbstractController
 
     /**
      * @Route("/", name="obratxikiak_index", methods={"GET", "POST"})
-     * @param Request               $request
-     * @param PaginatorInterface    $paginator
+     * @param Request $request
+     * @param PaginatorInterface $paginator
      * @param ObratxikiakRepository $obratxikiakRepository
      *
-     * @param SessionInterface      $session
+     * @param SessionInterface $session
      *
-     * @param DbHelperService       $dbhelper
-     *
+     * @param DbHelperService $dbhelper
+     * @param LogRepository $logRepository
      * @return Response
      */
     public function index(Request $request, PaginatorInterface $paginator,
@@ -71,6 +72,22 @@ class ObratxikiakController extends AbstractController
                 'finderdata'   => $request->query->get('form')]
         );
 
+    }
+
+    /**
+     * @Route("/rebisioa", name="obratxikiak_rebisioa")
+     */
+    public function rebisioa(Request $request, PaginatorInterface $paginator, ObratxikiakRepository $obratxikiakRepository): Response
+    {
+        $query = $obratxikiakRepository->getAllBerrikusi();
+        $obratxikiak  = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 10)/*limit per page*/
+        );
+        return $this->render('obratxikiak/rebisioa.html.twig', [
+            'obratxikiak' => $obratxikiak,
+        ]);
     }
 
     /**
@@ -156,6 +173,33 @@ class ObratxikiakController extends AbstractController
             'obratxikiak' => $obratxikiak,
             'form'        => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/berrikusi/{id}", name="obratxikiak_berrikusi", methods={"GET","POST"})
+     * @param Request $request
+     * @param Obratxikiak $obratxikiak
+     * @return Response
+     */
+    public function berrikusi(Request $request, Obratxikiak  $obratxikiak): Response
+    {
+        $form = $this->createForm(BerrikusiObratxikiakType::class, $obratxikiak);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $obratxikiak->setBerrikusi(false);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Aldaketak ongi gorde dira.');
+            return $this->redirectToRoute('obratxikiak_rebisioa');
+        }
+
+        return $this->render(
+            'obratxikiak/berrikusi.html.twig',
+            [
+                'obratxikiak'  => $obratxikiak,
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**

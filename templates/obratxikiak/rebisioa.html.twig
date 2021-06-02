@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Kultura{% endblock %}
-{% block header %}Kultura{% endblock %}
+{% block title %}Obratxikiak{% endblock %}
+{% block header %}Obratxikiak{% endblock %}
 {% block header_desc %}Rebisioa{% endblock %}
 {% block breadcrumbs %}
-    <li class="active">Kultura</li>
+    <li class="active">Obratxikiak</li>
     <li class="active">Rebisioa</li>
 {% endblock %}
 
@@ -16,7 +16,7 @@
         <div class="box">
             <div class="box-header">
                 <div class="box-tools">
-                    <p class="text-right">{{ "Nº Registros:" | trans }} {{ kulturak.getTotalItemCount |number_format(0, ',', '.') }}</p>
+                    <p class="text-right">{{ "Nº Registros:" | trans }} {{ obratxikiak.getTotalItemCount |number_format(0, ',', '.') }}</p>
                 </div>
                 <div class="box-body">
                     {#id, clasificacion, expediente, fecha, numdoc, observaciones, signatura#}
@@ -24,20 +24,20 @@
                         <thead>
                         <tr>
                             <th>Signatura</th>
-                            <th>Data</th>
+                            <th>Urtea</th>
                             <th>Sailkapena</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for kultura in kulturak %}
+                        {% for obra in obratxikiak %}
                             <tr>
-                                <td>{{ kultura.signatura | raw }}</td>
-                                <td>{{ kultura.data | raw }}</td>
-                                <td>{{ kultura.sailkapena | raw }}</td>
+                                <td>{{ obra.signatura | raw }}</td>
+                                <td>{{ obra.urtea | raw }}</td>
+                                <td>{{ obra.sailkapena | raw }}</td>
                                 <td>
                                     <ul class="list-inline">
-                                        <li><a href="{{ path('kultura_berrikusi', {'id': kultura.id}) }}"><i class="fas fa-edit btnEdit"></i></a></li>
+                                        <li><a href="{{ path('obratxikiak_berrikusi', {'id': obra.id}) }}"><i class="fas fa-edit btnEdit"></i></a></li>
                                     </ul>
                                 </td>
                             </tr>
@@ -52,7 +52,7 @@
                         <div class="col-sm-4"></div>
                         <div class="col-sm-4">
                             <div class="navigation text-center">
-                                {{ knp_pagination_render(kulturak) }}
+                                {{ knp_pagination_render(obratxikiak) }}
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -62,10 +62,10 @@
                                         <div class="form-group">
                                             <label for="cmblimit">Orrikatzea: &nbsp;</label>
                                             <div class="btn-group">
-                                                <a class="btn btn-default btn-flat" href="{{ path('kultura_index', {'limit':10}) }}">10</a>
-                                                <a class="btn btn-default btn-flat" href="{{ path('kultura_index', {'limit':25}) }}">25</a>
-                                                <a class="btn btn-default btn-flat" href="{{ path('kultura_index', {'limit':50}) }}">50</a>
-                                                <a class="btn btn-default btn-flat" href="{{ path('kultura_index', {'limit':100}) }}">100</a>
+                                                <a class="btn btn-default btn-flat" href="{{ path('obratxikiak_rebisioa', {'limit':10}) }}">10</a>
+                                                <a class="btn btn-default btn-flat" href="{{ path('obratxikiak_rebisioa', {'limit':25}) }}">25</a>
+                                                <a class="btn btn-default btn-flat" href="{{ path('obratxikiak_rebisioa', {'limit':50}) }}">50</a>
+                                                <a class="btn btn-default btn-flat" href="{{ path('obratxikiak_rebisioa', {'limit':100}) }}">100</a>
                                             </div>s
                                         </div>
                                     </div>

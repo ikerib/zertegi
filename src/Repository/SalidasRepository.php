@@ -21,6 +21,13 @@ class SalidasRepository extends ServiceEntityRepository
         parent::__construct($registry, Salidas::class);
     }
 
+    public function getAllBerrikusi(): \Doctrine\ORM\Query
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->andWhere('a.berrikusi = 1');
+        return $qb->getQuery();
+    }
+
     public function getQueryByFinder($arr): \Doctrine\ORM\Query
     {
         $qb = $this->createQueryBuilder('a');

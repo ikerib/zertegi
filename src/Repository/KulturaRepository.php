@@ -20,6 +20,13 @@ class KulturaRepository extends ServiceEntityRepository
         parent::__construct($registry, Kultura::class);
     }
 
+    public function getAllBerrikusi(): \Doctrine\ORM\Query
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->andWhere('a.berrikusi = 1');
+        return $qb->getQuery();
+    }
+
     public function getQueryByFinder($arr): \Doctrine\ORM\Query
     {
         $qb = $this->createQueryBuilder('a');

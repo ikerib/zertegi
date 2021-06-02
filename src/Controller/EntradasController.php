@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Amp;
 use App\Entity\Entradas;
+use App\Form\BerrikusiAmpType;
+use App\Form\BerrikusiEntradasType;
 use App\Form\EntradasType;
 use App\Repository\EntradasRepository;
 use App\Repository\LogRepository;
@@ -75,6 +77,22 @@ class EntradasController extends AbstractController
     }
 
     /**
+     * @Route("/rebisioa", name="entradas_rebisioa")
+     */
+    public function rebisioa(Request $request, PaginatorInterface $paginator, EntradasRepository $entradasRepository): Response
+    {
+        $query = $entradasRepository->getAllBerrikusi();
+        $entradas  = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 10)/*limit per page*/
+        );
+        return $this->render('entradas/rebisioa.html.twig', [
+            'entradas' => $entradas,
+        ]);
+    }
+
+    /**
      * @Route("/new", name="entradas_new", methods={"GET","POST"})
      * @param Request $request
      *
@@ -117,6 +135,33 @@ class EntradasController extends AbstractController
             'entradas/show.html.twig',
             [
                 'entrada' => $entrada,
+            ]
+        );
+    }
+
+    /**
+     * @Route("/berrikusi/{id}", name="entradas_berrikusi", methods={"GET","POST"})
+     * @param Request $request
+     * @param Entradas $entradas
+     * @return Response
+     */
+    public function berrikusi(Request $request, Entradas  $entradas): Response
+    {
+        $form = $this->createForm(BerrikusiEntradasType::class, $entradas);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entradas->setBerrikusi(false);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Aldaketak ongi gorde dira.');
+            return $this->redirectToRoute('entradas_rebisioa');
+        }
+
+        return $this->render(
+            'entradas/berrikusi.html.twig',
+            [
+                'entradas'  => $entradas,
+                'form' => $form->createView(),
             ]
         );
     }

@@ -73,6 +73,36 @@ class Salidas
      */
     private $updated;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $berrikusi;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusiEspedientea;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusiSignatura;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusiEskatzailea;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusiIrteera;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusiSarrera;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -182,6 +212,78 @@ class Salidas
     public function setUpdated(?\DateTimeInterface $updated): self
     {
         $this->updated = $updated;
+
+        return $this;
+    }
+
+    public function getBerrikusi(): ?bool
+    {
+        return $this->berrikusi;
+    }
+
+    public function setBerrikusi(?bool $berrikusi): self
+    {
+        $this->berrikusi = $berrikusi;
+
+        return $this;
+    }
+
+    public function getBerrikusiEspedientea(): ?string
+    {
+        return $this->berrikusiEspedientea;
+    }
+
+    public function setBerrikusiEspedientea(?string $berrikusiEspedientea): self
+    {
+        $this->berrikusiEspedientea = $berrikusiEspedientea;
+
+        return $this;
+    }
+
+    public function getBerrikusiSignatura(): ?string
+    {
+        return $this->berrikusiSignatura;
+    }
+
+    public function setBerrikusiSignatura(?string $berrikusiSignatura): self
+    {
+        $this->berrikusiSignatura = $berrikusiSignatura;
+
+        return $this;
+    }
+
+    public function getBerrikusiEskatzailea(): ?string
+    {
+        return $this->berrikusiEskatzailea;
+    }
+
+    public function setBerrikusiEskatzailea(?string $berrikusiEskatzailea): self
+    {
+        $this->berrikusiEskatzailea = $berrikusiEskatzailea;
+
+        return $this;
+    }
+
+    public function getBerrikusiIrteera(): ?string
+    {
+        return $this->berrikusiIrteera;
+    }
+
+    public function setBerrikusiIrteera(?string $berrikusiIrteera): self
+    {
+        $this->berrikusiIrteera = $berrikusiIrteera;
+
+        return $this;
+    }
+
+    public function getBerrikusiSarrera(): ?string
+    {
+        return $this->berrikusiSarrera;
+    }
+
+    public function setBerrikusiSarrera(?string $berrikusiSarrera): self
+    {
+        $this->berrikusiSarrera = $berrikusiSarrera;
 
         return $this;
     }

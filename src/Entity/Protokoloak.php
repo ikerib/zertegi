@@ -97,6 +97,56 @@ class Protokoloak
      */
     private $updated;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $berrikusi;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $berrikusiArtxiboa;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $berrikusiSaila;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusiSignatura;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $berrikusiEskribaua;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $berrikusiData;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusiLaburpena;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusiDatuak;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusiOharrak;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $berrikusiBilatzaileak;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -254,6 +304,126 @@ class Protokoloak
     public function setUpdated(?\DateTimeInterface $updated): self
     {
         $this->updated = $updated;
+
+        return $this;
+    }
+
+    public function getBerrikusi(): ?bool
+    {
+        return $this->berrikusi;
+    }
+
+    public function setBerrikusi(?bool $berrikusi): self
+    {
+        $this->berrikusi = $berrikusi;
+
+        return $this;
+    }
+
+    public function getBerrikusiArtxiboa(): ?string
+    {
+        return $this->berrikusiArtxiboa;
+    }
+
+    public function setBerrikusiArtxiboa(?string $berrikusiArtxiboa): self
+    {
+        $this->berrikusiArtxiboa = $berrikusiArtxiboa;
+
+        return $this;
+    }
+
+    public function getBerrikusiSaila(): ?string
+    {
+        return $this->berrikusiSaila;
+    }
+
+    public function setBerrikusiSaila(?string $berrikusiSaila): self
+    {
+        $this->berrikusiSaila = $berrikusiSaila;
+
+        return $this;
+    }
+
+    public function getBerrikusiSignatura(): ?string
+    {
+        return $this->berrikusiSignatura;
+    }
+
+    public function setBerrikusiSignatura(?string $berrikusiSignatura): self
+    {
+        $this->berrikusiSignatura = $berrikusiSignatura;
+
+        return $this;
+    }
+
+    public function getBerrikusiEskribaua(): ?string
+    {
+        return $this->berrikusiEskribaua;
+    }
+
+    public function setBerrikusiEskribaua(?string $berrikusiEskribaua): self
+    {
+        $this->berrikusiEskribaua = $berrikusiEskribaua;
+
+        return $this;
+    }
+
+    public function getBerrikusiData(): ?string
+    {
+        return $this->berrikusiData;
+    }
+
+    public function setBerrikusiData(?string $berrikusiData): self
+    {
+        $this->berrikusiData = $berrikusiData;
+
+        return $this;
+    }
+
+    public function getBerrikusiLaburpena(): ?string
+    {
+        return $this->berrikusiLaburpena;
+    }
+
+    public function setBerrikusiLaburpena(?string $berrikusiLaburpena): self
+    {
+        $this->berrikusiLaburpena = $berrikusiLaburpena;
+
+        return $this;
+    }
+
+    public function getBerrikusiDatuak(): ?string
+    {
+        return $this->berrikusiDatuak;
+    }
+
+    public function setBerrikusiDatuak(?string $berrikusiDatuak): self
+    {
+        $this->berrikusiDatuak = $berrikusiDatuak;
+
+        return $this;
+    }
+
+    public function getBerrikusiOharrak(): ?string
+    {
+        return $this->berrikusiOharrak;
+    }
+
+    public function setBerrikusiOharrak(?string $berrikusiOharrak): self
+    {
+        $this->berrikusiOharrak = $berrikusiOharrak;
+
+        return $this;
+    }
+
+    public function getBerrikusiBilatzaileak(): ?string
+    {
+        return $this->berrikusiBilatzaileak;
+    }
+
+    public function setBerrikusiBilatzaileak(?string $berrikusiBilatzaileak): self
+    {
+        $this->berrikusiBilatzaileak = $berrikusiBilatzaileak;
 
         return $this;
     }

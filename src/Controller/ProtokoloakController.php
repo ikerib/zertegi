@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Amp;
 use App\Entity\Liburuxka;
 use App\Entity\Protokoloak;
+use App\Form\BerrikusiProtokoloakType;
 use App\Form\ProtokoloakType;
 use App\Repository\LogRepository;
 use App\Repository\ProtokoloakRepository;
@@ -70,6 +71,22 @@ class ProtokoloakController extends AbstractController
                 'fields'       => $fields,
                 'finderdata'   => $request->query->get('form')]
         );
+    }
+
+    /**
+     * @Route("/rebisioa", name="protokoloak_rebisioa")
+     */
+    public function rebisioa(Request $request, PaginatorInterface $paginator, ProtokoloakRepository $protokoloakRepository): Response
+    {
+        $query = $protokoloakRepository->getAllBerrikusi();
+        $protokoloak  = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 10)/*limit per page*/
+        );
+        return $this->render('protokoloak/rebisioa.html.twig', [
+            'protokoloak' => $protokoloak,
+        ]);
     }
 
     /**
@@ -155,6 +172,33 @@ class ProtokoloakController extends AbstractController
             'protokoloak' => $protokoloak,
             'form'        => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/berrikusi/{id}", name="protokoloak_berrikusi", methods={"GET","POST"})
+     * @param Request $request
+     * @param Protokoloak $protokoloak
+     * @return Response
+     */
+    public function berrikusi(Request $request, Protokoloak  $protokoloak): Response
+    {
+        $form = $this->createForm(BerrikusiProtokoloakType::class, $protokoloak);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $protokoloak->setBerrikusi(false);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Aldaketak ongi gorde dira.');
+            return $this->redirectToRoute('protokoloak_rebisioa');
+        }
+
+        return $this->render(
+            'protokoloak/berrikusi.html.twig',
+            [
+                'protokoloak'  => $protokoloak,
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**

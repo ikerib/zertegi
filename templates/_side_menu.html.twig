@@ -172,6 +172,7 @@
         <ul class="treeview-menu">
             <li {% if app.request.get('_route') in ["pendientes_index", "pendientes_edit", "pendientes_show"] %}class="active" {% endif %}><a href="{{ path('pendientes_index') }}">Zerrenda</a></li>
             <li {% if app.request.get('_route') == "pendientes_new" %}class="active" {% endif %}><a href="{{ path('pendientes_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "pendientes_rebisioa" %}class="active" {% endif %}><a href="{{ path('pendientes_rebisioa') }}">Rebisioa</a></li>
         </ul>
     </li>
 
@@ -183,6 +184,7 @@
         <ul class="treeview-menu">
             <li {% if app.request.get('_route') in ["protokoloak_index", "protokoloak_edit", "protokoloak_show"] %}class="active" {% endif %}><a href="{{ path('protokoloak_index') }}">Zerrenda</a></li>
             <li {% if app.request.get('_route') == "protokoloak_new" %}class="active" {% endif %}><a href="{{ path('protokoloak_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "protokoloak_rebisioa" %}class="active" {% endif %}><a href="{{ path('protokoloak_rebisioa') }}">Rebisioa</a></li>
         </ul>
     </li>
 

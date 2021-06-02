@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Pendientes{% endblock %}
-{% block header %}Pendientes{% endblock %}
+{% block title %}Protokoloak{% endblock %}
+{% block header %}Protokoloak{% endblock %}
 {% block header_desc %}Rebisioa{% endblock %}
 {% block breadcrumbs %}
-    <li class="active">Pendientes</li>
+    <li class="active">Protokoloak</li>
     <li class="active">Rebisioa</li>
 {% endblock %}
 
@@ -16,7 +16,7 @@
         <div class="box">
             <div class="box-header">
                 <div class="box-tools">
-                    <p class="text-right">{{ "Nº Registros:" | trans }} {{ pendientes.getTotalItemCount |number_format(0, ',', '.') }}</p>
+                    <p class="text-right">{{ "Nº Registros:" | trans }} {{ protokoloak.getTotalItemCount |number_format(0, ',', '.') }}</p>
                 </div>
                 <div class="box-body">
                     {#id, clasificacion, expediente, fecha, numdoc, observaciones, signatura#}
@@ -24,20 +24,20 @@
                         <thead>
                         <tr>
                             <th>Data</th>
-                            <th>Espedientea</th>
+                            <th>Saila</th>
                             <th>Signatura</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for pendiente in pendientes %}
+                        {% for protokolo in protokoloak %}
                             <tr>
-                                <td>{{ pendiente.data | raw }}</td>
-                                <td>{{ pendiente.espedientea | raw }}</td>
-                                <td>{{ pendiente.signatura | raw }}</td>
+                                <td>{{ protokolo.data | raw }}</td>
+                                <td>{{ protokolo.saila | raw }}</td>
+                                <td>{{ protokolo.signatura | raw }}</td>
                                 <td>
                                     <ul class="list-inline">
-                                        <li><a href="{{ path('pendientes_berrikusi', {'id': pendiente.id}) }}"><i class="fas fa-edit btnEdit"></i></a></li>
+                                        <li><a href="{{ path('protokoloak_berrikusi', {'id': protokolo.id}) }}"><i class="fas fa-edit btnEdit"></i></a></li>
                                     </ul>
                                 </td>
                             </tr>
@@ -52,7 +52,7 @@
                         <div class="col-sm-4"></div>
                         <div class="col-sm-4">
                             <div class="navigation text-center">
-                                {{ knp_pagination_render(pendientes) }}
+                                {{ knp_pagination_render(protokoloak) }}
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -62,10 +62,10 @@
                                         <div class="form-group">
                                             <label for="cmblimit">Orrikatzea: &nbsp;</label>
                                             <div class="btn-group">
-                                                <a class="btn btn-default btn-flat" href="{{ path('pendientes_rebisioa', {'limit':10}) }}">10</a>
-                                                <a class="btn btn-default btn-flat" href="{{ path('pendientes_rebisioa', {'limit':25}) }}">25</a>
-                                                <a class="btn btn-default btn-flat" href="{{ path('pendientes_rebisioa', {'limit':50}) }}">50</a>
-                                                <a class="btn btn-default btn-flat" href="{{ path('pendientes_rebisioa', {'limit':100}) }}">100</a>
+                                                <a class="btn btn-default btn-flat" href="{{ path('protokoloak_rebisioa', {'limit':10}) }}">10</a>
+                                                <a class="btn btn-default btn-flat" href="{{ path('protokoloak_rebisioa', {'limit':25}) }}">25</a>
+                                                <a class="btn btn-default btn-flat" href="{{ path('protokoloak_rebisioa', {'limit':50}) }}">50</a>
+                                                <a class="btn btn-default btn-flat" href="{{ path('protokoloak_rebisioa', {'limit':100}) }}">100</a>
                                             </div>s
                                         </div>
                                     </div>

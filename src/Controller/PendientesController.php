@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Amp;
 use App\Entity\Pendientes;
+use App\Form\BerrikusiPendientesType;
 use App\Form\PendientesType;
 use App\Repository\LogRepository;
 use App\Repository\PendientesRepository;
@@ -66,6 +67,22 @@ class PendientesController extends AbstractController
                 'fields'      => $fields,
                 'finderdata'  => $request->query->get('form')]
         );
+    }
+
+    /**
+     * @Route("/rebisioa", name="pendientes_rebisioa")
+     */
+    public function rebisioa(Request $request, PaginatorInterface $paginator, PendientesRepository $pendientesRepository): Response
+    {
+        $query = $pendientesRepository->getAllBerrikusi();
+        $pendientes  = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 10)/*limit per page*/
+        );
+        return $this->render('pendientes/rebisioa.html.twig', [
+            'pendientes' => $pendientes,
+        ]);
     }
 
     /**
@@ -151,6 +168,33 @@ class PendientesController extends AbstractController
             'pendiente' => $pendiente,
             'form'      => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/berrikusi/{id}", name="pendientes_berrikusi", methods={"GET","POST"})
+     * @param Request $request
+     * @param Pendientes $pendientes
+     * @return Response
+     */
+    public function berrikusi(Request $request, Pendientes  $pendientes): Response
+    {
+        $form = $this->createForm(BerrikusiPendientesType::class, $pendientes);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $pendientes->setBerrikusi(false);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Aldaketak ongi gorde dira.');
+            return $this->redirectToRoute('pendientes_rebisioa');
+        }
+
+        return $this->render(
+            'pendientes/berrikusi.html.twig',
+            [
+                'pendientes'  => $pendientes,
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Amp;
 use App\Entity\Protokoloak;
 use App\Entity\Salidas;
+use App\Form\BerrikusiSalidasType;
 use App\Form\SalidasType;
 use App\Repository\LogRepository;
 use App\Repository\SalidasRepository;
@@ -66,6 +67,22 @@ class SalidasController extends AbstractController
                 'fields'      => $fields,
                 'finderdata'  => $request->query->get('form')]
         );
+    }
+
+    /**
+     * @Route("/rebisioa", name="salidas_rebisioa")
+     */
+    public function rebisioa(Request $request, PaginatorInterface $paginator, SalidasRepository $salidasRepository): Response
+    {
+        $query = $salidasRepository->getAllBerrikusi();
+        $salidas  = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 10)/*limit per page*/
+        );
+        return $this->render('salidas/rebisioa.html.twig', [
+            'salidas' => $salidas,
+        ]);
     }
 
     /**
@@ -151,6 +168,33 @@ class SalidasController extends AbstractController
             'salida' => $salida,
             'form'   => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/berrikusi/{id}", name="salidas_berrikusi", methods={"GET","POST"})
+     * @param Request $request
+     * @param Salidas $salidas
+     * @return Response
+     */
+    public function berrikusi(Request $request, Salidas  $salidas): Response
+    {
+        $form = $this->createForm(BerrikusiSalidasType::class, $salidas);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $salidas->setBerrikusi(false);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Aldaketak ongi gorde dira.');
+            return $this->redirectToRoute('salidas_rebisioa');
+        }
+
+        return $this->render(
+            'salidas/berrikusi.html.twig',
+            [
+                'salidas'  => $salidas,
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**

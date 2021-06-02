@@ -119,12 +119,13 @@
 
     <li class="{% if app.request.get('_route') starts with "kontratazioa_" %}active {% endif %} treeview">
         <a href="#">
-            <i class="fas fa-link"></i> <span>Kontratazioa</span>
+            <i class="fas fa-link"></i> <span>Kontratazioa*************</span>
             <span class="pull-right-container"></span>
         </a>
         <ul class="treeview-menu">
             <li {% if app.request.get('_route') in ["kontratazioa_index", "kontratazioa_edit", "kontratazioa_show"] %}class="active" {% endif %}><a href="{{ path('kontratazioa_index') }}">Zerrenda</a></li>
             <li {% if app.request.get('_route') == "kontratazioa_new" %}class="active" {% endif %}><a href="{{ path('kontratazioa_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "kontratazioa_rebisioa" %}class="active" {% endif %}><a href="{{ path('kontratazioa_rebisioa') }}">Rebisioa</a></li>
         </ul>
     </li>
 
@@ -136,6 +137,7 @@
         <ul class="treeview-menu">
             <li {% if app.request.get('_route') in ["kultura_index", "kultura_edit", "kultura_show"] %}class="active" {% endif %}><a href="{{ path('kultura_index') }}">Zerrenda</a></li>
             <li {% if app.request.get('_route') == "kultura_new" %}class="active" {% endif %}><a href="{{ path('kultura_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "kultura_rebisioa" %}class="active" {% endif %}><a href="{{ path('kultura_rebisioa') }}">Rebisioa</a></li>
         </ul>
     </li>
 

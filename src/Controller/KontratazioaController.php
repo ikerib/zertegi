@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Amp;
 use App\Entity\Hutsak;
 use App\Entity\Kontratazioa;
+use App\Form\BerrikusiKontratazioaType;
 use App\Form\KontratazioaType;
 use App\Repository\KontratazioaRepository;
 use App\Repository\LogRepository;
@@ -70,6 +71,22 @@ class KontratazioaController extends AbstractController
                 'finderdata'    => $request->query->get('form')]
         );
 
+    }
+
+    /**
+     * @Route("/rebisioa", name="kontratazioa_rebisioa")
+     */
+    public function rebisioa(Request $request, PaginatorInterface $paginator, KontratazioaRepository $kontratazioaRepository): Response
+    {
+        $query = $kontratazioaRepository->getAllBerrikusi();
+        $kontratazioak  = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 10)/*limit per page*/
+        );
+        return $this->render('kontratazioa/rebisioa.html.twig', [
+            'kontratazioak' => $kontratazioak,
+        ]);
     }
 
     /**
@@ -155,6 +172,33 @@ class KontratazioaController extends AbstractController
             'kontratazioa' => $kontratazioa,
             'form'         => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/berrikusi/{id}", name="kontratazioa_berrikusi", methods={"GET","POST"})
+     * @param Request $request
+     * @param Kontratazioa $kontratazioa
+     * @return Response
+     */
+    public function berrikusi(Request $request, Kontratazioa  $kontratazioa): Response
+    {
+        $form = $this->createForm(BerrikusiKontratazioaType::class, $kontratazioa);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $kontratazioa->setBerrikusi(false);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Aldaketak ongi gorde dira.');
+            return $this->redirectToRoute('kontratazioa_rebisioa');
+        }
+
+        return $this->render(
+            'kontratazioa/berrikusi.html.twig',
+            [
+                'kontratazioa'  => $kontratazioa,
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**

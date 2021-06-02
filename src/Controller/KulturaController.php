@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Amp;
-use App\Entity\Hutsak;
 use App\Entity\Kultura;
+use App\Form\BerrikusiKulturaType;
 use App\Form\KulturaType;
 use App\Repository\KulturaRepository;
 use App\Repository\LogRepository;
@@ -74,6 +74,22 @@ class KulturaController extends AbstractController
                 'fields'      => $fields,
                 'finderdata'  => $request->query->get('form')]
         );
+    }
+
+    /**
+     * @Route("/rebisioa", name="kultura_rebisioa")
+     */
+    public function rebisioa(Request $request, PaginatorInterface $paginator, KulturaRepository $kulturaRepository): Response
+    {
+        $query = $kulturaRepository->getAllBerrikusi();
+        $kulturak  = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 10)/*limit per page*/
+        );
+        return $this->render('kultura/rebisioa.html.twig', [
+            'kulturak' => $kulturak,
+        ]);
     }
 
     /**
@@ -171,6 +187,33 @@ class KulturaController extends AbstractController
             [
                 'kultura' => $kultura,
                 'form'    => $form->createView(),
+            ]
+        );
+    }
+
+    /**
+     * @Route("/berrikusi/{id}", name="kultura_berrikusi", methods={"GET","POST"})
+     * @param Request $request
+     * @param Kultura $kultura
+     * @return Response
+     */
+    public function berrikusi(Request $request, Kultura  $kultura): Response
+    {
+        $form = $this->createForm(BerrikusiKulturaType::class, $kultura);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $kultura->setBerrikusi(false);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Aldaketak ongi gorde dira.');
+            return $this->redirectToRoute('kultura_rebisioa');
+        }
+
+        return $this->render(
+            'kultura/berrikusi.html.twig',
+            [
+                'kultura'  => $kultura,
+                'form' => $form->createView(),
             ]
         );
     }

@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Entradas{% endblock %}
+{% block header %}Entradas{% endblock %}
+{% block header_desc %}Rebisioa{% endblock %}
+{% block breadcrumbs %}
+    <li class="active">Entradas</li>
+    <li class="active">Rebisioa</li>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+
+    <div class="col-xs-12">
+
+        <div class="box">
+            <div class="box-header">
+                <div class="box-tools">
+                    <p class="text-right">{{ "Nº Registros:" | trans }} {{ hutsak.getTotalItemCount |number_format(0, ',', '.') }}</p>
+                </div>
+                <div class="box-body">
+                    {#id, clasificacion, expediente, fecha, numdoc, observaciones, signatura#}
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Signatura</th>
+                            <th>Egoera</th>
+                            <th>berria</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for hutsa in hutsak %}
+                            <tr>
+                                <td>{{ hutsa.signatura | raw }}</td>
+                                <td>{{ hutsa.egoera | raw }}</td>
+                                <td>{{ hutsa.berria | raw }}</td>
+                                <td>
+                                    <ul class="list-inline">
+                                        <li><a href="{{ path('hutsak_berrikusi', {'id': hutsa.id}) }}"><i class="fas fa-edit btnEdit"></i></a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="9">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            <div class="navigation text-center">
+                                {{ knp_pagination_render(hutsak) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="navigation text-right">
+                                <nav>
+                                    <div class="pagination">
+                                        <div class="form-group">
+                                            <label for="cmblimit">Orrikatzea: &nbsp;</label>
+                                            <div class="btn-group">
+                                                <a class="btn btn-default btn-flat" href="{{ path('hutsak_index', {'limit':10}) }}">10</a>
+                                                <a class="btn btn-default btn-flat" href="{{ path('hutsak_index', {'limit':25}) }}">25</a>
+                                                <a class="btn btn-default btn-flat" href="{{ path('hutsak_index', {'limit':50}) }}">50</a>
+                                                <a class="btn btn-default btn-flat" href="{{ path('hutsak_index', {'limit':100}) }}">100</a>
+                                            </div>s
+                                        </div>
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- box -->
+
+        </div><!-- col-xs-12 -->
+    </div> <!--row -->
+
+    {% endblock %}
+    {% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('jsDeleteForm') }}
+    {% endblock %}

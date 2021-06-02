@@ -113,6 +113,7 @@
         <ul class="treeview-menu">
             <li {% if app.request.get('_route') in ["hutsak_index", "hutsak_edit", "hutsak_show"] %}class="active" {% endif %}><a href="{{ path('hutsak_index') }}">Zerrenda</a></li>
             <li {% if app.request.get('_route') == "hutsak_new" %}class="active" {% endif %}><a href="{{ path('hutsak_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "hutsak_rebisioa" %}class="active" {% endif %}><a href="{{ path('hutsak_rebisioa') }}">Rebisioa</a></li>
         </ul>
     </li>
 

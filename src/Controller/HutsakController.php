@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Amp;
 use App\Entity\Euskera;
 use App\Entity\Hutsak;
+use App\Form\BerrikusiHutsakType;
 use App\Form\HutsakType;
 use App\Repository\HutsakRepository;
 use App\Repository\LogRepository;
@@ -70,6 +71,22 @@ class HutsakController extends AbstractController
                 'fields'      => $fields,
                 'finderdata'  => $request->query->get('form')]
         );
+    }
+
+    /**
+     * @Route("/rebisioa", name="hutsak_rebisioa")
+     */
+    public function rebisioa(Request $request, PaginatorInterface $paginator, HutsakRepository $hutsakRepository): Response
+    {
+        $query = $hutsakRepository->getAllBerrikusi();
+        $hutsak  = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 10)/*limit per page*/
+        );
+        return $this->render('hutsak/rebisioa.html.twig', [
+            'hutsak' => $hutsak,
+        ]);
     }
 
     /**
@@ -155,6 +172,33 @@ class HutsakController extends AbstractController
             'hutsak' => $hutsak,
             'form'   => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/berrikusi/{id}", name="hutsak_berrikusi", methods={"GET","POST"})
+     * @param Request $request
+     * @param Hutsak $hutsak
+     * @return Response
+     */
+    public function berrikusi(Request $request, Hutsak  $hutsak): Response
+    {
+        $form = $this->createForm(BerrikusiHutsakType::class, $hutsak);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $hutsak->setBerrikusi(false);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Aldaketak ongi gorde dira.');
+            return $this->redirectToRoute('hutsak_rebisioa');
+        }
+
+        return $this->render(
+            'hutsak/berrikusi.html.twig',
+            [
+                'hutsak'  => $hutsak,
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**

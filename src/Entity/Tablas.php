@@ -73,6 +73,31 @@ class Tablas
      */
     private $updated;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $berrikusi;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusiObservaciones;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $berrikusiResolucion;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $berrikusiSerie;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $berrikusiUnidad;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -182,6 +207,66 @@ class Tablas
     public function setUpdated(?\DateTimeInterface $updated): self
     {
         $this->updated = $updated;
+
+        return $this;
+    }
+
+    public function getBerrikusiObservaciones(): ?string
+    {
+        return $this->berrikusiObservaciones;
+    }
+
+    public function setBerrikusiObservaciones(?string $berrikusiObservaciones): self
+    {
+        $this->berrikusiObservaciones = $berrikusiObservaciones;
+
+        return $this;
+    }
+
+    public function getBerrikusiResolucion(): ?string
+    {
+        return $this->berrikusiResolucion;
+    }
+
+    public function setBerrikusiResolucion(string $berrikusiResolucion): self
+    {
+        $this->berrikusiResolucion = $berrikusiResolucion;
+
+        return $this;
+    }
+
+    public function getBerrikusiSerie(): ?string
+    {
+        return $this->berrikusiSerie;
+    }
+
+    public function setBerrikusiSerie(?string $berrikusiSerie): self
+    {
+        $this->berrikusiSerie = $berrikusiSerie;
+
+        return $this;
+    }
+
+    public function getBerrikusiUnidad(): ?string
+    {
+        return $this->berrikusiUnidad;
+    }
+
+    public function setBerrikusiUnidad(?string $berrikusiUnidad): self
+    {
+        $this->berrikusiUnidad = $berrikusiUnidad;
+
+        return $this;
+    }
+
+    public function getBerrikusi(): ?bool
+    {
+        return $this->berrikusi;
+    }
+
+    public function setBerrikusi(?bool $berrikusi): self
+    {
+        $this->berrikusi = $berrikusi;
 
         return $this;
     }

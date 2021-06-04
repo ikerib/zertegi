@@ -1,0 +1,24 @@
+{{ form_start(form) }}
+<div class="col-xs-6">
+    <div class="text-center"><h3>Zertegi</h3></div>
+    <div class="row">&nbsp;</div>
+    {{ form_row(form.observaciones) }}
+    {{ form_row(form.resolucion) }}
+    {{ form_row(form.serie) }}
+    {{ form_row(form.unidad) }}
+</div>
+<div class="col-xs-6">
+    <div class="text-center"><h3>Knosys</h3></div>
+    <div class="row">&nbsp;</div>
+    {{ form_row(form.berrikusiObservaciones) }}
+    {{ form_row(form.berrikusiResolucion) }}
+    {{ form_row(form.berrikusiSerie) }}
+    {{ form_row(form.berrikusiUnidad) }}
+</div>
+
+
+<div style="display: none;">
+    <button id="hiddenbutton" class="btn">{{ button_label|default('Gorde eta zerrendatik kendu') }}</button>
+</div>
+
+{{ form_end(form) }}

@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tablas{% endblock %}
+{% block header %}Tablas{% endblock %}
+{% block header_desc %}Rebisioa{% endblock %}
+{% block breadcrumbs %}
+    <li class="active">Tablas</li>
+    <li class="active">Rebisioa</li>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+
+    <div class="col-xs-12">
+
+        <div class="box">
+            <div class="box-header">
+                <div class="box-tools">
+                    <p class="text-right">{{ "Nº Registros:" | trans }} {{ tablas.getTotalItemCount |number_format(0, ',', '.') }}</p>
+                </div>
+                <div class="box-body">
+                    {#id, clasificacion, expediente, fecha, numdoc, observaciones, signatura#}
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Eskatzailea</th>
+                            <th>Signatura</th>
+                            <th>Espedientea</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for tabla in tablas %}
+                            <tr>
+                                <td>{{ tabla.eskatzailea | raw }}</td>
+                                <td>{{ tabla.signatura | raw }}</td>
+                                <td>{{ tabla.espedientea | raw }}</td>
+                                <td>
+                                    <ul class="list-inline">
+                                        <li><a href="{{ path('tablas_berrikusi', {'id': tabla.id}) }}"><i class="fas fa-edit btnEdit"></i></a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="9">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            <div class="navigation text-center">
+                                {{ knp_pagination_render(tablas) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="navigation text-right">
+                                <nav>
+                                    <div class="pagination">
+                                        <div class="form-group">
+                                            <label for="cmblimit">Orrikatzea: &nbsp;</label>
+                                            <div class="btn-group">
+                                                <a class="btn btn-default btn-flat" href="{{ path('tablas_rebisioa', {'limit':10}) }}">10</a>
+                                                <a class="btn btn-default btn-flat" href="{{ path('tablas_rebisioa', {'limit':25}) }}">25</a>
+                                                <a class="btn btn-default btn-flat" href="{{ path('tablas_rebisioa', {'limit':50}) }}">50</a>
+                                                <a class="btn btn-default btn-flat" href="{{ path('tablas_rebisioa', {'limit':100}) }}">100</a>
+                                            </div>s
+                                        </div>
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- box -->
+
+        </div><!-- col-xs-12 -->
+    </div> <!--row -->
+
+    {% endblock %}
+    {% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('jsDeleteForm') }}
+    {% endblock %}

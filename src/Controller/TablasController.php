@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Amp;
 use App\Entity\Protokoloak;
 use App\Entity\Tablas;
+use App\Form\BerrikusiTablasType;
 use App\Form\TablasType;
 use App\Repository\LogRepository;
 use App\Repository\TablasRepository;
@@ -73,6 +74,22 @@ class TablasController extends AbstractController
                 'fields'      => $fields,
                 'finderdata'  => $request->query->get('form')]
         );
+    }
+
+    /**
+     * @Route("/rebisioa", name="tablas_rebisioa")
+     */
+    public function rebisioa(Request $request, PaginatorInterface $paginator, TablasRepository $tablasRepository): Response
+    {
+        $query = $tablasRepository->getAllBerrikusi();
+        $tablas  = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 10)/*limit per page*/
+        );
+        return $this->render('tablas/rebisioa.html.twig', [
+            'tablas' => $tablas,
+        ]);
     }
 
     /**
@@ -174,6 +191,34 @@ class TablasController extends AbstractController
             ]
         );
     }
+
+    /**
+     * @Route("/berrikusi/{id}", name="tablas_berrikusi", methods={"GET","POST"})
+     * @param Request $request
+     * @param Tablas $tablas
+     * @return Response
+     */
+    public function berrikusi(Request $request, Tablas  $tablas): Response
+    {
+        $form = $this->createForm(BerrikusiTablasType::class, $tablas);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $tablas->setBerrikusi(false);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Aldaketak ongi gorde dira.');
+            return $this->redirectToRoute('tablas_rebisioa');
+        }
+
+        return $this->render(
+            'tablas/berrikusi.html.twig',
+            [
+                'tablas'  => $tablas,
+                'form' => $form->createView(),
+            ]
+        );
+    }
+
 
     /**
      * @Route("/{id}", name="tablas_delete", methods={"DELETE"})

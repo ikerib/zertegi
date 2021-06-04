@@ -31,7 +31,7 @@ class ConsultasController extends AbstractController
      * @param Request                       $request
      * @param PaginatorInterface            $paginator
      * @param ConsultasRepository           $consultasRepository
-     * @param \App\Repository\LogRepository $logRepository
+     * @param LogRepository $logRepository
      * @param SessionInterface              $session
      * @param DbHelperService               $dbhelper
      *
@@ -204,7 +204,7 @@ class ConsultasController extends AbstractController
             $consultas->setBerrikusi(false);
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Aldaketak ongi gorde dira.');
-            return $this->redirectToRoute('consulta_rebisioa');
+            return $this->redirectToRoute('consultas_rebisioa');
         }
 
         return $this->render(

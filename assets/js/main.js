@@ -40,6 +40,14 @@ $(document).ready(function () {
         $(this).find('input[type=submit]').hide();
     });
 
+    $('#btnKnosys2Zertegi').on("click", function () {
+        const vZaharra = $('#berrikusi_consultas_berrikusiGaia').val();
+        if (vZaharra.length > 0) {
+            $('#berrikusi_consultas_gaia').val(vZaharra);
+            $('#berrikusi_consultas_berrikusiGaia').val("");
+            $('#berrikusi_consultas_berrikusiGaia').text("");
+        }
+    });
 });
 
 // FORMULARIOAK

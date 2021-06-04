@@ -119,7 +119,7 @@
 
     <li class="{% if app.request.get('_route') starts with "kontratazioa_" %}active {% endif %} treeview">
         <a href="#">
-            <i class="fas fa-link"></i> <span>Kontratazioa*************</span>
+            <i class="fas fa-link"></i> <span>Kontratazioa</span>
             <span class="pull-right-container"></span>
         </a>
         <ul class="treeview-menu">
@@ -208,6 +208,7 @@
         <ul class="treeview-menu">
             <li {% if app.request.get('_route') in ["tablas_index", "tablas_edit", "tablas_show"] %}class="active" {% endif %}><a href="{{ path('tablas_index') }}">Zerrenda</a></li>
             <li {% if app.request.get('_route') == "tablas_new" %}class="active" {% endif %}><a href="{{ path('tablas_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "tablas_rebisioa" %}class="active" {% endif %}><a href="{{ path('tablas_rebisioa') }}">Rebisioa</a></li>
         </ul>
     </li>
 

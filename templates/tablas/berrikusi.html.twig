@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tablas aldatu{% endblock %}
+{% block header %}Tablas{% endblock %}
+{% block header_desc %}{{ tablas.id }} aldatzen{% endblock %}
+{% block breadcrumbs %}
+    <li class="active">Tablas</li>
+    <li class="active">Berrikusi</li>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+
+        <div class="col-xs-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <div class="box-tools box-tools-left" data-toggle="tooltip" title="" data-original-title="Status">
+                        <a id="btn-save" class="btn btn-sm btn-primary"><i class="fa fa-save"></i>&nbsp; Gorde eta Zerrendatik ezabatu</a>
+                        <a href="{{ path('tablas_rebisioa') }}" id="btn-return" class="btn btn-sm btn-secondaru"><i class="fa fa-arrow-alt-circle-left"></i>&nbsp; Itzuli zerrendara</a>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">&nbsp;</div>
+                    {{ include('tablas/_form_berrikusi.html.twig', {'button_label': 'Update'}) }}
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

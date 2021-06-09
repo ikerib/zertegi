@@ -12,7 +12,6 @@
 <div class="row">
 
     <div class="col-xs-12">
-
         {% include '_finder.html.twig' with {'table': 'entradas', 'fields': fields , 'finderdata': finderdata , 'logs': logs } %}
 
         <div class="box">
@@ -124,4 +123,6 @@
     {% block javascripts %}
         {{ parent() }}
         {{ encore_entry_script_tags('jsDeleteForm') }}
+        {{ encore_entry_script_tags('jsDaterangepicker') }}
+
     {% endblock %}

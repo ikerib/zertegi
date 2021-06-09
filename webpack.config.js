@@ -19,6 +19,7 @@ Encore
      */
     .addEntry('jsApp', './assets/js/app.js')
     .addEntry('jsMain', './assets/js/main.js')
+    .addEntry('jsDaterangepicker', './assets/js/daterangepicker.js')
     .addEntry('jsDeleteForm', './assets/js/delete_form.js')
     .addEntry('jsAdminLTE', './assets/js/adminlte.js')
     .addEntry('highlight', './assets/js/jquery.highlight.js')
@@ -27,6 +28,7 @@ Encore
     .addStyleEntry('cssApp', './assets/css/app.scss')
     .addStyleEntry('cssLogin', './assets/css/login.scss')
     .addStyleEntry('cssAdminLTE', './assets/css/AdminLTE.css')
+    .addStyleEntry('cssDaterangepicker', './assets/css/daterangepicker.css')
     .addStyleEntry('cssApli', './assets/css/apli.scss')
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

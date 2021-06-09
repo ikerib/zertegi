@@ -106,7 +106,7 @@ class DbHelperService {
     public function mySearchForm($table, $fields, $finderdata): FormView
     {
         $form = $this->formFactory->createBuilder()
-                                  ->setAction($this->router->generate((string)$table.'_index'))
+                                    ->setAction($this->router->generate((string)$table.'_index'))
                                     ->setMethod('GET');
 
         $form->add('Kontsulta', null, [

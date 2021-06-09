@@ -2,12 +2,22 @@ import {confirm} from "bootbox";
 
 const routes = require('../../public/js/fos_js_routes.json');
 import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
+import moment from "moment";
+
+moment.locale('eu');
 
 Routing.setRoutingData(routes);
 
 $(document).ready(function () {
-
     // begiratu eta bilaketa bat den
+    // $('#config-demo').daterangepicker({
+    //     "autoApply": true
+    // }, function(start, end, label) {
+    //     console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+    // });
+
+    $('#reservation').daterangepicker();
+
     let empty = true;
     let text2highlight = [];
     $('input[type="text"]').each(function(){
@@ -48,6 +58,15 @@ $(document).ready(function () {
             $('#berrikusi_consultas_berrikusiGaia').text("");
         }
     });
+
+    // $('#form_data').daterangepicker();
+    $('#form_data').daterangepicker({
+        "autoApply": true,
+
+    }, function(start, end, label) {
+        console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+    });
+
 });
 
 // FORMULARIOAK

@@ -26,6 +26,7 @@
                             <th>Clasificacion</th>
                             <th>Expediente</th>
                             <th>Observaciones</th>
+                            <th>Signatura</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -35,6 +36,7 @@
                                 <td>{{ amp.clasificacion | raw }}</td>
                                 <td>{{ amp.expediente | raw }}</td>
                                 <td>{{ amp.observaciones | raw }}</td>
+                                <td>{{ amp.signatura }}</td>
                                 <td>
                                     <ul class="list-inline">
                                         <li><a href="{{ path('amp_berrikusi', {'id': amp.id}) }}"><i class="fas fa-edit btnEdit"></i></a></li>

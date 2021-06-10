@@ -49,7 +49,7 @@ class EntradasController extends AbstractController
     {
         $fields    = $dbhelper->getAllEntityFields(Entradas::class);
         $myFilters = $dbhelper->getFinderParams($request->query->get('form'));
-        $query     = $dbhelper->performSearch('entradas', $myFilters, $fields, $_SERVER['REQUEST_URI']);
+        $query     = $dbhelper->performSearch('entradas', $myFilters, $fields, $_SERVER['REQUEST_URI'], true);
 
         $entradas = $paginator->paginate(
             $query, /* query NOT result */

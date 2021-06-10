@@ -9,14 +9,48 @@ moment.locale('eu');
 Routing.setRoutingData(routes);
 
 $(document).ready(function () {
-    // begiratu eta bilaketa bat den
-    // $('#config-demo').daterangepicker({
-    //     "autoApply": true
+    // $('#form_data').daterangepicker({
+    //     "startDate": "01/01/1000",
+    //     "endDate": "31/12/2500",
+    //     "showDropdowns": true,
+    //     "autoApply": true,
+    //     "locale": {
+    //         "format": "MM/DD/YYYY",
+    //         "separator": " - ",
+    //         "applyLabel": "Onartu",
+    //         "cancelLabel": "Ezeztatu",
+    //         "fromLabel": "Hasi",
+    //         "toLabel": "Amaitu",
+    //         "customRangeLabel": "Custom",
+    //         "weekLabel": "W",
+    //         "daysOfWeek": [
+    //             "Ig",
+    //             "As",
+    //             "Ar",
+    //             "Az",
+    //             "Os",
+    //             "Ot",
+    //             "La"
+    //         ],
+    //         "monthNames": [
+    //             "Urtarrila",
+    //             "Otsaila",
+    //             "Martxoa",
+    //             "Apirila",
+    //             "Maiatza",
+    //             "Ekaina",
+    //             "Uztaila",
+    //             "Abuztua",
+    //             "Iraila",
+    //             "Urria",
+    //             "Azaroa",
+    //             "Abendua"
+    //         ],
+    //         "firstDay": 1
+    //     }
     // }, function(start, end, label) {
     //     console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
     // });
-
-    $('#reservation').daterangepicker();
 
     let empty = true;
     let text2highlight = [];
@@ -59,13 +93,7 @@ $(document).ready(function () {
         }
     });
 
-    // $('#form_data').daterangepicker();
-    $('#form_data').daterangepicker({
-        "autoApply": true,
 
-    }, function(start, end, label) {
-        console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
-    });
 
 });
 

@@ -50,9 +50,10 @@ var/sessions/dev/
 vendor/
 /node_modules/
 /public/build/*
-
+/public/uploads
 /.env
 /.env.local
+/.env.local.php
 
 ###> lexik/jwt-authentication-bundle ###
 /config/jwt/*.pem

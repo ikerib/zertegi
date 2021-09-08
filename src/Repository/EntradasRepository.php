@@ -57,17 +57,8 @@ class EntradasRepository extends ServiceEntityRepository
         foreach ($query as $key=>$value) {
             // begiratu espazioak dituen
             $value = explode(" ", $value[0]);
-            if ($key === "data") {
-                if ($fetxaBetween) {
-                    $qb->andWhere("a.$key BETWEEN :hasi AND :amaitu")
-                        ->setParameter('hasi', $value[0])
-                        ->setParameter('amaitu', $value[2])
-                    ;
-                }
-            } else {
-                foreach ($value as $i => $iValue) {
-                    $andStatements->add($qb->expr()->like("a.$key", $qb->expr()->literal('%' . $iValue . '%')));
-                }
+            foreach ($value as $i => $iValue) {
+                $andStatements->add($qb->expr()->like("a.$key", $qb->expr()->literal('%' . $iValue . '%')));
             }
         }
         $qb->andWhere($andStatements);

@@ -56,11 +56,10 @@ class EspedienteaRepository extends ServiceEntityRepository
         $andStatements = $qb->expr()->andX();
         foreach ($query as $key=>$value) {
             // begiratu espazioak dituen
-            $value = explode(" ", $value[0]);
-            foreach ($value as $i => $iValue) {
-                $andStatements->add(
-                    $qb->expr()->like("a.$key", $qb->expr()->literal('%' . $iValue . '%'))
-                );
+            //$value = explode(" ", $value[0]);
+            preg_match_all('/"(?:\\\\.|[^\\\\"])*"|\S+/', $value[0], $searchTerms);
+            foreach ($searchTerms[0] as $i => $iValue) {
+                $andStatements->add($qb->expr()->like("a.$key", $qb->expr()->literal('%' . str_replace('"','',$iValue ) . '%')));
             }
         }
         $qb->andWhere($andStatements);

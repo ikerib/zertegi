@@ -56,10 +56,20 @@ class GazteriaRepository extends ServiceEntityRepository
         $andStatements = $qb->expr()->andX();
         foreach ($query as $key=>$value) {
             // begiratu espazioak dituen
-            //$value = explode(" ", $value[0]);
-            preg_match_all('/"(?:\\\\.|[^\\\\"])*"|\S+/', $value[0], $searchTerms);
-            foreach ($searchTerms[0] as $i => $iValue) {
-                $andStatements->add($qb->expr()->like("a.$key", $qb->expr()->literal('%' . str_replace('"','',$iValue ) . '%')));
+            foreach ($value as $i => $iValue) {
+                $searchTerms = explode('+', $iValue );
+                foreach ($searchTerms as $k => $val) {
+                    if (strpos($val,"\"") !== false ){
+                        $val = str_replace("\"", '', $val);
+                        $andStatements->add(
+                            $qb->expr()->like("REPLACE(a.$key,',','')", $qb->expr()->literal('%' . trim($val) . '%'))
+                        );
+                    } else {
+                        $andStatements->add(
+                            $qb->expr()->like("a.$key", $qb->expr()->literal('%' . trim($val) . '%'))
+                        );
+                    }
+                }
             }
         }
         $qb->andWhere($andStatements);

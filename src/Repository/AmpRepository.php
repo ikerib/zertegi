@@ -50,11 +50,11 @@ class AmpRepository extends ServiceEntityRepository
                     if (strpos($val,"\"") !== false ){
                         $val = str_replace("\"", '', $val);
                         $andStatements->add(
-                            $qb->expr()->like("REPLACE(a.$key,',','')", $qb->expr()->literal('%' . $val . '%'))
+                            $qb->expr()->like("REPLACE(a.$key,',','')", $qb->expr()->literal('%' . trim($val) . '%'))
                         );
                     } else {
                         $andStatements->add(
-                            $qb->expr()->like("a.$key", $qb->expr()->literal('%' . $val . '%'))
+                            $qb->expr()->like("a.$key", $qb->expr()->literal('%' . trim($val) . '%'))
                         );
                     }
                 }

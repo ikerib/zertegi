@@ -34,7 +34,7 @@ class ProtokoloakRepository extends ServiceEntityRepository
         foreach ($arr as $key => $value) {
             $miindex = 0;
             foreach ($value as $v) {
-                $qb->orWhere($qb->expr()->like('a.'.$key, ':v'.$key.$miindex))->setParameter('v'.$key.$miindex, '%'.$v.'%');
+                $qb->orWhere($qb->expr()->like('a.' . $key, ':v' . $key . $miindex))->setParameter('v' . $key . $miindex, '%' . $v . '%');
                 ++$miindex;
             }
         }
@@ -44,36 +44,9 @@ class ProtokoloakRepository extends ServiceEntityRepository
 
     public function fullTextSearch($filter): \Doctrine\ORM\Query
     {
-        $qb = $this->createQueryBuilder( 'a');
-        $qb->andWhere('MATCH_AGAINST(a.artxiboa, a.saila, a.signatura, a.eskribaua, a.data, a.laburpena, a.datuak, a.oharrak, a.bilatzaileak) AGAINST (:searchterm boolean) > 0')
-            ->setParameter('searchterm',$filter);
-
-        return $qb->getQuery();
-    }
-
-    public function fieldFullTextSearch($query): \Doctrine\ORM\Query
-    {
         $qb = $this->createQueryBuilder('a');
-        $andStatements = $qb->expr()->andX();
-        foreach ($query as $key=>$value) {
-            // begiratu espazioak dituen
-            foreach ($value as $i => $iValue) {
-                $searchTerms = explode('+', $iValue );
-                foreach ($searchTerms as $k => $val) {
-                    if (strpos($val,"\"") !== false ){
-                        $val = str_replace("\"", '', $val);
-                        $andStatements->add(
-                            $qb->expr()->like("REPLACE(a.$key,',','')", $qb->expr()->literal('%' . trim($val) . '%'))
-                        );
-                    } else {
-                        $andStatements->add(
-                            $qb->expr()->like("a.$key", $qb->expr()->literal('%' . trim($val) . '%'))
-                        );
-                    }
-                }
-            }
-        }
-        $qb->andWhere($andStatements);
+        $qb->andWhere('MATCH_AGAINST(a.artxiboa, a.saila, a.signatura, a.eskribaua, a.data, a.laburpena, a.datuak, a.oharrak, a.bilatzaileak) AGAINST (:searchterm boolean) > 0')
+            ->setParameter('searchterm', $filter);
 
         return $qb->getQuery();
     }

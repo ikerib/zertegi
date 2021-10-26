@@ -50,31 +50,4 @@ class ConsultasRepository extends ServiceEntityRepository
         $qb->andWhere('a.berrikusi = 1');
         return $qb->getQuery();
     }
-
-    public function fieldFullTextSearch($query): \Doctrine\ORM\Query
-    {
-        $qb = $this->createQueryBuilder('a');
-        $andStatements = $qb->expr()->andX();
-        foreach ($query as $key=>$value) {
-            // begiratu espazioak dituen
-            foreach ($value as $i => $iValue) {
-                $searchTerms = explode('+', $iValue );
-                foreach ($searchTerms as $k => $val) {
-                    if (strpos($val,"\"") !== false ){
-                        $val = str_replace("\"", '', $val);
-                        $andStatements->add(
-                            $qb->expr()->like("REPLACE(a.$key,',','')", $qb->expr()->literal('%' . trim($val) . '%'))
-                        );
-                    } else {
-                        $andStatements->add(
-                            $qb->expr()->like("a.$key", $qb->expr()->literal('%' . trim($val) . '%'))
-                        );
-                    }
-                }
-            }
-        }
-        $qb->andWhere($andStatements);
-
-        return $qb->getQuery();
-    }
 }

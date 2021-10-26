@@ -15,6 +15,109 @@ Update JS Routing with
 
 Mysql-en egin beharreko aldaketak:
 
+Hutsuneak kentzeko:
+update amp set amp.clasificacion = REGEXP_REPLACE(amp.clasificacion, ' \+', ' ');
+UPDATE amp set amp.signatura = REGEXP_REPLACE(amp.signatura, ' \+', ' ');
+UPDATE amp set amp.observaciones = REGEXP_REPLACE(amp.observaciones, ' \+', ' ');
+UPDATE amp set amp.expediente = REGEXP_REPLACE(amp.expediente, ' \+', ' ');
+UPDATE amp set amp.signatura = REGEXP_REPLACE(amp.signatura, ' \+', ' ');
+
+update anarbe set anarbe.signatura = REGEXP_REPLACE(anarbe.signatura, ' \+', ' ');
+update anarbe set anarbe.clasificacion = REGEXP_REPLACE(anarbe.clasificacion, ' \+', ' ');
+update anarbe set anarbe.expediente = REGEXP_REPLACE(anarbe.expediente, ' \+', ' ');
+update anarbe set anarbe.observaciones = REGEXP_REPLACE(anarbe.observaciones, ' \+', ' ');
+
+UPDATE argazki set argazki.deskribapena = REGEXP_REPLACE(argazki.deskribapena, ' \+', ' ');
+UPDATE argazki set argazki.gaia = REGEXP_REPLACE(argazki.gaia, ' \+', ' ');
+UPDATE argazki set argazki.kolorea = REGEXP_REPLACE(argazki.kolorea, ' \+', ' ');
+UPDATE argazki set argazki.neurria = REGEXP_REPLACE(argazki.neurria, ' \+', ' ');
+UPDATE argazki set argazki.oharrak = REGEXP_REPLACE(argazki.oharrak, ' \+', ' ');
+UPDATE argazki set argazki.zenbakia = REGEXP_REPLACE(argazki.zenbakia, ' \+', ' ');
+
+UPDATE ciriza set `ciriza`.`data` = REGEXP_REPLACE(`ciriza`.`data`, ' \+', ' ');
+UPDATE ciriza set ciriza.deskribapena = REGEXP_REPLACE(ciriza.deskribapena, ' \+', ' ');
+UPDATE ciriza set ciriza.oharrak = REGEXP_REPLACE(ciriza.oharrak, ' \+', ' ');
+UPDATE ciriza set ciriza.sailkapena = REGEXP_REPLACE(ciriza.sailkapena, ' \+', ' ');
+UPDATE ciriza set ciriza.signatura = REGEXP_REPLACE(ciriza.signatura, ' \+', ' ');
+
+update consultas set consultas.enpresa = REGEXP_REPLACE(consultas.enpresa, ' \+', ' ');
+update consultas set consultas.gaia = REGEXP_REPLACE(consultas.gaia, ' \+', ' ');
+update consultas set consultas.helbidea = REGEXP_REPLACE(consultas.helbidea, ' \+', ' ');
+update consultas set consultas.izena = REGEXP_REPLACE(consultas.izena, ' \+', ' ');
+update consultas set consultas.kontsulta = REGEXP_REPLACE(consultas.kontsulta, ' \+', ' ');
+
+update entradas set `entradas`.`data` = REGEXP_REPLACE(`entradas`.`data`, ' \+', ' ');
+update entradas set entradas.deskribapena = REGEXP_REPLACE(`entradas`.`deskribapena`, ' \+', ' ');
+update entradas set entradas.igorlea = REGEXP_REPLACE(`entradas`.`igorlea`, ' \+', ' ');
+update entradas set entradas.signatura = REGEXP_REPLACE(`entradas`.`signatura`, ' \+', ' ');
+
+update euskera set `euskera`.`data` = REGEXP_REPLACE(`euskera`.`data`, ' \+', ' ');
+update euskera set euskera.espedientea = REGEXP_REPLACE(euskera.espedientea, ' \+', ' ');
+update euskera set euskera.oharrak = REGEXP_REPLACE(euskera.oharrak, ' \+', ' ');
+update euskera set euskera.sailkapena = REGEXP_REPLACE(euskera.sailkapena, ' \+', ' ');
+update euskera set euskera.signatura = REGEXP_REPLACE(euskera.signatura, ' \+', ' ');
+
+update gazteria set `gazteria`.`data` = REGEXP_REPLACE(`gazteria`.`data`, ' \+', ' ');
+update gazteria set gazteria.espedientea = REGEXP_REPLACE(gazteria.espedientea, ' \+', ' ');
+update gazteria set gazteria.oharrak = REGEXP_REPLACE(gazteria.oharrak, ' \+', ' ');
+update gazteria set gazteria.sailkapena = REGEXP_REPLACE(gazteria.sailkapena, ' \+', ' ');
+update gazteria set gazteria.signatura = REGEXP_REPLACE(gazteria.signatura, ' \+', ' ');
+
+update hutsak set hutsak.signatura = REGEXP_REPLACE(hutsak.signatura, ' \+', ' ');
+update hutsak set hutsak.zaharra = REGEXP_REPLACE(hutsak.zaharra, ' \+', ' ');
+
+update kirola set kirola.espedientea = REGEXP_REPLACE(kirola.espedientea, ' \+', ' ');
+update kirola set kirola.oharrak = REGEXP_REPLACE(kirola.oharrak, ' \+', ' ');
+update kirola set kirola.sailkapena = REGEXP_REPLACE(kirola.sailkapena, ' \+', ' ');
+update kirola set kirola.signatura = REGEXP_REPLACE(kirola.signatura, ' \+', ' ');
+
+update kontratazioa set kontratazioa.espedientea = REGEXP_REPLACE(kontratazioa.espedientea, ' \+', ' ');
+update kontratazioa set kontratazioa.sailkapena = REGEXP_REPLACE(kontratazioa.sailkapena, ' \+', ' ');
+update kontratazioa set kontratazioa.signatura = REGEXP_REPLACE(kontratazioa.signatura, ' \+', ' ');
+
+update kultura set `kultura`.`data`= REGEXP_REPLACE(`kultura`.`data`, ' \+', ' ');
+update kultura set kultura.espedientea = REGEXP_REPLACE(kultura.espedientea, ' \+', ' ');
+update kultura set kultura.oharrak = REGEXP_REPLACE(kultura.oharrak, ' \+', ' ');
+update kultura set kultura.sailkapena = REGEXP_REPLACE(kultura.sailkapena, ' \+', ' ');
+update kultura set kultura.signatura = REGEXP_REPLACE(kultura.signatura, ' \+', ' ');
+
+update liburuxka set liburuxka.azalpenak = REGEXP_REPLACE(liburuxka.azalpenak, ' \+', ' ');
+update liburuxka set liburuxka.data = REGEXP_REPLACE(liburuxka.data, ' \+', ' ');
+update liburuxka set liburuxka.deskribapena = REGEXP_REPLACE(liburuxka.deskribapena, ' \+', ' ');
+update liburuxka set liburuxka.signatura = REGEXP_REPLACE(liburuxka.signatura, ' \+', ' ');
+
+update obratxikiak set obratxikiak.espedientea = REGEXP_REPLACE(obratxikiak.espedientea, ' \+', ' ');
+update obratxikiak set obratxikiak.sailkapena = REGEXP_REPLACE(obratxikiak.sailkapena, ' \+', ' ');
+update obratxikiak set obratxikiak.signatura = REGEXP_REPLACE(obratxikiak.signatura, ' \+', ' ');
+
+update pendientes set `pendientes`.`data` = REGEXP_REPLACE(`pendientes`.`data`, ' \+', ' ');
+update pendientes set pendientes.espedientea = REGEXP_REPLACE(pendientes.espedientea, ' \+', ' ');
+update pendientes set pendientes.signatura = REGEXP_REPLACE(pendientes.signatura, ' \+', ' ');
+
+update protokoloak set protokoloak.artxiboa = REGEXP_REPLACE(protokoloak.artxiboa, ' \+', ' ');
+update protokoloak set protokoloak.bilatzaileak = REGEXP_REPLACE(protokoloak.bilatzaileak, ' \+', ' ');
+update protokoloak set `protokoloak`.`data` = REGEXP_REPLACE(`protokoloak`.`data`, ' \+', ' ');
+update protokoloak set protokoloak.datuak = REGEXP_REPLACE(protokoloak.datuak, ' \+', ' ');
+update protokoloak set protokoloak.eskribaua = REGEXP_REPLACE(protokoloak.eskribaua, ' \+', ' ');
+update protokoloak set protokoloak.laburpena = REGEXP_REPLACE(protokoloak.laburpena, ' \+', ' ');
+update protokoloak set protokoloak.oharrak = REGEXP_REPLACE(protokoloak.oharrak, ' \+', ' ');
+update protokoloak set protokoloak.saila = REGEXP_REPLACE(protokoloak.saila, ' \+', ' ');
+update protokoloak set protokoloak.signatura = REGEXP_REPLACE(protokoloak.signatura, ' \+', ' ');
+
+update salidas set salidas.eskatzailea = REGEXP_REPLACE(salidas.eskatzailea, ' \+', ' ');
+update salidas set salidas.espedientea = REGEXP_REPLACE(salidas.espedientea, ' \+', ' ');
+update salidas set salidas.irteera = REGEXP_REPLACE(salidas.irteera, ' \+', ' ');
+update salidas set salidas.sarrera = REGEXP_REPLACE(salidas.sarrera, ' \+', ' ');
+update salidas set salidas.signatura = REGEXP_REPLACE(salidas.signatura, ' \+', ' ');
+
+update tablas set tablas.observaciones = REGEXP_REPLACE(tablas.observaciones, ' \+', ' ');
+update tablas set tablas.resolucion = REGEXP_REPLACE(tablas.resolucion, ' \+', ' ');
+update tablas set tablas.serie = REGEXP_REPLACE(tablas.serie, ' \+', ' ');
+update tablas set tablas.unidad = REGEXP_REPLACE(tablas.unidad, ' \+', ' ');
+
+
+
+
 `ALTER TABLE amp ADD FULLTEXT fulltext_index (clasificacion, expediente, fecha, observaciones, signatura);`
 
 `ALTER TABLE anarbe ADD FULLTEXT fulltex_index (clasificacion, expediente, fecha, observaciones, signatura);`

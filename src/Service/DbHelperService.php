@@ -31,6 +31,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\Ldap\Adapter\ConnectionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Doctrine\DBAL\Query\QueryBuilder;
 
 class DbHelperService {
 
@@ -152,6 +153,7 @@ class DbHelperService {
                     {
                         case 'amp':
                             $searchQuery = $this->em->getRepository(Amp::class)->fullTextSearch($filter);
+//                            $searchQuery = $this->getQb($filter);
                             break;
                         case 'anarbe':
                             $searchQuery = $this->em->getRepository(Anarbe::class)->fullTextSearch($filter);
@@ -225,58 +227,58 @@ class DbHelperService {
 
                     switch ($entityName) {
                         case 'amp':
-                            $searchQuery = $this->em->getRepository(Amp::class)->fieldFullTextSearch($query);
+                            $searchQuery = $this->getQb(Amp::class, $query);
                             break;
                         case 'anarbe':
-                            $searchQuery = $this->em->getRepository(Anarbe::class)->fieldFullTextSearch($query);
+                            $searchQuery = $this->getQb(Anarbe::class, $query);
                             break;
                         case 'argazki':
-                            $searchQuery = $this->em->getRepository(Argazki::class)->fieldFullTextSearch($query);
+                            $searchQuery = $this->getQb(Argazki::class, $query);
                             break;
                         case 'ciriza':
-                            $searchQuery = $this->em->getRepository(Ciriza::class)->fieldFullTextSearch($query);
+                            $searchQuery = $this->getQb(Ciriza::class, $query);
                             break;
                         case 'consultas':
-                            $searchQuery = $this->em->getRepository(Consultas::class)->fieldFullTextSearch($query);
+                            $searchQuery = $this->getQb(Consultas::class, $query);
                             break;
                         case 'entradas':
-                            $searchQuery = $this->em->getRepository(Entradas::class)->fieldFullTextSearch($query);
+                            $searchQuery = $this->getQb(Entradas::class, $query);
                             break;
                         case 'euskera':
-                            $searchQuery = $this->em->getRepository(Euskera::class)->fieldFullTextSearch($query);
+                            $searchQuery = $this->getQb(Euskera::class, $query);
                             break;
                         case 'gazteria':
-                            $searchQuery = $this->em->getRepository(Gazteria::class)->fieldFullTextSearch($query);
+                            $searchQuery = $this->getQb(Gazteria::class, $query);
                             break;
                         case 'hutsak':
-                            $searchQuery = $this->em->getRepository(Hutsak::class)->fieldFullTextSearch($query);
+                            $searchQuery = $this->getQb(Hutsak::class, $query);
                             break;
                         case 'kirola':
-                            $searchQuery = $this->em->getRepository(Kirola::class)->fieldFullTextSearch($query);
+                            $searchQuery = $this->getQb(Kirola::class, $query);
                             break;
                         case 'kontratazioa':
-                            $searchQuery = $this->em->getRepository(Kontratazioa::class)->fieldFullTextSearch($query);
+                            $searchQuery = $this->getQb(Kontratazioa::class, $query);
                             break;
                         case 'kultura':
-                            $searchQuery = $this->em->getRepository(Kultura::class)->fieldFullTextSearch($query);
+                            $searchQuery = $this->getQb(Kultura::class, $query);
                             break;
                         case 'liburuxka':
-                            $searchQuery = $this->em->getRepository(Liburuxka::class)->fieldFullTextSearch($query);
+                            $searchQuery = $this->getQb(Liburuxka::class, $query);
                             break;
                         case 'obratxikiak':
-                            $searchQuery = $this->em->getRepository(Obratxikiak::class)->fieldFullTextSearch($query);
+                            $searchQuery = $this->getQb(Obratxikiak::class, $query);
                             break;
                         case 'pendientes':
-                            $searchQuery = $this->em->getRepository(Pendientes::class)->fieldFullTextSearch($query);
+                            $searchQuery = $this->getQb(Pendientes::class, $query);
                             break;
                         case 'protokoloak':
-                            $searchQuery = $this->em->getRepository(Protokoloak::class)->fieldFullTextSearch($query);
+                            $searchQuery = $this->getQb(Protokoloak::class, $query);
                             break;
                         case 'salidas':
-                            $searchQuery = $this->em->getRepository(Salidas::class)->fieldFullTextSearch($query);
+                            $searchQuery = $this->getQb(Salidas::class, $query);
                             break;
                         case 'tablas':
-                            $searchQuery = $this->em->getRepository(Tablas::class)->fieldFullTextSearch($query);
+                            $searchQuery = $this->getQb(Tablas::class, $query);
                             break;
                     }
 
@@ -351,5 +353,38 @@ class DbHelperService {
         }
 
         return $myFilters;
+    }
+
+    public function getQb($alias,$query): \Doctrine\ORM\Query
+    {
+        $qb = $this->em->createQueryBuilder()->select('a')->from($alias,'a',null);
+        $andStatements = $qb->expr()->andX();
+        foreach ($query as $key=>$value) {
+            // begiratu espazioak dituen
+            foreach ($value as $i => $iValue) {
+                $searchTerms = explode('+', $iValue );
+                foreach ($searchTerms as $k => $val) {
+                    if (strpos($val,"\"") !== false ){
+                        $val = str_replace("\"", '', $val);
+                        /**********************************************************************************************/
+                        /**********************************************************************************************/
+                        /**********************************************************************************************/
+                        // % % kendu bilaketa zehatza egin dezan. Clarak eskatuta.
+                        // $andStatements->add($qb->expr()->like("REPLACE(a.$key,',','')", $qb->expr()->literal('%' . trim($val) . '%')));
+                        $andStatements->add($qb->expr()->like("REPLACE(a.$key,',','')", $qb->expr()->literal(trim($val))));
+                        /**********************************************************************************************/
+                        /**********************************************************************************************/
+                        /**********************************************************************************************/
+                    } else {
+                        $andStatements->add(
+                            $qb->expr()->like("a.$key", $qb->expr()->literal('%' . trim($val) . '%'))
+                        );
+                    }
+                }
+            }
+        }
+        $qb->andWhere($andStatements);
+
+        return $qb->getQuery();
     }
 }

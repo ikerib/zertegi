@@ -1,4 +1,7 @@
 security:
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         my_ldap:
@@ -45,5 +48,5 @@ security:
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: '^/(%app_locales%)/admin', roles: ROLE_ADMIN }
+        - { path: '^/(%app_locales%)/admin', roles: ROLE_USER }
 #        - { path: ^/ , roles: IS_AUTHENTICATED_ANONYMOUSLY }

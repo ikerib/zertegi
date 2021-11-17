@@ -16,7 +16,9 @@
             <div class="box">
                 <div class="box-header">
                     <div class="box-tools box-tools-left" data-toggle="tooltip" title="" data-original-title="Status">
-                        <a class="btn btn-sm btn-primary" href="{{ path('gazteria_edit', {'id': gazterium.id}) }}"><i class="fas fa-edit"></i> Aldatu</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a class="btn btn-sm btn-primary" href="{{ path('gazteria_edit', {'id': gazterium.id}) }}"><i class="fas fa-edit"></i> Aldatu</a>
+                        {% endif %}
                         <a class="btn btn-sm btn-default" href="{{ path('gazteria_index') }}"><i class="fa fa-fw fa-arrow-alt-circle-left" aria-hidden="true"></i> {{ 'Zerrendara itzuli' | trans }}</a>
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">

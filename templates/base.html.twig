@@ -114,7 +114,11 @@
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
             <!-- Sidebar Menu -->
-            {{ include('_side_menu.html.twig') }}
+            {% if is_granted('ROLE_ADMIN') %}
+                {{ include('_side_admin_menu.html.twig') }}
+            {% else %}
+                {{ include('_side_menu.html.twig') }}
+            {% endif %}
             <!-- /.sidebar-menu -->
         </section>
         <!-- /.sidebar -->

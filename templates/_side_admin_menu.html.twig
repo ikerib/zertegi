@@ -1,0 +1,226 @@
+<ul class="sidebar-menu" data-widget="tree">
+    <li class="header">AUKERATU</li>
+    <li class="{% if app.request.get('_route') starts with "amp_" %}active {% endif %} treeview">
+        <a href="#">
+            <i class="fas fa-link"></i> <span>AMP</span>
+            <span class="pull-right-container"></span>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.get('_route') in ["amp_index", "amp_edit", "amp_show" ] %}class="active" {% endif %}><a href="{{ path('amp_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "amp_new" %}class="active" {% endif %}><a href="{{ path('amp_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "amp_rebisioa" %}class="active" {% endif %}><a href="{{ path('amp_rebisioa') }}">Rebisioa</a></li>
+        </ul>
+    </li>
+
+    <li class="{% if app.request.get('_route') starts with "anarbe_" %}active {% endif %} treeview">
+        <a href="#">
+            <i class="fas fa-link"></i> <span>Añarbe</span>
+            <span class="pull-right-container"></span>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.get('_route') in ["anarbe_index", "anarbe_edit", "anarbe_show"] %}class="active" {% endif %}><a href="{{ path('anarbe_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "anarbe_new" %}class="active" {% endif %}><a href="{{ path('anarbe_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "anarbe_rebisioa" %}class="active" {% endif %}><a href="{{ path('anarbe_rebisioa') }}">Rebisioa</a></li>
+        </ul>
+    </li>
+
+    <li class="{% if app.request.get('_route') starts with "argazki_" %}active {% endif %} treeview">
+        <a href="#">
+            <i class="fas fa-link"></i> <span>Argazki</span>
+            <span class="pull-right-container"></span>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.get('_route') in ["argazki_index", "argazki_edit", "argazki_show"] %}class="active" {% endif %}><a href="{{ path('argazki_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "argazki_new" %}class="active" {% endif %}><a href="{{ path('argazki_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "argazki_rebisioa" %}class="active" {% endif %}><a href="{{ path('argazki_rebisioa') }}">Rebisioa</a></li>
+        </ul>
+    </li>
+
+    <li class="{% if app.request.get('_route') starts with "ciriza_" %}active {% endif %} treeview">
+        <a href="#">
+            <i class="fas fa-link"></i> <span>Ciriza</span>
+            <span class="pull-right-container"></span>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.get('_route') in ["ciriza_index", "ciriza_edit", "ciriza_show"] %}class="active" {% endif %}><a href="{{ path('ciriza_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "ciriza_new" %}class="active" {% endif %}><a href="{{ path('ciriza_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "ciriza_rebisioa" %}class="active" {% endif %}><a href="{{ path('ciriza_rebisioa') }}">Rebisioa</a></li>
+        </ul>
+    </li>
+
+    <li class="{% if app.request.get('_route') starts with "consultas_" %}active {% endif %} treeview">
+        <a href="#">
+            <i class="fas fa-link"></i> <span>Consultas</span>
+            <span class="pull-right-container"></span>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.get('_route') in ["consultas_index", "consultas_edit", "consultas_show"] %}class="active" {% endif %}><a href="{{ path('consultas_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "consultas_new" %}class="active" {% endif %}><a href="{{ path('consultas_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "consultas_rebisioa" %}class="active" {% endif %}><a href="{{ path('consultas_rebisioa') }}">Rebisioa</a></li>
+        </ul>
+    </li>
+
+    <li class="{% if app.request.get('_route') starts with "entradas_" %}active {% endif %} treeview">
+        <a href="#">
+            <i class="fas fa-link"></i> <span>Entradas</span>
+            <span class="pull-right-container"></span>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.get('_route') in ["entradas_index", "entradas_edit", "entradas_show"] %}class="active" {% endif %}><a href="{{ path('entradas_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "entradas_new" %}class="active" {% endif %}><a href="{{ path('entradas_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "entradas_rebisioa" %}class="active" {% endif %}><a href="{{ path('entradas_rebisioa') }}">Rebisioa</a></li>
+        </ul>
+    </li>
+
+    <li class="{% if app.request.get('_route') starts with "euskera_" %}active {% endif %} treeview">
+        <a href="#">
+            <i class="fas fa-link"></i> <span>Euskera</span>
+            <span class="pull-right-container"></span>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.get('_route') in ["euskera_index", "euskera_edit", "euskera_show"] %}class="active" {% endif %}><a href="{{ path('euskera_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "euskera_new" %}class="active" {% endif %}><a href="{{ path('euskera_new') }}">Berria</a></li>
+        </ul>
+    </li>
+
+    <li class="{% if app.request.get('_route') starts with "gazteria_" %}active {% endif %} treeview">
+        <a href="#">
+            <i class="fas fa-link"></i> <span>Gazteria</span>
+            <span class="pull-right-container"></span>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.get('_route') in ["gazteria_index", "gazteria_edit", "gazteria_show"] %}class="active" {% endif %}><a href="{{ path('gazteria_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "gazteria_new" %}class="active" {% endif %}><a href="{{ path('gazteria_new') }}">Berria</a></li>
+        </ul>
+    </li>
+
+    <li class="{% if app.request.get('_route') starts with "hutsak_" %}active {% endif %} treeview">
+        <a href="#">
+            <i class="fas fa-link"></i> <span>Gazteria</span>
+            <span class="pull-right-container"></span>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.get('_route') in ["hutsak_index", "hutsak_edit", "hutsak_show"] %}class="active" {% endif %}><a href="{{ path('hutsak_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "hutsak_new" %}class="active" {% endif %}><a href="{{ path('hutsak_new') }}">Berria</a></li>
+        </ul>
+    </li>
+
+    <li class="{% if app.request.get('_route') starts with "kirola_" %}active {% endif %} treeview">
+        <a href="#">
+            <i class="fas fa-link"></i> <span>Kirola</span>
+            <span class="pull-right-container"></span>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.get('_route') in ["kirola_index", "kirola_edit", "kirola_show"] %}class="active" {% endif %}><a href="{{ path('kirola_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "kirola_new" %}class="active" {% endif %}><a href="{{ path('kirola_new') }}">Berria</a></li>
+        </ul>
+    </li>
+
+    <li class="{% if app.request.get('_route') starts with "hutsak_" %}active {% endif %} treeview">
+        <a href="#">
+            <i class="fas fa-link"></i> <span>Hutsak</span>
+            <span class="pull-right-container"></span>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.get('_route') in ["hutsak_index", "hutsak_edit", "hutsak_show"] %}class="active" {% endif %}><a href="{{ path('hutsak_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "hutsak_new" %}class="active" {% endif %}><a href="{{ path('hutsak_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "hutsak_rebisioa" %}class="active" {% endif %}><a href="{{ path('hutsak_rebisioa') }}">Rebisioa</a></li>
+        </ul>
+    </li>
+
+    <li class="{% if app.request.get('_route') starts with "kontratazioa_" %}active {% endif %} treeview">
+        <a href="#">
+            <i class="fas fa-link"></i> <span>Kontratazioa</span>
+            <span class="pull-right-container"></span>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.get('_route') in ["kontratazioa_index", "kontratazioa_edit", "kontratazioa_show"] %}class="active" {% endif %}><a href="{{ path('kontratazioa_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "kontratazioa_new" %}class="active" {% endif %}><a href="{{ path('kontratazioa_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "kontratazioa_rebisioa" %}class="active" {% endif %}><a href="{{ path('kontratazioa_rebisioa') }}">Rebisioa</a></li>
+        </ul>
+    </li>
+
+    <li class="{% if app.request.get('_route') starts with "kultura_" %}active {% endif %} treeview">
+        <a href="#">
+            <i class="fas fa-link"></i> <span>Kultur Saila</span>
+            <span class="pull-right-container"></span>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.get('_route') in ["kultura_index", "kultura_edit", "kultura_show"] %}class="active" {% endif %}><a href="{{ path('kultura_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "kultura_new" %}class="active" {% endif %}><a href="{{ path('kultura_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "kultura_rebisioa" %}class="active" {% endif %}><a href="{{ path('kultura_rebisioa') }}">Rebisioa</a></li>
+        </ul>
+    </li>
+
+    <li class="{% if app.request.get('_route') starts with "liburuxka_" %}active {% endif %} treeview">
+        <a href="#">
+            <i class="fas fa-link"></i> <span>Liburuxkak</span>
+            <span class="pull-right-container"></span>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.get('_route') in ["liburuxka_index", "liburuxka_edit", "liburuxka_show"] %}class="active" {% endif %}><a href="{{ path('liburuxka_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "liburuxka_new" %}class="active" {% endif %}><a href="{{ path('liburuxka_new') }}">Berria</a></li>
+        </ul>
+    </li>
+
+    <li class="{% if app.request.get('_route') starts with "obratxikiak_" %}active {% endif %} treeview">
+        <a href="#">
+            <i class="fas fa-link"></i> <span>Obra txikiak</span>
+            <span class="pull-right-container"></span>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.get('_route') in ["obratxikiak_index", "obratxikiak_edit", "obratxikiak_show"] %}class="active" {% endif %}><a href="{{ path('obratxikiak_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "obratxikiak_new" %}class="active" {% endif %}><a href="{{ path('obratxikiak_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "obratxikiak_rebisioa" %}class="active" {% endif %}><a href="{{ path('obratxikiak_rebisioa') }}">Rebisioa</a></li>
+        </ul>
+    </li>
+
+    <li class="{% if app.request.get('_route') starts with "pendientes_" %}active {% endif %} treeview">
+        <a href="#">
+            <i class="fas fa-link"></i> <span>Pendientes</span>
+            <span class="pull-right-container"></span>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.get('_route') in ["pendientes_index", "pendientes_edit", "pendientes_show"] %}class="active" {% endif %}><a href="{{ path('pendientes_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "pendientes_new" %}class="active" {% endif %}><a href="{{ path('pendientes_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "pendientes_rebisioa" %}class="active" {% endif %}><a href="{{ path('pendientes_rebisioa') }}">Rebisioa</a></li>
+        </ul>
+    </li>
+
+    <li class="{% if app.request.get('_route') starts with "protokoloak_" %}active {% endif %} treeview">
+        <a href="#">
+            <i class="fas fa-link"></i> <span>Protokoloak</span>
+            <span class="pull-right-container"></span>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.get('_route') in ["protokoloak_index", "protokoloak_edit", "protokoloak_show"] %}class="active" {% endif %}><a href="{{ path('protokoloak_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "protokoloak_new" %}class="active" {% endif %}><a href="{{ path('protokoloak_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "protokoloak_rebisioa" %}class="active" {% endif %}><a href="{{ path('protokoloak_rebisioa') }}">Rebisioa</a></li>
+        </ul>
+    </li>
+
+    <li class="{% if app.request.get('_route') starts with "salidas_" %}active {% endif %} treeview">
+        <a href="#">
+            <i class="fas fa-link"></i> <span>Salidas</span>
+            <span class="pull-right-container"></span>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.get('_route') in ["salidas_index", "salidas_edit", "salidas_show"] %}class="active" {% endif %}><a href="{{ path('salidas_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "salidas_new" %}class="active" {% endif %}><a href="{{ path('salidas_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "salidas_rebisioa" %}class="active" {% endif %}><a href="{{ path('salidas_rebisioa') }}">Rebisioa</a></li>
+        </ul>
+    </li>
+
+    <li class="{% if app.request.get('_route') starts with "tablas_" %}active {% endif %} treeview">
+        <a href="#">
+            <i class="fas fa-link"></i> <span>Tablas</span>
+            <span class="pull-right-container"></span>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.get('_route') in ["tablas_index", "tablas_edit", "tablas_show"] %}class="active" {% endif %}><a href="{{ path('tablas_index') }}">Zerrenda</a></li>
+            <li {% if app.request.get('_route') == "tablas_new" %}class="active" {% endif %}><a href="{{ path('tablas_new') }}">Berria</a></li>
+            <li {% if app.request.get('_route') == "tablas_rebisioa" %}class="active" {% endif %}><a href="{{ path('tablas_rebisioa') }}">Rebisioa</a></li>
+        </ul>
+    </li>
+
+</ul>

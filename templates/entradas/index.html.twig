@@ -17,7 +17,9 @@
         <div class="box">
             <div class="box-header">
                 <div class="box-header">
-                    <a href="{{ path('entradas_new') }}" id="btnBerria" class="btn btn-primary" ><i class="fa fa-plus"></i>&nbsp; {{ "Berria" | trans }}</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('entradas_new') }}" id="btnBerria" class="btn btn-primary" ><i class="fa fa-plus"></i>&nbsp; {{ "Berria" | trans }}</a>
+                    {% endif %}
                     <a href="{{ path('pdf') }}" id="btnPrint" class="btn btn-default">
                         <i class="fa fa-fw fa-print"></i>{{ "Inprimitu" | trans }}
                         {% if app.session.get('zertegi-selection') %}
@@ -64,9 +66,11 @@
                                 <td>
                                     <ul class="list-inline">
                                         <li class=""><a href="{{ path('entradas_show', {'id': entrada.id}) }}"><i class="fas fa-eye btnShow"></i></a></li>
+                                        {% if is_granted('ROLE_ADMIN') %}
                                         <li class=""><a href="{{ path('entradas_edit', {'id': entrada.id}) }}"><i class="fas fa-edit btnEdit"></i></a></li>
                                         <li class=""><a href="#" class="deleteBtn" data-delete-url="{{ path('entradas_delete',{'id':entrada.id}) }}" data-id="{{ entrada.id }}"
                                                         data-token="{{ csrf_token('delete' ~ entrada.id) }}"><i class="fas fa-trash text-danger"></i></a></li>
+                                        {% endif %}
                                     </ul>
 
                                 </td>

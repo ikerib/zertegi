@@ -365,13 +365,13 @@ class DbHelperService {
                 $searchTerms = explode('+', $iValue );
                 foreach ($searchTerms as $k => $val) {
                     if (strpos($val,"\"") !== false ){
-                        $val = str_replace("\"", '', $val);
+                        $val = str_replace(array('"', "'", ".", ","), '', $val);
                         /**********************************************************************************************/
                         /**********************************************************************************************/
                         /**********************************************************************************************/
                         // % % kendu bilaketa zehatza egin dezan. Clarak eskatuta.
                         // $andStatements->add($qb->expr()->like("REPLACE(a.$key,',','')", $qb->expr()->literal('%' . trim($val) . '%')));
-                        $andStatements->add($qb->expr()->like("REPLACE(a.$key,',','')", $qb->expr()->literal(trim($val))));
+                        $andStatements->add($qb->expr()->like("REPLACE(REPLACE(a.$key,',',''),'.','')", $qb->expr()->literal(trim($val))));
                         /**********************************************************************************************/
                         /**********************************************************************************************/
                         /**********************************************************************************************/
@@ -384,6 +384,7 @@ class DbHelperService {
             }
         }
         $qb->andWhere($andStatements);
+
 
         return $qb->getQuery();
     }

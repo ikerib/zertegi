@@ -371,13 +371,21 @@ class DbHelperService {
                         /**********************************************************************************************/
                         // % % kendu bilaketa zehatza egin dezan. Clarak eskatuta.
                         // $andStatements->add($qb->expr()->like("REPLACE(a.$key,',','')", $qb->expr()->literal('%' . trim($val) . '%')));
-                        $andStatements->add($qb->expr()->like("REPLACE(REPLACE(a.$key,',',''),'.','')", $qb->expr()->literal(trim($val))));
+                        $andStatements->add(
+                            $qb->expr()->orX(
+                                $qb->expr()->like("REPLACE(REPLACE(a.$key,',',''),'.','')", $qb->expr()->literal(trim($val))),
+                                $qb->expr()->like("REPLACE(REPLACE(a.$key,',',''),'.','')", $qb->expr()->literal('%' . trim(htmlentities($val). '%')))
+                            )
+                        );
                         /**********************************************************************************************/
                         /**********************************************************************************************/
                         /**********************************************************************************************/
                     } else {
                         $andStatements->add(
-                            $qb->expr()->like("a.$key", $qb->expr()->literal('%' . trim($val) . '%'))
+                            $qb->expr()->orX(
+                                $qb->expr()->like("a.$key", $qb->expr()->literal('%' . trim($val) . '%')),
+                                $qb->expr()->like("a.$key", $qb->expr()->literal('%' . trim(htmlentities($val)) . '%'))
+                            )
                         );
                     }
                 }

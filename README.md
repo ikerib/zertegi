@@ -2,6 +2,12 @@
 
 Udaleko Artxiboa kudeatzeko aplikazioa
 
+Requirements:
+
+    php 7.4.40
+    mysql 8.0
+    node v12.22.12
+    npm 6.14.16
 
  
 Update JS Routing with

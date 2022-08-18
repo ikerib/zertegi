@@ -1,3 +1,4 @@
+<<<<<<< ours
 #doctrine:
 #    dbal:
 #        # Overrides the database name in the test environment only
@@ -5,3 +6,9 @@
 #        #
 #        # If you're using ParaTest, "TEST_TOKEN" is set by ParaTest otherwise nothing is appended to the database name.
 #        dbname: main_test%env(default::TEST_TOKEN)%
+=======
+doctrine:
+    dbal:
+        # "TEST_TOKEN" is typically set by ParaTest
+        dbname: 'main_test%env(default::TEST_TOKEN)%'
+>>>>>>> theirs

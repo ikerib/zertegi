@@ -352,18 +352,17 @@
         "version": "3.0.2"
     },
     "phpunit/phpunit": {
-        "version": "4.7",
+        "version": "8.5",
         "recipe": {
             "repo": "github.com/symfony/recipes",
-            "branch": "master",
+            "branch": "main",
             "version": "4.7",
-            "ref": "eb29b06389d7f387aa8d570e109d8ef3cbebc452"
+            "ref": "b5b34fa22319ac1f7f6c180b30e160841c154a1e"
         },
         "files": [
             ".env.test",
             "phpunit.xml.dist",
-            "config/bootstrap.php",
-            "tests/.gitignore"
+            "tests/bootstrap.php"
         ]
     },
     "pimple/pimple": {

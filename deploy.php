@@ -2,7 +2,7 @@
 namespace Deployer;
 
 (new \Symfony\Component\Dotenv\Dotenv())->load('.env');
-array_map(function ($var) { set($var, getenv($var)); }, explode(',', $_SERVER['SYMFONY_DOTENV_VARS']));
+array_map(function ($var) { set($var, $_ENV[$var]); }, explode(',', $_SERVER['SYMFONY_DOTENV_VARS']));
 
 require 'recipe/symfony4.php';
 
@@ -15,12 +15,12 @@ set('repository', 'https://github.com/ikerib/zertegi.git');
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true);
 
-// Shared files/dirs between deploys 
+// Shared files/dirs between deploys
 add('shared_files', ['.env']);
 
 set('shared_dirs', ['var/log', 'var/sessions', 'public/uploads']);
 
-// Writable dirs by web server 
+// Writable dirs by web server
 add('writable_dirs', ['var', 'public/uploads']);
 set('allow_anonymous_stats', false);
 
@@ -30,7 +30,7 @@ host('172.28.64.69')
     ->user('root')
     ->set('branch', 'master')
     ->set('deploy_path', '/var/www/zertegi');
-    
+
 // Tasks
 
 task('build', function () {

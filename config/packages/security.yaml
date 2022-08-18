@@ -13,6 +13,8 @@ security:
                 default_roles: ROLE_USER
                 uid_key: sAMAccountName
 
+#        users_in_memory: { memory: null }
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -24,6 +26,7 @@ security:
             # but the firewall does not require login on every page
             # denying access is done in access_control or in your controllers
             anonymous: true
+#            provider: users_in_memory
 
             form_login_ldap:
                 login_path: login
@@ -45,6 +48,12 @@ security:
                 # checkbox in the login form (see below), uncomment the
                 # following line to always enable it.
                 #always_remember_me: true
+
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -480,12 +480,12 @@
         "version": "v4.2.3"
     },
     "symfony/console": {
-        "version": "3.3",
+        "version": "4.3",
         "recipe": {
             "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "3.3",
-            "ref": "0fa049c19069a65f52c1c181d64be3de672c1504"
+            "branch": "main",
+            "version": "4.2",
+            "ref": "0a4841612ca4dd3464cbbe1e06b073c79ce7a7f2"
         },
         "files": [
             "bin/console",

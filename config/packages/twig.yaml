@@ -1,7 +1,6 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
     debug: '%kernel.debug%'
-    exception_controller: null
 
     strict_variables: '%kernel.debug%'
     form_themes:
@@ -10,3 +9,6 @@ twig:
     globals:
         locales: '%app_locales%'
         bilatzailea: '@App\Service\DbHelperService'
+
+    exception_controller: null
+

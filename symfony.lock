@@ -9,12 +9,12 @@
         "version": "v1.2.0"
     },
     "codeception/codeception": {
-        "version": "2.3",
+        "version": "3.1",
         "recipe": {
             "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
+            "branch": "main",
             "version": "2.3",
-            "ref": "d2a29c0abee586aff913fd45fae1f59b669f4cbe"
+            "ref": "30798e46831f4fc641fca83c0423918518901cd7"
         },
         "files": [
             "codeception.yml",
@@ -27,12 +27,12 @@
             "tests/_support/Helper/Unit.php",
             "tests/_support/UnitTester.php",
             "tests/_support/_generated/.gitignore",
-            "tests/acceptance/.gitignore",
-            "tests/functional/.gitignore",
-            "tests/unit/.gitignore",
             "tests/acceptance.suite.yml",
+            "tests/acceptance/.gitignore",
             "tests/functional.suite.yml",
-            "tests/unit.suite.yml"
+            "tests/functional/.gitignore",
+            "tests/unit.suite.yml",
+            "tests/unit/.gitignore"
         ]
     },
     "codeception/phpunit-wrapper": {

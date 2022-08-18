@@ -28,7 +28,6 @@
 
 # PHPUnit
 /app/phpunit.xml
-/phpunit.xml
 
 # Build data
 /build/
@@ -57,10 +56,6 @@ var/sessions/dev/
 
 \.env\.prod
 
-###> phpunit/phpunit ###
-/phpunit.xml
-.phpunit.result.cache
-###< phpunit/phpunit ###
 /tests/_envs/.env
 
 ###> symfony/framework-bundle ###
@@ -72,3 +67,9 @@ var/sessions/dev/
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+

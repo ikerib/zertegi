@@ -16,12 +16,12 @@
         "doctrine/orm": "^2.12",
         "friendsofsymfony/ckeditor-bundle": "^2.1",
         "friendsofsymfony/jsrouting-bundle": "^2.3",
-        "friendsofsymfony/rest-bundle": "^2.5",
-        "jms/serializer-bundle": "^3.4",
+        "friendsofsymfony/rest-bundle": "^3.3.0",
+        "jms/serializer-bundle": "^4.0.2",
         "knplabs/knp-paginator-bundle": "^4.0",
         "knplabs/knp-snappy-bundle": "^1.6",
         "laminas/laminas-zendframework-bridge": "^1.6",
-        "nelmio/cors-bundle": "^1.5",
+        "nelmio/cors-bundle": "^2.2.0",
         "phpdocumentor/reflection-docblock": "^5.3",
         "sensio/framework-extra-bundle": "^6.2.6",
         "stof/doctrine-extensions-bundle": "^1.7",
@@ -52,7 +52,6 @@
         "twig/extensions": "^1.5"
     },
     "require-dev": {
-        "codeception/codeception": "^3.0",
         "deployer/deployer": "^6.4",
         "phpunit/phpunit": "^8.5",
         "symfony/browser-kit": "4.4.*",
@@ -60,7 +59,6 @@
         "symfony/debug-bundle": "4.4.*",
         "symfony/maker-bundle": "^1.11",
         "symfony/panther": "^0.4.1",
-        "symfony/phpunit-bridge": "^6.1",
         "symfony/stopwatch": "4.4.*",
         "symfony/web-profiler-bundle": "4.4.*"
     },

@@ -1,3 +1,4 @@
+# see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
     ide: 'phpstorm://open?url=file://%%f&line=%%l'
     secret: '%env(APP_SECRET)%'
@@ -10,6 +11,9 @@ framework:
     session:
         enabled: true
         handler_id: ~
+
+#        handler_id: null
+
         cookie_secure: auto
         cookie_samesite: lax
 

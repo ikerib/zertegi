@@ -21,7 +21,6 @@
 /bin/*
 !bin/console
 !bin/symfony_requirements
-/vendor/
 
 # Assets and user uploads
 /web/bundles/
@@ -47,18 +46,14 @@ var/bootstrap.php.cache
 var/cache/dev/
 var/logs/dev.log
 var/sessions/dev/
-vendor/
 /node_modules/
 /public/build/*
 /public/uploads
 /.env
-/.env.local
-/.env.local.php
 
 ###> lexik/jwt-authentication-bundle ###
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
-/var/
 
 \.env\.prod
 
@@ -67,3 +62,13 @@ vendor/
 .phpunit.result.cache
 ###< phpunit/phpunit ###
 /tests/_envs/.env
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###

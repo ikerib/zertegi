@@ -24,11 +24,11 @@ use App\Entity\Protokoloak;
 use App\Entity\Salidas;
 use App\Entity\Tablas;
 use Doctrine\DBAL\DBALException;
-use Doctrine\DBAL\Driver\Connection;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\Ldap\Adapter\ConnectionInterface;
+
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -47,16 +47,19 @@ class DbHelperService {
      * @var RouterInterface
      */
     private $router;
-    /**
-     * @var ConnectionInterface
-     */
+
     private $connection;
     /**
-     * @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface
+     * @var UrlGeneratorInterface
      */
     private $urlGenerator;
 
-    public function __construct(EntityManagerInterface $em, FormFactoryInterface $formFactory, RouterInterface $router, Connection $connection, UrlGeneratorInterface $urlGenerator)
+    public function __construct(
+        EntityManagerInterface $em,
+        FormFactoryInterface $formFactory,
+        RouterInterface $router,
+        Connection $connection,
+        UrlGeneratorInterface $urlGenerator)
     {
         $this->em          = $em;
         $this->formFactory = $formFactory;
@@ -69,7 +72,7 @@ class DbHelperService {
     {
         $sql = "SELECT table_name, table_rows from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'zertegi' and table_name != 'migration_versions';";
 
-        return $this->connection->fetchAll($sql);
+        return $this->connection->fetchAssociative($sql);
     }
 
     public function getAllEntityFields($table): array
@@ -308,9 +311,10 @@ class DbHelperService {
         $conn = $this->em->getConnection();
 
         $stmt = $conn->prepare($SQL);
-        $stmt->execute();
+//        $stmt->execute();
+        $resultSet = $stmt->executeQuery();
 
-        return $stmt->fetchAll();
+        return $resultSet->fetchAllAssociative();
     }
 
     public function performFullTextSearch ($entityName, $query, $fields, $uri)

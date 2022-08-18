@@ -3,7 +3,7 @@
 {% set params = route_params|merge(app.request.query.all) %}
 
 {% set applocales=locales|split('|') %}
-{% for locale in applocales if locale != app.request.locale %}
+{% for locale in applocales | filter (locale => locale != app.request.locale) %}
     <a class="" href="{{ path(route, params|merge({ _locale: locale })) }}">
         {{ "Aldatu hizkuntza" | trans }}
     </a>

@@ -7,3 +7,8 @@ controllers:
     defaults:
         _locale: '%locale%'
 
+
+kernel:
+    resource: ../../src/Kernel.php
+    type: annotation
+

@@ -109,9 +109,6 @@
     "egulias/email-validator": {
         "version": "2.1.7"
     },
-    "facebook/webdriver": {
-        "version": "1.7.1"
-    },
     "friendsofsymfony/ckeditor-bundle": {
         "version": "2.2",
         "recipe": {
@@ -492,9 +489,6 @@
             "src/Kernel.php"
         ]
     },
-    "symfony/http-client": {
-        "version": "v4.3.2"
-    },
     "symfony/http-client-contracts": {
         "version": "v1.1.5"
     },
@@ -548,9 +542,6 @@
     },
     "symfony/orm-pack": {
         "version": "v1.0.6"
-    },
-    "symfony/panther": {
-        "version": "v0.4.1"
     },
     "symfony/polyfill-intl-icu": {
         "version": "v1.10.0"

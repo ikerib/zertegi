@@ -19,7 +19,7 @@
         "friendsofsymfony/rest-bundle": "^3.3.0",
         "jms/serializer-bundle": "^4.0.2",
         "knplabs/knp-paginator-bundle": "^4.0",
-        "knplabs/knp-snappy-bundle": "^1.6",
+        "knplabs/knp-snappy-bundle": "^v1.9.0",
         "laminas/laminas-zendframework-bridge": "^1.6",
         "nelmio/cors-bundle": "^2.2.0",
         "phpdocumentor/reflection-docblock": "^5.3",
@@ -58,7 +58,6 @@
         "symfony/css-selector": "4.4.*",
         "symfony/debug-bundle": "4.4.*",
         "symfony/maker-bundle": "^1.11",
-        "symfony/panther": "^0.4.1",
         "symfony/stopwatch": "4.4.*",
         "symfony/web-profiler-bundle": "4.4.*"
     },

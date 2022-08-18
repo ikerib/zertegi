@@ -25,8 +25,6 @@ security:
 
             # but the firewall does not require login on every page
             # denying access is done in access_control or in your controllers
-            anonymous: true
-#            provider: users_in_memory
 
             form_login_ldap:
                 login_path: login
@@ -48,6 +46,10 @@ security:
                 # checkbox in the login form (see below), uncomment the
                 # following line to always enable it.
                 #always_remember_me: true
+
+            anonymous: lazy
+#            provider: users_in_memory
+
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

@@ -71,10 +71,10 @@ RUN usermod -u ${USER_ID} www-data
 
 # 8 Copy existing application directory permissions
 COPY --chown=www-data:www-data . /usr/src/app
-RUN composer update symfony/flex --no-plugins --no-scripts
+
 RUN composer install --no-scripts --prefer-dist --no-interaction --optimize-autoloader
 
-RUN php bin/console cache:clear
+RUN #php bin/console cache:clear
 
 RUN mkdir -p /usr/src/app/public/uploads
 RUN chmod -R 777 /usr/src/app/public/uploads

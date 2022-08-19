@@ -1,7 +1,6 @@
 <?php
 namespace Deployer;
 
-(new \Symfony\Component\Dotenv\Dotenv())->load('.env');
 array_map(function ($var) { set($var, $_ENV[$var]); }, explode(',', $_SERVER['SYMFONY_DOTENV_VARS']));
 
 require 'recipe/symfony4.php';

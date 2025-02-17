@@ -10,6 +10,7 @@ Encore
 
     .addEntry('jsApp', ['./assets/js/app.js'])
     .addEntry('jsMain', './assets/js/main.js')
+    .addEntry('jsCrudIndex', './assets/js/crud-index.js')
     .addEntry('jsDaterangepicker', './assets/js/daterangepicker.js')
     .addEntry('jsDeleteForm', './assets/js/delete_form.js')
     .addEntry('jsAdminLTE', './assets/js/adminlte.js')

@@ -46,7 +46,8 @@
         "symfony/validator": "5.4.*",
         "symfony/web-link": "5.4.*",
         "symfony/webpack-encore-bundle": "^1.1",
-        "symfony/yaml": "5.4.*"
+        "symfony/yaml": "5.4.*",
+        "twig/string-extra": "^3.12"
     },
     "require-dev": {
         "deployer/deployer": "^v6.4.7",

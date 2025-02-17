@@ -9,80 +9,41 @@ moment.locale('eu');
 Routing.setRoutingData(routes);
 
 $(document).ready(function () {
-    // $('#form_data').daterangepicker({
-    //     "startDate": "01/01/1000",
-    //     "endDate": "31/12/2500",
-    //     "showDropdowns": true,
-    //     "autoApply": true,
-    //     "locale": {
-    //         "format": "MM/DD/YYYY",
-    //         "separator": " - ",
-    //         "applyLabel": "Onartu",
-    //         "cancelLabel": "Ezeztatu",
-    //         "fromLabel": "Hasi",
-    //         "toLabel": "Amaitu",
-    //         "customRangeLabel": "Custom",
-    //         "weekLabel": "W",
-    //         "daysOfWeek": [
-    //             "Ig",
-    //             "As",
-    //             "Ar",
-    //             "Az",
-    //             "Os",
-    //             "Ot",
-    //             "La"
-    //         ],
-    //         "monthNames": [
-    //             "Urtarrila",
-    //             "Otsaila",
-    //             "Martxoa",
-    //             "Apirila",
-    //             "Maiatza",
-    //             "Ekaina",
-    //             "Uztaila",
-    //             "Abuztua",
-    //             "Iraila",
-    //             "Urria",
-    //             "Azaroa",
-    //             "Abendua"
-    //         ],
-    //         "firstDay": 1
+
+    // HAU AKTIBATUTA BILAKETEN Highlight jarri ahala da martxan
+    // BAINA Gordetzerakoan gidoiak ezabatzen dira!!!!
+    // soilik index-ean egin beharko luke.
+    // let empty = true;
+    // let text2highlight = [];
+    // $('input[type="text"]').each(function () {
+    //     if ($(this).val() !== "") {
+    //         let searchTerms = $(this).val().replace(/[|&;$%@"<>()+,*"]/g, "");
+    //         const t = searchTerms.split(/[ ,]+/g);
+    //         console.log(t);
+    //         $.each(t, function (index, value) {
+    //             console.log(value)
+    //             text2highlight.push(value);
+    //         });
+    //         empty = false;
+    //         return false;
     //     }
-    // }, function(start, end, label) {
-    //     console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
     // });
-
-    let empty = true;
-    let text2highlight = [];
-    $('input[type="text"]').each(function(){
-        if($(this).val()!==""){
-            let searchTerms=$(this).val().replace(/[|&;$%@"<>()+,*"]/g, "");
-            const t = searchTerms.split(/[ ,]+/g);
-            console.log(t);
-            $.each(t,function (index, value) {
-                console.log(value)
-                text2highlight.push(value);
-            });
-            empty =false;
-            return false;
-        }
-    });
-
-    if ( empty === false ) { // datuak ditu beraz bilaketa da
-
-        $('body').highlight(text2highlight);
-    }
-
-    $('form').each(function() {
-        $(this).find('input').keypress(function(e) {
-            // Enter pressed?
-            if(e.which == 10 || e.which == 13) {
-                this.form.submit();
-            }
-        });
-
-        $(this).find('input[type=submit]').hide();
-    });
+    //
+    // if ( empty === false ) { // datuak ditu beraz bilaketa da
+    //
+    //     $('body').highlight(text2highlight);
+    // }
+    //
+    // $('form').each(function() {
+    //     $(this).find('input').keypress(function(e) {
+    //         // Enter pressed?
+    //         if(e.which == 10 || e.which == 13) {
+    //             this.form.submit();
+    //         }
+    //     });
+    //
+    //     $(this).find('input[type=submit]').hide();
+    // });
 
     $('#btnKnosys2Zertegi').on("click", function () {
         const vZaharra = $('#berrikusi_consultas_berrikusiGaia').val();
@@ -92,9 +53,6 @@ $(document).ready(function () {
             $('#berrikusi_consultas_berrikusiGaia').text("");
         }
     });
-
-
-
 });
 
 // FORMULARIOAK

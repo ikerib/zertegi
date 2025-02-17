@@ -256,6 +256,10 @@
 {% block javascripts %}
     {{ encore_entry_script_tags('jsApp') }}
     {{ encore_entry_script_tags('jsMain') }}
+    {% if app.request.attributes.get('_route') matches '/_index$/' %}
+        {{ encore_entry_script_tags('jsCrudIndex') }}
+    {% endif %}
+
 {% endblock %}
 
 

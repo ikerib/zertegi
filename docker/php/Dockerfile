@@ -1,4 +1,4 @@
-FROM php:8.0-alpine3.12
+FROM php:8.0-fpm-alpine
 
 ARG USER_ID=1000
 ARG GROUP_ID=1000
@@ -24,6 +24,7 @@ RUN apk update && apk add --no-cache \
     aspell-dev \
     git\
     autoconf
+RUN apk add --update linux-headers
 
 # 4 Add and Enable PHP-PDO Extenstions
 RUN docker-php-ext-install pdo pdo_mysql mysqli
